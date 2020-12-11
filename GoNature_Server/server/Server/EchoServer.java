@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import logic.Visitor;
 import ocsf.server.AbstractServer;
 import ocsf.server.ConnectionToClient;
-import serverGui.ServerPortController;
+import serverGui.ServerGuiController;
 import sqlConnection.SqlConnector;
 
 /**
@@ -30,7 +30,7 @@ import sqlConnection.SqlConnector;
 public class EchoServer extends AbstractServer {
 	// Class variables *************************************************
 
-	private ServerPortController serverPortControllerInstance;
+	private ServerGuiController serverPortControllerInstance;
 	private SqlConnector sqlConnector;
 	/**
 	 * The default port to listen on.
@@ -45,7 +45,7 @@ public class EchoServer extends AbstractServer {
 	 * @param port The port number to connect on.
 	 * 
 	 */
-	public EchoServer(int port, ServerPortController sPC) {
+	public EchoServer(int port, ServerGuiController sPC) {
 		super(port);
 		this.serverPortControllerInstance = sPC;
 	}
@@ -68,7 +68,7 @@ public class EchoServer extends AbstractServer {
 				message = (String) msg;
 				if (message.equals("close")) {
 					// FIXME not a proper client close
-					serverPortControllerInstance.setDisconectClientFields();
+					//serverPortControllerInstance.setDisconectClientFields();
 					client.sendToClient("");
 
 				} else {
@@ -118,9 +118,9 @@ public class EchoServer extends AbstractServer {
 	 * 
 	 * @param client the connection connected to the client.
 	 */
-	protected void clientConnected(ConnectionToClient client) {
-		serverPortControllerInstance.setInfoClient(client.getInetAddress().toString(),
-				client.getInetAddress().getHostAddress().toString());
-	}
+//	protected void clientConnected(ConnectionToClient client) {
+//		serverPortControllerInstance.setConnectToDB(client.getInetAddress().toString(),
+//				client.getInetAddress().getHostAddress().toString());
+//	}
 }
 //End of EchoServer class

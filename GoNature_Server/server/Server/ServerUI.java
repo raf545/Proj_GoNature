@@ -5,12 +5,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import serverGui.ServerPortController;
+import serverGui.ServerGuiController;
 
 public class ServerUI extends Application {
 
 	final public static int DEFAULT_PORT = 5555;
-	static ServerPortController sPC;
+	static ServerGuiController sPC;
 
 	public static void main(String args[]) throws Exception {
 		launch(args);
@@ -18,26 +18,19 @@ public class ServerUI extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(ServerPortController.class.getResource("ServerPort.fxml"));
-
+		loader.setLocation(ServerGuiController.class.getResource("ServerGUI.fxml"));
 		Pane root = loader.load();
-
 		Scene sc = new Scene(root);
-		/*
-		 * TODO proper close
-		 * sPC.getBtnExit().setOnAction(e->{ primaryStage.close(); });
-		 */
 		primaryStage.setTitle("Server");
 		primaryStage.setScene(sc);
 		primaryStage.show();
 
 	}
 
-	public static void runServer(String p, ServerPortController aFrame) {
+	public static void runServer(String p, ServerGuiController serverGuiController) {
 		int port = 0; // Port to listen on
-		sPC = aFrame;
+		sPC = serverGuiController;
 		try {
 			port = Integer.parseInt(p); // Set port to 5555
 
