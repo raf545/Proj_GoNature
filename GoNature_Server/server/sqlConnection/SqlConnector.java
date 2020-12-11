@@ -22,13 +22,13 @@ public class SqlConnector {
 	// Class variables *************************************************
 	private static SqlConnector SqlConnectorInstace = null;
 	private Connection con = null;
-	private String jdbcURL = "jdbc:mysql://localhost:3306/?user=root";
+	private String jdbcURL = "jdbc:mysql://localhost/gonaturedb?serverTimezone=IST";
 	private String jdbcuser = "root";
-	private String jdbcPass = "7C034CBD7cd$";
+	private String jdbcPass = "root";
 	// Constructors *************************************************
 
 	private SqlConnector() {
- 
+
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
 			System.out.println("Driver definition succeed");
