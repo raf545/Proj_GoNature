@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="409.0" prefWidth="681.0" style="-fx-background-color: #3D8FFF;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="serverGui.ServerGuiController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="325.0" layoutX="74.0" layoutY="42.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="532.0" />
+      <Text layoutX="187.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GoNature Server" textAlignment="CENTER" wrappingWidth="306.443359375">
+         <font>
+            <Font name="Guttman Drogolin Bold" size="30.0" />
+         </font>
+      </Text>
+      <GridPane layoutX="158.0" layoutY="154.0" prefHeight="207.0" prefWidth="434.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="499.0" minWidth="10.0" prefWidth="368.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="273.0" minWidth="10.0" prefWidth="69.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="104.0" minHeight="10.0" prefHeight="81.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="103.0" minHeight="10.0" prefHeight="49.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <HBox layoutX="183.0" layoutY="81.0" prefHeight="104.0" prefWidth="351.0">
+               <children>
+                  <Text layoutX="183.0" layoutY="104.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="Port:" wrappingWidth="108.443359375">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Text>
+                  <VBox layoutX="292.0" layoutY="81.0" prefHeight="104.0" prefWidth="260.0">
+                     <children>
+                        <TextField fx:id="PorTxt" layoutX="183.0" layoutY="81.0" prefHeight="30.0" prefWidth="246.0" promptText="5555" style="-fx-background-color: #EEF2F9;" />
+                        <Button fx:id="DoneBtn" layoutX="183.0" layoutY="111.0" mnemonicParsing="false" onAction="#Done" prefHeight="25.0" prefWidth="260.0" style="-fx-background-color: #2ECC71;" text="Done" textFill="WHITE" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox layoutX="183.0" layoutY="185.0" prefHeight="104.0" prefWidth="311.0" GridPane.rowIndex="1">
+               <children>
+                  <Text layoutX="183.0" layoutY="104.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="Data Base Status:" wrappingWidth="104.443359375">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="DBStatusTxt" editable="false" layoutX="288.0" layoutY="81.0" prefHeight="40.0" prefWidth="281.0" promptText="Disconnected" style="-fx-background-color: #EEF2F9;" />
+               </children>
+            </HBox>
+         </children>
+      </GridPane>
+      <Circle fill="#3d8fff" layoutX="133.0" layoutY="91.0" radius="25.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="0.0" />
+      <Text fx:id="ExitBtn" fill="WHITE" layoutX="108.0" layoutY="98.0" onMouseClicked="#Exit" strokeType="OUTSIDE" strokeWidth="0.0" text="x" textAlignment="CENTER" wrappingWidth="50.0">
+         <font>
+            <Font name="Baloo Regular" size="30.0" />
+         </font>
+      </Text>
+   </children>
+</Pane>
