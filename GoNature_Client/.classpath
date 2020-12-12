@@ -7,5 +7,6 @@
 	</classpathentry>
 	<classpathentry kind="src" path="client"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/GoNature_Logic"/>
+	<classpathentry kind="lib" path="gson-2.8.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

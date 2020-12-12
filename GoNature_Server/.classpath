@@ -8,5 +8,6 @@
 	<classpathentry kind="src" path="server"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/GoNature_Logic"/>
 	<classpathentry kind="lib" path="mysql-connector-java-8.0.13.jar"/>
+	<classpathentry kind="lib" path="gson-2.8.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
