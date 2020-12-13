@@ -32,7 +32,7 @@ public class ChatClient extends AbstractClient {
 	 * method in the client.
 	 */
 	ChatIF clientUI;
-	public static Visitor v1 = new Visitor();
+	public static String serverMsg = null;
 	public static boolean awaitResponse = false;
 
 	// Constructors ****************************************************
@@ -61,12 +61,7 @@ public class ChatClient extends AbstractClient {
 	public void handleMessageFromServer(Object msg) {
 		System.out.println("--> handleMessageFromServer");
 		awaitResponse = false;
-		String[] vis = ((String) msg).split(" ");
-		v1.setId(vis[0]);
-		v1.setName(vis[1]);
-		v1.setLastname(vis[2]);
-		v1.setPhone(vis[3]);
-		v1.setEmail(vis[4]);
+		serverMsg = (String) msg;
 	}
 
 	/**
