@@ -52,7 +52,19 @@ public class IdentificationController {
 	}
 
 	@FXML
-	void Continue(ActionEvent event) {
+	void Continue(ActionEvent event) throws IOException {
+		Stage primaryStage = new Stage();
+		// get a handle to the stage
+		Stage stage = (Stage) BackButton.getScene().getWindow();
+		// do what you have to do
+		stage.close();
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(this.getClass().getResource("MainPageForClient.fxml"));
+		Pane root = loader.load();
+		Scene sc = new Scene(root);
+		primaryStage.setTitle("MainPage");
+		primaryStage.setScene(sc);
+		primaryStage.show();
 
 	}
 
