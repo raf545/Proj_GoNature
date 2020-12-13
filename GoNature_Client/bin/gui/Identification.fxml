@@ -20,8 +20,8 @@
             <Font name="Guttman Haim" size="48.0" />
          </font>
       </Text>
-      <TextField fx:id="IDText" alignment="TOP_LEFT" layoutX="204.0" layoutY="211.0" prefHeight="25.0" prefWidth="190.0" promptText="ID/ResrvationID" style="-fx-background-color: #EEF2F9;" />
-      <ComboBox fx:id="OptionCombo" layoutX="204.0" layoutY="178.0" prefHeight="25.0" prefWidth="190.0" promptText="Choose Option" style="-fx-background-color: #99D487;" />
+      <TextField fx:id="IDText" alignment="TOP_LEFT" layoutX="204.0" layoutY="211.0" prefHeight="25.0" prefWidth="190.0" promptText="Enter id" style="-fx-background-color: #EEF2F9;" />
+      <ComboBox fx:id="OptionCombo" layoutX="204.0" layoutY="178.0" prefHeight="25.0" prefWidth="190.0" promptText="Login as" style="-fx-background-color: #99D487;" />
       <Button fx:id="ContinueBtn" layoutX="213.0" layoutY="278.0" mnemonicParsing="false" onAction="#Continue" prefHeight="35.0" prefWidth="172.0" style="-fx-background-color: #99D487;" text="Continue" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />

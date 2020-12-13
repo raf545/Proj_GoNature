@@ -6,9 +6,14 @@ package server;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.google.gson.Gson;
+
+import controllers.LoginController;
 import logic.Visitor;
 import ocsf.server.AbstractServer;
 import ocsf.server.ConnectionToClient;
+import requestHandler.RequestHandler;
+import requestHandler.controllerName;
 import serverGui.ServerGuiController;
 import sqlConnection.SqlConnector;
 
@@ -29,7 +34,7 @@ import sqlConnection.SqlConnector;
 
 public class EchoServer extends AbstractServer {
 	// Class variables *************************************************
-
+	Gson gson = new Gson();
 	private ServerGuiController serverPortControllerInstance;
 	private SqlConnector sqlConnector;
 	/**
@@ -60,34 +65,31 @@ public class EchoServer extends AbstractServer {
 	 * @param
 	 */
 	public void handleMessageFromClient(Object msg, ConnectionToClient client) {
-		Visitor sv = new Visitor();
-		String message = null;
-		System.out.println("Message received : " + msg + " from " + client);
+		// System.out.println("Message received : " + msg + " from " + client);
+		String clientMsg = (String) msg;
+		RequestHandler rh = gson.fromJson(clientMsg, RequestHandler.class);
+		controllerName myCon = rh.getMyCon();
+		String answer = null;
+		switch (myCon) {
+			case CardReaderController:
+				break;
+			case EmployeeSystemController:
+				break;
+			case LoginController:
+				answer = LoginController.getInstance().getFunc(rh.getFunc(), rh.getData());	
+				break;
+			case ReportsController:
+				break;
+			case ReservationController:
+				break;
+			case ServiceRepresentativeController:
+				break;
+			case WaitingListController:
+				break;
+		}
 		try {
-			if (msg instanceof String) {
-				message = (String) msg;
-				if (message.equals("close")) {
-					// FIXME not a proper client close
-					//serverPortControllerInstance.setDisconectClientFields();
-					client.sendToClient("");
-
-				} else {
-					sv = sqlConnector.searchInDB(msg);
-					if (sv.getId() != null)
-
-						client.sendToClient(sv.toString());
-
-					else
-						client.sendToClient("Error");
-				}
-			}
-			if (msg instanceof ArrayList<?>) {
-				if (sqlConnector.updateEmailInDB(msg))
-					client.sendToClient("succsess");
-			}
-		} catch (
-
-		IOException e) {
+			client.sendToClient(answer);
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
