@@ -24,7 +24,7 @@ import requestHandler.controllerName;
 public class IdentificationController {
 
 	Gson gson = new Gson();
-	
+
 	@FXML
 	private TextField IDText;
 
@@ -45,19 +45,7 @@ public class IdentificationController {
 
 	@FXML
 	void Back(MouseEvent event) throws IOException {
-		Stage primaryStage = new Stage();
-		// get a handle to the stage
-		Stage stage = (Stage) BackButton.getScene().getWindow();
-		// do what you have to do
-		stage.close();
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(this.getClass().getResource("GoNatureLogin.fxml"));
-		Pane root = loader.load();
-		Scene sc = new Scene(root);
-		primaryStage.setTitle("Login");
-		primaryStage.setScene(sc);
-		primaryStage.show();
-
+		openPageUsingFxmlName("GoNatureLogin.fxml", "Login");
 	}
 
 	@FXML
@@ -75,51 +63,75 @@ public class IdentificationController {
 
 		if (popError.length() > 0) {
 			PopUp.display("Error", popError.toString());
+		} else {
+
+			if (selectedCombo.equals("Guest ID")) {
+				RequestHandler rh = new RequestHandler(controllerName.LoginController, "GuestID", IDText.getText());
+				ClientUI.chat.accept(gson.toJson(rh));
+				analyzeAnswer();
+			}
+			if (selectedCombo.equals("Subscriber")) {
+				RequestHandler rh = new RequestHandler(controllerName.LoginController, "Subscriber", IDText.getText());
+				ClientUI.chat.accept(gson.toJson(rh));
+				analyzeAnswer();
+			}
+			if (selectedCombo.equals("Family subscriber")) {
+				RequestHandler rh = new RequestHandler(controllerName.LoginController, "Family subscriber", IDText.getText());
+				ClientUI.chat.accept(gson.toJson(rh));
+				analyzeAnswer();
+			}
+			if (selectedCombo.equals("Instructor")) {
+				RequestHandler rh = new RequestHandler(controllerName.LoginController, "Instructor", IDText.getText());
+				ClientUI.chat.accept(gson.toJson(rh));
+				analyzeAnswer();
+			}
+			if (selectedCombo.equals("Reservation ID")) {
+				RequestHandler rh = new RequestHandler(controllerName.LoginController, "Reservation ID", IDText.getText());
+				ClientUI.chat.accept(gson.toJson(rh));
+				analyzeAnswer();
+			}
 		}
 
-		if (selectedCombo.equals("Guest ID")) {
-			RequestHandler rh = new RequestHandler(controllerName.LoginController,"GuestID",IDText.getText());
-			ClientUI.chat.accept(gson.toJson(rh));
-			switch(ChatClient.serverMsg){
+	}
+
+	private void analyzeAnswer() {
+		try {
+			switch (ChatClient.serverMsg) {
 			case "all ready connected":
 				PopUp.display("Error", "all ready connected");
 				break;
 			case "update faild":
 				PopUp.display("Error", "update faild");
 				break;
-			case "connected succsesfuly":
-				Stage primaryStage = new Stage();
-				// get a handle to the stage
-				Stage stage = (Stage) BackButton.getScene().getWindow();
-				// do what you have to do
-				stage.close();
-				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(this.getClass().getResource("MainPageForClient.fxml"));
-				Pane root = loader.load();
-				Scene sc = new Scene(root);
-				primaryStage.setTitle("MainPage");
-				primaryStage.setScene(sc);
-				primaryStage.show();
+			case "not subscriber":
+				PopUp.display("Error", "not subscriber");
 				break;
-			
+			case "no reservation":
+				PopUp.display("Error", "no reservation");
+				break;
+			case "connected succsesfuly":
+				openPageUsingFxmlName("MainPageForClient.fxml", "Main page");
+				break;
 			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		if (selectedCombo.equals("Subscriber")) {
-
-		}
-		if (selectedCombo.equals("Family subscriber")) {
-
-		}
-		if (selectedCombo.equals("Instructor")) {
-
-		}
-		if (selectedCombo.equals("Reservation ID")) {
-
-		}
-
-
+	}
+	
+	private void openPageUsingFxmlName(String name, String titel) throws IOException {
+		Stage primaryStage = new Stage();
+		// get a handle to the stage
+		Stage stage = (Stage) BackButton.getScene().getWindow();
+		// do what you have to do
+		stage.close();
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(this.getClass().getResource(name));
+		Pane root = loader.load();
+		Scene sc = new Scene(root);
+		primaryStage.setTitle(titel);
+		primaryStage.setScene(sc);
+		primaryStage.show();
 	}
 
-	// OptionCombo.getSelectionModel().getSelectedItem();
-	// value of combo box
 }
