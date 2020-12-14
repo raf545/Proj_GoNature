@@ -56,5 +56,6 @@ public class MainPageForClientController {
 	void WaitingListBtn(ActionEvent event) {
 
 	}
+	
 
 }
