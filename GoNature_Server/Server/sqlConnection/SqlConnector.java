@@ -84,7 +84,7 @@ public class SqlConnector {
 
 	}
 
-	public boolean executeToDB(String query) {
+	public boolean updateToDB(String query) {
 		try {
 			PreparedStatement ps = con.prepareStatement(query);
 			ps.executeUpdate();

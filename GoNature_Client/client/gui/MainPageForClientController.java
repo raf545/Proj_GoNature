@@ -49,6 +49,7 @@ public class MainPageForClientController {
 		Stage stage = (Stage) QuitBtn.getScene().getWindow();
 		// do what you have to do
 		stage.close();
+		System.exit(0);
 
 	}
 
