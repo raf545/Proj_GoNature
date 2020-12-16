@@ -71,21 +71,21 @@ public class EchoServer extends AbstractServer {
 		controllerName myCon = rh.getMyCon();
 		String answer = null;
 		switch (myCon) {
-			case CardReaderController:
-				break;
-			case EmployeeSystemController:
-				break;
-			case LoginController:
-				answer = LoginController.getInstance().getFunc(rh.getFunc(), rh.getData());	
-				break;
-			case ReportsController:
-				break;
-			case ReservationController:
-				break;
-			case ServiceRepresentativeController:
-				break;
-			case WaitingListController:
-				break;
+		case CardReaderController:
+			break;
+		case EmployeeSystemController:
+			break;
+		case LoginController:
+			answer = LoginController.getInstance().getFunc(rh.getFunc(), rh.getData(), client);
+			break;
+		case ReportsController:
+			break;
+		case ReservationController:
+			break;
+		case ServiceRepresentativeController:
+			break;
+		case WaitingListController:
+			break;
 		}
 		try {
 			client.sendToClient(answer);
@@ -114,15 +114,47 @@ public class EchoServer extends AbstractServer {
 
 	// METHODS DESIGNED TO BE OVERRIDDEN BY CONCRETE SUBCLASSES ---------
 
-	/**
-	 * Hook method called each time a new client connection is accepted. The default
-	 * implementation does nothing.
-	 * 
-	 * @param client the connection connected to the client.
-	 */
-//	protected void clientConnected(ConnectionToClient client) {
-//		serverPortControllerInstance.setConnectToDB(client.getInetAddress().toString(),
-//				client.getInetAddress().getHostAddress().toString());
-//	}
+	@Override
+	protected void clientConnected(ConnectionToClient client) {
+
+		Runnable r = new Runnable() {
+			public void run() {
+				while (client.isAlive()) {
+					try {
+						client.join();
+
+					} catch (InterruptedException e) {
+						// TODO: handle exception
+					}
+				}
+				clientDisconnected(client);
+			}
+		};
+
+		new Thread(r).start();
+	}
+
+	@Override
+	protected void clientDisconnected(ConnectionToClient client) {
+		String id = (String) client.getInfo("ID");
+		String table = (String) client.getInfo("Table");
+		String query;
+
+		if (id == null) {
+			System.out.println("client dis!!");
+			return;
+		}
+		if (table.equals("logedin")) {
+			//DELETE FROM `gonaturedb`.`logedin` WHERE (`id` = '123');
+			query = "DELETE FROM gonaturedb." + table + " WHERE id = " + id + ";";
+			SqlConnector.getInstance().updateToDB(query);
+		} else {
+			query = "UPDATE gonaturedb." + table + " SET connected = 0 WHERE id = " + id + ";";
+			SqlConnector.getInstance().updateToDB(query);
+
+		}
+
+	}
+
 }
 //End of EchoServer class
