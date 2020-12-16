@@ -25,7 +25,7 @@ public class LoginController {
 	public String getFunc(String MethodName, String data) {
 
 		switch (MethodName) {
-		case "GuestID":
+		case "Guest ID":
 			return GuestID(data);	
 		case "Subscriber":
 			return SubscriberLogin(data,"subscriber");
