@@ -22,7 +22,7 @@
       </Text>
       <TextField fx:id="IDText" alignment="TOP_LEFT" layoutX="204.0" layoutY="211.0" prefHeight="25.0" prefWidth="190.0" promptText="Enter id" style="-fx-background-color: #EEF2F9;" />
       <ComboBox fx:id="OptionCombo" layoutX="204.0" layoutY="178.0" prefHeight="25.0" prefWidth="190.0" promptText="Login as" style="-fx-background-color: #99D487;" />
-      <Button fx:id="ContinueBtn" layoutX="213.0" layoutY="278.0" mnemonicParsing="false" onAction="#Continue" prefHeight="35.0" prefWidth="172.0" style="-fx-background-color: #99D487;" text="Continue" textFill="WHITE">
+      <Button fx:id="ContinueBtn" layoutX="213.0" layoutY="278.0" mnemonicParsing="false" onAction="#identificationContinueButton" prefHeight="35.0" prefWidth="172.0" style="-fx-background-color: #99D487;" text="Continue" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -44,7 +44,7 @@
          </effect>
       </ImageView>
       <Circle fill="#99d487" layoutX="74.0" layoutY="79.0" radius="25.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="0.0" />
-      <Text fx:id="BackButton" fill="WHITE" layoutX="48.0" layoutY="89.0" onMouseClicked="#Back" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;" textAlignment="CENTER" wrappingWidth="50.0">
+      <Text fx:id="BackButton" fill="WHITE" layoutX="48.0" layoutY="89.0" onMouseClicked="#identificationBackButton" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;" textAlignment="CENTER" wrappingWidth="50.0">
          <font>
             <Font name="Baloo Regular" size="30.0" />
          </font>

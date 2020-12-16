@@ -25,6 +25,8 @@ public class IdentificationController {
 
 	Gson gson = new Gson();
 
+	// FIXME refactor the global variabels
+
 	@FXML
 	private TextField IDText;
 
@@ -37,19 +39,19 @@ public class IdentificationController {
 	@FXML
 	private Text BackButton;
 
-	public void setCombo() {
+	public void setIdentificationComboBox() {
 
 		OptionCombo.getItems().addAll("Guest ID", "Subscriber", "Family subscriber", "Instructor", "Reservation ID");
 
 	}
 
 	@FXML
-	void Back(MouseEvent event) throws IOException {
+	void identificationBackButton(MouseEvent event) throws IOException {
 		openPageUsingFxmlName("GoNatureLogin.fxml", "Login");
 	}
 
 	@FXML
-	void Continue(ActionEvent event) throws IOException {
+	void identificationContinueButton(ActionEvent event) throws IOException {
 
 		String selectedCombo = OptionCombo.getSelectionModel().getSelectedItem();
 		StringBuilder popError = new StringBuilder();
@@ -64,74 +66,77 @@ public class IdentificationController {
 		if (popError.length() > 0) {
 			PopUp.display("Error", popError.toString());
 		} else {
+			sendLoginRequestToServer(selectedCombo);
+			analyzeAnswerFromServer();
+		}
+	}
 
-			if (selectedCombo.equals("Guest ID")) {
-				RequestHandler rh = new RequestHandler(controllerName.LoginController, "GuestID", IDText.getText());
-				ClientUI.chat.accept(gson.toJson(rh));
-				analyzeAnswer();
-			}
-			if (selectedCombo.equals("Subscriber")) {
-				RequestHandler rh = new RequestHandler(controllerName.LoginController, "Subscriber", IDText.getText());
-				ClientUI.chat.accept(gson.toJson(rh));
-				analyzeAnswer();
-			}
-			if (selectedCombo.equals("Family subscriber")) {
-				RequestHandler rh = new RequestHandler(controllerName.LoginController, "Family subscriber", IDText.getText());
-				ClientUI.chat.accept(gson.toJson(rh));
-				analyzeAnswer();
-			}
-			if (selectedCombo.equals("Instructor")) {
-				RequestHandler rh = new RequestHandler(controllerName.LoginController, "Instructor", IDText.getText());
-				ClientUI.chat.accept(gson.toJson(rh));
-				analyzeAnswer();
-			}
-			if (selectedCombo.equals("Reservation ID")) {
-				RequestHandler rh = new RequestHandler(controllerName.LoginController, "Reservation ID", IDText.getText());
-				ClientUI.chat.accept(gson.toJson(rh));
-				analyzeAnswer();
-			}
+	/**
+	 * 
+	 */
+	private void analyzeAnswerFromServer() {
+
+		switch (ChatClient.serverMsg) {
+
+		case "all ready connected":
+			PopUp.display("Error", "all ready connected");
+			break;
+
+		case "update faild":
+			PopUp.display("Error", "update faild");
+			break;
+
+		case "not subscriber":
+			PopUp.display("Error", "not subscriber");
+			break;
+
+		case "no reservation":
+			PopUp.display("Error", "no reservation");
+			break;
+
+		case "connected succsesfuly":
+			openPageUsingFxmlName("MainPageForClient.fxml", "Main page");
+			break;
 		}
 
 	}
 
-	private void analyzeAnswer() {
-		try {
-			switch (ChatClient.serverMsg) {
-			case "all ready connected":
-				PopUp.display("Error", "all ready connected");
-				break;
-			case "update faild":
-				PopUp.display("Error", "update faild");
-				break;
-			case "not subscriber":
-				PopUp.display("Error", "not subscriber");
-				break;
-			case "no reservation":
-				PopUp.display("Error", "no reservation");
-				break;
-			case "connected succsesfuly":
-				openPageUsingFxmlName("MainPageForClient.fxml", "Main page");
-				break;
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	private void openPageUsingFxmlName(String name, String titel) throws IOException {
+	/**
+	 * loads a fxml file with a given name and setes the window titel
+	 * 
+	 * @param name  FXML file name
+	 * @param titel Window titel (Javafx)
+	 * @throws IOException
+	 */
+	private void openPageUsingFxmlName(String name, String titel) {
 		Stage primaryStage = new Stage();
-		// get a handle to the stage
 		Stage stage = (Stage) BackButton.getScene().getWindow();
-		// do what you have to do
+		// FIXME primaryStage.setOnCloseRequest(value);
+
 		stage.close();
+
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(this.getClass().getResource(name));
-		Pane root = loader.load();
+
+		Pane root = null;
+		try {
+			root = loader.load();
+		} catch (IOException e) {
+			System.out.println("Load Faild");
+		}
+
 		Scene sc = new Scene(root);
 		primaryStage.setTitle(titel);
 		primaryStage.setScene(sc);
 		primaryStage.show();
+	}
+
+	/**
+	 * @param loginType The selected combobox Type for login
+	 */
+	private void sendLoginRequestToServer(String loginType) {
+		RequestHandler rh = new RequestHandler(controllerName.LoginController, loginType, IDText.getText());
+		ClientUI.chat.accept(gson.toJson(rh));
 	}
 
 }

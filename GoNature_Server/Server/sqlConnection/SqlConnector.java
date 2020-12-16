@@ -25,7 +25,7 @@ public class SqlConnector {
 	private String jdbcURL = "jdbc:mysql://localhost:3306/?user=root";
 	private String jdbcuser = "root";
 	private String jdbcPass = "7C034CBD7cd$";
-	// Constructors *************************************************
+	// Constructors ****************************************************
 
 	private SqlConnector() {
 
@@ -58,20 +58,20 @@ public class SqlConnector {
 	// Instance methods *************************************************
 
 	/**
-	 * This method searches for a specific visitor in the DB
+	 * This method serches for info in the DB and returns the query answer
 	 * 
-	 * @param query
-	 * @return IF found: returns a visitors
-	 * @return Else Throws exception
-	 * 
-	 *         TODO change exception throw into something less strong TODO catch and
-	 *         handle the SQL exception
-	 * @throws SQLException
+	 * @param query SQL query of serch charecter and not update
+	 * @returns ResultSet if found returns the tuple\s as ResultSet if not found
+	 *          returns a empty ResultSet
 	 * 
 	 */
 
 	public ResultSet searchInDB(String query) {
 		ResultSet res = null;
+
+		// TODO change exception throw into something less strong
+		// TODO catch and handle the SQL exception
+
 		try {
 			PreparedStatement ps = con.prepareStatement(query);
 			res = ps.executeQuery();
@@ -96,8 +96,6 @@ public class SqlConnector {
 		}
 		return false;
 	}
-
-
 
 	public static SqlConnector getInstance() {
 		if (SqlConnectorInstace == null)

@@ -66,7 +66,7 @@ public class GoNatureLoginController {
 		primaryStage.setScene(sc);
 		// set comboBox
 		IdentificationController identificationController = loader.getController();
-		identificationController.setCombo();
+		identificationController.setIdentificationComboBox();
 		primaryStage.show();
 
 	}

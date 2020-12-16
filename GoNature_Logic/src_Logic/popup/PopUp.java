@@ -13,7 +13,13 @@ import javafx.stage.Stage;
 
 public class PopUp {
 
-	public static void display(String Titel,String msg) {
+	/**
+	 * Displays a popup window and disable background use of the source window
+	 * 
+	 * @param Titel The popup titel
+	 * @param message the messege within the window 
+	 */
+	public static void display(String Titel,String message) {
 		Stage window = new Stage();
 		
 		window.initModality(Modality.APPLICATION_MODAL);
@@ -21,7 +27,7 @@ public class PopUp {
 		window.setMinWidth(250);
 		window.setMinHeight(175);
 		Label labale = new Label();
-		labale.setText(msg);
+		labale.setText(message);
 		
 		Button OkBtn = new Button();
 		OkBtn.setOnAction(e->{

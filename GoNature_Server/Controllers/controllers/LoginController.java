@@ -25,7 +25,7 @@ public class LoginController {
 	public String getFunc(String MethodName, String data) {
 
 		switch (MethodName) {
-		case "GuestID":
+		case "Guest ID":
 			return GuestID(data);	
 		case "Subscriber":
 			return SubscriberLogin(data,"subscriber");
@@ -110,6 +110,7 @@ public class LoginController {
 	}
 
 	private boolean isConnected(String id) {
+		//TODO is gust coonected? why there is no discription
 		String query = "SELECT * FROM gonaturedb.logedin WHERE id = " + id + ";";
 		ResultSet res = SqlConnector.getInstance().searchInDB(query);
 		if (isEmpty(res) != 0)
