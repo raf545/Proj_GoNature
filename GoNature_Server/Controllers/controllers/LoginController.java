@@ -110,6 +110,7 @@ public class LoginController {
 	}
 
 	private boolean isConnected(String id) {
+		//TODO is gust coonected? why there is no discription
 		String query = "SELECT * FROM gonaturedb.logedin WHERE id = " + id + ";";
 		ResultSet res = SqlConnector.getInstance().searchInDB(query);
 		if (isEmpty(res) != 0)
