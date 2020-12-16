@@ -71,21 +71,21 @@ public class EchoServer extends AbstractServer {
 		controllerName myCon = rh.getMyCon();
 		String answer = null;
 		switch (myCon) {
-			case CardReaderController:
-				break;
-			case EmployeeSystemController:
-				break;
-			case LoginController:
-				answer = LoginController.getInstance().getFunc(rh.getFunc(), rh.getData());	
-				break;
-			case ReportsController:
-				break;
-			case ReservationController:
-				break;
-			case ServiceRepresentativeController:
-				break;
-			case WaitingListController:
-				break;
+		case CardReaderController:
+			break;
+		case EmployeeSystemController:
+			break;
+		case LoginController:
+			answer = LoginController.getInstance().getFunc(rh.getFunc(), rh.getData(), client);
+			break;
+		case ReportsController:
+			break;
+		case ReservationController:
+			break;
+		case ServiceRepresentativeController:
+			break;
+		case WaitingListController:
+			break;
 		}
 		try {
 			client.sendToClient(answer);
@@ -120,9 +120,38 @@ public class EchoServer extends AbstractServer {
 	 * 
 	 * @param client the connection connected to the client.
 	 */
-//	protected void clientConnected(ConnectionToClient client) {
-//		serverPortControllerInstance.setConnectToDB(client.getInetAddress().toString(),
-//				client.getInetAddress().getHostAddress().toString());
-//	}
+	@Override
+	protected void clientConnected(ConnectionToClient client) {
+		System.out.println("client!!");
+		Runnable r = new Runnable() {
+			public void run() {
+				while (client.isAlive()) {
+					try {
+						client.join();
+
+					} catch (InterruptedException e) {
+						// TODO: handle exception
+					}
+				}
+				clientDisconnected(client);
+			}
+		};
+
+		new Thread(r).start();
+	}
+
+	protected void clientDisconnected(ConnectionToClient client) {
+//		System.out.println("client dis!!");
+		String id = (String) client.getInfo("ID");
+		String Table = (String) client.getInfo("Table");
+
+		if (id == null) {
+			System.out.println("client dis!!");
+			return;
+		}
+		String query = "UPDATE gonaturedb." + Table + " SET connected = 0 WHERE id = " + client.getInfo("ID") + ";";
+		SqlConnector.getInstance().executeToDB(query);
+	}
+
 }
 //End of EchoServer class

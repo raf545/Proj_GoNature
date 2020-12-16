@@ -3,6 +3,7 @@ package controllers;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import ocsf.server.ConnectionToClient;
 import sqlConnection.SqlConnector;
 
 public class LoginController {
@@ -20,81 +21,82 @@ public class LoginController {
 		return loginControllerInstacne;
 	}
 
-	
-
-	public String getFunc(String MethodName, String data) {
+	public String getFunc(String MethodName, String data, ConnectionToClient client) {
 
 		switch (MethodName) {
 		case "GuestID":
-			return GuestID(data);	
+			return GuestID(data);
 		case "Subscriber":
-			return SubscriberLogin(data,"subscriber");
+			return SubscriberLogin(data, "subscriber", client);
 		case "Family subscriber":
-			return SubscriberLogin(data,"familySubscriber");
+			return SubscriberLogin(data, "familySubscriber", client);
 		case "Instructor":
-			return SubscriberLogin(data,"instructor");
+			return SubscriberLogin(data, "instructor", client);
 		case "Reservation ID":
-			return ReservationIDLogin(data);
-			
+			return ReservationIDLogin(data, client);
+
 		}
 		return data;
 	}
 
-	private String SubscriberLogin(String data,String Table) {
-		String query = "SELECT * FROM gonaturedb."+Table+" WHERE id = " + data + " OR subscriberid = " + data + ";";
+	private String SubscriberLogin(String data, String Table, ConnectionToClient client) {
+		String query = "SELECT * FROM gonaturedb." + Table + " WHERE id = " + data + " OR subscriberid = " + data + ";";
 		ResultSet res = SqlConnector.getInstance().searchInDB(query);
 		try {
-			if(isEmpty(res) == 0)
+			if (isEmpty(res) == 0)
 				return "not subscriber";
-			if(res.getInt("connected") == 1) 
+			if (res.getInt("connected") == 1)
 				return "all ready connected";
-			query = "UPDATE gonaturedb."+Table+" SET connected = 1 WHERE id = "+ res.getString(1) + ";";
-			 if(SqlConnector.getInstance().executeToDB(query))
-				 return "connected succsesfuly";
-			
+			client.setInfo("ID", res.getString("id"));
+			client.setInfo("Table", Table);
+//			query = "UPDATE gonaturedb." + Table + " SET connected = 1 WHERE id = " + res.getString(1) + ";";
+//			SqlConnector.getInstance().executeToDB(query)
+			if (setLoginToDB(client, Table)) {
+				return "connected succsesfuly";
+			}
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "error";
-		
-	}
 
+	}
 
 	private String GuestID(String data) {
 		if (isConnected(data))
 			return "all ready connected";
 		else {
-			if (addToTableinDb(data,"logedin"))
+			if (addToTableinDb(data, "logedin"))
 				return "connected succsesfuly";
 			else
 				return "update faild";
 		}
 
 	}
-	private String ReservationIDLogin(String data) {
+
+	private String ReservationIDLogin(String data, ConnectionToClient client) {
 		String query = "SELECT * FROM gonaturedb.reservetions WHERE reservationID = " + data + ";";
 		ResultSet res = SqlConnector.getInstance().searchInDB(query);
 		try {
-			if(isEmpty(res) == 0)
+			if (isEmpty(res) == 0)
 				return "no reservation";
-			switch (res.getString("reservationtype"))
-			{
+			switch (res.getString("reservationtype")) {
 			case "subscriber":
-				return SubscriberLogin(res.getString("personalID"),"subscriber");
+				return SubscriberLogin(res.getString("personalID"), "subscriber", client);
 			case "familySubscriber":
-				return SubscriberLogin(res.getString("personalID"),"familySubscriber");
+				return SubscriberLogin(res.getString("personalID"), "familySubscriber", client);
 			case "instructor":
-				return SubscriberLogin(res.getString("personalID"),"instructor");
-			}	
+				return SubscriberLogin(res.getString("personalID"), "instructor", client);
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "error";
-		
+
 	}
-	
+
 	private int isEmpty(ResultSet rs) {
 		int size = 0;
 		if (rs != null) {
@@ -116,15 +118,19 @@ public class LoginController {
 			return true;
 		return false;
 	}
-	
-	private boolean addToTableinDb(String data,String tableName ) {
-		String query = "INSERT INTO gonaturedb."+tableName+" (id) VALUES (" + data + ");";
+
+	private boolean addToTableinDb(String data, String tableName) {
+		String query = "INSERT INTO gonaturedb." + tableName + " (id) VALUES (" + data + ");";
 		if (SqlConnector.getInstance().executeToDB(query))
 			return true;
 		return false;
 	}
-	
 
-	
-	
+	private boolean setLoginToDB(ConnectionToClient client, String Table) {
+		String query = "UPDATE gonaturedb." + Table + " SET connected = 1 WHERE id = " + client.getInfo("ID") + ";";
+		if (SqlConnector.getInstance().executeToDB(query))
+			return true;
+		return false;
+	}
+
 }
