@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import com.google.gson.Gson;
 
 import controllers.LoginController;
-import logic.Visitor;
 import ocsf.server.AbstractServer;
 import ocsf.server.ConnectionToClient;
 import requestHandler.RequestHandler;

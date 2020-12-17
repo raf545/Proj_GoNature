@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -27,6 +28,12 @@ public class MainPageForClientController {
 
 	@FXML
 	private Text QuitBtn;
+
+	@FXML
+	private Text mainPageTypeOfClient;
+
+	@FXML
+	private Label mainPageWelcomLabel;
 
 	@FXML
 	void MyReservationBtn(ActionEvent event) {
@@ -57,6 +64,5 @@ public class MainPageForClientController {
 	void WaitingListBtn(ActionEvent event) {
 
 	}
-	
 
 }
