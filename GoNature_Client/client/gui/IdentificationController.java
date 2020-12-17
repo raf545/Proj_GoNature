@@ -17,6 +17,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import logic.Reservation;
+import logic.Subscriber;
 import popup.PopUp;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
@@ -40,14 +42,31 @@ public class IdentificationController {
 	private Text BackButton;
 
 	public void setIdentificationComboBox() {
-
-		OptionCombo.getItems().addAll("Guest ID", "Subscriber", "Family subscriber", "Instructor", "Reservation ID");
-
+		OptionCombo.getItems().addAll("Guest ID", "Subscriber", "Reservation ID");
 	}
 
 	@FXML
 	void identificationBackButton(MouseEvent event) throws IOException {
-		openPageUsingFxmlName("GoNatureLogin.fxml", "Login");
+		Stage primaryStage = new Stage();
+		Stage stage = (Stage) BackButton.getScene().getWindow();
+		// FIXME primaryStage.setOnCloseRequest(value);
+
+		stage.close();
+
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(this.getClass().getResource("GoNatureLogin.fxml"));
+
+		Pane root = null;
+		try {
+			root = loader.load();
+		} catch (IOException e) {
+			System.out.println("Load Faild");
+		}
+
+		Scene sc = new Scene(root);
+		primaryStage.setTitle("Login");
+		primaryStage.setScene(sc);
+		primaryStage.show();
 	}
 
 	@FXML
@@ -67,15 +86,17 @@ public class IdentificationController {
 			PopUp.display("Error", popError.toString());
 		} else {
 			sendLoginRequestToServer(selectedCombo);
-			analyzeAnswerFromServer();
+			analyzeAnswerFromServer(selectedCombo);
 		}
 	}
 
 	/**
 	 * 
 	 */
-	private void analyzeAnswerFromServer() {
-
+	private void analyzeAnswerFromServer(String selectedCombo) {
+		String guestId;
+		Reservation reservation;
+		Subscriber subscriber;
 		switch (ChatClient.serverMsg) {
 
 		case "all ready connected":
@@ -94,7 +115,17 @@ public class IdentificationController {
 			PopUp.display("Error", "no reservation");
 			break;
 
-		case "connected succsesfuly":
+		default:
+			if (selectedCombo == "Guest ID") {
+				guestId = ChatClient.serverMsg;
+				System.out.println(guestId);
+			} else if (selectedCombo == "Subscriber") {
+				subscriber = gson.fromJson(ChatClient.serverMsg, Subscriber.class);
+				System.out.println(subscriber);
+			} else if (selectedCombo == "Reservation ID") {
+				reservation = gson.fromJson(ChatClient.serverMsg, Reservation.class);
+				System.out.println(reservation);
+			}
 			openPageUsingFxmlName("MainPageForClient.fxml", "Main page");
 			break;
 		}

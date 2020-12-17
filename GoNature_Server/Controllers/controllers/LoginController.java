@@ -3,10 +3,16 @@ package controllers;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.google.gson.Gson;
+
+import logic.Employee;
+import logic.Reservation;
+import logic.Subscriber;
 import ocsf.server.ConnectionToClient;
 import sqlConnection.SqlConnector;
 
 public class LoginController {
+	Gson gson = new Gson();
 
 	private static LoginController loginControllerInstacne = null;
 
@@ -28,12 +34,10 @@ public class LoginController {
 			return GuestID(data, client);
 		case "Subscriber":
 			return SubscriberLogin(data, "subscriber", client);
-		case "Family subscriber":
-			return SubscriberLogin(data, "familySubscriber", client);
-		case "Instructor":
-			return SubscriberLogin(data, "instructor", client);
 		case "Reservation ID":
 			return ReservationIDLogin(data, client);
+		case "employeeLogIn":
+			return employeeLogIn(data, client);
 
 		}
 		return data;
@@ -49,15 +53,18 @@ public class LoginController {
 				return "all ready connected";
 			client.setInfo("ID", res.getString("id"));
 			client.setInfo("Table", Table);
+			Subscriber subscriber = new Subscriber(res.getString("id"), res.getString("subscriberid"),
+					res.getString("name"), res.getString("lastName"), res.getString("phone"), res.getString("email"),
+					res.getString("numOfMembers"), res.getString("creditCardNumber"), res.getString("subscriberTypre"));
 			if (setLoginToDB(client, Table)) {
-				return "connected succsesfuly";
+				return gson.toJson(subscriber);
 			}
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//TODO Check error case and create popup
+		// TODO Check error case and create popup
 		return "error";
 
 	}
@@ -69,9 +76,8 @@ public class LoginController {
 			if (addToTableinDb(data, "logedin")) {
 				client.setInfo("ID", data);
 				client.setInfo("Table", "logedin");
-				return "connected succsesfuly";
-			}
-			else
+				return data;
+			} else
 				return "update faild";
 		}
 
@@ -80,17 +86,32 @@ public class LoginController {
 	private String ReservationIDLogin(String data, ConnectionToClient client) {
 		String query = "SELECT * FROM gonaturedb.reservetions WHERE reservationID = " + data + ";";
 		ResultSet res = SqlConnector.getInstance().searchInDB(query);
+		String answerFromGuestID = null;
 		try {
 			if (isEmpty(res) == 0)
 				return "no reservation";
-			switch (res.getString("reservationtype")) {
-			case "subscriber":
-				return SubscriberLogin(res.getString("personalID"), "subscriber", client);
-			case "familySubscriber":
-				return SubscriberLogin(res.getString("personalID"), "familySubscriber", client);
-			case "instructor":
-				return SubscriberLogin(res.getString("personalID"), "instructor", client);
+
+			Reservation reservation = new Reservation(res.getString("reservationID"), res.getString("personalID"),
+					res.getString("parkname"), res.getString("visithour"), res.getString("numofvisitors"),
+					res.getString("reservationtype"), res.getString("email"), res.getString("date"),
+					res.getFloat("price"), res.getString("reservetionStatus"));
+			String idFromResrvation = res.getString("personalID");
+
+			res = SqlConnector.getInstance()
+					.searchInDB("SELECT * FROM gonaturedb.subscriber WHERE id = " + idFromResrvation + ";");
+			if (isEmpty(res) == 0) {
+				answerFromGuestID = GuestID(idFromResrvation, client);
+				if (answerFromGuestID.equals(idFromResrvation))
+					return gson.toJson(reservation);
+				return answerFromGuestID;
 			}
+
+			client.setInfo("ID", idFromResrvation);
+			client.setInfo("Table", "subscriber");
+
+			if (setLoginToDB(client, "subscriber"))
+				return gson.toJson(reservation);
+			return "update faild";
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -136,4 +157,18 @@ public class LoginController {
 		return false;
 	}
 
+	private String employeeLogIn(String employeeData, ConnectionToClient client) {
+		Employee employee = gson.fromJson(employeeData, Employee.class);
+		String query = "SELECT * FROM gonaturedb.employees WHERE emloyeeId = " + employee.getEmployeeId() + ";";
+		ResultSet res = SqlConnector.getInstance().searchInDB(query);
+		if (isEmpty(res) == 0)
+			return "employee not found";
+		try {
+			if (employee.getPassword().equals(res.getString("password")))
+				return gson.toJson(employee);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return "wrong password";
+	}
 }

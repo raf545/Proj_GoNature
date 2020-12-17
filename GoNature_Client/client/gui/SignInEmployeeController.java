@@ -2,6 +2,12 @@ package gui;
 
 import java.io.IOException;
 
+import org.omg.CORBA.Request;
+
+import com.google.gson.Gson;
+
+import client.ChatClient;
+import client.ClientUI;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,9 +18,15 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import logic.Employee;
+import logic.Reservation;
+import logic.Subscriber;
+import popup.PopUp;
+import requestHandler.RequestHandler;
+import requestHandler.controllerName;
 
 public class SignInEmployeeController {
-
+	Gson gson = new Gson();
 	@FXML
 	private TextField IDTxt;
 
@@ -46,7 +58,25 @@ public class SignInEmployeeController {
 
 	@FXML
 	void Continue(ActionEvent event) {
+		Employee employee = new Employee(IDTxt.getText(), PasswordTxt.getText());
+		RequestHandler rh = new RequestHandler(controllerName.LoginController, "employeeLogIn", gson.toJson(employee));
+		ClientUI.chat.accept(gson.toJson(rh));
+		analyzeAnswerFromServer();
+	}
 
+	private void analyzeAnswerFromServer() {
+		switch (ChatClient.serverMsg) {
+		case "employee not found":
+			PopUp.display("Error", "employee not found");
+			break;
+
+		case "wrong password":
+			PopUp.display("Error", "wrong password");
+			break;
+		default:
+			System.out.println("here");
+
+		}
 	}
 
 }

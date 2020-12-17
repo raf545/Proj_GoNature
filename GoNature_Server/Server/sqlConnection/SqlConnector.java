@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import logic.Visitor;
 
 /**
  * This Class is responsibale of Data Base managment and manipulations
@@ -22,9 +21,9 @@ public class SqlConnector {
 	// Class variables *************************************************
 	private static SqlConnector SqlConnectorInstace = null;
 	private Connection con = null;
-	private String jdbcURL = "jdbc:mysql://localhost:3306/?user=root";
+	private String jdbcURL = "jdbc:mysql://localhost/gonaturedb?serverTimezone=IST";
 	private String jdbcuser = "root";
-	private String jdbcPass = "7C034CBD7cd$";
+	private String jdbcPass = "root";
 	// Constructors ****************************************************
 
 	private SqlConnector() {
