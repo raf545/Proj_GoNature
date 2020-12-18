@@ -126,7 +126,7 @@ public class IdentificationController {
 				reservation = gson.fromJson(ChatClient.serverMsg, Reservation.class);
 				System.out.println(reservation);
 			}
-			openPageUsingFxmlName("MainPageForClient.fxml", "Main page");
+			openPageUsingFxmlName();
 			break;
 		}
 
@@ -135,31 +135,29 @@ public class IdentificationController {
 	/**
 	 * loads a fxml file with a given name and setes the window titel
 	 * 
-	 * @param name  FXML file name
-	 * @param titel Window titel (Javafx)
 	 * @throws IOException
 	 */
-	private void openPageUsingFxmlName(String name, String titel) {
-		Stage primaryStage = new Stage();
-		Stage stage = (Stage) BackButton.getScene().getWindow();
-		// FIXME primaryStage.setOnCloseRequest(value);
-
-		stage.close();
-
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(this.getClass().getResource(name));
-
-		Pane root = null;
+	private void openPageUsingFxmlName() {
 		try {
-			root = loader.load();
+			Stage primaryStage = new Stage();
+			Stage stage = (Stage) BackButton.getScene().getWindow();
+			// FIXME primaryStage.setOnCloseRequest(value);
+			stage.close();
+
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(this.getClass().getResource("MainPageForClient.fxml"));
+			Pane root = loader.load();
+
+			MainPageForClientController mainPageForClientController = loader.getController();
+			mainPageForClientController.setTitels("hello guest", "guest");
+
+			Scene sc = new Scene(root);
+			primaryStage.setTitle("Main page");
+			primaryStage.setScene(sc);
+			primaryStage.show();
 		} catch (IOException e) {
 			System.out.println("Load Faild");
 		}
-
-		Scene sc = new Scene(root);
-		primaryStage.setTitle(titel);
-		primaryStage.setScene(sc);
-		primaryStage.show();
 	}
 
 	/**
