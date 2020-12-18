@@ -31,6 +31,9 @@ public class ChatClient extends AbstractClient {
 	 * method in the client.
 	 */
 	ChatIF clientUI;
+	
+	public static Class<?> clientType = null;
+	public static String clientInfo = null; 
 	public static String serverMsg = null;
 	public static boolean awaitResponse = false;
 
@@ -50,6 +53,7 @@ public class ChatClient extends AbstractClient {
 		// openConnection();
 	}
 
+	
 	// Instance methods ************************************************
 
 	/**

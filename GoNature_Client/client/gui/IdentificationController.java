@@ -94,9 +94,8 @@ public class IdentificationController {
 	 * 
 	 */
 	private void analyzeAnswerFromServer(String selectedCombo) {
-		String guestId;
-		Reservation reservation;
-		Subscriber subscriber;
+		String VisitorName = null;
+		String VisitorType = null;
 		switch (ChatClient.serverMsg) {
 
 		case "all ready connected":
@@ -117,16 +116,21 @@ public class IdentificationController {
 
 		default:
 			if (selectedCombo == "Guest ID") {
-				guestId = ChatClient.serverMsg;
-				System.out.println(guestId);
+				setClientInfoAndType(String.class);
+				VisitorName = "Guest";
+				VisitorType = "Guest";
 			} else if (selectedCombo == "Subscriber") {
-				subscriber = gson.fromJson(ChatClient.serverMsg, Subscriber.class);
-				System.out.println(subscriber);
+				setClientInfoAndType(Subscriber.class);
+				Subscriber savedSubscriberName = gson.fromJson(ChatClient.clientInfo, Subscriber.class);
+				VisitorName = savedSubscriberName.getName() +" "+ savedSubscriberName.getLastName();
+				VisitorType = "Subscriber";
 			} else if (selectedCombo == "Reservation ID") {
-				reservation = gson.fromJson(ChatClient.serverMsg, Reservation.class);
-				System.out.println(reservation);
+				setClientInfoAndType(Reservation.class);
+				Reservation saveRsesrvationId = gson.fromJson(ChatClient.clientInfo, Reservation.class);
+				VisitorName = saveRsesrvationId.getPersonalID() + "Reservasion id: " + saveRsesrvationId.getReservationID();
+				VisitorType = "Reservation";
 			}
-			openPageUsingFxmlName();
+			openPageUsingFxmlName(VisitorName,VisitorType);
 			break;
 		}
 
@@ -137,7 +141,7 @@ public class IdentificationController {
 	 * 
 	 * @throws IOException
 	 */
-	private void openPageUsingFxmlName() {
+	private void openPageUsingFxmlName(String VisitorHelloString, String VisitorType) {
 		try {
 			Stage primaryStage = new Stage();
 			Stage stage = (Stage) BackButton.getScene().getWindow();
@@ -147,9 +151,9 @@ public class IdentificationController {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(this.getClass().getResource("MainPageForClient.fxml"));
 			Pane root = loader.load();
-
+			
 			MainPageForClientController mainPageForClientController = loader.getController();
-			mainPageForClientController.setTitels("hello guest", "guest");
+			mainPageForClientController.setTitels("hello " + VisitorHelloString , VisitorType);
 
 			Scene sc = new Scene(root);
 			primaryStage.setTitle("Main page");
@@ -168,4 +172,8 @@ public class IdentificationController {
 		ClientUI.chat.accept(gson.toJson(rh));
 	}
 
+	private void setClientInfoAndType(Class clientType) {
+		ChatClient.clientInfo = ChatClient.serverMsg;
+		ChatClient.clientType = clientType;
+	}
 }
