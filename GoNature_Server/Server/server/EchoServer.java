@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import com.google.gson.Gson;
 
+import controllers.EmployeeSystemController;
 import controllers.LoginController;
 import ocsf.server.AbstractServer;
 import ocsf.server.ConnectionToClient;
@@ -73,6 +74,7 @@ public class EchoServer extends AbstractServer {
 		case CardReaderController:
 			break;
 		case EmployeeSystemController:
+			answer = EmployeeSystemController.getInstance().getFunc(rh.getFunc(), rh.getData(), client);
 			break;
 		case LoginController:
 			answer = LoginController.getInstance().getFunc(rh.getFunc(), rh.getData(), client);

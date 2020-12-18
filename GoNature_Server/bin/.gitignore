@@ -1,3 +1,4 @@
-/sqlConnection/
 /controllers/
 /server/
+/serverGui/
+/sqlConnection/
