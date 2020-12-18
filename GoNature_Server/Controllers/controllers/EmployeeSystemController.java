@@ -44,16 +44,12 @@ public class EmployeeSystemController {
 		ResultSet res = SqlConnector.getInstance().searchInDB(query);
 		if (isEmpty(res) != 0)
 			return "subscriber already exist";
-		query = "INSERT INTO gonaturedb.subscriber (id, subscriberid, name, lastName, phone, email, numOfMembers, creditCardNumber, subscriberTypre, connected) VALUES ("
-				+ subscriber.toString() + ");";
-
+		query = "INSERT INTO gonaturedb.subscriber (id, subscriberid, name, lastName, phone, email, numOfMembers, creditCardNumber, subscriberTypre) VALUES "
+				+ subscriber.toString() + ";";
 		if (SqlConnector.getInstance().updateToDB(query))
 			return "success";
 		return "fail";
 	}
-
-	
-	
 
 	private int isEmpty(ResultSet rs) {
 		int size = 0;
@@ -69,5 +65,4 @@ public class EmployeeSystemController {
 		return size;
 	}
 
-	
 }
