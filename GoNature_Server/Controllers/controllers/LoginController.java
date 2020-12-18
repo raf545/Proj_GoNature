@@ -159,13 +159,17 @@ public class LoginController {
 
 	private String employeeLogIn(String employeeData, ConnectionToClient client) {
 		Employee employee = gson.fromJson(employeeData, Employee.class);
-		String query = "SELECT * FROM gonaturedb.employees WHERE emloyeeId = " + employee.getEmployeeId() + ";";
+		String query = "SELECT * FROM gonaturedb.employees WHERE employeeId = " + employee.getEmployeeId() + ";";
 		ResultSet res = SqlConnector.getInstance().searchInDB(query);
 		if (isEmpty(res) == 0)
 			return "employee not found";
 		try {
-			if (employee.getPassword().equals(res.getString("password")))
-				return gson.toJson(employee);
+			if (employee.getPassword().equals(res.getString("password"))) {
+				Employee employeeRet = new Employee(res.getString("employeeId"), res.getString("password"),
+						res.getString("name"), res.getString("lasstName"), res.getString("email"),
+						res.getString("typeOfEmployee"), res.getString("parkName"));
+				return gson.toJson(employeeRet);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

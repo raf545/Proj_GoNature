@@ -74,7 +74,8 @@ public class SignInEmployeeController {
 			PopUp.display("Error", "wrong password");
 			break;
 		default:
-			System.out.println("here");
+			Employee employee = gson.fromJson(ChatClient.serverMsg, Employee.class);
+			System.out.println(employee);
 
 		}
 	}

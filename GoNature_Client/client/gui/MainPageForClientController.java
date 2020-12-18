@@ -35,6 +35,11 @@ public class MainPageForClientController {
 	@FXML
 	private Label mainPageWelcomLabel;
 
+	void setTitels(String welcome, String typeOfClient) {
+		mainPageTypeOfClient.setText(typeOfClient);
+		mainPageWelcomLabel.setText(welcome);
+	}
+
 	@FXML
 	void MyReservationBtn(ActionEvent event) {
 
