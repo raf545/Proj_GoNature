@@ -15,7 +15,7 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="960.0" prefWidth="1286.0" style="-fx-background-color: #676767;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainPageEmployeeController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffc956" height="45.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="1308.0" />
-      <Pane layoutX="265.0" layoutY="128.0" prefHeight="760.0" prefWidth="920.0" style="-fx-background-color: white;" />
+      <Pane fx:id="mainPane" layoutX="265.0" layoutY="128.0" prefHeight="760.0" prefWidth="920.0" style="-fx-background-color: white;" />
       <ScrollPane hbarPolicy="NEVER" layoutX="46.0" layoutY="125.0" prefHeight="760.0" prefWidth="200.0" vbarPolicy="ALWAYS">
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1100.0" prefWidth="200.0" snapToPixel="false">
@@ -24,12 +24,12 @@
                      <children>
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <ImageView fitHeight="150.0" fitWidth="180.0" pickOnBounds="true">
+                              <ImageView fx:id="openNewFamilySubBtnP" fitHeight="150.0" fitWidth="180.0" pickOnBounds="true">
                                  <image>
                                     <Image url="@../../pictures/Family.png" />
                                  </image>
                               </ImageView>
-                              <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #FFC956;" text="New Family Subscription">
+                              <Button fx:id="NewFamilySubBtn" mnemonicParsing="false" onAction="#openNewFamilySub" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #FFC956;" text="New Family Subscription">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
@@ -38,12 +38,12 @@
                         </VBox>
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <ImageView fitHeight="150.0" fitWidth="176.0" pickOnBounds="true">
+                              <ImageView fx:id="openNewInstructorBtnP" fitHeight="150.0" fitWidth="176.0" pickOnBounds="true">
                                  <image>
                                     <Image url="@../../pictures/Instructor.png" />
                                  </image>
                               </ImageView>
-                              <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #FFC956;" text="New Instructor">
+                              <Button fx:id="NewInstructorBtn" mnemonicParsing="false" onAction="#openNewInstructor" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #FFC956;" text="New Instructor">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
@@ -113,7 +113,7 @@
             <Font name="Guttman Drogolin Bold" size="24.0" />
          </font>
       </Text>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffc956" height="45.0" layoutX="1095.0" layoutY="901.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="90.0" />
+      <Rectangle fx:id="quitBtn" arcHeight="5.0" arcWidth="5.0" fill="#ffc956" height="45.0" layoutX="1095.0" layoutY="901.0" onMouseClicked="#quit" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="90.0" />
       <Text layoutX="1114.0" layoutY="933.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quit" wrappingWidth="68.0">
          <font>
             <Font name="Guttman Drogolin Bold" size="24.0" />

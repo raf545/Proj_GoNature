@@ -98,10 +98,8 @@ public class Subscriber {
 
 	@Override
 	public String toString() {
-		return "Subscriber [id=" + id + ", subscriberid=" + subscriberid + ", name=" + name + ", lastName=" + lastName
-				+ ", phone=" + phone + ", email=" + email + ", numOfMembers=" + numOfMembers + ", creditCardNumber="
-				+ creditCardNumber + ", subscriberTypre=" + subscriberTypre + "]";
+		return id + ", " + subscriberid + ", " + name + ", " + lastName + ", " + phone + ", " + email + ", "
+				+ numOfMembers + ", " + creditCardNumber + ", " + subscriberTypre;
 	}
-	
 
 }
