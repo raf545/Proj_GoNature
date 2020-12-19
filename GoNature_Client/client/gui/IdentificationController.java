@@ -116,17 +116,18 @@ public class IdentificationController {
 
 		default:
 			if (selectedCombo == "Guest ID") {
-				setClientInfoAndType(String.class);
+				setClientInfoAndType(String.class,"Guest");
 				VisitorName = "Guest";
 				VisitorType = "Guest";
 			} else if (selectedCombo == "Subscriber") {
-				setClientInfoAndType(Subscriber.class);
-				Subscriber savedSubscriberName = gson.fromJson(ChatClient.clientInfo, Subscriber.class);
+				
+				Subscriber savedSubscriberName = gson.fromJson(ChatClient.serverMsg, Subscriber.class);
+				setClientInfoAndType(Subscriber.class,savedSubscriberName.getSubscriberType());
 				VisitorName = savedSubscriberName.getName() +" "+ savedSubscriberName.getLastName();
 				VisitorType = "Subscriber";
 			} else if (selectedCombo == "Reservation ID") {
-				setClientInfoAndType(Reservation.class);
-				Reservation saveRsesrvationId = gson.fromJson(ChatClient.clientInfo, Reservation.class);
+				setClientInfoAndType(Reservation.class,"Reservation");
+				Reservation saveRsesrvationId = gson.fromJson(ChatClient.serverMsg, Reservation.class);
 				VisitorName = saveRsesrvationId.getPersonalID() + "Reservasion id: " + saveRsesrvationId.getReservationID();
 				VisitorType = "Reservation";
 			}
@@ -154,7 +155,8 @@ public class IdentificationController {
 			
 			MainPageForClientController mainPageForClientController = loader.getController();
 			mainPageForClientController.setTitels("hello " + VisitorHelloString , VisitorType);
-
+			StaticPaneMainPageClient.clientMainPane = mainPageForClientController.getPane();
+			
 			Scene sc = new Scene(root);
 			primaryStage.setTitle("Main page");
 			primaryStage.setScene(sc);
@@ -172,8 +174,9 @@ public class IdentificationController {
 		ClientUI.chat.accept(gson.toJson(rh));
 	}
 
-	private void setClientInfoAndType(Class clientType) {
+	private void setClientInfoAndType(Class clientType, String clientTypeString) {
 		ChatClient.clientInfo = ChatClient.serverMsg;
 		ChatClient.clientType = clientType;
+		ChatClient.clientTypeString = clientTypeString;
 	}
 }
