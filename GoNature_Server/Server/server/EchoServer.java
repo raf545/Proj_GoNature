@@ -146,14 +146,15 @@ public class EchoServer extends AbstractServer {
 			return;
 		}
 		if (table.equals("logedin")) {
-			//DELETE FROM `gonaturedb`.`logedin` WHERE (`id` = '123');
+			// DELETE FROM `gonaturedb`.`logedin` WHERE (`id` = '123');
 			query = "DELETE FROM gonaturedb." + table + " WHERE id = " + id + ";";
-			SqlConnector.getInstance().updateToDB(query);
+		} else if (table.equals("employees")) {
+			query = "UPDATE gonaturedb." + table + " SET connected = 0 WHERE employeeId = " + client.getInfo("ID")
+					+ ";";
 		} else {
 			query = "UPDATE gonaturedb." + table + " SET connected = 0 WHERE id = " + id + ";";
-			SqlConnector.getInstance().updateToDB(query);
-
 		}
+		SqlConnector.getInstance().updateToDB(query);
 
 	}
 

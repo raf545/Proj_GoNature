@@ -21,9 +21,9 @@ public class SqlConnector {
 	// Class variables *************************************************
 	private static SqlConnector SqlConnectorInstace = null;
 	private Connection con = null;
-	private String jdbcURL = "jdbc:mysql://localhost:3306/?serverTimezone=UTC";
+	private String jdbcURL = "jdbc:mysql://localhost/gonaturedb?serverTimezone=IST";
 	private String jdbcuser = "root";
-	private String jdbcPass = "1234";
+	private String jdbcPass = "root";
 	// Constructors ****************************************************
 
 	private SqlConnector() {

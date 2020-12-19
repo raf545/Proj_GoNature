@@ -163,16 +163,34 @@ public class LoginController {
 		ResultSet res = SqlConnector.getInstance().searchInDB(query);
 		if (isEmpty(res) == 0)
 			return "employee not found";
+
 		try {
+
+			if (res.getInt("connected") == 1)
+				return "already connected";
+
 			if (employee.getPassword().equals(res.getString("password"))) {
 				Employee employeeRet = new Employee(res.getString("employeeId"), res.getString("password"),
 						res.getString("name"), res.getString("lasstName"), res.getString("email"),
 						res.getString("typeOfEmployee"), res.getString("parkName"));
+				client.setInfo("ID", employeeRet.getEmployeeId());
+				client.setInfo("Table", "employees");
+				setLoginToEmployeeDB(client, "employees");
 				return gson.toJson(employeeRet);
+
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return "wrong password";
 	}
+
+	private boolean setLoginToEmployeeDB(ConnectionToClient client, String Table) {
+		String query = "UPDATE gonaturedb." + Table + " SET connected = 1 WHERE employeeId = " + client.getInfo("ID")
+				+ ";";
+		if (SqlConnector.getInstance().updateToDB(query))
+			return true;
+		return false;
+	}
+
 }
