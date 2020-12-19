@@ -10,10 +10,10 @@ public class Subscriber {
 	private String email=null;
 	private String numOfMembers=null;
 	private String creditCardNumber=null;
-	private String subscriberTypre=null;
+	private String subscriberType=null;
 
 	public Subscriber(String id, String subscriberid, String name, String lastName, String phone, String email,
-			String numOfMembers, String creditCardNumber, String subscriberTypre) {
+			String numOfMembers, String creditCardNumber, String subscriberType) {
 		this.id = id;
 		int result = Integer.parseInt(subscriberidreal);
 		result++;
@@ -25,7 +25,7 @@ public class Subscriber {
 		this.email = email;
 		this.numOfMembers = numOfMembers;
 		this.creditCardNumber = creditCardNumber;
-		this.subscriberTypre = subscriberTypre;
+		this.subscriberType = subscriberType;
 	}
 
 	public String getId() {
@@ -90,18 +90,18 @@ public class Subscriber {
 		this.creditCardNumber = creditCardNumber;
 	}
 
-	public String getSubscriberTypre() {
-		return subscriberTypre;
+	public String getSubscriberType() {
+		return subscriberType;
 	}
 
 	public void setSubscriberTypre(String subscriberTypre) {
-		this.subscriberTypre = subscriberTypre;
+		this.subscriberType = subscriberTypre;
 	}
 
 	@Override
 	public String toString() {
 		return "(" + id + ", " + subscriberid + ", \"" + name + "\", \"" + lastName + "\", " + phone + ", \"" + email + "\", "
-				+ numOfMembers + ", " + creditCardNumber + ", \"" + subscriberTypre + "\")";
+				+ numOfMembers + ", " + creditCardNumber + ", \"" + subscriberType + "\")";
 	}
 
 

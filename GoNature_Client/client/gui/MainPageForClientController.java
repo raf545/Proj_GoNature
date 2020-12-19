@@ -2,6 +2,7 @@ package gui;
 
 import java.io.IOException;
 
+import client.ChatClient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import logic.Subscriber;
 
 public class MainPageForClientController {
 
@@ -40,6 +42,10 @@ public class MainPageForClientController {
 		mainPageWelcomLabel.setText(welcome);
 	}
 
+	Pane getPane() {
+		return PaneChange;
+	}
+
 	@FXML
 	void MyReservationBtn(ActionEvent event) {
 
@@ -47,11 +53,11 @@ public class MainPageForClientController {
 
 	@FXML
 	void NewReservation(ActionEvent event) throws IOException {
+
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(this.getClass().getResource("NewReservation.fxml"));
-
 		Pane root = loader.load();
-		PaneChange.getChildren().add(root);
+		StaticPaneMainPageClient.clientMainPane.getChildren().add(root);
 
 	}
 

@@ -21,9 +21,9 @@ public class SqlConnector {
 	// Class variables *************************************************
 	private static SqlConnector SqlConnectorInstace = null;
 	private Connection con = null;
-	private String jdbcURL = "jdbc:mysql://localhost:3306/?user=root";
+	private String jdbcURL = "jdbc:mysql://localhost:3306/?serverTimezone=UTC";
 	private String jdbcuser = "root";
-	private String jdbcPass = "7C034CBD7cd$";
+	private String jdbcPass = "1234";
 	// Constructors ****************************************************
 
 	private SqlConnector() {
