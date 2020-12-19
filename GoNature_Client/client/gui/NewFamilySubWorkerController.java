@@ -46,10 +46,10 @@ public class NewFamilySubWorkerController {
 
 	@FXML
 	void saveFamily(ActionEvent event) {
-	
+
 		System.out.println("hey");
 		StringBuilder popError = new StringBuilder();
-		String id, subscriberid, name, lastName, phone, email, numOfMembers, creditCardNumber, subscriberTypre;
+		String id, subscriberid, name, lastName, phone, email, numOfMembers, creditCardNumber, subscriberType;
 		id = IdTF.getText();
 		subscriberid = "1234";
 		name = firstNameTF.getText();
@@ -58,34 +58,36 @@ public class NewFamilySubWorkerController {
 		email = EmailTF.getText();
 		numOfMembers = AmountTF.getText();
 		creditCardNumber = CreditCardTF.getText();
-		subscriberTypre = "family";
+		subscriberType = "family";
 
-		if (firstNameTF.getText().isEmpty())
+		if (firstNameTF.getText().isEmpty()) {
 			popError.append("Must enter first name");
 
-		if (LastNameTF.getText().isEmpty())
-			popError.append("Must enter last name");
+			if (LastNameTF.getText().isEmpty())
+				popError.append("Must enter last name");
 
-		if (IdTF.getText().isEmpty())
-			popError.append("Must enter ID");
+			if (IdTF.getText().isEmpty())
+				popError.append("Must enter ID");
 
-		if (PhoneTF.getText().isEmpty())
-			popError.append("Must enter Phone number");
+			if (PhoneTF.getText().isEmpty())
+				popError.append("Must enter Phone number");
 
-		if (EmailTF.getText().isEmpty())
-			popError.append("Must enter Email");
+			if (EmailTF.getText().isEmpty())
+				popError.append("Must enter Email");
 
-		if (AmountTF.getText().isEmpty())
-			popError.append("Must enter Amount of pepole");
+			if (AmountTF.getText().isEmpty())
+				popError.append("Must enter Amount of pepole");
 
-		if (popError.length() > 0)
-			PopUp.display("Error", popError.toString());
+			if (popError.length() > 0)
+				PopUp.display("Error", popError.toString());
+		} else {
 
-		Subscriber subscriber = new Subscriber(id, subscriberid, name, lastName, phone, email, numOfMembers,
-				creditCardNumber, subscriberTypre);
-		sendLoginRequestToServer("addFamilySub", subscriber);
-		//analyzeAnswerFromServer();
-		
+			Subscriber subscriber = new Subscriber(id, subscriberid, name, lastName, phone, email, numOfMembers,
+					creditCardNumber, subscriberType);
+			sendLoginRequestToServer("addFamilySub", subscriber);
+			analyzeAnswerFromServer();
+		}
+
 	}
 
 	private void sendLoginRequestToServer(String loginType, Subscriber subscriber) {

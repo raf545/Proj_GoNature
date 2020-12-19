@@ -75,8 +75,30 @@ public class SignInEmployeeController {
 			break;
 		default:
 			Employee employee = gson.fromJson(ChatClient.serverMsg, Employee.class);
-			System.out.println(employee);
+			openEmployeeGui(employee);
+		}
+	}
 
+	private void openEmployeeGui(Employee employee) {
+		try {
+			Stage primaryStage = new Stage();
+			Stage stage = (Stage) ContinueBtn.getScene().getWindow();
+			// FIXME primaryStage.setOnCloseRequest(value);
+			stage.close();
+
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(this.getClass().getResource("MainPageEmployee.fxml"));
+			Pane root = loader.load();
+
+			MainPageEmployeeController mainPageEmployeeController = loader.getController();
+			mainPageEmployeeController.setEmp(employee);
+
+			Scene sc = new Scene(root);
+			primaryStage.setTitle("Main page for emlpoyee");
+			primaryStage.setScene(sc);
+			primaryStage.show();
+		} catch (IOException e) {
+			System.out.println("Load Faild");
 		}
 	}
 
