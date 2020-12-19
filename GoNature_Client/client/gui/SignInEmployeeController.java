@@ -58,6 +58,8 @@ public class SignInEmployeeController {
 
 	@FXML
 	void Continue(ActionEvent event) {
+		String fxmlName;
+		String title;
 		Employee employee = new Employee(IDTxt.getText(), PasswordTxt.getText());
 		RequestHandler rh = new RequestHandler(controllerName.LoginController, "employeeLogIn", gson.toJson(employee));
 		ClientUI.chat.accept(gson.toJson(rh));
@@ -65,6 +67,9 @@ public class SignInEmployeeController {
 	}
 
 	private void analyzeAnswerFromServer() {
+		String fxmlName = null;
+		String title = null;
+
 		switch (ChatClient.serverMsg) {
 		case "employee not found":
 			PopUp.display("Error", "employee not found");
@@ -73,28 +78,47 @@ public class SignInEmployeeController {
 		case "wrong password":
 			PopUp.display("Error", "wrong password");
 			break;
+		case "already connected":
+			PopUp.display("Error", "already connected");
+			break;
 		default:
 			Employee employee = gson.fromJson(ChatClient.serverMsg, Employee.class);
-			openEmployeeGui(employee);
+			switch (employee.getTypeOfEmployee()) {
+			case "department manager":
+				fxmlName = "MainPageDepartmentManager.fxml";
+				title = "Department Manager Main Page";
+				break;
+			case "park manager":
+				fxmlName = "MainPageParkManager.fxml";
+				title = "Park Manager Main Page";
+				break;
+			case "employee":
+				fxmlName = "MainPageEmployee.fxml";
+				title = "Employee Main Page";
+				break;
+
+			default:
+				break;
+			}
+			openEmployeeGui(fxmlName, title);
 		}
 	}
 
-	private void openEmployeeGui(Employee employee) {
+//MainPageParkManager
+	// "MainPageEmployee.fxml"
+	//
+	private void openEmployeeGui(String fxmlName, String title) {
 		try {
 			Stage primaryStage = new Stage();
 			Stage stage = (Stage) ContinueBtn.getScene().getWindow();
-			// FIXME primaryStage.setOnCloseRequest(value);
 			stage.close();
 
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(this.getClass().getResource("MainPageEmployee.fxml"));
+			loader.setLocation(this.getClass().getResource(fxmlName));
 			Pane root = loader.load();
 
-			MainPageEmployeeController mainPageEmployeeController = loader.getController();
-			mainPageEmployeeController.setEmp(employee);
-
 			Scene sc = new Scene(root);
-			primaryStage.setTitle("Main page for emlpoyee");
+			primaryStage.setTitle(title);
 			primaryStage.setScene(sc);
 			primaryStage.show();
 		} catch (IOException e) {
