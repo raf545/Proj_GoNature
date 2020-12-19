@@ -1,20 +1,24 @@
 package logic;
 
 public class Subscriber {
-	private String id;
-	private String subscriberid;
-	private String name;
-	private String lastName;
-	private String phone;
-	private String email;
-	private String numOfMembers;
-	private String creditCardNumber;
-	private String subscriberTypre;
+	private String id=null;
+	private  String subscriberid=null;
+	private static String subscriberidreal="1111";
+	private String name=null;
+	private String lastName=null;
+	private String phone=null;
+	private String email=null;
+	private String numOfMembers=null;
+	private String creditCardNumber=null;
+	private String subscriberTypre=null;
 
 	public Subscriber(String id, String subscriberid, String name, String lastName, String phone, String email,
 			String numOfMembers, String creditCardNumber, String subscriberTypre) {
 		this.id = id;
-		this.subscriberid = subscriberid;
+		int result = Integer.parseInt(subscriberidreal);
+		result++;
+		subscriberidreal=String.valueOf(result);
+		this.subscriberid=subscriberidreal;	
 		this.name = name;
 		this.lastName = lastName;
 		this.phone = phone;
@@ -36,9 +40,7 @@ public class Subscriber {
 		return subscriberid;
 	}
 
-	public void setSubscriberid(String subscriberid) {
-		this.subscriberid = subscriberid;
-	}
+
 
 	public String getName() {
 		return name;
@@ -98,8 +100,9 @@ public class Subscriber {
 
 	@Override
 	public String toString() {
-		return id + ", " + subscriberid + ", " + name + ", " + lastName + ", " + phone + ", " + email + ", "
-				+ numOfMembers + ", " + creditCardNumber + ", " + subscriberTypre;
+		return "(" + id + ", " + subscriberid + ", \"" + name + "\", \"" + lastName + "\", " + phone + ", \"" + email + "\", "
+				+ numOfMembers + ", " + creditCardNumber + ", \"" + subscriberTypre + "\")";
 	}
+
 
 }

@@ -17,6 +17,7 @@ import requestHandler.controllerName;
 
 public class NewFamilySubWorkerController {
 	Gson gson = new Gson();
+	Subscriber subscriber;
 	@FXML
 	private TextField firstNameTF;
 
@@ -47,7 +48,7 @@ public class NewFamilySubWorkerController {
 	@FXML
 	void saveFamily(ActionEvent event) {
 
-		System.out.println("hey");
+		
 		StringBuilder popError = new StringBuilder();
 		String id, subscriberid, name, lastName, phone, email, numOfMembers, creditCardNumber, subscriberType;
 		id = IdTF.getText();
@@ -82,7 +83,7 @@ public class NewFamilySubWorkerController {
 				PopUp.display("Error", popError.toString());
 		} else {
 
-			Subscriber subscriber = new Subscriber(id, subscriberid, name, lastName, phone, email, numOfMembers,
+			 subscriber = new Subscriber(id, subscriberid, name, lastName, phone, email, numOfMembers,
 					creditCardNumber, subscriberType);
 			sendLoginRequestToServer("addFamilySub", subscriber);
 			analyzeAnswerFromServer();
@@ -105,7 +106,7 @@ public class NewFamilySubWorkerController {
 		case "fail":
 			PopUp.display("Error", answer);
 		case "success":
-			PopUp.display("sucess", answer);
+			PopUp.display("sucess", "your subscriber id is:"+subscriber.getSubscriberid());
 			break;
 		}
 	}
