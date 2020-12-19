@@ -63,7 +63,7 @@ public class NewReservationController {
     void Continue(ActionEvent event) {
 
     }
-
+ 
     @FXML
     void minus(ActionEvent event) {
 
