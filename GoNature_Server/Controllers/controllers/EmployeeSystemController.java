@@ -32,6 +32,9 @@ public class EmployeeSystemController {
 		switch (MethodName) {
 		case "addFamilySub":
 			return addFamilySub(data, client);
+			
+		case "addInstructorSub":
+			return addInstructorSub(data, client);
 
 		}
 		return data;
@@ -50,6 +53,29 @@ public class EmployeeSystemController {
 			return "success";
 		return "fail";
 	}
+	
+	
+	
+	private String addInstructorSub(String data, ConnectionToClient client) {
+		Subscriber subscriber = gson.fromJson(data, Subscriber.class);
+		String query = "SELECT * FROM gonaturedb.subscriber WHERE id = " + subscriber.getId() + " OR subscriberid = "
+				+ subscriber.getSubscriberid() + ";";
+		ResultSet res = SqlConnector.getInstance().searchInDB(query);
+		if (isEmpty(res) != 0)
+			return "Instructor already exist";
+	
+			
+		query = "INSERT INTO gonaturedb.subscriber (id, subscriberid, name, lastName, phone, email, numOfMembers, creditCardNumber, subscriberTypre) VALUES "
+				+ subscriber.toString() + ";";
+		if (SqlConnector.getInstance().updateToDB(query))
+			return "success";
+		return "fail";
+	}
+
+	
+	
+	
+	
 
 	private int isEmpty(ResultSet rs) {
 		int size = 0;
