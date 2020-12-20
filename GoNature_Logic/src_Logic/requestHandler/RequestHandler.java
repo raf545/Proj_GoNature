@@ -1,5 +1,11 @@
 package requestHandler;
 
+/**
+ * This Class contains all thi info needed to handel a given data and controller name 
+ * 
+ * @author rafaelelkoby
+ *
+ */
 public class RequestHandler {
 
 	private controllerName myCon;

@@ -1,4 +1,4 @@
-package logic;
+package reservation;
 
 public class Reservation {
 

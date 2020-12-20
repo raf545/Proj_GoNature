@@ -1,4 +1,4 @@
-package gui;
+package employee;
 
 import java.io.IOException;
 
@@ -14,7 +14,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import logic.Employee;
 
 public class MainPageEmployeeController {
 	@FXML
@@ -51,6 +50,7 @@ public class MainPageEmployeeController {
 		mainPane.getChildren().clear();
 		mainPane.getChildren().add(root);
 
+		//TODO Dont leave this kind of code lines
 //		try {
 //			Stage primaryStage = new Stage();
 //			Stage stage = (Stage) quitBtn.getScene().getWindow();

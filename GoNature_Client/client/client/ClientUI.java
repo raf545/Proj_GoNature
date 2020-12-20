@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import gui.GoNatureLoginController;
+import login.GoNatureLoginController;
 
 /**
  * @author Dan Gutchin

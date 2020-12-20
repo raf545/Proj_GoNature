@@ -1,4 +1,4 @@
-package logic;
+package employee;
 
 public class Employee {
 	private String employeeId;

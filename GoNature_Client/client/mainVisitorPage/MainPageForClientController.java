@@ -1,8 +1,9 @@
-package gui;
+package mainVisitorPage;
 
 import java.io.IOException;
 
 import client.ChatClient;
+import guiCommon.StaticPaneMainPageClient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +13,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import logic.Subscriber;
+import reservation.NewReservationController;
+import subscriber.Subscriber;
 
 public class MainPageForClientController {
 
@@ -37,12 +39,12 @@ public class MainPageForClientController {
 	@FXML
 	private Label mainPageWelcomLabel;
 
-	void setTitels(String welcome, String typeOfClient) {
+	public void setTitels(String welcome, String typeOfClient) {
 		mainPageTypeOfClient.setText(typeOfClient);
 		mainPageWelcomLabel.setText(welcome);
 	}
 
-	Pane getPane() {
+	public Pane getPane() {
 		return PaneChange;
 	}
 

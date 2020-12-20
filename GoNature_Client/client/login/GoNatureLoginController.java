@@ -1,4 +1,4 @@
-package gui;
+package login;
 
 import java.io.IOException;
 
