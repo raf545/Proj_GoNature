@@ -1,4 +1,4 @@
-package gui;
+package reservation;
 
 public class PaymentController {
 

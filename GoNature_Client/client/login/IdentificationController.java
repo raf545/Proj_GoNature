@@ -1,4 +1,4 @@
-package gui;
+package login;
 
 import java.io.IOException;
 
@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 
 import client.ChatClient;
 import client.ClientUI;
+import guiCommon.StaticPaneMainPageClient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,11 +18,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import logic.Reservation;
-import logic.Subscriber;
+import mainVisitorPage.MainPageForClientController;
 import popup.PopUp;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
+import reservation.Reservation;
+import subscriber.Subscriber;
 
 public class IdentificationController {
 
@@ -41,10 +43,19 @@ public class IdentificationController {
 	@FXML
 	private Text BackButton;
 
+	/**
+	 *  Sets the identifaction combobox options
+	 */
 	public void setIdentificationComboBox() {
 		OptionCombo.getItems().addAll("Guest ID", "Subscriber", "Reservation ID");
 	}
 
+	/**
+	 * This method is called every time the BackButton is pressed 
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	void identificationBackButton(MouseEvent event) throws IOException {
 		Stage primaryStage = new Stage();
@@ -69,6 +80,11 @@ public class IdentificationController {
 		primaryStage.show();
 	}
 
+	/**
+	 * This method is calld 
+	 * @param event a certian event realted to button, like right klick
+	 * @throws IOException
+	 */
 	@FXML
 	void identificationContinueButton(ActionEvent event) throws IOException {
 
@@ -90,8 +106,10 @@ public class IdentificationController {
 		}
 	}
 
+
 	/**
 	 * 
+	 * @param selectedCombo The option selected from the combobox
 	 */
 	private void analyzeAnswerFromServer(String selectedCombo) {
 		String VisitorName = null;
@@ -174,6 +192,10 @@ public class IdentificationController {
 		ClientUI.chat.accept(gson.toJson(rh));
 	}
 
+	/**
+	 * @param clientType
+	 * @param clientTypeString
+	 */
 	private void setClientInfoAndType(Class clientType, String clientTypeString) {
 		ChatClient.clientInfo = ChatClient.serverMsg;
 		ChatClient.clientType = clientType;

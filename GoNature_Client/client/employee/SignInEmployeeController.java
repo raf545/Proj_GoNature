@@ -1,4 +1,4 @@
-package gui;
+package employee;
 
 import java.io.IOException;
 
@@ -18,12 +18,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import logic.Employee;
-import logic.Reservation;
-import logic.Subscriber;
 import popup.PopUp;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
+import reservation.Reservation;
+import subscriber.Subscriber;
 
 public class SignInEmployeeController {
 	Gson gson = new Gson();

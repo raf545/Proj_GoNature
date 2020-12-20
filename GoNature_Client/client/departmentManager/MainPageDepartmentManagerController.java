@@ -1,4 +1,4 @@
-package gui;
+package departmentManager;
 
 public class MainPageDepartmentManagerController {
 

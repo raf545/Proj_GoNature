@@ -1,4 +1,4 @@
-package gui;
+package parkManager;
 
 public class MainPageParkManagerController {
 

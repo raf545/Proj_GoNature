@@ -5,11 +5,11 @@ import java.sql.SQLException;
 
 import com.google.gson.Gson;
 
-import logic.Employee;
-import logic.Reservation;
-import logic.Subscriber;
+import employee.Employee;
 import ocsf.server.ConnectionToClient;
+import reservation.Reservation;
 import sqlConnection.SqlConnector;
+import subscriber.Subscriber;
 
 public class EmployeeSystemController {
 	Gson gson = new Gson();

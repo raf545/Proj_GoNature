@@ -1,4 +1,4 @@
-package logic;
+package subscriber;
 
 public class Subscriber {
 	private String id=null;

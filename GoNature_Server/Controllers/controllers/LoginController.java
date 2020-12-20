@@ -5,12 +5,16 @@ import java.sql.SQLException;
 
 import com.google.gson.Gson;
 
-import logic.Employee;
-import logic.Reservation;
-import logic.Subscriber;
+import employee.Employee;
 import ocsf.server.ConnectionToClient;
+import reservation.Reservation;
 import sqlConnection.SqlConnector;
+import subscriber.Subscriber;
 
+/**
+ * @author rafaelelkoby
+ *
+ */
 public class LoginController {
 	Gson gson = new Gson();
 
@@ -20,6 +24,10 @@ public class LoginController {
 
 	}
 
+	/**
+	 * 
+	 * @return The instance of logincontroller
+	 */
 	public static LoginController getInstance() {
 
 		if (loginControllerInstacne == null)
@@ -27,6 +35,12 @@ public class LoginController {
 		return loginControllerInstacne;
 	}
 
+	/**
+	 * @param MethodName
+	 * @param data
+	 * @param client
+	 * @return
+	 */
 	public String getFunc(String MethodName, String data, ConnectionToClient client) {
 
 		switch (MethodName) {
@@ -43,6 +57,12 @@ public class LoginController {
 		return data;
 	}
 
+	/**
+	 * @param data
+	 * @param Table
+	 * @param client
+	 * @return
+	 */
 	private String SubscriberLogin(String data, String Table, ConnectionToClient client) {
 		String query = "SELECT * FROM gonaturedb." + Table + " WHERE id = " + data + " OR subscriberid = " + data + ";";
 		ResultSet res = SqlConnector.getInstance().searchInDB(query);
@@ -83,6 +103,11 @@ public class LoginController {
 
 	}
 
+	/**
+	 * @param data
+	 * @param client
+	 * @return
+	 */
 	private String ReservationIDLogin(String data, ConnectionToClient client) {
 		String query = "SELECT * FROM gonaturedb.reservetions WHERE reservationID = " + data + ";";
 		ResultSet res = SqlConnector.getInstance().searchInDB(query);
@@ -134,6 +159,10 @@ public class LoginController {
 		return size;
 	}
 
+	/**
+	 * @param id
+	 * @return
+	 */
 	private boolean isConnected(String id) {
 		// TODO is gust coonected? why there is no discription
 		String query = "SELECT * FROM gonaturedb.logedin WHERE id = " + id + ";";
@@ -143,6 +172,11 @@ public class LoginController {
 		return false;
 	}
 
+	/**
+	 * @param data
+	 * @param tableName
+	 * @return
+	 */
 	private boolean addToTableinDb(String data, String tableName) {
 		String query = "INSERT INTO gonaturedb." + tableName + " (id) VALUES (" + data + ");";
 		if (SqlConnector.getInstance().updateToDB(query))
@@ -150,6 +184,11 @@ public class LoginController {
 		return false;
 	}
 
+	/**
+	 * @param client
+	 * @param Table
+	 * @return
+	 */
 	private boolean setLoginToDB(ConnectionToClient client, String Table) {
 		String query = "UPDATE gonaturedb." + Table + " SET connected = 1 WHERE id = " + client.getInfo("ID") + ";";
 		if (SqlConnector.getInstance().updateToDB(query))
@@ -157,6 +196,11 @@ public class LoginController {
 		return false;
 	}
 
+	/**
+	 * @param employeeData
+	 * @param client
+	 * @return
+	 */
 	private String employeeLogIn(String employeeData, ConnectionToClient client) {
 		Employee employee = gson.fromJson(employeeData, Employee.class);
 		String query = "SELECT * FROM gonaturedb.employees WHERE employeeId = " + employee.getEmployeeId() + ";";
@@ -185,6 +229,11 @@ public class LoginController {
 		return "wrong password";
 	}
 
+	/**
+	 * @param client
+	 * @param Table
+	 * @return
+	 */
 	private boolean setLoginToEmployeeDB(ConnectionToClient client, String Table) {
 		String query = "UPDATE gonaturedb." + Table + " SET connected = 1 WHERE employeeId = " + client.getInfo("ID")
 				+ ";";

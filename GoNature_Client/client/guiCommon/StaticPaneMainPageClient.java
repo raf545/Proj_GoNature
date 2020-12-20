@@ -1,4 +1,4 @@
-package gui;
+package guiCommon;
 
 import javafx.scene.layout.Pane;
 
