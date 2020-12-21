@@ -9,7 +9,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import popup.PopUp;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
@@ -40,7 +43,7 @@ public class NewFamilySubWorkerController {
 	private TextField CreditCardTF;
 
 	@FXML
-	private Circle backBtn;
+	private Text backBtn;
 
 	@FXML
 	private Button saveBtn;
@@ -48,7 +51,6 @@ public class NewFamilySubWorkerController {
 	@FXML
 	void saveFamily(ActionEvent event) {
 
-		
 		StringBuilder popError = new StringBuilder();
 		String id, subscriberid, name, lastName, phone, email, numOfMembers, creditCardNumber, subscriberType;
 		id = IdTF.getText();
@@ -83,8 +85,8 @@ public class NewFamilySubWorkerController {
 				PopUp.display("Error", popError.toString());
 		} else {
 
-			 subscriber = new Subscriber(id, subscriberid, name, lastName, phone, email, numOfMembers,
-					creditCardNumber, subscriberType);
+			subscriber = new Subscriber(id, subscriberid, name, lastName, phone, email, numOfMembers, creditCardNumber,
+					subscriberType);
 			sendLoginRequestToServer("addFamilySub", subscriber);
 			analyzeAnswerFromServer();
 		}
@@ -106,10 +108,15 @@ public class NewFamilySubWorkerController {
 		case "fail":
 			PopUp.display("Error", answer);
 		default:
-			subscriber=gson.fromJson(answer,Subscriber.class);
-			PopUp.display("sucess", "your subscriber id is:"+subscriber.getSubscriberid());
+			subscriber = gson.fromJson(answer, Subscriber.class);
+			PopUp.display("sucess", "your subscriber id is:" + subscriber.getSubscriberid());
 			break;
 		}
+	}
+
+	@FXML
+	void back(MouseEvent event) {
+
 	}
 
 }

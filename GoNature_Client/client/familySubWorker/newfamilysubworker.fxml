@@ -63,23 +63,23 @@
             <Font name="Guttman Drogolin Bold" size="34.0" />
          </font>
       </Text>
-      <Circle fx:id="backBtn" fill="#ffc956" layoutX="244.0" layoutY="90.0" radius="25.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="0.0" />
-      <Text fill="WHITE" layoutX="218.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;" textAlignment="CENTER" wrappingWidth="50.0">
+      <Circle fill="#ffc956" layoutX="244.0" layoutY="90.0" radius="25.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="0.0" />
+      <Text fx:id="backBtn" fill="WHITE" layoutX="218.0" layoutY="100.0" onMouseClicked="#back" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;" textAlignment="CENTER" wrappingWidth="50.0">
          <font>
             <Font name="Baloo Regular" size="30.0" />
          </font>
       </Text>
-      <Text fill="RED" layoutX="243.0" layoutY="510.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
+      <Text fill="RED" layoutX="243.0" layoutY="536.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
          <font>
             <Font size="21.0" />
          </font>
       </Text>
-      <Text fill="RED" layoutX="243.0" layoutY="294.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
+      <Text fill="RED" layoutX="243.0" layoutY="305.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
          <font>
             <Font size="21.0" />
          </font>
       </Text>
-      <Text fill="RED" layoutX="243.0" layoutY="435.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
+      <Text fill="RED" layoutX="243.0" layoutY="460.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
          <font>
             <Font size="21.0" />
          </font>
@@ -89,7 +89,7 @@
             <Font size="21.0" />
          </font>
       </Text>
-      <Text fill="RED" layoutX="245.0" layoutY="223.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
+      <Text fill="RED" layoutX="243.0" layoutY="230.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
          <font>
             <Font size="21.0" />
          </font>
@@ -99,7 +99,7 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Text fill="RED" layoutX="243.0" layoutY="365.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
+      <Text fill="RED" layoutX="243.0" layoutY="382.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
          <font>
             <Font size="21.0" />
          </font>

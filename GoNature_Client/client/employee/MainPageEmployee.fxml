@@ -113,8 +113,8 @@
             <Font name="Guttman Drogolin Bold" size="24.0" />
          </font>
       </Text>
-      <Rectangle fx:id="quitBtn" arcHeight="5.0" arcWidth="5.0" fill="#ffc956" height="45.0" layoutX="1095.0" layoutY="901.0" onMouseClicked="#quit" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="90.0" />
-      <Text layoutX="1114.0" layoutY="933.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quit" wrappingWidth="68.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffc956" height="45.0" layoutX="1095.0" layoutY="901.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="90.0" />
+      <Text fx:id="quitBtn" layoutX="1095.0" layoutY="933.0" onMouseClicked="#quit" strokeType="OUTSIDE" strokeWidth="0.0" text="Quit" textAlignment="CENTER" wrappingWidth="89.99999248981476">
          <font>
             <Font name="Guttman Drogolin Bold" size="24.0" />
          </font>

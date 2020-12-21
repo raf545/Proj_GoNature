@@ -15,6 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class MainPageEmployeeController {
@@ -34,7 +35,7 @@ public class MainPageEmployeeController {
 	private Button NewInstructorBtn;
 
 	@FXML
-	private Rectangle quitBtn;
+	private Text quitBtn;
 
 	private Employee employee;
 
@@ -45,14 +46,14 @@ public class MainPageEmployeeController {
 
 	@FXML
 	void openNewFamilySub(ActionEvent event) throws IOException {
-    	FXMLLoader loader = new FXMLLoader();
+		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(NewFamilySubWorkerController.class.getResource("newfamilysubworker.fxml"));
 
 		Pane root = loader.load();
 		mainPane.getChildren().clear();
 		mainPane.getChildren().add(root);
 
-		//TODO Dont leave this kind of code lines
+		// TODO Dont leave this kind of code lines
 //		try {
 //			Stage primaryStage = new Stage();
 //			Stage stage = (Stage) quitBtn.getScene().getWindow();
