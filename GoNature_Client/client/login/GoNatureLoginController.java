@@ -2,6 +2,8 @@ package login;
 
 import java.io.IOException;
 
+import employee.SignInEmployeeController;
+import faq.FaqController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,7 +37,7 @@ public class GoNatureLoginController {
 		// do what you have to do
 		stage.close();
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(this.getClass().getResource("FAQ.fxml"));
+		loader.setLocation(FaqController.class.getResource("FAQ.fxml"));
 		Pane root = loader.load();
 		Scene sc = new Scene(root);
 		primaryStage.setTitle("FAQ");
@@ -59,7 +61,7 @@ public class GoNatureLoginController {
 		// do what you have to do
 		stage.close();
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(this.getClass().getResource("Identification.fxml"));
+		loader.setLocation(IdentificationController.class.getResource("Identification.fxml"));
 		Pane root = loader.load();
 		Scene sc = new Scene(root);
 		primaryStage.setTitle("Login");
@@ -79,7 +81,7 @@ public class GoNatureLoginController {
 		// do what you have to do
 		stage.close();
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(this.getClass().getResource("SignInEmployee.fxml"));
+		loader.setLocation(SignInEmployeeController.class.getResource("SignInEmployee.fxml"));
 		Pane root = loader.load();
 		Scene sc = new Scene(root);
 		primaryStage.setTitle("Employee Login");

@@ -23,7 +23,7 @@ public class SqlConnector {
 	private Connection con = null;
 	private String jdbcURL = "jdbc:mysql://localhost/gonaturedb?serverTimezone=IST";
 	private String jdbcuser = "root";
-	private String jdbcPass = "root";
+	private String jdbcPass = "Aa123456";
 	// Constructors ****************************************************
 
 	private SqlConnector() {

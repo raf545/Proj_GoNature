@@ -3,7 +3,6 @@ package subscriber;
 public class Subscriber {
 	private String id=null;
 	private  String subscriberid=null;
-	private static String subscriberidreal="1111";
 	private String name=null;
 	private String lastName=null;
 	private String phone=null;
@@ -15,10 +14,7 @@ public class Subscriber {
 	public Subscriber(String id, String subscriberid, String name, String lastName, String phone, String email,
 			String numOfMembers, String creditCardNumber, String subscriberType) {
 		this.id = id;
-		int result = Integer.parseInt(subscriberidreal);
-		result++;
-		subscriberidreal=String.valueOf(result);
-		this.subscriberid=subscriberidreal;	
+		this.subscriberid=	subscriberid;
 		this.name = name;
 		this.lastName = lastName;
 		this.phone = phone;
@@ -96,6 +92,9 @@ public class Subscriber {
 
 	public void setSubscriberTypre(String subscriberTypre) {
 		this.subscriberType = subscriberTypre;
+	}
+	public void setSubscriberId(String subscriberid) {
+		this.subscriberid = subscriberid;
 	}
 
 	@Override

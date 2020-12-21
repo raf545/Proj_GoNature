@@ -52,7 +52,7 @@ public class NewFamilySubWorkerController {
 		StringBuilder popError = new StringBuilder();
 		String id, subscriberid, name, lastName, phone, email, numOfMembers, creditCardNumber, subscriberType;
 		id = IdTF.getText();
-		subscriberid = "1234";
+		subscriberid = null;
 		name = firstNameTF.getText();
 		lastName = LastNameTF.getText();
 		phone = PhoneTF.getText();
@@ -105,7 +105,8 @@ public class NewFamilySubWorkerController {
 			break;
 		case "fail":
 			PopUp.display("Error", answer);
-		case "success":
+		default:
+			subscriber=gson.fromJson(answer,Subscriber.class);
 			PopUp.display("sucess", "your subscriber id is:"+subscriber.getSubscriberid());
 			break;
 		}

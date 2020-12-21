@@ -44,14 +44,14 @@ public class IdentificationController {
 	private Text BackButton;
 
 	/**
-	 *  Sets the identifaction combobox options
+	 * Sets the identifaction combobox options
 	 */
 	public void setIdentificationComboBox() {
 		OptionCombo.getItems().addAll("Guest ID", "Subscriber", "Reservation ID");
 	}
 
 	/**
-	 * This method is called every time the BackButton is pressed 
+	 * This method is called every time the BackButton is pressed
 	 * 
 	 * @param event
 	 * @throws IOException
@@ -65,7 +65,7 @@ public class IdentificationController {
 		stage.close();
 
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(this.getClass().getResource("GoNatureLogin.fxml"));
+		loader.setLocation(GoNatureLoginController.class.getResource("GoNatureLogin.fxml"));
 
 		Pane root = null;
 		try {
@@ -81,7 +81,8 @@ public class IdentificationController {
 	}
 
 	/**
-	 * This method is calld 
+	 * This method is calld
+	 * 
 	 * @param event a certian event realted to button, like right klick
 	 * @throws IOException
 	 */
@@ -105,7 +106,6 @@ public class IdentificationController {
 			analyzeAnswerFromServer(selectedCombo);
 		}
 	}
-
 
 	/**
 	 * 
@@ -134,22 +134,23 @@ public class IdentificationController {
 
 		default:
 			if (selectedCombo == "Guest ID") {
-				setClientInfoAndType(String.class,"Guest");
+				setClientInfoAndType(String.class, "Guest");
 				VisitorName = "Guest";
 				VisitorType = "Guest";
 			} else if (selectedCombo == "Subscriber") {
-				
+
 				Subscriber savedSubscriberName = gson.fromJson(ChatClient.serverMsg, Subscriber.class);
-				setClientInfoAndType(Subscriber.class,savedSubscriberName.getSubscriberType());
-				VisitorName = savedSubscriberName.getName() +" "+ savedSubscriberName.getLastName();
+				setClientInfoAndType(Subscriber.class, savedSubscriberName.getSubscriberType());
+				VisitorName = savedSubscriberName.getName() + " " + savedSubscriberName.getLastName();
 				VisitorType = "Subscriber";
 			} else if (selectedCombo == "Reservation ID") {
-				setClientInfoAndType(Reservation.class,"Reservation");
+				setClientInfoAndType(Reservation.class, "Reservation");
 				Reservation saveRsesrvationId = gson.fromJson(ChatClient.serverMsg, Reservation.class);
-				VisitorName = saveRsesrvationId.getPersonalID() + "Reservasion id: " + saveRsesrvationId.getReservationID();
+				VisitorName = saveRsesrvationId.getPersonalID() + "Reservasion id: "
+						+ saveRsesrvationId.getReservationID();
 				VisitorType = "Reservation";
 			}
-			openPageUsingFxmlName(VisitorName,VisitorType);
+			openPageUsingFxmlName(VisitorName, VisitorType);
 			break;
 		}
 
@@ -168,13 +169,13 @@ public class IdentificationController {
 			stage.close();
 
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(this.getClass().getResource("MainPageForClient.fxml"));
+			loader.setLocation(MainPageForClientController.class.getResource("MainPageForClient.fxml"));
 			Pane root = loader.load();
-			
+
 			MainPageForClientController mainPageForClientController = loader.getController();
-			mainPageForClientController.setTitels("hello " + VisitorHelloString , VisitorType);
+			mainPageForClientController.setTitels("hello " + VisitorHelloString, VisitorType);
 			StaticPaneMainPageClient.clientMainPane = mainPageForClientController.getPane();
-			
+
 			Scene sc = new Scene(root);
 			primaryStage.setTitle("Main page");
 			primaryStage.setScene(sc);
