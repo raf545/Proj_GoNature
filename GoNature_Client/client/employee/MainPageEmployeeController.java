@@ -2,6 +2,8 @@ package employee;
 
 import java.io.IOException;
 
+import familySubWorker.NewFamilySubWorkerController;
+import groupLeader.NewGroupLeaderWorkerController;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -44,7 +46,7 @@ public class MainPageEmployeeController {
 	@FXML
 	void openNewFamilySub(ActionEvent event) throws IOException {
     	FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(this.getClass().getResource("newfamilysubworker.fxml"));
+		loader.setLocation(NewFamilySubWorkerController.class.getResource("newfamilysubworker.fxml"));
 
 		Pane root = loader.load();
 		mainPane.getChildren().clear();
@@ -73,7 +75,7 @@ public class MainPageEmployeeController {
 	@FXML
 	void openNewInstructor(ActionEvent event) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(this.getClass().getResource("newGroupLeaderworkerns.fxml"));
+		loader.setLocation(NewGroupLeaderWorkerController.class.getResource("newGroupLeaderworkerns.fxml"));
 
 		Pane root = loader.load();
 		mainPane.getChildren().clear();

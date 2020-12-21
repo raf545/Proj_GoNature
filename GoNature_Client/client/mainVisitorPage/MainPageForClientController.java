@@ -13,8 +13,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import reservation.MyReservationsController;
 import reservation.NewReservationController;
 import subscriber.Subscriber;
+import waitingList.MyWaitingListController;
 
 public class MainPageForClientController {
 
@@ -52,7 +54,7 @@ public class MainPageForClientController {
 	void MyReservationBtn(ActionEvent event) throws IOException {
 		StaticPaneMainPageClient.clientMainPane.getChildren().clear();
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(this.getClass().getResource("MyReservations.fxml"));
+		loader.setLocation(MyReservationsController.class.getResource("MyReservations.fxml"));
 		Pane root = loader.load();
 		StaticPaneMainPageClient.clientMainPane.getChildren().add(root);
 
@@ -62,7 +64,7 @@ public class MainPageForClientController {
 	void NewReservation(ActionEvent event) throws IOException {
 		StaticPaneMainPageClient.clientMainPane.getChildren().clear();
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(this.getClass().getResource("NewReservation.fxml"));
+		loader.setLocation(NewReservationController.class.getResource("NewReservation.fxml"));
 		Pane root = loader.load();
 		NewReservationController newReservationController = loader.getController();
 		newReservationController.setIdentFields();
@@ -84,7 +86,7 @@ public class MainPageForClientController {
 	void WaitingListBtn(ActionEvent event) throws IOException {
 		StaticPaneMainPageClient.clientMainPane.getChildren().clear();
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(this.getClass().getResource("MyWaitingList.fxml"));
+		loader.setLocation(MyWaitingListController.class.getResource("MyWaitingList.fxml"));
 		Pane root = loader.load();
 		StaticPaneMainPageClient.clientMainPane.getChildren().add(root);
 

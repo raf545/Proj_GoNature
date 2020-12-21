@@ -9,6 +9,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import login.GoNatureLoginController;
 
 public class FaqController {
 
@@ -23,7 +24,7 @@ public class FaqController {
 		// do what you have to do
 		stage.close();
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(this.getClass().getResource("GoNatureLogin.fxml"));
+		loader.setLocation(GoNatureLoginController.class.getResource("GoNatureLogin.fxml"));
 		Pane root = loader.load();
 		Scene sc = new Scene(root);
 		primaryStage.setTitle("Login");

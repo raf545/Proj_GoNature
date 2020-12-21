@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 
 import client.ChatClient;
 import client.ClientUI;
+import departmentManager.MainPageDepartmentManagerController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +19,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import login.GoNatureLoginController;
+import parkManager.MainPageParkManagerController;
 import popup.PopUp;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
@@ -46,7 +49,7 @@ public class SignInEmployeeController {
 		// do what you have to do
 		stage.close();
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(this.getClass().getResource("GoNatureLogin.fxml"));
+		loader.setLocation(GoNatureLoginController.class.getResource("GoNatureLogin.fxml"));
 		Pane root = loader.load();
 		Scene sc = new Scene(root);
 		primaryStage.setTitle("Login");
@@ -84,40 +87,74 @@ public class SignInEmployeeController {
 			Employee employee = gson.fromJson(ChatClient.serverMsg, Employee.class);
 			switch (employee.getTypeOfEmployee()) {
 			case "department manager":
-				fxmlName = "MainPageDepartmentManager.fxml";
-				title = "Department Manager Main Page";
+				openDepartmentManagerGui();
 				break;
 			case "park manager":
-				fxmlName = "MainPageParkManager.fxml";
-				title = "Park Manager Main Page";
+				openParkManagerGui();
 				break;
 			case "employee":
-				fxmlName = "MainPageEmployee.fxml";
-				title = "Employee Main Page";
+				openEmployeeGui();
 				break;
 
 			default:
 				break;
 			}
-			openEmployeeGui(fxmlName, title);
 		}
 	}
 
 //MainPageParkManager
 	// "MainPageEmployee.fxml"
 	//
-	private void openEmployeeGui(String fxmlName, String title) {
+	private void openEmployeeGui() {
 		try {
 			Stage primaryStage = new Stage();
 			Stage stage = (Stage) ContinueBtn.getScene().getWindow();
 			stage.close();
 
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(this.getClass().getResource(fxmlName));
+			loader.setLocation(MainPageEmployeeController.class.getResource("MainPageEmployee.fxml"));
 			Pane root = loader.load();
 
 			Scene sc = new Scene(root);
-			primaryStage.setTitle(title);
+			primaryStage.setTitle("Employee Main Page");
+			primaryStage.setScene(sc);
+			primaryStage.show();
+		} catch (IOException e) {
+			System.out.println("Load Faild");
+		}
+	}
+
+	private void openParkManagerGui() {
+		try {
+			Stage primaryStage = new Stage();
+			Stage stage = (Stage) ContinueBtn.getScene().getWindow();
+			stage.close();
+
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainPageParkManagerController.class.getResource("MainPageParkManager.fxml"));
+			Pane root = loader.load();
+
+			Scene sc = new Scene(root);
+			primaryStage.setTitle("Main Page Park Manager");
+			primaryStage.setScene(sc);
+			primaryStage.show();
+		} catch (IOException e) {
+			System.out.println("Load Faild");
+		}
+	}
+
+	private void openDepartmentManagerGui() {
+		try {
+			Stage primaryStage = new Stage();
+			Stage stage = (Stage) ContinueBtn.getScene().getWindow();
+			stage.close();
+
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainPageDepartmentManagerController.class.getResource("MainPageDepartmentManager.fxml"));
+			Pane root = loader.load();
+
+			Scene sc = new Scene(root);
+			primaryStage.setTitle("Main Page Department Manager");
 			primaryStage.setScene(sc);
 			primaryStage.show();
 		} catch (IOException e) {

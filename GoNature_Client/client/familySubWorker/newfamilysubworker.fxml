@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="920.0" style="-fx-background-color: #FFC956;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.NewFamilySubWorkerController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="920.0" style="-fx-background-color: #FFC956;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="familySubWorker.NewFamilySubWorkerController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="682.0" layoutX="197.0" layoutY="47.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="527.0" />
       <VBox layoutX="254.0" layoutY="130.0" prefHeight="416.0" prefWidth="393.0" spacing="12.0">
