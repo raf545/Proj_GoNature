@@ -10,12 +10,12 @@ import com.google.gson.Gson;
 
 import controllers.EmployeeSystemController;
 import controllers.LoginController;
+import dataBase.DataBase;
 import ocsf.server.AbstractServer;
 import ocsf.server.ConnectionToClient;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
 import serverGui.ServerGuiController;
-import sqlConnection.SqlConnector;
 
 /**
  * This class overrides some of the methods in the abstract superclass in order
@@ -76,7 +76,7 @@ public class EchoServer extends AbstractServer {
 			answer = EmployeeSystemController.getInstance().getFunc(rh.getFunc(), rh.getData(), client);
 			break;
 		case LoginController:
-			answer = LoginController.getInstance().getFunc(rh.getFunc(), rh.getData(), client);
+			answer = LoginController.getInstance().loginRouter(rh.getFunc(), rh.getData(), client);
 			break;
 		case ReportsController:
 			break;
@@ -100,8 +100,8 @@ public class EchoServer extends AbstractServer {
 	 * starts listening for connections.
 	 */
 	protected void serverStarted() {
-		SqlConnector.getInstance();
-		if (SqlConnector.getInstance().setConnection())
+		DataBase.getInstance();
+		if (DataBase.getInstance().setConnection())
 			serverPortControllerInstance.setConnectToDB();
 	}
 
@@ -154,7 +154,7 @@ public class EchoServer extends AbstractServer {
 		} else {
 			query = "UPDATE gonaturedb." + table + " SET connected = 0 WHERE id = " + id + ";";
 		}
-		SqlConnector.getInstance().updateToDB(query);
+		DataBase.getInstance().update(query);
 
 	}
 

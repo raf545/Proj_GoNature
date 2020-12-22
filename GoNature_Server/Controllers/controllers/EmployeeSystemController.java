@@ -5,10 +5,10 @@ import java.sql.SQLException;
 
 import com.google.gson.Gson;
 
+import dataBase.DataBase;
 import employee.Employee;
 import ocsf.server.ConnectionToClient;
 import reservation.Reservation;
-import sqlConnection.SqlConnector;
 import subscriber.Subscriber;
 
 public class EmployeeSystemController {
@@ -45,11 +45,11 @@ public class EmployeeSystemController {
 		int subidr = 0;
 		String query = "SELECT * FROM gonaturedb.subscriber WHERE id = " + subscriber.getId() + " OR subscriberid = "
 				+ subscriber.getSubscriberid() + ";";
-		ResultSet res = SqlConnector.getInstance().searchInDB(query);
+		ResultSet res = DataBase.getInstance().search(query);
 		if (isEmpty(res) != 0)
 			return "subscriber already exist";
 		query = "SELECT * FROM gonaturedb.uptodateinformation WHERE nameOfVal = \"subscriberID\";";
-		res = SqlConnector.getInstance().searchInDB(query);
+		res = DataBase.getInstance().search(query);
 		if (isEmpty(res) == 0) {
 			System.out.println("here!!");
 			return "";
@@ -65,10 +65,10 @@ public class EmployeeSystemController {
 
 		query = "INSERT INTO gonaturedb.subscriber (id, subscriberid, name, lastName, phone, email, numOfMembers, creditCardNumber, subscriberTypre) VALUES "
 				+ subscriber.toString() + ";";
-		if (SqlConnector.getInstance().updateToDB(query)) {
+		if (DataBase.getInstance().update(query)) {
 			subidr++;
 			query = "UPDATE gonaturedb.uptodateinformation SET num = " + subidr + " WHERE (nameOfVal = \"subscriberID\");";
-			if (SqlConnector.getInstance().updateToDB(query)) {
+			if (DataBase.getInstance().update(query)) {
 				return gson.toJson(subscriber);
 			}
 		}
@@ -80,13 +80,13 @@ public class EmployeeSystemController {
 		Subscriber subscriber = gson.fromJson(data, Subscriber.class);
 		String query = "SELECT * FROM gonaturedb.subscriber WHERE id = " + subscriber.getId() + " OR subscriberid = "
 				+ subscriber.getSubscriberid() + ";";
-		ResultSet res = SqlConnector.getInstance().searchInDB(query);
+		ResultSet res = DataBase.getInstance().search(query);
 		if (isEmpty(res) != 0)
 			return "Instructor already exist";
 
 		query = "INSERT INTO gonaturedb.subscriber (id, subscriberid, name, lastName, phone, email, numOfMembers, creditCardNumber, subscriberTypre) VALUES "
 				+ subscriber.toString() + ";";
-		if (SqlConnector.getInstance().updateToDB(query))
+		if (DataBase.getInstance().update(query))
 			return "success";
 		return "fail";
 	}
@@ -95,10 +95,9 @@ public class EmployeeSystemController {
 		int size = 0;
 		if (rs != null) {
 			try {
-				rs.last(); // moves cursor to the last row
-				size = rs.getRow(); // get row id
+				rs.last();
+				size = rs.getRow(); 
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

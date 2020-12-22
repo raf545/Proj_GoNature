@@ -5,14 +5,17 @@ import java.sql.SQLException;
 
 import com.google.gson.Gson;
 
+import dataBase.DataBase;
 import employee.Employee;
 import ocsf.server.ConnectionToClient;
 import reservation.Reservation;
-import sqlConnection.SqlConnector;
 import subscriber.Subscriber;
 
 /**
- * @author rafaelelkoby
+ * This class is responsible for all the actions related to the sign-in and
+ * log-out
+ * 
+ * @author rafael elkoby
  *
  */
 public class LoginController {
@@ -26,6 +29,9 @@ public class LoginController {
 
 	/**
 	 * 
+	 * This method return a instance of the LoginController class and if never
+	 * created before creates one
+	 * 
 	 * @return The instance of logincontroller
 	 */
 	public static LoginController getInstance() {
@@ -36,18 +42,22 @@ public class LoginController {
 	}
 
 	/**
-	 * @param MethodName
-	 * @param data
-	 * @param client
-	 * @return
+	 * 
+	 * This method route to a specific login method
+	 * 
+	 * @param MethodName the kind of login
+	 * @param data       the data for the login
+	 * @param client     the specific client connection
+	 * 
+	 * @return fail if there is no such login route
 	 */
-	public String getFunc(String MethodName, String data, ConnectionToClient client) {
+	public String loginRouter(String MethodName, String data, ConnectionToClient client) {
 
 		switch (MethodName) {
 		case "Guest ID":
 			return GuestID(data, client);
 		case "Subscriber":
-			return SubscriberLogin(data, "subscriber", client);
+			return subscriberLogin(data, client);
 		case "Reservation ID":
 			return ReservationIDLogin(data, client);
 		case "employeeLogIn":
@@ -56,49 +66,68 @@ public class LoginController {
 			return logout(client);
 
 		}
-		return data;
+		return "fail";
 	}
 
 	/**
-	 * @param data
-	 * @param Table
-	 * @param client
-	 * @return
+	 * 
+	 * This method is responsible for login as a subscriber,instructor and family
+	 * Subscriber
+	 * 
+	 * 
+	 * @param id     the id of the subscriber
+	 * @param client the specific client trying to log in
+	 * 
+	 * 
+	 * @return "not subscriber" if the given id is not listed in the database "all
+	 *         ready connected" if the id is all ready in use in a client
+	 * 
+	 * 
 	 */
-	private String SubscriberLogin(String data, String Table, ConnectionToClient client) {
-		String query = "SELECT * FROM gonaturedb." + Table + " WHERE id = " + data + " OR subscriberid = " + data + ";";
-		ResultSet res = SqlConnector.getInstance().searchInDB(query);
+	private String subscriberLogin(String id, ConnectionToClient client) {
+		String query = "SELECT * FROM gonaturedb.subscriber WHERE id = " + id + " OR subscriberid = " + id + ";";
+		ResultSet res = DataBase.getInstance().search(query);
 		try {
 			if (isEmpty(res) == 0)
 				return "not subscriber";
 			if (res.getInt("connected") == 1)
 				return "all ready connected";
 			client.setInfo("ID", res.getString("id"));
-			client.setInfo("Table", Table);
+			client.setInfo("Table", "subscriber");
 			Subscriber subscriber = new Subscriber(res.getString("id"), res.getString("subscriberid"),
 					res.getString("name"), res.getString("lastName"), res.getString("phone"), res.getString("email"),
 					res.getString("numOfMembers"), res.getString("creditCardNumber"), res.getString("subscriberTypre"));
-			if (setLoginToDB(client, Table)) {
+			if (setLoginToDB(client, "subscriber")) {
 				return gson.toJson(subscriber);
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// TODO Check error case and create popup
 		return "error";
 
 	}
 
-	private String GuestID(String data, ConnectionToClient client) {
-		if (isConnected(data))
+	/**
+	 * 
+	 * This method connects a guest visitor to the system
+	 * 
+	 * @param guestId the guest id
+	 * @param client  the specific client trying to log in
+	 * 
+	 * @return "all ready connected" if the client is already connected guestId if
+	 *         connection established "update failed" if any other case
+	 * 
+	 * @return data
+	 */
+	private String GuestID(String guestId, ConnectionToClient client) {
+		if (isGuestConnected(guestId))
 			return "all ready connected";
 		else {
-			if (addToTableinDb(data, "logedin")) {
-				client.setInfo("ID", data);
+			if (addToTableinDb(guestId, "logedin")) {
+				client.setInfo("ID", guestId);
 				client.setInfo("Table", "logedin");
-				return data;
+				return guestId;
 			} else
 				return "update faild";
 		}
@@ -106,32 +135,41 @@ public class LoginController {
 	}
 
 	/**
-	 * @param data
-	 * @param client
-	 * @return
+	 * 
+	 * This method is for loging in with a reservation id 
+	 * 
+	 * @param reservationId 
+	 * @param client the specific client trying to log in
+	 * 
+	 * @return "no reservation" if no reservation was found with the given id
+	 *  answerFromGuestID if diden't return the same id
+	 *  reservation as gson if found
+	 *  "update faild" if login failed
+	 *  "error" for any other case
 	 */
-	private String ReservationIDLogin(String data, ConnectionToClient client) {
-		String query = "SELECT * FROM gonaturedb.reservetions WHERE reservationID = " + data + ";";
-		ResultSet res = SqlConnector.getInstance().searchInDB(query);
+	private String ReservationIDLogin(String reservationId, ConnectionToClient client) {
+		String query = "SELECT * FROM gonaturedb.reservetions WHERE reservationID = " + reservationId + ";";
+		ResultSet reservationDetails = DataBase.getInstance().search(query);
 		String answerFromGuestID = null;
 		try {
-			if (isEmpty(res) == 0)
+			if (isEmpty(reservationDetails) == 0)
 				return "no reservation";
 
-			Reservation reservation = new Reservation(res.getString("reservationID"), res.getString("personalID"),
-					res.getString("parkname"), res.getString("visithour"), res.getString("numofvisitors"),
-					res.getString("reservationtype"), res.getString("email"), res.getString("date"),
-					res.getFloat("price"), res.getString("reservetionStatus"));
-			String idFromResrvation = res.getString("personalID");
+			Reservation reservation = new Reservation(reservationDetails.getString("reservationID"), reservationDetails.getString("personalID"),
+					reservationDetails.getString("parkname"), reservationDetails.getString("visithour"), reservationDetails.getString("numofvisitors"),
+					reservationDetails.getString("reservationtype"), reservationDetails.getString("email"), reservationDetails.getString("date"),
+					reservationDetails.getFloat("price"), reservationDetails.getString("reservetionStatus"));
+			String idFromResrvation = reservationDetails.getString("personalID");
 
-			res = SqlConnector.getInstance()
-					.searchInDB("SELECT * FROM gonaturedb.subscriber WHERE id = " + idFromResrvation + ";");
-			if (isEmpty(res) == 0) {
+			ResultSet detailsOfsubscriberFromReservation = DataBase.getInstance()
+					.search("SELECT * FROM gonaturedb.subscriber WHERE id = " + idFromResrvation + ";");
+			if (isEmpty(detailsOfsubscriberFromReservation) == 0) {
 				answerFromGuestID = GuestID(idFromResrvation, client);
 				if (answerFromGuestID.equals(idFromResrvation))
 					return gson.toJson(reservation);
 				return answerFromGuestID;
 			}
+			
 
 			client.setInfo("ID", idFromResrvation);
 			client.setInfo("Table", "subscriber");
@@ -147,12 +185,18 @@ public class LoginController {
 
 	}
 
-	private int isEmpty(ResultSet rs) {
+	/**
+	 * 
+	 * this method checks if a given ResultSet is empty
+	 * @param resultSet
+	 * @return o if empty , the ResultSet size else
+	 */
+	private int isEmpty(ResultSet resultSet) {
 		int size = 0;
-		if (rs != null) {
+		if (resultSet != null) {
 			try {
-				rs.last(); // moves cursor to the last row
-				size = rs.getRow(); // get row id
+				resultSet.last(); // moves cursor to the last row
+				size = resultSet.getRow(); // get row id
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -162,26 +206,32 @@ public class LoginController {
 	}
 
 	/**
-	 * @param id
-	 * @return
+	 * 
+	 * This method checks if a given guest id is connected is already connected to a client 
+	 * 
+	 * @param id 
+	 * @return true if connected and false else
 	 */
-	private boolean isConnected(String id) {
-		// TODO is gust coonected? why there is no discription
+	private boolean isGuestConnected(String id) {
+		// TODO is gust connected? why there is no description
 		String query = "SELECT * FROM gonaturedb.logedin WHERE id = " + id + ";";
-		ResultSet res = SqlConnector.getInstance().searchInDB(query);
+		ResultSet res = DataBase.getInstance().search(query);
 		if (isEmpty(res) != 0)
 			return true;
 		return false;
 	}
 
 	/**
+	 * 
+	 * 
+	 * 
 	 * @param data
 	 * @param tableName
 	 * @return
 	 */
 	private boolean addToTableinDb(String data, String tableName) {
 		String query = "INSERT INTO gonaturedb." + tableName + " (id) VALUES (" + data + ");";
-		if (SqlConnector.getInstance().updateToDB(query))
+		if (DataBase.getInstance().update(query))
 			return true;
 		return false;
 	}
@@ -193,7 +243,7 @@ public class LoginController {
 	 */
 	private boolean setLoginToDB(ConnectionToClient client, String Table) {
 		String query = "UPDATE gonaturedb." + Table + " SET connected = 1 WHERE id = " + client.getInfo("ID") + ";";
-		if (SqlConnector.getInstance().updateToDB(query))
+		if (DataBase.getInstance().update(query))
 			return true;
 		return false;
 	}
@@ -201,12 +251,15 @@ public class LoginController {
 	/**
 	 * @param employeeData
 	 * @param client
-	 * @return
+	 * 
+	 * @return "employee not found"
+	 * @return "already connected"
+	 * @return "wrong password"
 	 */
 	private String employeeLogIn(String employeeData, ConnectionToClient client) {
 		Employee employee = gson.fromJson(employeeData, Employee.class);
 		String query = "SELECT * FROM gonaturedb.employees WHERE employeeId = " + employee.getEmployeeId() + ";";
-		ResultSet res = SqlConnector.getInstance().searchInDB(query);
+		ResultSet res = DataBase.getInstance().search(query);
 		if (isEmpty(res) == 0)
 			return "employee not found";
 
@@ -234,16 +287,24 @@ public class LoginController {
 	/**
 	 * @param client
 	 * @param Table
+	 * 
+	 * @return
 	 * @return
 	 */
 	private boolean setLoginToEmployeeDB(ConnectionToClient client, String Table) {
 		String query = "UPDATE gonaturedb." + Table + " SET connected = 1 WHERE employeeId = " + client.getInfo("ID")
 				+ ";";
-		if (SqlConnector.getInstance().updateToDB(query))
+		if (DataBase.getInstance().update(query))
 			return true;
 		return false;
 	}
 
+	/**
+	 * @param client
+	 * 
+	 * @return ""
+	 * @return ""
+	 */
 	private String logout(ConnectionToClient client) {
 
 		String id = (String) client.getInfo("ID");
@@ -251,11 +312,9 @@ public class LoginController {
 		String query;
 
 		if (id == null) {
-			System.out.println("client dis!!");
-			return "";
+			return "Client dissconnected";
 		}
 		if (table.equals("logedin")) {
-			// DELETE FROM `gonaturedb`.`logedin` WHERE (`id` = '123');
 			query = "DELETE FROM gonaturedb." + table + " WHERE id = " + id + ";";
 		} else if (table.equals("employees")) {
 			query = "UPDATE gonaturedb." + table + " SET connected = 0 WHERE employeeId = " + client.getInfo("ID")
@@ -263,8 +322,8 @@ public class LoginController {
 		} else {
 			query = "UPDATE gonaturedb." + table + " SET connected = 0 WHERE id = " + id + ";";
 		}
-		SqlConnector.getInstance().updateToDB(query);
-		return "";
+		DataBase.getInstance().update(query);
+		return "Client dissconnected";
 	}
 
 }
