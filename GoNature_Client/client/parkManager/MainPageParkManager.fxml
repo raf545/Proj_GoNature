@@ -16,7 +16,7 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="952.0" prefWidth="1303.0" style="-fx-background-color: #676767;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkManager.MainPageParkManagerController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#3d8fff" height="45.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="1308.0" />
-      <Pane fx:id="parkManaferPane" layoutX="265.0" layoutY="128.0" prefHeight="760.0" prefWidth="920.0" style="-fx-background-color: white;" />
+      <Pane fx:id="parkManagerMainPane" layoutX="265.0" layoutY="128.0" prefHeight="760.0" prefWidth="920.0" style="-fx-background-color: white;" />
       <ScrollPane hbarPolicy="NEVER" layoutX="46.0" layoutY="125.0" prefHeight="760.0" prefWidth="200.0" vbarPolicy="ALWAYS">
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1100.0" prefWidth="200.0" snapToPixel="false">

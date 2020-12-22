@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 
 import controllers.EmployeeSystemController;
 import controllers.LoginController;
+import controllers.ParkManagerSystemController;
 import dataBase.DataBase;
 import ocsf.server.AbstractServer;
 import ocsf.server.ConnectionToClient;
@@ -85,6 +86,10 @@ public class EchoServer extends AbstractServer {
 		case ServiceRepresentativeController:
 			break;
 		case WaitingListController:
+			break;
+			
+		case ParkManagerSystemController:
+			answer = ParkManagerSystemController.getInstance().getFunc(rh.getFunc(), rh.getData(), client);
 			break;
 		}
 		try {
