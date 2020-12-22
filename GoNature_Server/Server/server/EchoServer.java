@@ -36,7 +36,6 @@ public class EchoServer extends AbstractServer {
 	// Class variables *************************************************
 	Gson gson = new Gson();
 	private ServerGuiController serverPortControllerInstance;
-	private SqlConnector sqlConnector;
 	/**
 	 * The default port to listen on.
 	 */
@@ -101,8 +100,9 @@ public class EchoServer extends AbstractServer {
 	 * starts listening for connections.
 	 */
 	protected void serverStarted() {
-		sqlConnector = SqlConnector.getInstance();
-		serverPortControllerInstance.setConnectToDB();
+		SqlConnector.getInstance();
+		if (SqlConnector.getInstance().setConnection())
+			serverPortControllerInstance.setConnectToDB();
 	}
 
 	/**

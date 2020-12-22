@@ -52,6 +52,8 @@ public class LoginController {
 			return ReservationIDLogin(data, client);
 		case "employeeLogIn":
 			return employeeLogIn(data, client);
+		case "logout":
+			return logout(client);
 
 		}
 		return data;
@@ -240,6 +242,29 @@ public class LoginController {
 		if (SqlConnector.getInstance().updateToDB(query))
 			return true;
 		return false;
+	}
+
+	private String logout(ConnectionToClient client) {
+
+		String id = (String) client.getInfo("ID");
+		String table = (String) client.getInfo("Table");
+		String query;
+
+		if (id == null) {
+			System.out.println("client dis!!");
+			return "";
+		}
+		if (table.equals("logedin")) {
+			// DELETE FROM `gonaturedb`.`logedin` WHERE (`id` = '123');
+			query = "DELETE FROM gonaturedb." + table + " WHERE id = " + id + ";";
+		} else if (table.equals("employees")) {
+			query = "UPDATE gonaturedb." + table + " SET connected = 0 WHERE employeeId = " + client.getInfo("ID")
+					+ ";";
+		} else {
+			query = "UPDATE gonaturedb." + table + " SET connected = 0 WHERE id = " + id + ";";
+		}
+		SqlConnector.getInstance().updateToDB(query);
+		return "";
 	}
 
 }

@@ -5,8 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-
 
 /**
  * This Class is responsibale of Data Base managment and manipulations
@@ -27,25 +25,6 @@ public class SqlConnector {
 	// Constructors ****************************************************
 
 	private SqlConnector() {
-
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-			System.out.println("Driver definition succeed");
-		} catch (Exception ex) {
-			/* handle the error */
-			System.out.println("Driver definition failed");
-		}
-
-		try {
-			Connection conn = DriverManager.getConnection(jdbcURL, jdbcuser, jdbcPass);
-			con = conn;
-			System.out.println("SQL connection succeed");
-
-		} catch (SQLException ex) {/* handle any errors */
-			System.out.println("SQLException: " + ex.getMessage());
-			System.out.println("SQLState: " + ex.getSQLState());
-			System.out.println("VendorError: " + ex.getErrorCode());
-		}
 
 	}
 
@@ -101,5 +80,28 @@ public class SqlConnector {
 			SqlConnectorInstace = new SqlConnector();
 
 		return SqlConnectorInstace;
+	}
+
+	public boolean setConnection() {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+			System.out.println("Driver definition succeed");
+		} catch (Exception ex) {
+			/* handle the error */
+			System.out.println("Driver definition failed");
+		}
+
+		try {
+			Connection conn = DriverManager.getConnection(jdbcURL, jdbcuser, jdbcPass);
+			con = conn;
+			System.out.println("SQL connection succeed");
+			return true;
+
+		} catch (SQLException ex) {/* handle any errors */
+			System.out.println("SQLException: " + ex.getMessage());
+			System.out.println("SQLState: " + ex.getSQLState());
+			System.out.println("VendorError: " + ex.getErrorCode());
+			return false;
+		}
 	}
 }
