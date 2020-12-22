@@ -1,4 +1,4 @@
-package employee;
+package login;
 
 import java.io.IOException;
 
@@ -9,6 +9,8 @@ import com.google.gson.Gson;
 import client.ChatClient;
 import client.ClientUI;
 import departmentManager.MainPageDepartmentManagerController;
+import employee.Employee;
+import employee.MainPageEmployeeController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +21,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import login.GoNatureLoginController;
 import parkManager.MainPageParkManagerController;
 import popup.PopUp;
 import requestHandler.RequestHandler;

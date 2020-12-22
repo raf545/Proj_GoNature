@@ -87,16 +87,6 @@ public class MainPageForClientController {
 	}
 
 	@FXML
-	void Quit(MouseEvent event) {
-		// get a handle to the stage
-		Stage stage = (Stage) QuitBtn.getScene().getWindow();
-		// do what you have to do
-		stage.close();
-		System.exit(0);
-
-	}
-
-	@FXML
 	void WaitingListBtn(ActionEvent event) throws IOException {
 		StaticPaneMainPageClient.clientMainPane.getChildren().clear();
 		FXMLLoader loader = new FXMLLoader();

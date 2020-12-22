@@ -14,10 +14,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import login.SignInEmployeeController;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
 
@@ -36,9 +35,6 @@ public class MainPageEmployeeController {
 
 	@FXML
 	private Button NewInstructorBtn;
-
-	@FXML
-	private Text quitBtn;
 
 	@FXML
 	private Hyperlink logoutBtn;
@@ -89,16 +85,6 @@ public class MainPageEmployeeController {
 		Pane root = loader.load();
 		mainPane.getChildren().clear();
 		mainPane.getChildren().add(root);
-	}
-
-	@FXML
-	void quit(MouseEvent event) {
-		// get a handle to the stage
-		Stage stage = (Stage) quitBtn.getScene().getWindow();
-		// do what you have to do
-		stage.close();
-		System.exit(0);
-
 	}
 
 	@FXML
