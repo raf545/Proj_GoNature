@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="920.0" style="-fx-background-color: #3D8FFF;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkMangerChanges.ParkMangerChangesController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="564.0" layoutX="194.0" layoutY="117.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="532.0" />
+      <Text layoutX="322.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Park Changes" textAlignment="CENTER" wrappingWidth="306.443359375">
+         <font>
+            <Font name="Guttman Drogolin Bold" size="30.0" />
+         </font>
+      </Text>
+      <Circle fill="#3d8fff" layoutX="251.0" layoutY="170.0" radius="25.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="0.0" />
+      <Text fx:id="exitBtn" fill="WHITE" layoutX="225.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="X" textAlignment="CENTER" wrappingWidth="50.0">
+         <font>
+            <Font name="Baloo Regular" size="30.0" />
+         </font>
+      </Text>
+      <Button fx:id="saveBtn" layoutX="242.0" layoutY="615.0" mnemonicParsing="false" onAction="#saveParkMangerChanges" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #3D8FFF;" text="Save &amp; Send for approval" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <VBox layoutX="276.0" layoutY="215.0" prefHeight="303.0" prefWidth="366.0" spacing="5.0">
+         <children>
+            <Text stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="Park Capacity:" wrappingWidth="155.443359375">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Text>
+            <TextField fx:id="parkCapacityTF" alignment="CENTER" disable="true" prefHeight="30.0" prefWidth="246.0" promptText="300" style="-fx-background-color: #EEF2F9;" />
+            <Slider fx:id="parkCapacitySlider" prefHeight="29.0" prefWidth="257.0" />
+            <HBox prefHeight="104.0" prefWidth="311.0" />
+            <Text stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="Difference:" wrappingWidth="165.443359375">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Text>
+            <TextField fx:id="differenceTF" alignment="CENTER" disable="true" prefHeight="37.0" prefWidth="366.0" promptText="100" style="-fx-background-color: #EEF2F9;" />
+            <Slider fx:id="differenceSlider" prefHeight="29.0" prefWidth="257.0" />
+            <HBox prefHeight="104.0" prefWidth="311.0" />
+            <Text stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="Visiting Time: (Hours)" wrappingWidth="219.443359375">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Text>
+            <TextField fx:id="visitTimeTF" alignment="CENTER" disable="true" prefHeight="30.0" prefWidth="246.0" promptText="4" style="-fx-background-color: #EEF2F9;" />
+            <Slider fx:id="visitingTimeSlider" prefHeight="29.0" prefWidth="257.0" />
+            <Text stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="Discount:" wrappingWidth="219.443359375">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Text>
+            <TextField fx:id="DiscountTF" alignment="CENTER" disable="true" prefHeight="30.0" prefWidth="246.0" promptText="0%" style="-fx-background-color: #EEF2F9;" />
+            <Slider fx:id="discountSlider" prefHeight="29.0" prefWidth="257.0" />
+         </children>
+      </VBox>
+      <Circle fill="#2ecc71" layoutX="671.0" layoutY="368.0" radius="13.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="0.0" />
+      <Text fx:id="helpBtn" fill="WHITE" layoutX="646.0" layoutY="376.0" strokeType="OUTSIDE" strokeWidth="0.0" text="?" textAlignment="CENTER" wrappingWidth="50.0">
+         <font>
+            <Font name="Baloo Regular" size="24.0" />
+         </font>
+      </Text>
+   </children>
+</Pane>

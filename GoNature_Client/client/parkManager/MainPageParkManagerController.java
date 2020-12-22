@@ -5,6 +5,8 @@ import java.io.IOException;
 import com.google.gson.Gson;
 
 import client.ClientUI;
+import familySubWorker.NewFamilySubWorkerController;
+import groupLeader.NewGroupLeaderWorkerController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +18,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import login.SignInEmployeeController;
+import parkMangerChanges.ParkMangerChangesController;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
 
@@ -23,27 +26,32 @@ public class MainPageParkManagerController {
 
 	Gson gson = new Gson();
 
-	@FXML
-	private Pane parkManaferPane;
+	 @FXML
+	    private Pane parkManagerMainPane;
+
+	    @FXML
+	    private Button parkReportBtn;
+
+	    @FXML
+	    private Button editParkBtn;
+
+	    @FXML
+	    private Button newReservationBtn;
+
+	    @FXML
+	    private Hyperlink logoutBtn;
+
 
 	@FXML
-	private Button parkReportBtn;
+	void editPark(ActionEvent event) throws IOException {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(ParkMangerChangesController.class.getResource("ParkManagerChanges.fxml"));
 
-	@FXML
-	private Button editParkBtn;
-
-	@FXML
-	private Button newReservationBtn;
-
-	@FXML
-	private Text quitBtn;
-
-	@FXML
-	private Hyperlink logoutBtn;
-
-	@FXML
-	void editPark(ActionEvent event) {
-
+		Pane root = loader.load();
+		parkManagerMainPane.getChildren().clear();
+		parkManagerMainPane.getChildren().add(root);
+		ParkMangerChangesController pmcController=loader.getController();
+		pmcController.initializeSliders();
 	}
 
 	@FXML
@@ -52,8 +60,9 @@ public class MainPageParkManagerController {
 	}
 
 	@FXML
-	void parkReport(ActionEvent event) {
-
+	void parkReport(ActionEvent event) throws IOException {
+		
+	
 	}
 
 	@FXML
