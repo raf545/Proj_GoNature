@@ -2,7 +2,6 @@ package login;
 
 import java.io.IOException;
 
-import employee.SignInEmployeeController;
 import faq.FaqController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

@@ -5,7 +5,6 @@ import java.io.IOException;
 import com.google.gson.Gson;
 
 import client.ClientUI;
-import employee.SignInEmployeeController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import login.SignInEmployeeController;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
 
@@ -53,11 +53,6 @@ public class MainPageDepartmentManagerController {
 
 	@FXML
 	void newReservation(ActionEvent event) {
-
-	}
-
-	@FXML
-	void quit(MouseEvent event) {
 
 	}
 

@@ -82,18 +82,17 @@
             <Font name="Guttman Drogolin Bold" size="28.0" />
          </font>
       </Text>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e74c3c" height="45.0" layoutX="872.0" layoutY="74.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="313.0" />
-      <Text fill="WHITE" layoutX="872.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Department Manager" textAlignment="CENTER" wrappingWidth="234.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e74c3c" height="45.0" layoutX="935.0" layoutY="74.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="250.0" />
+      <Text fill="WHITE" layoutX="935.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Department Manager" textAlignment="CENTER" wrappingWidth="250.00000105798244">
          <font>
             <Font name="Guttman Drogolin Bold" size="24.0" />
          </font>
       </Text>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e74c3c" height="45.0" layoutX="1095.0" layoutY="895.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="90.0" />
-      <Text fx:id="quitBtn" fill="WHITE" layoutX="1095.0" layoutY="926.0" onMouseClicked="#quit" strokeType="OUTSIDE" strokeWidth="0.0" text="Quit" textAlignment="CENTER" wrappingWidth="90.00002300739288">
+      <Hyperlink fx:id="logoutBtn" alignment="CENTER" contentDisplay="CENTER" layoutX="1095.0" layoutY="895.0" onAction="#logout" prefHeight="45.0" prefWidth="90.0" text="logout" textAlignment="CENTER" textFill="WHITE">
          <font>
-            <Font name="Guttman Drogolin Bold" size="24.0" />
+            <Font size="24.0" />
          </font>
-      </Text>
-      <Hyperlink fx:id="logoutBtn" layoutX="1123.0" layoutY="83.0" onAction="#logout" text="logout" textFill="WHITE" />
+      </Hyperlink>
    </children>
 </Pane>
