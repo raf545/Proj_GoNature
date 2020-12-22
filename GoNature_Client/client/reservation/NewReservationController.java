@@ -1,5 +1,6 @@
 package reservation;
 
+import client.ChatClient;
 import guiCommon.StaticPaneMainPageClient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -84,8 +85,12 @@ public class NewReservationController {
 
 	@FXML
 	void plus(ActionEvent event) {
-		countVisitor++;
-		numOfVisitorTxt.setText(String.valueOf(countVisitor));
+		if (ChatClient.clientTypeString.equals("instructor") && countVisitor == 16) {
+			PopUp.display("Error", "The maximum visitors for an instructor is 15");
+		} else {
+			countVisitor++;
+			numOfVisitorTxt.setText(String.valueOf(countVisitor));
+		}
 	}
 
 }
