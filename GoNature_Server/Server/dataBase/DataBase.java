@@ -1,4 +1,4 @@
-package sqlConnection;
+package dataBase;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,73 +15,93 @@ import java.sql.SQLException;
  * @version December 3 2020
  */
 
-public class SqlConnector {
+public class DataBase {
 	// Class variables *************************************************
-	private static SqlConnector SqlConnectorInstace = null;
-	private Connection con = null;
-	private String jdbcURL = "jdbc:mysql://localhost/gonaturedb?serverTimezone=IST";
+	private static DataBase SqlConnectorInstace = null;
+	private Connection connection = null;
+	private String jdbcURL = "jdbc:mysql://localhost:3306/?user=root";
 	private String jdbcuser = "root";
-	private String jdbcPass = "root";
+	private String jdbcPass = "a123456789";
 	// Constructors ****************************************************
 
-	private SqlConnector() {
+	private DataBase() {
 
 	}
 
 	// Class Getters *************************************************
 	public Connection getConnection() {
-		return con;
+		return connection;
 	}
 
 	// Instance methods *************************************************
 
 	/**
-	 * This method serches for info in the DB and returns the query answer
+	 * This method reads info from the DB and returns the query answer
 	 * 
-	 * @param query SQL query of serch charecter and not update
+	 * @param SQL query of serch charecter and not update
 	 * @returns ResultSet if found returns the tuple\s as ResultSet if not found
 	 *          returns a empty ResultSet
 	 * 
 	 */
 
-	public ResultSet searchInDB(String query) {
+	public ResultSet search(String query) {
 		ResultSet res = null;
 
 		// TODO change exception throw into something less strong
 		// TODO catch and handle the SQL exception
 
 		try {
-			PreparedStatement ps = con.prepareStatement(query);
+			PreparedStatement ps = connection.prepareStatement(query);
 			res = ps.executeQuery();
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return res;
 
 	}
 
-	public boolean updateToDB(String query) {
+	/**
+	 * 
+	 * This method wriets info to the DB and returns a boolean answer
+	 * 
+	 * @param SQL query of update charecter and not search
+	 * @return True if update successeded
+	 * @return False else
+	 */
+	public boolean update(String query) {
 		try {
-			PreparedStatement ps = con.prepareStatement(query);
+			PreparedStatement ps = connection.prepareStatement(query);
 			ps.executeUpdate();
 			return true;
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return false;
 	}
 
-	public static SqlConnector getInstance() {
+	/**
+	 * 
+	 * This method return a instance of the database class and if never created
+	 * before creats one
+	 * 
+	 * @return the instance of the DataBase class
+	 */
+	public static DataBase getInstance() {
 		if (SqlConnectorInstace == null)
-			SqlConnectorInstace = new SqlConnector();
+			SqlConnectorInstace = new DataBase();
 
 		return SqlConnectorInstace;
 	}
 
+	/**
+	 * 
+	 * Sets the connection to the DataBase
+	 * 
+	 * @return True if the connection Successeded
+	 * @return False else
+	 */
 	public boolean setConnection() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
@@ -93,7 +113,7 @@ public class SqlConnector {
 
 		try {
 			Connection conn = DriverManager.getConnection(jdbcURL, jdbcuser, jdbcPass);
-			con = conn;
+			connection = conn;
 			System.out.println("SQL connection succeed");
 			return true;
 
