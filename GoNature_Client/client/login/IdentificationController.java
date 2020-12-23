@@ -137,15 +137,18 @@ public class IdentificationController {
 				setClientInfoAndType(String.class, "Guest");
 				VisitorName = "Guest";
 				VisitorType = "Guest";
+				ChatClient.clientIdString = ChatClient.clientInfo;
 			} else if (selectedCombo == "Subscriber") {
 
 				Subscriber savedSubscriberName = gson.fromJson(ChatClient.serverMsg, Subscriber.class);
+				ChatClient.clientIdString = savedSubscriberName.getId();
 				setClientInfoAndType(Subscriber.class, savedSubscriberName.getSubscriberType());
 				VisitorName = savedSubscriberName.getName() + " " + savedSubscriberName.getLastName();
 				VisitorType = "Subscriber";
 			} else if (selectedCombo == "Reservation ID") {
 				setClientInfoAndType(Reservation.class, "Reservation");
 				Reservation saveRsesrvationId = gson.fromJson(ChatClient.serverMsg, Reservation.class);
+				ChatClient.clientIdString = saveRsesrvationId.getPersonalID();
 				VisitorName = saveRsesrvationId.getPersonalID() + "Reservasion id: "
 						+ saveRsesrvationId.getReservationID();
 				VisitorType = "Reservation";

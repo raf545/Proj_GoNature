@@ -16,10 +16,10 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="920.0" style="-fx-background-color: #3D8FFF;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="reservation.NewReservationController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="920.0" style="-fx-background-color: #99d487;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="reservation.NewReservationController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="594.0" layoutX="193.0" layoutY="73.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="527.0" />
-      <Button fx:id="ContinueBtn" layoutX="241.0" layoutY="584.0" mnemonicParsing="false" onAction="#Continue" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #3D8FFF;" text="Continue" textFill="WHITE">
+      <Button fx:id="ContinueBtn" layoutX="241.0" layoutY="584.0" mnemonicParsing="false" onAction="#Continue" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #287f00;" text="Continue" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -93,7 +93,7 @@
                      <children>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Button fx:id="minusBtn" mnemonicParsing="false" onAction="#minus" prefHeight="44.0" prefWidth="42.0" style="-fx-background-color: #3D8FFF;" text="-" textFill="WHITE">
+                              <Button fx:id="minusBtn" mnemonicParsing="false" onAction="#minus" prefHeight="44.0" prefWidth="42.0" style="-fx-background-color: #99d487;" text="-" textFill="WHITE">
                                  <font>
                                     <Font name="Baloo Regular" size="20.0" />
                                  </font>
@@ -103,7 +103,7 @@
                                     <Font name="Arial" size="20.0" />
                                  </font>
                               </Label>
-                              <Button fx:id="plusBtn" mnemonicParsing="false" onAction="#plus" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #3D8FFF;" text="+" textFill="WHITE">
+                              <Button fx:id="plusBtn" mnemonicParsing="false" onAction="#plus" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #99d487;" text="+" textFill="WHITE">
                                  <font>
                                     <Font name="Baloo Regular" size="20.0" />
                                  </font>
@@ -116,7 +116,7 @@
             </VBox>
          </children>
       </GridPane>
-      <Circle fill="#3d8fff" layoutX="240.0" layoutY="116.0" radius="25.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fill="#99d487" layoutX="240.0" layoutY="116.0" radius="25.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="0.0" />
       <Text fx:id="BackBtn" fill="WHITE" layoutX="214.0" layoutY="126.0" onMouseClicked="#Back" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;" textAlignment="CENTER" wrappingWidth="50.0">
          <font>
             <Font name="Baloo Regular" size="30.0" />

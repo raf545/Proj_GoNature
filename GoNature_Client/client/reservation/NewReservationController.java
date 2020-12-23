@@ -1,6 +1,12 @@
 package reservation;
 
+import java.sql.Timestamp;
+
+import com.google.gson.Gson;
+
 import client.ChatClient;
+import client.ClientUI;
+import common.ChatIF;
 import guiCommon.StaticPaneMainPageClient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,9 +19,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import popup.PopUp;
+import requestHandler.RequestHandler;
+import requestHandler.controllerName;
 
 public class NewReservationController {
 
+	Gson gson = new Gson();
 	@FXML
 	private Button ContinueBtn;
 
@@ -68,8 +77,27 @@ public class NewReservationController {
 
 	}
 
+	
+	@SuppressWarnings("deprecation")
 	@FXML
 	void Continue(ActionEvent event) {
+		
+		Timestamp reservationDateAndTime;
+		StringBuilder timeFromCombo = new StringBuilder();
+		timeFromCombo.append(HourComboBox.getValue());
+		timeFromCombo.delete(2, 5);
+		int hour = Integer.parseInt(timeFromCombo.toString());
+		
+		int day = WantedDatePicker.getValue().getDayOfMonth();
+		int month = WantedDatePicker.getValue().getMonthValue();
+		int  year = WantedDatePicker.getValue().getYear();
+		
+		reservationDateAndTime= new Timestamp(year, month, day, hour, 00, 00, 00);
+		
+		Reservation reservation = new Reservation("", ChatClient.clientIdString, ChooseParkComboBox.getValue(), numOfVisitorTxt.getText(), 
+				ChatClient.clientTypeString, EmailTxt.getText(), reservationDateAndTime, 0, "valid");
+		RequestHandler requestNewReservationId = new RequestHandler(controllerName.ReservationController,"createNewReservation",gson.toJson(reservation));
+		ClientUI.chat.accept(gson.toJson(requestNewReservationId));
 
 	}
 

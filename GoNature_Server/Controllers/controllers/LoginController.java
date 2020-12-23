@@ -136,16 +136,14 @@ public class LoginController {
 
 	/**
 	 * 
-	 * This method is for loging in with a reservation id 
+	 * This method is for loging in with a reservation id
 	 * 
-	 * @param reservationId 
-	 * @param client the specific client trying to log in
+	 * @param reservationId
+	 * @param client        the specific client trying to log in
 	 * 
 	 * @return "no reservation" if no reservation was found with the given id
-	 *  answerFromGuestID if diden't return the same id
-	 *  reservation as gson if found
-	 *  "update faild" if login failed
-	 *  "error" for any other case
+	 *         answerFromGuestID if diden't return the same id reservation as gson
+	 *         if found "update faild" if login failed "error" for any other case
 	 */
 	private String ReservationIDLogin(String reservationId, ConnectionToClient client) {
 		String query = "SELECT * FROM gonaturedb.reservetions WHERE reservationID = " + reservationId + ";";
@@ -155,9 +153,10 @@ public class LoginController {
 			if (isEmpty(reservationDetails) == 0)
 				return "no reservation";
 
-			Reservation reservation = new Reservation(reservationDetails.getString("reservationID"), reservationDetails.getString("personalID"),
-					reservationDetails.getString("parkname"), reservationDetails.getString("visithour"), reservationDetails.getString("numofvisitors"),
-					reservationDetails.getString("reservationtype"), reservationDetails.getString("email"), reservationDetails.getString("date"),
+			Reservation reservation = new Reservation(reservationDetails.getString("reservationID"),
+					reservationDetails.getString("personalID"), reservationDetails.getString("parkname"),
+					reservationDetails.getString("numofvisitors"), reservationDetails.getString("reservationtype"),
+					reservationDetails.getString("email"), reservationDetails.getTimestamp("dateAndTime"),
 					reservationDetails.getFloat("price"), reservationDetails.getString("reservetionStatus"));
 			String idFromResrvation = reservationDetails.getString("personalID");
 
@@ -169,7 +168,6 @@ public class LoginController {
 					return gson.toJson(reservation);
 				return answerFromGuestID;
 			}
-			
 
 			client.setInfo("ID", idFromResrvation);
 			client.setInfo("Table", "subscriber");
@@ -188,6 +186,7 @@ public class LoginController {
 	/**
 	 * 
 	 * this method checks if a given ResultSet is empty
+	 * 
 	 * @param resultSet
 	 * @return o if empty , the ResultSet size else
 	 */
@@ -207,9 +206,10 @@ public class LoginController {
 
 	/**
 	 * 
-	 * This method checks if a given guest id is connected is already connected to a client 
+	 * This method checks if a given guest id is connected is already connected to a
+	 * client
 	 * 
-	 * @param id 
+	 * @param id
 	 * @return true if connected and false else
 	 */
 	private boolean isGuestConnected(String id) {

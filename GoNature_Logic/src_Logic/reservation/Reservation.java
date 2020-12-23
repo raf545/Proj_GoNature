@@ -1,28 +1,28 @@
 package reservation;
 
+import java.sql.Timestamp;
+
 public class Reservation {
 
 	private String reservationID;
 	private String personalID;
 	private String parkname;
-	private String visithour;
 	private String numofvisitors;
 	private String reservationtype;
 	private String email;
-	private String date;
+	private Timestamp dateAndTime;
 	private float price;
 	private String reservetionStatus;
 
-	public Reservation(String reservationID, String personalID, String parkname, String visithour, String numofvisitors,
-			String reservationtype, String email, String date, float price, String reservetionStatus) {
+	public Reservation(String reservationID, String personalID, String parkname, String numofvisitors,
+			String reservationtype, String email, Timestamp dateAndTime, float price, String reservetionStatus) {
 		this.reservationID = reservationID;
 		this.personalID = personalID;
 		this.parkname = parkname;
-		this.visithour = visithour;
 		this.numofvisitors = numofvisitors;
 		this.reservationtype = reservationtype;
 		this.email = email;
-		this.date = date;
+		this.dateAndTime = dateAndTime;
 		this.price = price;
 		this.reservetionStatus = reservetionStatus;
 	}
@@ -51,13 +51,6 @@ public class Reservation {
 		this.parkname = parkname;
 	}
 
-	public String getVisithour() {
-		return visithour;
-	}
-
-	public void setVisithour(String visithour) {
-		this.visithour = visithour;
-	}
 
 	public String getNumofvisitors() {
 		return numofvisitors;
@@ -83,12 +76,12 @@ public class Reservation {
 		this.email = email;
 	}
 
-	public String getDate() {
-		return date;
+	public Timestamp getDate() {
+		return dateAndTime;
 	}
 
-	public void setDate(String date) {
-		this.date = date;
+	public void setDate(Timestamp date) {
+		this.dateAndTime = date;
 	}
 
 	public float getPrice() {
@@ -110,9 +103,11 @@ public class Reservation {
 	@Override
 	public String toString() {
 		return "Reservation [reservationID=" + reservationID + ", personalID=" + personalID + ", parkname=" + parkname
-				+ ", visithour=" + visithour + ", numofvisitors=" + numofvisitors + ", reservationtype="
-				+ reservationtype + ", email=" + email + ", date=" + date + ", price=" + price + ", reservetionStatus="
-				+ reservetionStatus + "]";
+				+ ", numofvisitors=" + numofvisitors + ", reservationtype=" + reservationtype + ", email=" + email
+				+ ", dateAndTime=" + dateAndTime + ", price=" + price + ", reservetionStatus=" + reservetionStatus
+				+ "]";
 	}
+
+
 
 }

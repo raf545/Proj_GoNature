@@ -34,6 +34,7 @@ public class ChatClient extends AbstractClient {
 	
 	public static Class<?> clientType = null;
 	public static String clientTypeString = null;
+	public static String clientIdString = null;
 	public static String clientInfo = null; 
 	public static String serverMsg = null;
 	public static boolean awaitResponse = false;
