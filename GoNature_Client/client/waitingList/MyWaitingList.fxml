@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="920.0" style="-fx-background-color: #3D8FFF;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="waitingList.MyWaitingListController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="920.0" style="-fx-background-color: #99d487;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="waitingList.MyWaitingListController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="606.0" layoutX="105.0" layoutY="77.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="710.0" />
       <Text layoutX="307.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Waiting List" textAlignment="CENTER" wrappingWidth="290.443359375">
@@ -23,7 +23,7 @@
             <Font size="19.0" />
          </font>
       </Text>
-      <Circle fill="#3d8fff" layoutX="176.0" layoutY="153.0" radius="25.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fill="#729d64" layoutX="176.0" layoutY="153.0" radius="25.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="0.0" />
       <Text fx:id="backBtn" fill="WHITE" layoutX="150.0" layoutY="163.0" onMouseClicked="#back" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;" textAlignment="CENTER" wrappingWidth="50.0">
          <font>
             <Font name="Baloo Regular" size="30.0" />
