@@ -2,7 +2,10 @@ package controllers;
 
 import com.google.gson.Gson;
 
+import dataBase.DataBase;
 import ocsf.server.ConnectionToClient;
+import parkChange.ParkChangeDetails;
+
 
 public class ParkManagerSystemController {
 	Gson gson = new Gson();
@@ -32,8 +35,13 @@ public class ParkManagerSystemController {
 	}
 
 	private String changeParkDetails(String data, ConnectionToClient client) {
-		// TODO Auto-generated method stub
-		return null;
+		ParkChangeDetails parkdetails = gson.fromJson(data, ParkChangeDetails.class);
+		String query="INSERT INTO `gonaturedb`.`parkdetailsapproval` (`parkname`, `parkcapacity`, `difference`, `discount`) VALUES "
+				+parkdetails.toString()+ ";" ;
+		if (DataBase.getInstance().update(query)) {
+			return "the changing are waiting for approval";
+		}
+		return "faild";
 	}
 	
 	

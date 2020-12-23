@@ -5,6 +5,7 @@ import java.io.IOException;
 import com.google.gson.Gson;
 
 import client.ClientUI;
+import employee.Employee;
 import familySubWorker.NewFamilySubWorkerController;
 import groupLeader.NewGroupLeaderWorkerController;
 import javafx.event.ActionEvent;
@@ -26,21 +27,26 @@ public class MainPageParkManagerController {
 
 	Gson gson = new Gson();
 
-	 @FXML
-	    private Pane parkManagerMainPane;
+	@FXML
+	private Pane parkManagerMainPane;
 
-	    @FXML
-	    private Button parkReportBtn;
+	@FXML
+	private Button parkReportBtn;
 
-	    @FXML
-	    private Button editParkBtn;
+	@FXML
+	private Button editParkBtn;
 
-	    @FXML
-	    private Button newReservationBtn;
+	@FXML
+	private Button newReservationBtn;
 
-	    @FXML
-	    private Hyperlink logoutBtn;
+	@FXML
+	private Hyperlink logoutBtn;
 
+	Employee parkManager;
+
+	public void setParkManagerEmployee(Employee parkManagerEmp) {
+		parkManager = parkManagerEmp;
+	}
 
 	@FXML
 	void editPark(ActionEvent event) throws IOException {
@@ -50,8 +56,8 @@ public class MainPageParkManagerController {
 		Pane root = loader.load();
 		parkManagerMainPane.getChildren().clear();
 		parkManagerMainPane.getChildren().add(root);
-		ParkMangerChangesController pmcController=loader.getController();
-		pmcController.initializeSliders();
+		ParkMangerChangesController pmcController = loader.getController();
+		pmcController.initializeSlidersAndSetParkMan(parkManager);
 	}
 
 	@FXML
@@ -61,8 +67,7 @@ public class MainPageParkManagerController {
 
 	@FXML
 	void parkReport(ActionEvent event) throws IOException {
-		
-	
+
 	}
 
 	@FXML
