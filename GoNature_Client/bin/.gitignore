@@ -1,14 +1,5 @@
-/client/
-/common/
 /departmentManager/
-/employee/
-/familySubWorker/
-/faq/
-/groupLeader/
+/fxmlGeneralFunctions/
+/departmentManagerReports/
 /guiCommon/
-/login/
-/mainVisitorPage/
-/parkManager/
-/reservation/
-/waitingList/
-/parkMangerChanges/
+/managerApproveChanges/

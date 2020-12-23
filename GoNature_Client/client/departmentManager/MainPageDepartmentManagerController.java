@@ -4,20 +4,16 @@ import java.io.IOException;
 
 import com.google.gson.Gson;
 
-import client.ClientUI;
+import departmentManagerReports.DepartmentManagerChooseReportController;
+import fxmlGeneralFunctions.FXMLFunctions;
+import guiCommon.StaticPaneMainPageDepartmentManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import login.SignInEmployeeController;
-import requestHandler.RequestHandler;
-import requestHandler.controllerName;
+import managerApproveChanges.ApproveChangesController;
 
 public class MainPageDepartmentManagerController {
 
@@ -39,41 +35,31 @@ public class MainPageDepartmentManagerController {
 	private Text quitBtn;
 
 	@FXML
-	private Hyperlink logoutBtn;
+    private Text logoutBtn;
 
-	@FXML
-	void approveChange(ActionEvent event) {
 
-	}
+    @FXML
+    void logout(MouseEvent event) throws IOException {
+    	FXMLFunctions.logOutFromMainPage(approveChangesBtn.getScene());
+    }
 
-	@FXML
-	void managerReport(ActionEvent event) {
+    @FXML
+    void openApproveChange(ActionEvent event) throws IOException {
+    	//Save the main pane in order to have access to it later.
+    	StaticPaneMainPageDepartmentManager.DepartmentManagerMainPane = departmentManagerPane;
+    	FXMLFunctions.loadSceneToMainPane(ApproveChangesController.class, "ApproveChanges.fxml" , departmentManagerPane);
+    	
+    }
 
-	}
+    @FXML
+    void openManagerReports(ActionEvent event) throws IOException {
+    	StaticPaneMainPageDepartmentManager.DepartmentManagerMainPane = departmentManagerPane;
+    	DepartmentManagerChooseReportController controller = FXMLFunctions.loadSceneToMainPane(DepartmentManagerChooseReportController.class, "DepartmentManagerChooseReport.fxml" , departmentManagerPane).getController();
+    	controller.setComboBoxOptions();
+    }
 
-	@FXML
-	void newReservation(ActionEvent event) {
+    @FXML
+    void openNewReservation(ActionEvent event) {
 
-	}
-
-	@FXML
-	void logout(ActionEvent event) throws IOException {
-		RequestHandler rh = new RequestHandler(controllerName.LoginController, "logout", "");
-		ClientUI.chat.accept(gson.toJson(rh));
-
-		Stage primaryStage = new Stage();
-		// get a handle to the stage
-		Stage stage = (Stage) managerReportBtn.getScene().getWindow();
-		// do what you have to do
-		stage.close();
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(SignInEmployeeController.class.getResource("SignInEmployee.fxml"));
-		Pane root = loader.load();
-		Scene sc = new Scene(root);
-		primaryStage.setTitle("Sign In Employee");
-		primaryStage.setScene(sc);
-		primaryStage.show();
-
-	}
-
+    }
 }
