@@ -63,27 +63,62 @@ public class NewFamilySubWorkerController {
 		creditCardNumber = CreditCardTF.getText();
 		subscriberType = "family";
 
-		if (firstNameTF.getText().isEmpty()) {
-			popError.append("Must enter first name");
+		if (firstNameTF.getText().isEmpty()) 
+			popError.append("Must enter first name\n");
 
-			if (LastNameTF.getText().isEmpty())
-				popError.append("Must enter last name");
+		if (firstNameTF.getText().matches(".\\d.")) 
+			popError.append("No Numbers allowed in names\n");
 
-			if (IdTF.getText().isEmpty())
-				popError.append("Must enter ID");
-
-			if (PhoneTF.getText().isEmpty())
-				popError.append("Must enter Phone number");
-
-			if (EmailTF.getText().isEmpty())
-				popError.append("Must enter Email");
-
-			if (AmountTF.getText().isEmpty())
-				popError.append("Must enter Amount of pepole");
-
-			if (popError.length() > 0)
-				PopUp.display("Error", popError.toString());
+		if (LastNameTF.getText().isEmpty()) {
+			popError.append("Must enter last name\n");
 		} else {
+			if (LastNameTF.getText().matches(".\\d."))
+				popError.append("No Numbers allowed in names\n");
+			
+			}
+			
+		if (IdTF.getText().isEmpty()) {
+			popError.append("Must enter ID\n");
+		}else {
+			if (IdTF.getText().matches("[a-zA-z]+")) {
+				popError.append("Please enter only numbers on ID\n");
+			}
+				
+		}
+	
+		if (PhoneTF.getText().isEmpty()){
+			popError.append("Must enter Phone number\n");
+		}else {
+			if (PhoneTF.getText().matches("[a-zA-z]+")) {
+				popError.append("Must enter only numbers for Phone number\n");
+			}else {
+				if (PhoneTF.getText().length()!=10)
+					popError.append("Must enter 10 digit Phone number\n");
+			}
+		}
+	
+		if (EmailTF.getText().isEmpty())
+		{
+			popError.append("Must enter Email\n");
+		}else {
+			if (EmailTF.getText().matches("^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$"))
+				popError.append("Not a valid Email\n");
+		}
+			
+
+	
+			if (AmountTF.getText().isEmpty()) {
+				popError.append("Must enter Amount of pepole\n");
+			}else {
+				if (AmountTF.getText().matches(".\\d.")) {
+					popError.append("Must enter Amount of pepole in numbers\n");
+				}
+		}
+			if (popError.length() > 0)
+			{
+				PopUp.display("Error", popError.toString());
+			}
+			else {
 
 			subscriber = new Subscriber(id, subscriberid, name, lastName, phone, email, numOfMembers, creditCardNumber,
 					subscriberType);

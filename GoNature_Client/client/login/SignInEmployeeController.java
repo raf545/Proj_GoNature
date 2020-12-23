@@ -91,7 +91,7 @@ public class SignInEmployeeController {
 				openDepartmentManagerGui();
 				break;
 			case "park manager":
-				openParkManagerGui();
+				openParkManagerGui(employee);
 				break;
 			case "employee":
 				openEmployeeGui();
@@ -125,7 +125,7 @@ public class SignInEmployeeController {
 		}
 	}
 
-	private void openParkManagerGui() {
+	private void openParkManagerGui(Employee parkManager) {
 		try {
 			Stage primaryStage = new Stage();
 			Stage stage = (Stage) ContinueBtn.getScene().getWindow();
@@ -134,6 +134,9 @@ public class SignInEmployeeController {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainPageParkManagerController.class.getResource("MainPageParkManager.fxml"));
 			Pane root = loader.load();
+
+			MainPageParkManagerController mainPageParkManagerController = loader.getController();
+			mainPageParkManagerController.setParkManagerEmployee(parkManager);
 
 			Scene sc = new Scene(root);
 			primaryStage.setTitle("Main Page Park Manager");
