@@ -4,6 +4,7 @@
 package server;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.google.gson.Gson;
@@ -90,7 +91,12 @@ public class EchoServer extends AbstractServer {
 		case WaitingListController:
 			break;
 		case ParkManagerSystemController:
-			answer = ParkManagerSystemController.getInstance().getFunc(rh.getFunc(), rh.getData(), client);
+			try {
+				answer = ParkManagerSystemController.getInstance().getFunc(rh.getFunc(), rh.getData(), client);
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			break;
 		}
 		try {
