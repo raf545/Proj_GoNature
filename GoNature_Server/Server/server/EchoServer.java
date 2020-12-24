@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import com.google.gson.Gson;
 
+import controllers.DepartmentManagerSystemController;
 import controllers.EmployeeSystemController;
 import controllers.LoginController;
 import controllers.ParkManagerSystemController;
@@ -95,6 +96,16 @@ public class EchoServer extends AbstractServer {
 				answer = ParkManagerSystemController.getInstance().getFunc(rh.getFunc(), rh.getData(), client);
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			break;
+		case DepartmentManagerSystemController:
+			try 
+			{
+				answer = DepartmentManagerSystemController.getInstance().getFunc(rh.getFunc(), rh.getData(), client);
+			} 
+			catch (SQLException e1) 
+			{
 				e1.printStackTrace();
 			}
 			break;
