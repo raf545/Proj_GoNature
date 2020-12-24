@@ -19,7 +19,7 @@ public class DataBase {
 	// Class variables *************************************************
 	private static DataBase SqlConnectorInstace = null;
 	private Connection connection = null;
-	private String jdbcURL = "jdbc:mysql://localhost/gonaturedb?serverTimezone=IST";
+	private String jdbcURL = "jdbc:mysql://localhost/gonaturedb?serverTimezone=CAT";
 	private String jdbcuser = "root";
 	private String jdbcPass = "root";
 	// Constructors ****************************************************
@@ -61,6 +61,22 @@ public class DataBase {
 
 	}
 
+	public ResultSet search(PreparedStatement query) {
+		ResultSet res = null;
+
+		// TODO change exception throw into something less strong
+		// TODO catch and handle the SQL exception
+
+		try {
+			res = query.executeQuery();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return res;
+
+	}
+
 	/**
 	 * 
 	 * This method wriets info to the DB and returns a boolean answer
@@ -73,6 +89,17 @@ public class DataBase {
 		try {
 			PreparedStatement ps = connection.prepareStatement(query);
 			ps.executeUpdate();
+			return true;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public boolean update(PreparedStatement query) {
+		try {
+			query.executeUpdate();
 			return true;
 
 		} catch (SQLException e) {
@@ -123,5 +150,19 @@ public class DataBase {
 			System.out.println("VendorError: " + ex.getErrorCode());
 			return false;
 		}
+	}
+
+	public int isEmpty(ResultSet resultSet) {
+		int size = 0;
+		if (resultSet != null) {
+			try {
+				resultSet.last(); // moves cursor to the last row
+				size = resultSet.getRow(); // get row id
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return size;
 	}
 }
