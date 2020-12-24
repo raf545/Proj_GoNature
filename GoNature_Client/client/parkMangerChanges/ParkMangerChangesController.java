@@ -1,5 +1,7 @@
 package parkMangerChanges;
 
+import java.util.ArrayList;
+
 import com.google.gson.Gson;
 
 import client.ChatClient;
@@ -39,12 +41,7 @@ public class ParkMangerChangesController {
 	@FXML
 	private Slider differenceSlider;
 
-	@FXML
-	private TextField visitTimeTF;
-
-	@FXML
-	private Slider visitingTimeSlider;
-
+	
 	@FXML
 	private TextField discountTF;
 
@@ -71,17 +68,27 @@ public class ParkMangerChangesController {
 		RequestHandler rh = new RequestHandler(controllerName.ParkManagerSystemController, changeParkDetails,
 				gson.toJson(parkDetails));
 		ClientUI.chat.accept(gson.toJson(rh));
+		analyzeAnswerFromServer();
 	}
 
 	public void initializeSlidersAndSetParkMan(Employee employee) {
 		parkCapacitySlider.setMin(300);
 		parkCapacitySlider.setMax(500);
 		differenceSlider.setMin(0);
-		differenceSlider.setMax(50);
+		differenceSlider.setMax(500);
 		discountSlider.setMin(0);
 		discountSlider.setMax(50);
 		parkManager = employee;
+		initParkValues();
+		
+		
 
+	}
+
+	private void initParkValues() {
+		RequestHandler rh = new RequestHandler(controllerName.ParkManagerSystemController, "initParkValues",parkManager.getParkName());
+		ClientUI.chat.accept(gson.toJson(rh));
+		analyzeAnswerFromServer();
 	}
 
 	@FXML
@@ -113,10 +120,20 @@ public class ParkMangerChangesController {
 		case "faild":
 			PopUp.display("Error", answer);
 			break;
-		
-		default:
+		case "The changing are waiting for approval":
 			PopUp.display("success", answer);
+			
+		default:
+			ArrayList <String> res=gson.fromJson(answer, ArrayList.class);
+			parkCapacitySlider.setValue(Integer.valueOf(res.get(0)));
+			differenceSlider.setValue(Integer.valueOf(res.get(1)));
+			discountSlider.setValue(Integer.valueOf(res.get(2)));
+			differenceTF.setText(String.valueOf((int) differenceSlider.getValue()));
+			discountTF.setText(String.valueOf((int) discountSlider.getValue()));
+			parkCapacityTF.setText(String.valueOf((int) parkCapacitySlider.getValue()));
+
 			break;
+			
 		}
 
 	}
