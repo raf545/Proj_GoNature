@@ -90,7 +90,7 @@ public class NewReservationController {
 		int month = WantedDatePicker.getValue().getMonthValue();
 		int year = WantedDatePicker.getValue().getYear();
 
-		reservationDateAndTime = new Timestamp(year - 1990, month - 1, day, hour, 00, 00, 00);
+		reservationDateAndTime = new Timestamp(year - 1900, month - 1, day, hour, 00, 00, 00);
 		System.out.println(reservationDateAndTime);
 
 		Reservation reservation = new Reservation("", ChatClient.clientIdString, ChooseParkComboBox.getValue(),

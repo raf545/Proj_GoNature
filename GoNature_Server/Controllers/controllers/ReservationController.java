@@ -75,12 +75,15 @@ public class ReservationController {
 				numberOfVisitorsAtTimeArea = res.getInt("sum(numofvisitors)");
 
 			query = con.prepareStatement(
-					"SELECT num FROM gonaturedb.uptodateinformation where nameOfVal = \"parkDifference\"" + parkName
-							+ " ;");
-			numberOfAvailbleVisitors = DataBase.getInstance().search(query).getInt("num");
+					"SELECT num FROM gonaturedb.uptodateinformation where nameOfVal = \"parkDifference" + parkName
+							+ "\" ;");
+			res = DataBase.getInstance().search(query);
+			while (res.next()) {
+				numberOfAvailbleVisitors = res.getInt("num");
+			}
+
 			if (numberOfAvailbleVisitors < numberOfVisitorsAtTimeArea + numberOfVisitors)
 				return false;
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -90,8 +93,15 @@ public class ReservationController {
 	private int getAndIncreaseReservasionID() {
 		String query = "SELECT num FROM gonaturedb.uptodateinformation where nameOfVal = \"resrvationID\" ;";
 		int oldReservationID = 0;
+		ResultSet res;
 		try {
-			oldReservationID = DataBase.getInstance().search(query).getInt("num");
+
+			res = DataBase.getInstance().search(query);
+
+			while (res.next()) {
+				oldReservationID = res.getInt("num");
+			}
+
 			int newReservationID = oldReservationID + 1;
 			query = "UPDATE gonaturedb.uptodateinformation SET num = " + newReservationID
 					+ " WHERE (nameOfVal = \"resrvationID\");";
@@ -105,16 +115,19 @@ public class ReservationController {
 
 	private boolean insertReservationToDB(Reservation reservation) {
 		try {
+			// FIXME
+			reservation.setPrice((float) 0.0);// WRONG!!!
 			PreparedStatement query = con
 					.prepareStatement("INSERT INTO gonaturedb.reservetions VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);");
 			query.setString(1, reservation.getReservationID());
 			query.setString(2, reservation.getPersonalID());
 			query.setString(3, reservation.getParkname());
-			query.setString(4, reservation.getReservationtype());
-			query.setString(5, reservation.getEmail());
-			query.setTimestamp(6, reservation.getDateAndTime());
-			query.setFloat(7, reservation.getPrice());
-			query.setString(8, reservation.getReservetionStatus());
+			query.setString(4, reservation.getNumofvisitors());
+			query.setString(5, reservation.getReservationtype());
+			query.setString(6, reservation.getEmail());
+			query.setTimestamp(7, reservation.getDateAndTime());
+			query.setFloat(8, reservation.getPrice());
+			query.setString(9, reservation.getReservetionStatus());
 			if (DataBase.getInstance().update(query) == false)
 				;
 			return false;
