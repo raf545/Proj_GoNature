@@ -76,7 +76,7 @@ public class Reservation {
 		this.email = email;
 	}
 
-	public Timestamp getDate() {
+	public Timestamp getDateAndTime() {
 		return dateAndTime;
 	}
 

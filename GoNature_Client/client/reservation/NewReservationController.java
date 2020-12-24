@@ -59,8 +59,7 @@ public class NewReservationController {
 
 	public void setIdentFields() {
 		ChooseParkComboBox.getItems().addAll("Niagara", "Banias", "Safari");
-		HourComboBox.getItems().addAll("08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00",
-				"17:00", "18:00");
+		HourComboBox.getItems().addAll("08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00");
 		countVisitor = 0;
 		numOfVisitorTxt.setText(String.valueOf(countVisitor));
 
@@ -77,26 +76,28 @@ public class NewReservationController {
 
 	}
 
-	
 	@SuppressWarnings("deprecation")
 	@FXML
 	void Continue(ActionEvent event) {
-		
+
 		Timestamp reservationDateAndTime;
 		StringBuilder timeFromCombo = new StringBuilder();
 		timeFromCombo.append(HourComboBox.getValue());
 		timeFromCombo.delete(2, 5);
 		int hour = Integer.parseInt(timeFromCombo.toString());
-		
+
 		int day = WantedDatePicker.getValue().getDayOfMonth();
 		int month = WantedDatePicker.getValue().getMonthValue();
-		int  year = WantedDatePicker.getValue().getYear();
-		
-		reservationDateAndTime= new Timestamp(year, month, day, hour, 00, 00, 00);
-		
-		Reservation reservation = new Reservation("", ChatClient.clientIdString, ChooseParkComboBox.getValue(), numOfVisitorTxt.getText(), 
-				ChatClient.clientTypeString, EmailTxt.getText(), reservationDateAndTime, 0, "valid");
-		RequestHandler requestNewReservationId = new RequestHandler(controllerName.ReservationController,"createNewReservation",gson.toJson(reservation));
+		int year = WantedDatePicker.getValue().getYear();
+
+		reservationDateAndTime = new Timestamp(year - 1990, month - 1, day, hour, 00, 00, 00);
+		System.out.println(reservationDateAndTime);
+
+		Reservation reservation = new Reservation("", ChatClient.clientIdString, ChooseParkComboBox.getValue(),
+				numOfVisitorTxt.getText(), ChatClient.clientTypeString, EmailTxt.getText(), reservationDateAndTime, 0,
+				"valid");
+		RequestHandler requestNewReservationId = new RequestHandler(controllerName.ReservationController,
+				"createNewReservation", gson.toJson(reservation));
 		ClientUI.chat.accept(gson.toJson(requestNewReservationId));
 
 	}
@@ -113,12 +114,12 @@ public class NewReservationController {
 
 	@FXML
 	void plus(ActionEvent event) {
-		if (ChatClient.clientTypeString.equals("instructor") && countVisitor == 16) {
-			PopUp.display("Error", "The maximum visitors for an instructor is 15");
-		} else {
-			countVisitor++;
-			numOfVisitorTxt.setText(String.valueOf(countVisitor));
-		}
+//		if (ChatClient.clientTypeString.equals("instructor") && countVisitor == 16) {
+//			PopUp.display("Error", "The maximum visitors for an instructor is 15");
+//		} else {
+		countVisitor++;
+		numOfVisitorTxt.setText(String.valueOf(countVisitor));
+//		}
 	}
 
 }
