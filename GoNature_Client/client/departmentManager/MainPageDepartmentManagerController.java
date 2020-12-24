@@ -47,8 +47,8 @@ public class MainPageDepartmentManagerController {
     void openApproveChange(ActionEvent event) throws IOException {
     	//Save the main pane in order to have access to it later.
     	StaticPaneMainPageDepartmentManager.DepartmentManagerMainPane = departmentManagerPane;
-    	FXMLFunctions.loadSceneToMainPane(ApproveChangesController.class, "ApproveChanges.fxml" , departmentManagerPane);
-    	
+    	ApproveChangesController controller = FXMLFunctions.loadSceneToMainPane(ApproveChangesController.class, "ApproveChanges.fxml" , departmentManagerPane).getController();
+    	controller.getChangesFromDataBase();
     }
 
     @FXML

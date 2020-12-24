@@ -8,5 +8,6 @@ public enum controllerName {
 	ReservationController,
 	ServiceRepresentativeController,
 	WaitingListController,
-	ParkManagerSystemController
+	ParkManagerSystemController,
+	DepartmentManagerSystemController
 }
