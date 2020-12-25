@@ -114,12 +114,13 @@ public class NewReservationController {
 
 	@FXML
 	void plus(ActionEvent event) {
-//		if (ChatClient.clientTypeString.equals("instructor") && countVisitor == 16) {
-//			PopUp.display("Error", "The maximum visitors for an instructor is 15");
-//		} else {
-		countVisitor++;
-		numOfVisitorTxt.setText(String.valueOf(countVisitor));
-//		}
+		System.out.println(ChatClient.clientTypeString);
+		if (ChatClient.clientTypeString.equals("instructor") && countVisitor == 16) {
+			PopUp.display("Error", "The maximum visitors for an instructor is 16");
+		} else {
+			countVisitor++;
+			numOfVisitorTxt.setText(String.valueOf(countVisitor));
+		}
 	}
 
 }

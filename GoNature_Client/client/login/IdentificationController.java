@@ -135,8 +135,8 @@ public class IdentificationController {
 		default:
 			if (selectedCombo == "Guest ID") {
 				setClientInfoAndType(String.class, "Guest");
-				VisitorName = "Guest";
-				VisitorType = "Guest";
+				VisitorName = ChatClient.serverMsg;
+				VisitorType = "guest";
 				ChatClient.clientIdString = ChatClient.clientInfo;
 			} else if (selectedCombo == "Subscriber") {
 
@@ -144,7 +144,7 @@ public class IdentificationController {
 				ChatClient.clientIdString = savedSubscriberName.getId();
 				setClientInfoAndType(Subscriber.class, savedSubscriberName.getSubscriberType());
 				VisitorName = savedSubscriberName.getName() + " " + savedSubscriberName.getLastName();
-				VisitorType = "Subscriber";
+				VisitorType = savedSubscriberName.getSubscriberType();
 			} else if (selectedCombo == "Reservation ID") {
 				setClientInfoAndType(Reservation.class, "Reservation");
 				Reservation saveRsesrvationId = gson.fromJson(ChatClient.serverMsg, Reservation.class);
