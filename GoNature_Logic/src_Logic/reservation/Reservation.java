@@ -11,7 +11,7 @@ public class Reservation {
 	private String reservationtype;
 	private String email;
 	private Timestamp dateAndTime;
-	private float price;
+	private double price;
 	private String reservetionStatus;
 
 	public Reservation(String reservationID, String personalID, String parkname, String numofvisitors,
@@ -51,7 +51,6 @@ public class Reservation {
 		this.parkname = parkname;
 	}
 
-
 	public String getNumofvisitors() {
 		return numofvisitors;
 	}
@@ -84,11 +83,11 @@ public class Reservation {
 		this.dateAndTime = date;
 	}
 
-	public float getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(float price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 
@@ -107,7 +106,5 @@ public class Reservation {
 				+ ", dateAndTime=" + dateAndTime + ", price=" + price + ", reservetionStatus=" + reservetionStatus
 				+ "]";
 	}
-
-
 
 }

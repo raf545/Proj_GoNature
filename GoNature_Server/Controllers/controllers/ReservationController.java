@@ -42,14 +42,17 @@ public class ReservationController {
 		if (isThereAvailableSpace(reservation.getDateAndTime(), reservation.getParkname(),
 				Integer.parseInt(reservation.getNumofvisitors())) == false)
 			return "There is no availble space";
+
 		reservationId = getAndIncreaseReservasionID();
 		if (reservationId < 10000)
 			return "fail update reservation ID";
 		reservation.setReservationID(Integer.toString(reservationId));
+
+		double priceForReservation = calculatePricePreOrder(reservation);
+		reservation.setPrice(priceForReservation);
+
 		if (insertReservationToDB(reservation) == false)
 			return "fail insert to DB";
-		float priceForReservation = calculatePrice(reservation);
-		reservation.setPrice(priceForReservation);
 		return gson.toJson(reservation);
 
 	}
@@ -105,6 +108,7 @@ public class ReservationController {
 			int newReservationID = oldReservationID + 1;
 			query = "UPDATE gonaturedb.uptodateinformation SET num = " + newReservationID
 					+ " WHERE (nameOfVal = \"resrvationID\");";
+			DataBase.getInstance().update(query);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -115,8 +119,6 @@ public class ReservationController {
 
 	private boolean insertReservationToDB(Reservation reservation) {
 		try {
-			// FIXME
-			reservation.setPrice((float) 0.0);// WRONG!!!
 			PreparedStatement query = con
 					.prepareStatement("INSERT INTO gonaturedb.reservetions VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);");
 			query.setString(1, reservation.getReservationID());
@@ -126,11 +128,10 @@ public class ReservationController {
 			query.setString(5, reservation.getReservationtype());
 			query.setString(6, reservation.getEmail());
 			query.setTimestamp(7, reservation.getDateAndTime());
-			query.setFloat(8, reservation.getPrice());
+			query.setDouble(8, reservation.getPrice());
 			query.setString(9, reservation.getReservetionStatus());
 			if (DataBase.getInstance().update(query) == false)
-				;
-			return false;
+				return false;
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -140,14 +141,91 @@ public class ReservationController {
 
 	}
 
-	private float calculatePrice(Reservation reservation) {
-		// TODO Auto-generated method stub
-		return 0;
+	@SuppressWarnings("resource")
+	private double calculatePricePreOrder(Reservation reservation) {
+		String query = "SELECT num FROM gonaturedb.uptodateinformation where nameOfVal = \"ticketPrice\" ;";
+		ResultSet res;
+		int ticketPrice = 0;
+		double discount = 0;
+		double reservationPrice = 0;
+		double discountPreOrder = 0;
+		try {
+			res = DataBase.getInstance().search(query);
+			while (res.next()) {
+				ticketPrice = res.getInt("num");
+
+				switch (reservation.getReservationtype()) {
+				case "instructor":
+					query = "SELECT discountInPercentage FROM gonaturedb.discounts where discountType = \"instructorPreOrder\" ;";
+					res = DataBase.getInstance().search(query);
+					while (res.next()) {
+						discount = res.getDouble("discountInPercentage");
+					}
+					reservationPrice = Integer.parseInt(reservation.getNumofvisitors()) * ticketPrice * discount;
+					break;
+				case "guest":
+					query = "SELECT discountInPercentage FROM gonaturedb.discounts where discountType = \"PreOrder\" ;";
+					res = DataBase.getInstance().search(query);
+					while (res.next()) {
+						discount = res.getDouble("discountInPercentage");
+					}
+					reservationPrice = Integer.parseInt(reservation.getNumofvisitors()) * ticketPrice * discount;
+					break;
+				case "subscriber":
+					query = "SELECT discountInPercentage FROM gonaturedb.discounts where discountType = \"subscriber\" ;";
+					res = DataBase.getInstance().search(query);
+					while (res.next()) {
+						discount = res.getDouble("num");
+					}
+					reservationPrice = ticketPrice * discount
+							+ (Integer.parseInt(reservation.getNumofvisitors()) - 1) * ticketPrice;
+
+					query = "SELECT discountInPercentage FROM gonaturedb.discounts where discountType = \"PreOrder\" ;";
+					res = DataBase.getInstance().search(query);
+					while (res.next()) {
+						discountPreOrder = res.getDouble("discountInPercentage");
+					}
+					reservationPrice = discountPreOrder * reservationPrice;
+					break;
+				default:
+					int numberOfFamily = 0;
+					query = "SELECT discountInPercentage FROM gonaturedb.discounts where discountType = \"subscriber\" ;";
+					res = DataBase.getInstance().search(query);
+					while (res.next()) {
+						discount = res.getDouble("discountInPercentage");
+					}
+
+					query = "SELECT discountInPercentage FROM gonaturedb.discounts where discountType = \"PreOrder\" ;";
+					res = DataBase.getInstance().search(query);
+					while (res.next()) {
+						discountPreOrder = res.getDouble("discountInPercentage");
+					}
+					query = "SELECT numOfMembers FROM gonaturedb.subscriber where id = " + reservation.getPersonalID()
+							+ ";";
+					res = DataBase.getInstance().search(query);
+					while (res.next()) {
+						numberOfFamily = Integer.parseInt(res.getString("numOfMembers"));
+					}
+					if (numberOfFamily >= Integer.parseInt(reservation.getNumofvisitors()))
+						reservationPrice = Integer.parseInt(reservation.getNumofvisitors()) * ticketPrice * discount;
+					else
+						reservationPrice = ticketPrice * discount * numberOfFamily
+								+ (Integer.parseInt(reservation.getNumofvisitors()) - numberOfFamily) * ticketPrice;
+					reservationPrice = discountPreOrder * reservationPrice;
+					break;
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return reservationPrice;
 	}
 
 	private boolean updateNumberOfVisitorsInPark(int updateNumber, String parkName) {
 		String query = " UPDATE gonaturedb.uptodateinformation SET num = " + "updateNumber"
 				+ " WHERE (nameOfVal = \"parkDifference" + "parkName" + "\");";
+
 		if (DataBase.getInstance().update(query))
 			return true;
 
