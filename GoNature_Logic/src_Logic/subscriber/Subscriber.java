@@ -102,6 +102,10 @@ public class Subscriber {
 		return "(" + id + ", " + subscriberid + ", \"" + name + "\", \"" + lastName + "\", " + phone + ", \"" + email + "\", "
 				+ numOfMembers + ", " + creditCardNumber + ", \"" + subscriberType + "\")";
 	}
+	public String toString2() {
+		return "('" + id + "', '" + subscriberid + "','" + name + "','" + lastName + "','" + phone + "','" + email + "','"
+				+ numOfMembers + "',' " + creditCardNumber + "','" + subscriberType + "')";
+	}
 
 
 }
