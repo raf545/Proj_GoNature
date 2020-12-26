@@ -27,6 +27,9 @@ public class Reservation {
 		this.reservetionStatus = reservetionStatus;
 	}
 
+	public Reservation() {
+	}
+
 	public String getReservationID() {
 		return reservationID;
 	}

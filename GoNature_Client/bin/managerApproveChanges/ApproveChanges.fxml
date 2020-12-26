@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="920.0" style="-fx-background-color: #E74C3C;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="managerApproveChanges.ApproveChangesController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="607.0" layoutX="121.0" layoutY="91.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="692.0" />
+      <Text layoutX="306.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Approve Changes" textAlignment="CENTER" wrappingWidth="310.443359375">
+         <font>
+            <Font name="Guttman Drogolin Bold" size="30.0" />
+         </font>
+      </Text>
+      <Circle fill="#e74c3c" layoutX="178.0" layoutY="144.0" radius="25.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="0.0" />
+      <Text fx:id="exitBtn" fill="WHITE" layoutX="152.0" layoutY="152.0" onMouseClicked="#quitScene" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;" textAlignment="CENTER" wrappingWidth="50.0">
+         <font>
+            <Font name="Baloo Regular" size="30.0" />
+         </font>
+      </Text>
+      <ScrollPane layoutX="150.0" layoutY="240.0" prefHeight="436.0" prefWidth="635.0">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="440.0" prefWidth="638.0">
+               <children>
+                  <VBox fx:id="listVBox" prefHeight="470.0" prefWidth="623.0" spacing="10.0">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+      <HBox layoutX="150.0" layoutY="203.0" prefHeight="37.0" prefWidth="623.0" spacing="5.0" style="-fx-background-color: #676767;">
+         <children>
+            <Text fill="WHITE" layoutY="18.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="Old " textAlignment="CENTER" wrappingWidth="164.443359375">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Text>
+            <Text fill="#fffb00" layoutX="170.0" layoutY="18.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="New" textAlignment="CENTER" wrappingWidth="126.443359375">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Text>
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </HBox>
+   </children>
+</Pane>

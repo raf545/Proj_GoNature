@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 
 import client.ChatClient;
 import client.ClientUI;
+import fxmlGeneralFunctions.FXMLFunctions;
 import guiCommon.StaticPaneMainPageClient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -139,7 +140,6 @@ public class IdentificationController {
 				VisitorType = "guest";
 				ChatClient.clientIdString = ChatClient.clientInfo;
 			} else if (selectedCombo == "Subscriber") {
-
 				Subscriber savedSubscriberName = gson.fromJson(ChatClient.serverMsg, Subscriber.class);
 				ChatClient.clientIdString = savedSubscriberName.getId();
 				setClientInfoAndType(Subscriber.class, savedSubscriberName.getSubscriberType());
@@ -180,6 +180,7 @@ public class IdentificationController {
 			StaticPaneMainPageClient.clientMainPane = mainPageForClientController.getPane();
 
 			Scene sc = new Scene(root);
+			primaryStage.setOnCloseRequest(e->FXMLFunctions.closeMainPage());
 			primaryStage.setTitle("Main page");
 			primaryStage.setScene(sc);
 			primaryStage.show();

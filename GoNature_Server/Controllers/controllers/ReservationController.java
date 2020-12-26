@@ -5,12 +5,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.google.gson.Gson;
 
 import dataBase.DataBase;
 import ocsf.server.ConnectionToClient;
 import reservation.Reservation;
+
 
 /**
  * 
@@ -43,6 +46,18 @@ public class ReservationController {
 
 	// Instance methods ************************************************
 
+	public String loginRouter(String functionName, String data, ConnectionToClient client) {
+		
+		switch (functionName) {
+		case "createNewReservation":
+			return createNewReservation(data,client);
+		case "getReservations":
+			return getReservations(data,client);
+		default:
+			return "fail";
+		}
+	}
+	
 	/**
 	 * 
 	 * This method creates a new reservation with the given data if fails return a
@@ -269,5 +284,37 @@ public class ReservationController {
 		}
 		return reservationPrice;
 	}
+	
+	private String getReservations(String data, ConnectionToClient client) {
+		List<Reservation> myReservations = new ArrayList<>();
+		Reservation reservation = new Reservation();
+		String personalId = gson.fromJson(data, String.class);
+		String query = "SELECT * FROM gonaturedb.reservetions where personalID = \"" + personalId 
+				+ "\" and reservetionStatus = \"Valid\";";
+		ResultSet reservationTupels;
+		
+		reservationTupels = DataBase.getInstance().search(query);
+			try {
+				while (reservationTupels.next()) {
+					
+					reservation.setReservationID(reservationTupels.getString("reservationID"));
+					reservation.setPersonalID(reservationTupels.getString("personalID"));
+					reservation.setParkname(reservationTupels.getString("parkname"));
+					reservation.setNumofvisitors(reservationTupels.getString("numofvisitors"));
+					reservation.setReservationtype(reservationTupels.getString("reservationtype"));
+					reservation.setEmail(reservationTupels.getString("email"));
+					reservation.setDate(reservationTupels.getTimestamp("dateAndTime"));
+					reservation.setPrice(reservationTupels.getDouble("price"));
+					reservation.setReservationtype("Valid");
+					myReservations.add(reservation);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		return gson.toJson(myReservations);
+	}
+
+
 
 }
+

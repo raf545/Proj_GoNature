@@ -137,7 +137,7 @@ public class NewReservationController {
 
 			Reservation reservation = new Reservation("", ChatClient.clientIdString, chooseParkComboBox.getValue(),
 					numOfVisitorTxt.getText(), ChatClient.clientTypeString, EmailTxt.getText(), reservationDateAndTime,
-					0, "valid");
+					0, "Valid");
 			RequestHandler requestNewReservationId = new RequestHandler(controllerName.ReservationController,
 					"createNewReservation", gson.toJson(reservation));
 			ClientUI.chat.accept(gson.toJson(requestNewReservationId));
