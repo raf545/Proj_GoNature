@@ -60,8 +60,8 @@ public class EmployeeSystemController {
 			e.printStackTrace();
 		}
 
-		query = "INSERT INTO gonaturedb.subscriber (id, subscriberid, name, lastName, phone, email, numOfMembers, creditCardNumber, subscriberTypre) VALUES "
-				+ subscriber.toString() + ";";
+		query = "INSERT INTO gonaturedb.subscriber (id, subscriberid, firstName, lastName, phone, email, numOfMembers, creditCardNumber, subscriberTypre) VALUES "
+				+ subscriber.toString2() + ";";
 		if (DataBase.getInstance().update(query)) {
 			subidr++;
 			query = "UPDATE gonaturedb.uptodateinformation SET num = " + subidr + " WHERE (nameOfVal = \"subscriberID\");";
@@ -81,8 +81,8 @@ public class EmployeeSystemController {
 		if (isEmpty(res) != 0)
 			return "Instructor already exist";
 
-		query = "INSERT INTO gonaturedb.subscriber (id, subscriberid, name, lastName, phone, email, numOfMembers, creditCardNumber, subscriberTypre) VALUES "
-				+ subscriber.toString() + ";";
+		query = "INSERT INTO gonaturedb.subscriber (id, subscriberid, firstName, lastName, phone, email, numOfMembers, creditCardNumber, subscriberTypre) VALUES "
+				+ subscriber.toString2() + ";";
 		if (DataBase.getInstance().update(query))
 			return "success";
 		return "fail";

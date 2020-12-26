@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
@@ -46,7 +47,6 @@
             <Font size="17.0" />
          </font>
       </Text>
-      <TextField fx:id="PasswordTxt" alignment="CENTER" layoutX="204.0" layoutY="232.0" prefHeight="25.0" prefWidth="199.0" promptText="Password" />
       <Circle fill="#99d487" layoutX="85.0" layoutY="76.0" radius="25.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="0.0" />
       <Text fx:id="BackBtn" fill="WHITE" layoutX="59.0" layoutY="86.0" onMouseClicked="#Back" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;" textAlignment="CENTER" wrappingWidth="50.0">
          <font>
@@ -58,5 +58,6 @@
             <Font name="Guttman Haim" size="32.0" />
          </font>
       </Text>
+      <PasswordField fx:id="PasswordTxt" layoutX="205.0" layoutY="245.0" prefHeight="25.0" prefWidth="199.0" />
    </children>
 </Pane>

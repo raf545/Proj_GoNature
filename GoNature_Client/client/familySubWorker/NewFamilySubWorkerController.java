@@ -65,26 +65,22 @@ public class NewFamilySubWorkerController {
 		if (firstNameTF.getText().matches(".\\d.")) 
 			popError.append("No Numbers allowed in names\n");
 
-		if (LastNameTF.getText().isEmpty()) {
+		if (LastNameTF.getText().isEmpty()) 
 			popError.append("Must enter last name\n");
-		} else {
-			if (LastNameTF.getText().matches(".\\d."))
+		
+		 else if (LastNameTF.getText().matches(".\\d."))
 				popError.append("No Numbers allowed in names\n");
-			
-			}
-			
-		if (IdTF.getText().isEmpty()) {
+							
+		if (IdTF.getText().isEmpty()) 
 			popError.append("Must enter ID\n");
-		}else {
-			if (IdTF.getText().matches("[a-zA-z]+")) {
+		
+		else if (!(IdTF.getText().matches("[0-9]+") && IdTF.getText().length() > 2))
 				popError.append("Please enter only numbers on ID\n");
-			}
-				
-		}
-	
-		if (PhoneTF.getText().isEmpty()){
+			
+					
+		if (PhoneTF.getText().isEmpty())
 			popError.append("Must enter Phone number\n");
-		}else {
+		else {
 			if (PhoneTF.getText().matches("[a-zA-z]+")) {
 				popError.append("Must enter only numbers for Phone number\n");
 			}else {
@@ -97,7 +93,7 @@ public class NewFamilySubWorkerController {
 		{
 			popError.append("Must enter Email\n");
 		}else {
-			if (EmailTF.getText().matches("^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$"))
+			if (!(EmailTF.getText().matches("^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$")))
 				popError.append("Not a valid Email\n");
 		}
 			

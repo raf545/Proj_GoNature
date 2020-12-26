@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -35,7 +36,7 @@ public class SignInEmployeeController {
 	private Button ContinueBtn;
 
 	@FXML
-	private TextField PasswordTxt;
+	private PasswordField PasswordTxt;
 
 	@FXML
 	private Text BackBtn;
