@@ -2,7 +2,11 @@
 <classpath>
 	<classpathentry kind="src" path="src_ocsf"/>
 	<classpathentry kind="src" path="src_Logic"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<accessrules>
+			<accessrule kind="accessible" pattern="javafx/**"/>
+		</accessrules>
+	</classpathentry>
 	<classpathentry kind="lib" path="gson-2.8.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

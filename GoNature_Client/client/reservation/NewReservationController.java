@@ -1,12 +1,9 @@
 package reservation;
 
 import java.sql.Timestamp;
-
 import com.google.gson.Gson;
-
 import client.ChatClient;
 import client.ClientUI;
-import common.ChatIF;
 import guiCommon.StaticPaneMainPageClient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,21 +18,26 @@ import javafx.scene.text.Text;
 import popup.PopUp;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
+import subscriber.Subscriber;
 
 public class NewReservationController {
 
+	// Class variables *************************************************
 	Gson gson = new Gson();
+
+	Reservation reservationFromServer;
+
 	@FXML
 	private Button ContinueBtn;
 
 	@FXML
-	private ComboBox<String> ChooseParkComboBox;
+	private ComboBox<String> chooseParkComboBox;
 
 	@FXML
-	private DatePicker WantedDatePicker;
+	private DatePicker wantedDatePicker;
 
 	@FXML
-	private ComboBox<String> HourComboBox;
+	private ComboBox<String> hourComboBox;
 
 	@FXML
 	private TextField EmailTxt;
@@ -57,14 +59,29 @@ public class NewReservationController {
 
 	private int countVisitor;
 
+	// Instance methods ************************************************
+
+	/**
+	 *  Sets the relevant fields in the newReservation section
+	 */
 	public void setIdentFields() {
-		ChooseParkComboBox.getItems().addAll("Niagara", "Banias", "Safari");
-		HourComboBox.getItems().addAll("08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00");
-		countVisitor = 0;
+		chooseParkComboBox.getItems().addAll("Niagara", "Banias", "Safari");
+		hourComboBox.getItems().addAll("08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00");
+		countVisitor = 1;
 		numOfVisitorTxt.setText(String.valueOf(countVisitor));
+		if (!ChatClient.clientTypeString.equals("Guest")) {
+			Subscriber currentSubscriber = gson.fromJson(ChatClient.clientInfo, Subscriber.class);
+			EmailTxt.setText(currentSubscriber.getEmail());
+		}
 
 	}
 
+	/**
+	 * 
+	 * This method is invoked by the back button
+	 * 
+	 * @param event
+	 */
 	@FXML
 	void Back(MouseEvent event) {
 
@@ -76,50 +93,112 @@ public class NewReservationController {
 
 	}
 
+	/**
+	 * 
+	 * This method is invoked by the continue button witch initiate the new
+	 * reservation process
+	 * 
+	 * @param event
+	 */
 	@SuppressWarnings("deprecation")
 	@FXML
 	void Continue(ActionEvent event) {
 
 		Timestamp reservationDateAndTime;
 		StringBuilder timeFromCombo = new StringBuilder();
-		timeFromCombo.append(HourComboBox.getValue());
-		timeFromCombo.delete(2, 5);
-		int hour = Integer.parseInt(timeFromCombo.toString());
+		StringBuilder errorMessage = new StringBuilder();
+		String selectedCombo = hourComboBox.getSelectionModel().getSelectedItem();
 
-		int day = WantedDatePicker.getValue().getDayOfMonth();
-		int month = WantedDatePicker.getValue().getMonthValue();
-		int year = WantedDatePicker.getValue().getYear();
+		if (selectedCombo == null) {
+			errorMessage.append("No hour selected\n");
+		}
+		if (EmailTxt.getText().isEmpty()) {
+			errorMessage.append("No Email enterd\n");
+		}
+		selectedCombo = chooseParkComboBox.getSelectionModel().getSelectedItem();
+		if (selectedCombo == null) {
+			errorMessage.append("No park selected\n");
+		}
+		if (wantedDatePicker.getValue() == null) {
+			errorMessage.append("No date selected\n");
+		}
 
-		reservationDateAndTime = new Timestamp(year - 1900, month - 1, day, hour, 00, 00, 00);
-		System.out.println(reservationDateAndTime);
+		if (errorMessage.length() == 0) {
+			timeFromCombo.append(hourComboBox.getValue());
+			timeFromCombo.delete(2, 5);
+			int hour = Integer.parseInt(timeFromCombo.toString());
 
-		Reservation reservation = new Reservation("", ChatClient.clientIdString, ChooseParkComboBox.getValue(),
-				numOfVisitorTxt.getText(), ChatClient.clientTypeString, EmailTxt.getText(), reservationDateAndTime, 0,
-				"valid");
-		RequestHandler requestNewReservationId = new RequestHandler(controllerName.ReservationController,
-				"createNewReservation", gson.toJson(reservation));
-		ClientUI.chat.accept(gson.toJson(requestNewReservationId));
+			int day = wantedDatePicker.getValue().getDayOfMonth();
+			int month = wantedDatePicker.getValue().getMonthValue();
+			int year = wantedDatePicker.getValue().getYear();
+
+			reservationDateAndTime = new Timestamp(year - 1900, month - 1, day, hour, 00, 00, 00);
+			System.out.println(reservationDateAndTime);
+
+			Reservation reservation = new Reservation("", ChatClient.clientIdString, chooseParkComboBox.getValue(),
+					numOfVisitorTxt.getText(), ChatClient.clientTypeString, EmailTxt.getText(), reservationDateAndTime,
+					0, "valid");
+			RequestHandler requestNewReservationId = new RequestHandler(controllerName.ReservationController,
+					"createNewReservation", gson.toJson(reservation));
+			ClientUI.chat.accept(gson.toJson(requestNewReservationId));
+			analyzeAnswerFromServer();
+		} else {
+			PopUp.display("Error", errorMessage.toString());
+		}
 
 	}
 
+	/**
+	 * Increase the number of people in the counter
+	 *
+	 * @param event
+	 */
 	@FXML
 	void minus(ActionEvent event) {
-		if (countVisitor == 0)
-			PopUp.display("Error", "Can not order less then zero");
+		if (countVisitor == 1)
+			PopUp.display("Error", "Can not place an order for less then one");
 		else {
 			countVisitor--;
 			numOfVisitorTxt.setText(String.valueOf(countVisitor));
 		}
 	}
 
+	/**
+	 * Decrease the number of people in the counter
+	 *
+	 * @param event
+	 */
 	@FXML
 	void plus(ActionEvent event) {
-		System.out.println(ChatClient.clientTypeString);
 		if (ChatClient.clientTypeString.equals("instructor") && countVisitor == 16) {
 			PopUp.display("Error", "The maximum visitors for an instructor is 16");
 		} else {
 			countVisitor++;
 			numOfVisitorTxt.setText(String.valueOf(countVisitor));
+		}
+	}
+
+	/**
+	 * Analyze the message returned from the server and display feedback using a
+	 * PopUp window
+	 */
+	private void analyzeAnswerFromServer() {
+		String answer = ChatClient.serverMsg;
+		switch (answer) {
+		case "There is no available space in the park\n for the given time":
+			PopUp.display("Error", answer);
+			break;
+		case "fail update reservation ID":
+			PopUp.display("Error", answer);
+			break;
+		case "fail insert reservation to DB":
+			PopUp.display("Error", answer);
+			break;
+		default:
+			reservationFromServer = gson.fromJson(answer, Reservation.class);
+			PopUp.display("sucess", "Reservation was placed successfuly\n " + "your Reservation id is: "
+					+ reservationFromServer.getReservationID());
+			break;
 		}
 	}
 

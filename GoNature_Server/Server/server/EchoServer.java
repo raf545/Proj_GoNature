@@ -4,9 +4,6 @@
 package server;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
-
 import com.google.gson.Gson;
 
 import controllers.DepartmentManagerSystemController;
@@ -67,6 +64,7 @@ public class EchoServer extends AbstractServer {
 	 * @param client The connection from which the message originated.
 	 * @param
 	 */
+	@Override
 	public void handleMessageFromClient(Object msg, ConnectionToClient client) {
 		// System.out.println("Message received : " + msg + " from " + client);
 		String clientMsg = (String) msg;
@@ -85,35 +83,22 @@ public class EchoServer extends AbstractServer {
 		case ReportsController:
 			break;
 		case ReservationController:
-			answer = ReservationController.getInstance().loginRouter(rh.getFunc(), rh.getData(), client);
+			answer = ReservationController.getInstance().createNewReservation(rh.getData(), client);
 			break;
 		case ServiceRepresentativeController:
 			break;
 		case WaitingListController:
 			break;
 		case ParkManagerSystemController:
-			try {
-				answer = ParkManagerSystemController.getInstance().getFunc(rh.getFunc(), rh.getData(), client);
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			break;
+			answer = ParkManagerSystemController.getInstance().getFunc(rh.getFunc(), rh.getData(), client);
 		case DepartmentManagerSystemController:
-			try 
-			{
-				answer = DepartmentManagerSystemController.getInstance().getFunc(rh.getFunc(), rh.getData(), client);
-			} 
-			catch (SQLException e1) 
-			{
-				e1.printStackTrace();
-			}
+			answer = DepartmentManagerSystemController.getInstance().getFunc(rh.getFunc(), rh.getData(), client);
+
 			break;
 		}
 		try {
 			client.sendToClient(answer);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -122,6 +107,7 @@ public class EchoServer extends AbstractServer {
 	 * This method overrides the one in the superclass. Called when the server
 	 * starts listening for connections.
 	 */
+	@Override
 	protected void serverStarted() {
 		DataBase.getInstance();
 		if (DataBase.getInstance().setConnection())
@@ -132,6 +118,7 @@ public class EchoServer extends AbstractServer {
 	 * This method overrides the one in the superclass. Called when the server stops
 	 * listening for connections.
 	 */
+	@Override
 	protected void serverStopped() {
 		System.out.println("Server has stopped listening for connections.");
 	}
@@ -142,13 +129,13 @@ public class EchoServer extends AbstractServer {
 	protected void clientConnected(ConnectionToClient client) {
 
 		Runnable r = new Runnable() {
+			@Override
 			public void run() {
 				while (client.isAlive()) {
 					try {
 						client.join();
 
 					} catch (InterruptedException e) {
-						// TODO: handle exception
 					}
 				}
 				clientDisconnected(client);
@@ -169,7 +156,6 @@ public class EchoServer extends AbstractServer {
 			return;
 		}
 		if (table.equals("logedin")) {
-			// DELETE FROM `gonaturedb`.`logedin` WHERE (`id` = '123');
 			query = "DELETE FROM gonaturedb." + table + " WHERE id = " + id + ";";
 		} else if (table.equals("employees")) {
 			query = "UPDATE gonaturedb." + table + " SET connected = 0 WHERE employeeId = " + client.getInfo("ID")

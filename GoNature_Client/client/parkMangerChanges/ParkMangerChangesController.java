@@ -19,7 +19,6 @@ import parkChange.ParkChangeDetails;
 import popup.PopUp;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
-import subscriber.Subscriber;
 
 public class ParkMangerChangesController {
 	Gson gson = new Gson();
@@ -124,7 +123,7 @@ public class ParkMangerChangesController {
 			PopUp.display("success", answer);
 			
 		default:
-			ArrayList <String> res=gson.fromJson(answer, ArrayList.class);
+			ArrayList <String> res= gson.fromJson(answer, ArrayList.class);
 			parkCapacitySlider.setValue(Integer.valueOf(res.get(0)));
 			differenceSlider.setValue(Integer.valueOf(res.get(1)));
 			discountSlider.setValue(Integer.valueOf(res.get(2)));

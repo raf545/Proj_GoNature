@@ -7,7 +7,6 @@ import com.google.gson.Gson;
 
 import dataBase.DataBase;
 import ocsf.server.ConnectionToClient;
-import parkChange.ParkChangeDetails;
 
 
 public class DepartmentManagerSystemController {
@@ -27,7 +26,7 @@ public class DepartmentManagerSystemController {
 		return DepartmentManagerSystemControllerInstance;
 	}
 	
-	public String getFunc(String MethodName, String data, ConnectionToClient client) throws SQLException {
+	public String getFunc(String MethodName, String data, ConnectionToClient client) {
 
 		switch (MethodName) {
 		case "approveParkChanges":
@@ -37,19 +36,23 @@ public class DepartmentManagerSystemController {
 		return data;
 	}
 
-	private String approveParkChanges() throws SQLException {
+	private String approveParkChanges() {
 		
-		String query="SELECT * FROM gonaturedb.parkdetailsapproval;";
-		ResultSet rs = DataBase.getInstance().search(query);
-		if (isEmpty(rs) != 0) 
-		{
-			StringBuilder sb = new StringBuilder();
-			rs.beforeFirst();
-			while(rs.next())
+		try {
+			String query="SELECT * FROM gonaturedb.parkdetailsapproval;";
+			ResultSet rs = DataBase.getInstance().search(query);
+			if (isEmpty(rs) != 0) 
 			{
-				sb.append(rs.getString(1) + "," + rs.getString(2) + "," + rs.getString(3) + " ");
+				StringBuilder sb = new StringBuilder();
+				rs.beforeFirst();
+				while(rs.next())
+				{
+					sb.append(rs.getString(1) + "," + rs.getString(2) + "," + rs.getString(3) + " ");
+				}
+				return sb.toString();
 			}
-			return sb.toString();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		
 		return "faild";

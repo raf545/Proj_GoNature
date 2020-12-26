@@ -2,8 +2,6 @@ package login;
 
 import java.io.IOException;
 
-import org.omg.CORBA.Request;
-
 import com.google.gson.Gson;
 
 import client.ChatClient;
@@ -25,8 +23,7 @@ import parkManager.MainPageParkManagerController;
 import popup.PopUp;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
-import reservation.Reservation;
-import subscriber.Subscriber;
+
 
 public class SignInEmployeeController {
 	Gson gson = new Gson();
@@ -61,7 +58,9 @@ public class SignInEmployeeController {
 
 	@FXML
 	void Continue(ActionEvent event) {
+		@SuppressWarnings("unused")
 		String fxmlName;
+		@SuppressWarnings("unused")
 		String title;
 		Employee employee = new Employee(IDTxt.getText(), PasswordTxt.getText());
 		RequestHandler rh = new RequestHandler(controllerName.LoginController, "employeeLogIn", gson.toJson(employee));
@@ -70,7 +69,9 @@ public class SignInEmployeeController {
 	}
 
 	private void analyzeAnswerFromServer() {
+		@SuppressWarnings("unused")
 		String fxmlName = null;
+		@SuppressWarnings("unused")
 		String title = null;
 
 		switch (ChatClient.serverMsg) {

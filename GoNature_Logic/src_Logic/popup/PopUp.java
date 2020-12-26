@@ -1,14 +1,9 @@
 package popup;
 
-
-
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+import java.io.IOException;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class PopUp {
@@ -16,32 +11,25 @@ public class PopUp {
 	/**
 	 * Displays a popup window and disable background use of the source window
 	 * 
-	 * @param Titel The popup titel
-	 * @param message the messege within the window 
+	 * @param Titel   The popup titel
+	 * @param message the messege within the window
 	 */
-	public static void display(String Titel,String message) {
-		Stage window = new Stage();
-		
-		window.initModality(Modality.APPLICATION_MODAL);
-		window.setTitle(Titel);
-		window.setMinWidth(250);
-		window.setMinHeight(175);
-		Label labale = new Label();
-		labale.setText(message);
-		
-		Button OkBtn = new Button();
-		OkBtn.setOnAction(e->{
-			window.close();
-		});
-		OkBtn.setText("OK");
-		
-		VBox layout = new VBox();
-		layout.getChildren().addAll(labale,OkBtn);
-		layout.setAlignment(Pos.CENTER);
-		Insets pad = new Insets(15,15,15,15);
-		layout.setPadding(pad);
-		Scene scene = new Scene(layout);
-		window.setScene(scene);
-		window.showAndWait();
+	public static void display(String titel, String message) {
+
+		try {
+			Stage primaryStage = new Stage();
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(PopUpWinController.class.getResource("PopUpWin.fxml"));
+			Pane root = loader.load();
+			Scene sc = new Scene(root);
+			primaryStage.setTitle(titel);
+			PopUpWinController popUpWinController = loader.getController();
+			popUpWinController.setMessage(message);
+			primaryStage.setScene(sc);
+			primaryStage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
+
 }
