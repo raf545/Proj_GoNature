@@ -16,28 +16,29 @@ import requestHandler.controllerName;
 public class FXMLFunctions {
 
 	static Gson g = new Gson();
-	//In the main page of each user there is a main blank page that we fill with a FXML file.
-	//This function will do it for us
-	//The function return the loader in order to help us change details in the scene before we load it.
-	//For example, loading combo boxes through loader will be loader.getController().useFunction().
-	
-	public static FXMLLoader loadSceneToMainPane(Class controllerClass, String fxmlName,Pane mainPane) throws IOException
-	{
+	// In the main page of each user there is a main blank page that we fill with a
+	// FXML file.
+	// This function will do it for us
+	// The function return the loader in order to help us change details in the
+	// scene before we load it.
+	// For example, loading combo boxes through loader will be
+	// loader.getController().useFunction().
+
+	public static FXMLLoader loadSceneToMainPane( Class controllerClass, String fxmlName, Pane mainPane)
+			throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(controllerClass.getResource(fxmlName));
 		Pane root = loader.load();
 		try {
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add(root);
-		} catch (Exception e) 
-		{
+		} catch (Exception e) {
 		}
 		return loader;
 	}
-	
-	//Logout from each of the Main Pages, send the current scene to escape it.
-	public static void logOutFromMainPage(Scene myScene) throws IOException
-	{
+
+	// Logout from each of the Main Pages, send the current scene to escape it.
+	public static void logOutFromMainPage(Scene myScene) throws IOException {
 		RequestHandler rh = new RequestHandler(controllerName.LoginController, "logout", "");
 		ClientUI.chat.accept(g.toJson(rh));
 
@@ -52,5 +53,5 @@ public class FXMLFunctions {
 		primaryStage.setScene(sc);
 		primaryStage.show();
 	}
-	
+
 }

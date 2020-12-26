@@ -12,12 +12,28 @@ import dataBase.DataBase;
 import ocsf.server.ConnectionToClient;
 import reservation.Reservation;
 
+/**
+ * 
+ * A server side controller class which deals with all process that are related
+ * to the reservation making process at the server side
+ * 
+ */
 public class ReservationController {
-
+	// Class variables *************************************************
 	private static ReservationController reservationControllerInstacne = null;
+
 	Gson gson = new Gson();
+
 	Connection con = DataBase.getInstance().getConnection();
 
+	// Constructors ****************************************************
+	/**
+	 * 
+	 * This method returns the single instance of this class and if it dosen't yet
+	 * have a instance it creates one and return it.
+	 * 
+	 * @return ReservationController class instance
+	 */
 	public static ReservationController getInstance() {
 
 		if (reservationControllerInstacne == null)
@@ -25,23 +41,27 @@ public class ReservationController {
 		return reservationControllerInstacne;
 	}
 
-	public String loginRouter(String func, String data, ConnectionToClient client) {
+	// Instance methods ************************************************
 
-		switch (func) {
-
-		case "createNewReservation":
-			return createNewReservation(data, client);
-
-		}
-		return null;
-	}
-
-	private String createNewReservation(String data, ConnectionToClient client) {
+	/**
+	 * 
+	 * This method creates a new reservation with the given data if fails return a
+	 * answer string
+	 * 
+	 * @param data   visitor data
+	 * @param client
+	 * @return a answer String of the following: "There is no available space in the
+	 *         park\n for the given time", "fail update reservation ID", "fail
+	 *         insert reservation to DB" OR a string containing the reservation
+	 *         details
+	 * 
+	 */
+	public String createNewReservation(String data, ConnectionToClient client) {
 		int reservationId;
 		Reservation reservation = gson.fromJson(data, Reservation.class);
 		if (isThereAvailableSpace(reservation.getDateAndTime(), reservation.getParkname(),
 				Integer.parseInt(reservation.getNumofvisitors())) == false)
-			return "There is no availble space";
+			return "There is no available space in the park\n for the given time";
 
 		reservationId = getAndIncreaseReservasionID();
 		if (reservationId < 10000)
@@ -52,11 +72,21 @@ public class ReservationController {
 		reservation.setPrice(priceForReservation);
 
 		if (insertReservationToDB(reservation) == false)
-			return "fail insert to DB";
+			return "fail insert reservation to DB";
 		return gson.toJson(reservation);
 
 	}
 
+	/**
+	 * 
+	 * This method checks if there is enough space in the park for a given amount of
+	 * visitors and specific time
+	 * 
+	 * @param time
+	 * @param parkName
+	 * @param numberOfVisitors
+	 * @return true if there is available space, false else
+	 */
 	@SuppressWarnings("deprecation")
 	private boolean isThereAvailableSpace(Timestamp time, String parkName, int numberOfVisitors) {
 		Timestamp threeHoursAbove;
@@ -93,6 +123,13 @@ public class ReservationController {
 		return true;
 	}
 
+	/**
+	 * 
+	 * This method creates a reservation id using a incremented variable in the
+	 * database. and increments it by 1.
+	 * 
+	 * @return a new reservation ID
+	 */
 	private int getAndIncreaseReservasionID() {
 		String query = "SELECT num FROM gonaturedb.uptodateinformation where nameOfVal = \"resrvationID\" ;";
 		int oldReservationID = 0;
@@ -110,13 +147,19 @@ public class ReservationController {
 					+ " WHERE (nameOfVal = \"resrvationID\");";
 			DataBase.getInstance().update(query);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		return oldReservationID;
 	}
 
+	/**
+	 * 
+	 * Inserts a given reservation detail to the database
+	 * 
+	 * @param reservation
+	 * @return true if insertion was successfully done, false else
+	 */
 	private boolean insertReservationToDB(Reservation reservation) {
 		try {
 			PreparedStatement query = con
@@ -134,13 +177,19 @@ public class ReservationController {
 				return false;
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return true;
 
 	}
 
+	/**
+	 * 
+	 * This method calculates the price of a given reservation
+	 * 
+	 * @param reservation
+	 * @return the price
+	 */
 	@SuppressWarnings("resource")
 	private double calculatePricePreOrder(Reservation reservation) {
 		String query = "SELECT num FROM gonaturedb.uptodateinformation where nameOfVal = \"ticketPrice\" ;";
@@ -216,21 +265,9 @@ public class ReservationController {
 				}
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return reservationPrice;
-	}
-
-	private boolean updateNumberOfVisitorsInPark(int updateNumber, String parkName) {
-		String query = " UPDATE gonaturedb.uptodateinformation SET num = " + "updateNumber"
-				+ " WHERE (nameOfVal = \"parkDifference" + "parkName" + "\");";
-
-		if (DataBase.getInstance().update(query))
-			return true;
-
-		return false;
-
 	}
 
 }

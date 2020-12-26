@@ -176,7 +176,6 @@ public class LoginController {
 				return gson.toJson(reservation);
 			return "update faild";
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "error";
@@ -196,8 +195,7 @@ public class LoginController {
 			try {
 				resultSet.last(); // moves cursor to the last row
 				size = resultSet.getRow(); // get row id
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+			} catch (SQLException e) {			
 				e.printStackTrace();
 			}
 		}
@@ -213,7 +211,6 @@ public class LoginController {
 	 * @return true if connected and false else
 	 */
 	private boolean isGuestConnected(String id) {
-		// TODO is gust connected? why there is no description
 		String query = "SELECT * FROM gonaturedb.logedin WHERE id = " + id + ";";
 		ResultSet res = DataBase.getInstance().search(query);
 		if (isEmpty(res) != 0)

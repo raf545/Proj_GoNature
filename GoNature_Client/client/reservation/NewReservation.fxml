@@ -49,7 +49,7 @@
                         <Font size="21.0" />
                      </font>
                   </Text>
-                  <ComboBox fx:id="ChooseParkComboBox" prefHeight="40.0" prefWidth="512.0" promptText="Choose Park" style="-fx-background-color: #EEF2F9;" />
+                  <ComboBox fx:id="chooseParkComboBox" prefHeight="40.0" prefWidth="512.0" promptText="Choose Park" style="-fx-background-color: #EEF2F9;" />
                </children>
             </VBox>
             <VBox prefHeight="52.0" prefWidth="448.0" GridPane.rowIndex="1">
@@ -59,7 +59,7 @@
                         <Font size="21.0" />
                      </font>
                   </Text>
-                  <DatePicker fx:id="WantedDatePicker" prefHeight="40.0" prefWidth="448.0" promptText="11.11.2020" style="-fx-background-color: #EEF2F9;" />
+                  <DatePicker fx:id="wantedDatePicker" prefHeight="40.0" prefWidth="448.0" promptText="11.11.2020" style="-fx-background-color: #EEF2F9;" />
                </children>
             </VBox>
             <VBox prefHeight="139.0" prefWidth="306.0" GridPane.rowIndex="2">
@@ -69,7 +69,7 @@
                         <Font size="21.0" />
                      </font>
                   </Text>
-                  <ComboBox fx:id="HourComboBox" prefHeight="40.0" prefWidth="448.0" promptText="Choose Hour" style="-fx-background-color: #EEF2F9;" />
+                  <ComboBox fx:id="hourComboBox" prefHeight="40.0" prefWidth="448.0" promptText="Choose Hour" style="-fx-background-color: #EEF2F9;" />
                </children>
             </VBox>
             <VBox prefHeight="147.0" prefWidth="448.0" GridPane.rowIndex="3">

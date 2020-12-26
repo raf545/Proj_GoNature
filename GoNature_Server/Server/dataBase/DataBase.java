@@ -19,9 +19,9 @@ public class DataBase {
 	// Class variables *************************************************
 	private static DataBase SqlConnectorInstace = null;
 	private Connection connection = null;
-	private String jdbcURL = "jdbc:mysql://localhost/gonaturedb?serverTimezone=CAT";
+	private String jdbcURL = "jdbc:mysql://localhost:3306/?user=root";
 	private String jdbcuser = "root";
-	private String jdbcPass = "root";
+	private String jdbcPass = "a123456789";
 	// Constructors ****************************************************
 
 	private DataBase() {
@@ -47,9 +47,6 @@ public class DataBase {
 	public ResultSet search(String query) {
 		ResultSet res = null;
 
-		// TODO change exception throw into something less strong
-		// TODO catch and handle the SQL exception
-
 		try {
 			PreparedStatement ps = connection.prepareStatement(query);
 			res = ps.executeQuery();
@@ -63,9 +60,6 @@ public class DataBase {
 
 	public ResultSet search(PreparedStatement query) {
 		ResultSet res = null;
-
-		// TODO change exception throw into something less strong
-		// TODO catch and handle the SQL exception
 
 		try {
 			res = query.executeQuery();
@@ -159,7 +153,6 @@ public class DataBase {
 				resultSet.last(); // moves cursor to the last row
 				size = resultSet.getRow(); // get row id
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

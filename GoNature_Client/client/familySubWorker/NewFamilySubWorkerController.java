@@ -1,18 +1,14 @@
 package familySubWorker;
 
 import com.google.gson.Gson;
-
 import client.ChatClient;
 import client.ClientUI;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import popup.PopUp;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;

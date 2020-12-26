@@ -4,9 +4,8 @@ import java.io.IOException;
 
 import com.google.gson.Gson;
 
-import client.ChatClient;
+
 import client.ClientUI;
-import faq.FaqController;
 import guiCommon.StaticPaneMainPageClient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,7 +23,6 @@ import requestHandler.RequestHandler;
 import requestHandler.controllerName;
 import reservation.MyReservationsController;
 import reservation.NewReservationController;
-import subscriber.Subscriber;
 import waitingList.MyWaitingListController;
 
 public class MainPageForClientController {
@@ -32,28 +30,25 @@ public class MainPageForClientController {
 	Gson gson = new Gson();
 
 	@FXML
-	private Hyperlink logoutLink;
-
-	@FXML
 	private Pane PaneChange;
-
-	@FXML
-	private Button NewReservationBtn;
-
-	@FXML
-	private Button MyReservationBtn;
-
-	@FXML
-	private Button WaitingListBtn;
-
-	@FXML
-	private Text QuitBtn;
 
 	@FXML
 	private Text mainPageTypeOfClient;
 
 	@FXML
 	private Label mainPageWelcomLabel;
+
+	@FXML
+	private Hyperlink logoutLink;
+
+	@FXML
+	private Button NewReservationBtn;
+
+	@FXML
+	private Button MyReservationBtn1;
+
+	@FXML
+	private Button WaitingListBtn;
 
 	public void setTitels(String welcome, String typeOfClient) {
 		mainPageTypeOfClient.setText(typeOfClient);

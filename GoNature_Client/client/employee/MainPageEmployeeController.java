@@ -41,6 +41,7 @@ public class MainPageEmployeeController {
 
 	Gson gson = new Gson();
 
+	@SuppressWarnings("unused")
 	private Employee employee;
 
 	void setEmp(Employee employeeFromDB) {
@@ -56,24 +57,6 @@ public class MainPageEmployeeController {
 		Pane root = loader.load();
 		mainPane.getChildren().clear();
 		mainPane.getChildren().add(root);
-
-		// TODO Dont leave this kind of code lines
-//		try {
-//			Stage primaryStage = new Stage();
-//			Stage stage = (Stage) quitBtn.getScene().getWindow();
-//			// FIXME primaryStage.setOnCloseRequest(value);
-//			stage.close();
-//
-//			FXMLLoader loader = new FXMLLoader();
-//			loader.setLocation(this.getClass().getResource("newfamilysubworker.fxml"));
-//			Pane root = loader.load();
-//			Scene sc = new Scene(root);
-//			primaryStage.setTitle("Main page");
-//			primaryStage.setScene(sc);
-//			primaryStage.show();
-//		} catch (IOException e) {
-//			System.out.println("Load Faild");
-//		}
 
 	}
 

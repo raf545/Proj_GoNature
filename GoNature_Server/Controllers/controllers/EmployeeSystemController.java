@@ -6,9 +6,7 @@ import java.sql.SQLException;
 import com.google.gson.Gson;
 
 import dataBase.DataBase;
-import employee.Employee;
 import ocsf.server.ConnectionToClient;
-import reservation.Reservation;
 import subscriber.Subscriber;
 
 public class EmployeeSystemController {
@@ -59,7 +57,6 @@ public class EmployeeSystemController {
 			subidr = res.getInt(2);
 			subscriber.setSubscriberId(String.valueOf(subidr));
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
