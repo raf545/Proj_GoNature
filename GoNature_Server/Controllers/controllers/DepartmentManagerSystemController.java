@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 
 import dataBase.DataBase;
 import ocsf.server.ConnectionToClient;
+import reservation.Reservation;
 
 
 public class DepartmentManagerSystemController {
@@ -29,14 +30,17 @@ public class DepartmentManagerSystemController {
 	public String getFunc(String MethodName, String data, ConnectionToClient client) {
 
 		switch (MethodName) {
-		case "approveParkChanges":
-			return approveParkChanges();
+		case "showAllApprovesAndRejects":
+			return showAllApprovesAndRejects();
+		case "updateNewChangesToDB":
+			String[] values = data.split(" ");
+			return updateNewChangesToDB(values[0],values[1]);
 
 		}
 		return data;
 	}
 
-	private String approveParkChanges() {
+	private String showAllApprovesAndRejects() {
 		
 		try {
 			String query="SELECT * FROM gonaturedb.parkdetailsapproval;";
@@ -47,7 +51,8 @@ public class DepartmentManagerSystemController {
 				rs.beforeFirst();
 				while(rs.next())
 				{
-					sb.append(rs.getString(1) + "," + rs.getString(2) + "," + rs.getString(3) + " ");
+					//Must Refactor
+					sb.append(rs.getString(1) + "," + rs.getString(2) + "," + rs.getString(3) + "," + rs.getString(4)+ "," + rs.getString(5)+ "," + rs.getString(6)+ "," + rs.getString(7)+ "," + rs.getString(8)+ "," + rs.getString(9)+ "," + rs.getString(10) + " ");
 				}
 				return sb.toString();
 			}
@@ -57,7 +62,28 @@ public class DepartmentManagerSystemController {
 		
 		return "faild";
 	}
-	
+	private String updateNewChangesToDB(String status,String parkName)
+	{
+//		try {
+//			
+//			String myStatus = gson.fromJson(status, String.class);
+//			String myParkName = gson.fromJson(parkName, String.class);
+//			String query="UPDATE `gonaturedb`.`parkdetailsapproval` SET '" + myStatus + "'= 'finished' WHERE (`parkname` = '" + myParkName +"');\r\n"
+//					+ "";
+//			
+//			boolean answer = DataBase.getInstance().update(query);
+//			if (answer) 
+//			{
+//				return "true";	
+//			}
+//		} 
+//		catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		
+		return "faild";
+			
+	}
 	private int isEmpty(ResultSet rs) {
 		int size = 0;
 		if (rs != null) {
