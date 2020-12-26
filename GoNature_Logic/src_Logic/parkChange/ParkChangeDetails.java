@@ -5,14 +5,56 @@ public class ParkChangeDetails {
 	private String difference;
 	private String discount;
 	private String parkName;
+	private String oldParkCapacity;
+	private String oldDifference;
+	private String oldDiscount;
+
 	
-	
-	public ParkChangeDetails(String parkCapacity,String difference,String discount,String parkName)
+	public ParkChangeDetails(String parkCapacity,String difference,String discount,String parkName,String oldParkCapacity,String oldDifference,String oldDiscount )
 	{
 		this.parkCapacity=parkCapacity;
 		this.difference=difference;
 		this.discount=discount;
 		this.parkName=parkName;
+		this.oldParkCapacity=oldParkCapacity;
+		this.oldDiscount=oldDiscount;
+		this.oldDifference=difference;
+	}
+
+
+
+	public String getOldParkCapacity() {
+		return oldParkCapacity;
+	}
+
+
+
+	public void setOldParkCapacity(String oldParkCapacity) {
+		this.oldParkCapacity = oldParkCapacity;
+	}
+
+
+
+	public String getOldDifference() {
+		return oldDifference;
+	}
+
+
+
+	public void setOldDifference(String oldDifference) {
+		this.oldDifference = oldDifference;
+	}
+
+
+
+	public String getOldDiscount() {
+		return oldDiscount;
+	}
+
+
+
+	public void setOldDiscount(String oldDiscount) {
+		this.oldDiscount = oldDiscount;
 	}
 
 
@@ -69,7 +111,7 @@ public class ParkChangeDetails {
 	}
 	@Override
 	public String toString() {
-		return "("+"\""+  parkName+"\", " + parkCapacity + ", " + difference + ", " + discount + ")";
+		return "("+"\""+  parkName+"\", " + parkCapacity + ", " + difference + ", " + discount + ", "+oldParkCapacity+", "+oldDifference+", "+oldDiscount+")";
 	}
 	
 }

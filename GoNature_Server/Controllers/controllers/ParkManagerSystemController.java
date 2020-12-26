@@ -39,6 +39,7 @@ public class ParkManagerSystemController {
 	}
 
 	private String initParkValues(String data, ConnectionToClient client) {
+		
 		String queryc = "SELECT * FROM gonaturedb.uptodateinformation WHERE nameOfVal = \"parkCapacity" + data + "\""
 				+ ";";
 		String queryd = "SELECT * FROM gonaturedb.uptodateinformation WHERE nameOfVal = \"parkDifference" + data + "\""
@@ -82,8 +83,10 @@ public class ParkManagerSystemController {
 
 	private String changeParkDetails(String data, ConnectionToClient client) {
 		ParkChangeDetails parkdetails = gson.fromJson(data, ParkChangeDetails.class);
-		String query = "INSERT INTO `gonaturedb`.`parkdetailsapproval` (`parkname`, `parkcapacity`, `difference`, `discount`) VALUES "
-				+ parkdetails.toString() + ";";
+		String query = "UPDATE `gonaturedb`.`parkdetailsapproval` SET `parkcapacity` = "+ parkdetails.getParkCapacity()+", `difference` = "+parkdetails.getDifference()+", `discount` = "+parkdetails.getDiscount()+", `oldparkcapacity` = "+parkdetails.getOldParkCapacity()+", `olddifference` = "+parkdetails.getOldDifference()+", `olddiscount` = "+parkdetails.getOldDiscount()+", `capacitystatus` = 'waiting', `differencestatus` = 'waiting', `discountstatus` = 'waiting' WHERE (`parkname` = "+"\""+parkdetails.getParkName()+"\""+");";
+
+
+			
 		if (DataBase.getInstance().update(query)) {
 			return "The changing are waiting for approval";
 		}

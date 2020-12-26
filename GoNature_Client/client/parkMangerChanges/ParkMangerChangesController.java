@@ -22,6 +22,9 @@ import requestHandler.controllerName;
 
 public class ParkMangerChangesController {
 	Gson gson = new Gson();
+	String oldParkcapacity;
+	String oldDifference;
+	String oldDiscount;
 	@FXML
 	private Text exitBtn;
 
@@ -56,7 +59,7 @@ public class ParkMangerChangesController {
 	void saveParkMangerChanges(ActionEvent event) {
 
 		ParkChangeDetails parkDetails = new ParkChangeDetails(parkCapacityTF.getText(), differenceTF.getText(),
-				discountTF.getText(),parkManager.getParkName());
+				discountTF.getText(),parkManager.getParkName(),oldParkcapacity,oldDifference,oldDiscount);
 
 		sendParkManagerChangeRequestToServer("changeParkDetails", parkDetails);
 		analyzeAnswerFromServer();
@@ -71,7 +74,7 @@ public class ParkMangerChangesController {
 	}
 
 	public void initializeSlidersAndSetParkMan(Employee employee) {
-		parkCapacitySlider.setMin(300);
+		parkCapacitySlider.setMin(200);
 		parkCapacitySlider.setMax(500);
 		differenceSlider.setMin(0);
 		differenceSlider.setMax(500);
@@ -124,6 +127,9 @@ public class ParkMangerChangesController {
 			
 		default:
 			ArrayList <String> res= gson.fromJson(answer, ArrayList.class);
+			oldParkcapacity=res.get(0);
+			oldDifference=res.get(1);
+			oldDiscount=res.get(2);
 			parkCapacitySlider.setValue(Integer.valueOf(res.get(0)));
 			differenceSlider.setValue(Integer.valueOf(res.get(1)));
 			discountSlider.setValue(Integer.valueOf(res.get(2)));
