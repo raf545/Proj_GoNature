@@ -9,6 +9,7 @@ import client.ClientUI;
 import departmentManager.MainPageDepartmentManagerController;
 import employee.Employee;
 import employee.MainPageEmployeeController;
+import fxmlGeneralFunctions.FXMLFunctions;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -118,6 +119,7 @@ public class SignInEmployeeController {
 			Pane root = loader.load();
 
 			Scene sc = new Scene(root);
+			primaryStage.setOnCloseRequest(e->FXMLFunctions.closeMainPage());
 			primaryStage.setTitle("Employee Main Page");
 			primaryStage.setScene(sc);
 			primaryStage.show();
@@ -140,6 +142,7 @@ public class SignInEmployeeController {
 			mainPageParkManagerController.setParkManagerEmployee(parkManager);
 
 			Scene sc = new Scene(root);
+			primaryStage.setOnCloseRequest(e->FXMLFunctions.closeMainPage());
 			primaryStage.setTitle("Main Page Park Manager");
 			primaryStage.setScene(sc);
 			primaryStage.show();
@@ -159,6 +162,7 @@ public class SignInEmployeeController {
 			Pane root = loader.load();
 
 			Scene sc = new Scene(root);
+			primaryStage.setOnCloseRequest(e->FXMLFunctions.closeMainPage());
 			primaryStage.setTitle("Main Page Department Manager");
 			primaryStage.setScene(sc);
 			primaryStage.show();

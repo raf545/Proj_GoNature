@@ -19,7 +19,7 @@ public class DataBase {
 	// Class variables *************************************************
 	private static DataBase SqlConnectorInstace = null;
 	private Connection connection = null;
-	private String jdbcURL = "jdbc:mysql://localhost:3306/?user=root";
+	private String jdbcURL = "jdbc:mysql://localhost:3306/?serverTimezone=CAT";
 	private String jdbcuser = "root";
 	private String jdbcPass = "a123456789";
 	// Constructors ****************************************************

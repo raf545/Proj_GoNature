@@ -24,7 +24,7 @@ public class FXMLFunctions {
 	// For example, loading combo boxes through loader will be
 	// loader.getController().useFunction().
 
-	public static FXMLLoader loadSceneToMainPane( Class controllerClass, String fxmlName, Pane mainPane)
+	public static FXMLLoader loadSceneToMainPane(Class controllerClass, String fxmlName, Pane mainPane)
 			throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(controllerClass.getResource(fxmlName));
@@ -38,20 +38,31 @@ public class FXMLFunctions {
 	}
 
 	// Logout from each of the Main Pages, send the current scene to escape it.
-	public static void logOutFromMainPage(Scene myScene) throws IOException {
-		RequestHandler rh = new RequestHandler(controllerName.LoginController, "logout", "");
-		ClientUI.chat.accept(g.toJson(rh));
+	public static void logOutFromMainPage(Scene myScene) {
+		try {
+			RequestHandler rh = new RequestHandler(controllerName.LoginController, "logout", null);
+			ClientUI.chat.accept(g.toJson(rh));
 
-		Stage primaryStage = new Stage();
-		Stage stage = (Stage) myScene.getWindow();
-		stage.close();
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(GoNatureLoginController.class.getResource("GoNatureLogin.fxml"));
-		Pane root = loader.load();
-		Scene sc = new Scene(root);
-		primaryStage.setTitle("Sign In Employee");
-		primaryStage.setScene(sc);
-		primaryStage.show();
+			Stage primaryStage = new Stage();
+			Stage stage = (Stage) myScene.getWindow();
+			stage.close();
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(GoNatureLoginController.class.getResource("GoNatureLogin.fxml"));
+			Pane root = loader.load();
+			Scene sc = new Scene(root);
+			primaryStage.setTitle("Sign In Employee");
+			primaryStage.setScene(sc);
+			primaryStage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void closeMainPage() {
+		
+		RequestHandler rh = new RequestHandler(controllerName.LoginController, "logout", null);
+		ClientUI.chat.accept(g.toJson(rh));
+		System.exit(0);
 	}
 
 }

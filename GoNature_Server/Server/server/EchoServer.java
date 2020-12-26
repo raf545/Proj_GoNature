@@ -83,7 +83,7 @@ public class EchoServer extends AbstractServer {
 		case ReportsController:
 			break;
 		case ReservationController:
-			answer = ReservationController.getInstance().createNewReservation(rh.getData(), client);
+			answer = ReservationController.getInstance().loginRouter(rh.getFunc(), rh.getData(), client);
 			break;
 		case ServiceRepresentativeController:
 			break;

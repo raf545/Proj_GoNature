@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="920.0" style="-fx-background-color: #FFC956;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="familySubWorker.NewFamilySubWorkerController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="682.0" layoutX="197.0" layoutY="47.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="527.0" />
+      <VBox layoutX="254.0" layoutY="130.0" prefHeight="416.0" prefWidth="393.0" spacing="12.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="First name:" wrappingWidth="117.80000305175781">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <TextField fx:id="firstNameTF" prefHeight="26.0" prefWidth="194.0" promptText="Example: Shlomo" style="-fx-background-color: #EEF2F9;" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Last name:" wrappingWidth="117.80000305175781">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <TextField fx:id="LastNameTF" prefHeight="26.0" prefWidth="194.0" promptText="Example: Shamaim" style="-fx-background-color: #EEF2F9;" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ID:" wrappingWidth="117.80000305175781">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <TextField fx:id="IdTF" prefHeight="26.0" prefWidth="194.0" promptText="Example: 132155644" style="-fx-background-color: #EEF2F9;" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Phone:" wrappingWidth="117.80000305175781">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <TextField fx:id="PhoneTF" prefHeight="26.0" prefWidth="194.0" promptText="Example: 053784235" style="-fx-background-color: #EEF2F9;" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Email:" wrappingWidth="117.80000305175781">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <TextField fx:id="EmailTF" prefHeight="26.0" prefWidth="194.0" promptText="Example: Shlomoshamim@gmail.com" style="-fx-background-color: #EEF2F9;" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Amount of people in family:" wrappingWidth="219.79998779296875">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <TextField fx:id="AmountTF" prefHeight="26.0" prefWidth="194.0" promptText="0-10" style="-fx-background-color: #EEF2F9;" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Credit Card Number (Optional):" wrappingWidth="293.5999755859375">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <TextField fx:id="CreditCardTF" prefHeight="26.0" prefWidth="194.0" style="-fx-background-color: #EEF2F9;" />
+         </children>
+      </VBox>
+      <Text layoutX="258.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New Family Subscription" textAlignment="CENTER" wrappingWidth="437.0">
+         <font>
+            <Font name="Guttman Drogolin Bold" size="34.0" />
+         </font>
+      </Text>
+      <Circle fill="#ffc956" layoutX="244.0" layoutY="90.0" radius="25.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="0.0" />
+      <Text fx:id="backBtn" fill="WHITE" layoutX="218.0" layoutY="100.0" onMouseClicked="#back" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;" textAlignment="CENTER" wrappingWidth="50.0">
+         <font>
+            <Font name="Baloo Regular" size="30.0" />
+         </font>
+      </Text>
+      <Text fill="RED" layoutX="243.0" layoutY="536.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Text>
+      <Text fill="RED" layoutX="243.0" layoutY="305.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Text>
+      <Text fill="RED" layoutX="243.0" layoutY="460.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Text>
+      <Text fill="RED" layoutX="243.0" layoutY="152.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Text>
+      <Text fill="RED" layoutX="243.0" layoutY="230.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Text>
+      <Button fx:id="saveBtn" layoutX="242.0" layoutY="678.0" mnemonicParsing="false" onAction="#saveFamily" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #FFC956;" text="Save Family Subscription" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Text fill="RED" layoutX="243.0" layoutY="382.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Text>
+   </children>
+</Pane>

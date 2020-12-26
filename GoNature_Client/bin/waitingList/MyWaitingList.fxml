@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -11,15 +10,15 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="920.0" style="-fx-background-color: #99d487;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="reservation.MyReservationsController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="920.0" style="-fx-background-color: #99d487;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="waitingList.MyWaitingListController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="606.0" layoutX="105.0" layoutY="77.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="710.0" />
-      <Text layoutX="307.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My Reservations" textAlignment="CENTER" wrappingWidth="290.443359375">
+      <Text layoutX="307.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Waiting List" textAlignment="CENTER" wrappingWidth="290.443359375">
          <font>
             <Font name="Guttman Drogolin Bold" size="30.0" />
          </font>
       </Text>
-      <Text layoutX="134.0" layoutY="228.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="Your current reservations:" wrappingWidth="408.443359375">
+      <Text layoutX="134.0" layoutY="228.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Waiting list:" wrappingWidth="408.443359375">
          <font>
             <Font size="19.0" />
          </font>
@@ -32,11 +31,6 @@
       </Text>
       <HBox layoutX="134.0" layoutY="242.0" prefHeight="37.0" prefWidth="623.0" spacing="5.0" style="-fx-background-color: #676767;">
          <children>
-            <Text fill="WHITE" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="Reservation ID" textAlignment="CENTER" wrappingWidth="134.443359375">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-            </Text>
             <Text fill="WHITE" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="Park Name" textAlignment="CENTER" wrappingWidth="126.443359375">
                <font>
                   <Font name="System Bold" size="17.0" />
@@ -59,10 +53,7 @@
       </HBox>
       <ScrollPane layoutX="134.0" layoutY="279.0" prefHeight="382.0" prefWidth="637.0">
          <content>
-            <AnchorPane layoutX="180.0" layoutY="87.0" minHeight="0.0" minWidth="0.0" prefHeight="382.0" prefWidth="629.0">
-               <children>
-                  <ListView fx:id="reservationList" prefHeight="373.0" prefWidth="623.0" />
-               </children></AnchorPane>
+            <AnchorPane layoutX="180.0" layoutY="87.0" minHeight="0.0" minWidth="0.0" prefHeight="382.0" prefWidth="629.0" />
          </content>
       </ScrollPane>
    </children>
