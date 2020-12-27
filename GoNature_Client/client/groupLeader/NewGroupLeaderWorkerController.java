@@ -4,11 +4,14 @@ import com.google.gson.Gson;
 
 import client.ChatClient;
 import client.ClientUI;
+import guiCommon.StaticPaneMainPageEmployee;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 import popup.PopUp;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
@@ -36,7 +39,7 @@ public class NewGroupLeaderWorkerController {
     private TextField creditCardTF;
 
     @FXML
-    private Circle backBtn;
+    private Text backBtn;
 
     @FXML
     private Button savebtn;
@@ -135,5 +138,11 @@ public class NewGroupLeaderWorkerController {
 			break;
 		}
 	}
+	
+	 @FXML
+	    void backBottun(MouseEvent event) {
+		 StaticPaneMainPageEmployee.employeeMainPane.getChildren().clear();
+
+	    }
 
 }

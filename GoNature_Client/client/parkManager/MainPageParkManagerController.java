@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 
 import client.ClientUI;
 import employee.Employee;
+import guiCommon.StaticPaneMainPageParkManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -46,6 +47,8 @@ public class MainPageParkManagerController {
 
 	@FXML
 	void editPark(ActionEvent event) throws IOException {
+		StaticPaneMainPageParkManager.parkManagerMainPane = parkManagerMainPane;
+		
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(ParkMangerChangesController.class.getResource("ParkManagerChanges.fxml"));
 

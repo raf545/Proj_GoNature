@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import client.ClientUI;
 import familySubWorker.NewFamilySubWorkerController;
 import groupLeader.NewGroupLeaderWorkerController;
+import guiCommon.StaticPaneMainPageEmployee;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -51,6 +52,7 @@ public class MainPageEmployeeController {
 
 	@FXML
 	void openNewFamilySub(ActionEvent event) throws IOException {
+		StaticPaneMainPageEmployee.employeeMainPane=mainPane;
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(NewFamilySubWorkerController.class.getResource("newfamilysubworker.fxml"));
 
