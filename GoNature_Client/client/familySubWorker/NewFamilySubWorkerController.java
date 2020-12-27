@@ -59,50 +59,50 @@ public class NewFamilySubWorkerController {
 		creditCardNumber = CreditCardTF.getText();
 		subscriberType = "family";
 
-		if (firstNameTF.getText().isEmpty()) 
+		if (name.isEmpty()) 
 			popError.append("Must enter first name\n");
 
-		if (firstNameTF.getText().matches(".\\d.")) 
+		if (!name.matches("[a-zA-Z]+")) 
 			popError.append("No Numbers allowed in names\n");
 
-		if (LastNameTF.getText().isEmpty()) 
+		if (lastName.isEmpty()) 
 			popError.append("Must enter last name\n");
 		
-		 else if (LastNameTF.getText().matches(".\\d."))
-				popError.append("No Numbers allowed in names\n");
+		 else if (!lastName.matches("[a-zA-Z]+"))
+				popError.append("No Numbers allowed in last names\n");
 							
-		if (IdTF.getText().isEmpty()) 
+		if (id.isEmpty()) 
 			popError.append("Must enter ID\n");
 		
-		else if (!(IdTF.getText().matches("[0-9]+") && IdTF.getText().length() > 2))
+		else if (!(id.matches("[0-9]+") && IdTF.getText().length() > 2))
 				popError.append("Please enter only numbers on ID\n");
 			
 					
-		if (PhoneTF.getText().isEmpty())
+		if (phone.isEmpty())
 			popError.append("Must enter Phone number\n");
 		else {
-			if (PhoneTF.getText().matches("[a-zA-z]+")) {
+			if (phone.matches("[a-zA-z]+")) {
 				popError.append("Must enter only numbers for Phone number\n");
 			}else {
-				if (PhoneTF.getText().length()!=10)
+				if (phone.length()!=10)
 					popError.append("Must enter 10 digit Phone number\n");
 			}
 		}
 	
-		if (EmailTF.getText().isEmpty())
+		if (email.isEmpty())
 		{
 			popError.append("Must enter Email\n");
 		}else {
-			if (!(EmailTF.getText().matches("^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$")))
+			if (!(email.matches("^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$")))
 				popError.append("Not a valid Email\n");
 		}
 			
 
 	
-			if (AmountTF.getText().isEmpty()) {
+			if (numOfMembers.isEmpty()) {
 				popError.append("Must enter Amount of pepole\n");
 			}else {
-				if (AmountTF.getText().matches(".\\d.")) {
+				if (numOfMembers.matches(".\\d.")) {
 					popError.append("Must enter Amount of pepole in numbers\n");
 				}
 		}
@@ -116,6 +116,14 @@ public class NewFamilySubWorkerController {
 					subscriberType);
 			sendLoginRequestToServer("addFamilySub", subscriber);
 			analyzeAnswerFromServer();
+			firstNameTF.setText("");
+			LastNameTF.setText("");
+			IdTF.setText("");
+			PhoneTF.setText("");
+			EmailTF.setText("");
+			AmountTF.setText("");
+			CreditCardTF.setText("");
+			
 		}
 
 	}
