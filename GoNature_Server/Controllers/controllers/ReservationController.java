@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.google.gson.Gson;
@@ -13,7 +14,6 @@ import com.google.gson.Gson;
 import dataBase.DataBase;
 import ocsf.server.ConnectionToClient;
 import reservation.Reservation;
-
 
 /**
  * 
@@ -47,17 +47,19 @@ public class ReservationController {
 	// Instance methods ************************************************
 
 	public String loginRouter(String functionName, String data, ConnectionToClient client) {
-		
+
 		switch (functionName) {
 		case "createNewReservation":
-			return createNewReservation(data,client);
+			return createNewReservation(data, client);
 		case "getReservations":
-			return getReservations(data,client);
+			return getReservations(data, client);
+		case "showAvailableSpace":
+			return showAvailableSpace(data, client);
 		default:
 			return "fail";
 		}
 	}
-	
+
 	/**
 	 * 
 	 * This method creates a new reservation with the given data if fails return a
@@ -284,37 +286,66 @@ public class ReservationController {
 		}
 		return reservationPrice;
 	}
-	
+
 	private String getReservations(String data, ConnectionToClient client) {
 		ArrayList<Reservation> myReservations = new ArrayList<>();
-		
+
 		String personalId = gson.fromJson(data, String.class);
-		String query = "SELECT * FROM gonaturedb.reservetions where personalID = \"" + personalId 
+		String query = "SELECT * FROM gonaturedb.reservetions where personalID = \"" + personalId
 				+ "\" and reservetionStatus = \"Valid\";";
 		ResultSet reservationTupels;
-		
+
 		reservationTupels = DataBase.getInstance().search(query);
-			try {
-				while (reservationTupels.next()) {
-					Reservation reservation = new Reservation();
-					reservation.setReservationID(reservationTupels.getString("reservationID"));
-					reservation.setPersonalID(reservationTupels.getString("personalID"));
-					reservation.setParkname(reservationTupels.getString("parkname"));
-					reservation.setNumofvisitors(reservationTupels.getString("numofvisitors"));
-					reservation.setReservationtype(reservationTupels.getString("reservationtype"));
-					reservation.setEmail(reservationTupels.getString("email"));
-					reservation.setDate(reservationTupels.getTimestamp("dateAndTime"));
-					reservation.setPrice(reservationTupels.getDouble("price"));
-					reservation.setReservationtype("Valid");
-					myReservations.add(reservation);
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
+		try {
+			while (reservationTupels.next()) {
+				Reservation reservation = new Reservation();
+				reservation.setReservationID(reservationTupels.getString("reservationID"));
+				reservation.setPersonalID(reservationTupels.getString("personalID"));
+				reservation.setParkname(reservationTupels.getString("parkname"));
+				reservation.setNumofvisitors(reservationTupels.getString("numofvisitors"));
+				reservation.setReservationtype(reservationTupels.getString("reservationtype"));
+				reservation.setEmail(reservationTupels.getString("email"));
+				reservation.setDate(reservationTupels.getTimestamp("dateAndTime"));
+				reservation.setPrice(reservationTupels.getDouble("price"));
+				reservation.setReservationtype("Valid");
+				myReservations.add(reservation);
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return gson.toJson(myReservations.toArray());
 	}
 
-
+	@SuppressWarnings("deprecation")
+	private String showAvailableSpace(String data, ConnectionToClient client) {
+		Reservation myReservation = gson.fromJson(data, Reservation.class);
+		ArrayList<Reservation> availableReservations = new ArrayList<>();
+		String parkName = myReservation.getParkname();
+		int numberOfVisitors = Integer.parseInt(myReservation.getNumofvisitors());
+		Timestamp myReservationTime = myReservation.getDateAndTime();
+		Timestamp timeToCheck = new Timestamp(myReservationTime.getYear(), myReservationTime.getMonth(),
+				myReservationTime.getDate(), myReservationTime.getHours() + 1, 0, 0, 0);
+		Timestamp lastTimeToCheck = new Timestamp(myReservationTime.getYear(), myReservationTime.getMonth(),
+				myReservationTime.getDate() + 1, 17, 0, 0, 0);
+		while (!(timeToCheck.equals(lastTimeToCheck))) {
+			if (isThereAvailableSpace(timeToCheck, parkName, numberOfVisitors)&&(timeToCheck.getHours()<17&&timeToCheck.getHours()>8)) {
+				Reservation reservation = new Reservation();
+				reservation.setReservationID(myReservation.getReservationID());
+				reservation.setPersonalID(myReservation.getPersonalID());
+				reservation.setParkname(myReservation.getParkname());
+				reservation.setNumofvisitors(myReservation.getNumofvisitors());
+				reservation.setReservationtype(myReservation.getReservationtype());
+				reservation.setEmail(myReservation.getEmail());
+				reservation.setDate(new Timestamp(timeToCheck.getYear(), timeToCheck.getMonth(), timeToCheck.getDate(),
+						timeToCheck.getHours(), 0, 0, 0));
+				reservation.setPrice(myReservation.getPrice());
+				reservation.setReservationtype("Valid");
+				availableReservations.add(reservation);
+				// System.out.println(reservation + "\n");
+			}
+			timeToCheck.setHours(timeToCheck.getHours() + 1);
+		}
+		return gson.toJson(availableReservations.toArray());
+	}
 
 }
-
