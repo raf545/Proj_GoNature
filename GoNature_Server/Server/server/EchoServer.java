@@ -91,9 +91,9 @@ public class EchoServer extends AbstractServer {
 			break;
 		case ParkManagerSystemController:
 			answer = ParkManagerSystemController.getInstance().getFunc(rh.getFunc(), rh.getData(), client);
+			break;
 		case DepartmentManagerSystemController:
 			answer = DepartmentManagerSystemController.getInstance().getFunc(rh.getFunc(), rh.getData(), client);
-
 			break;
 		}
 		try {
