@@ -1,20 +1,30 @@
 package reservation;
 
+import java.io.IOException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+
 import com.google.gson.Gson;
 import client.ChatClient;
 import client.ClientUI;
+import faq.FaqController;
 import guiCommon.StaticPaneMainPageClient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javafx.util.Callback;
 import popup.PopUp;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
@@ -62,7 +72,7 @@ public class NewReservationController {
 	// Instance methods ************************************************
 
 	/**
-	 *  Sets the relevant fields in the newReservation section
+	 * Sets the relevant fields in the newReservation section
 	 */
 	public void setIdentFields() {
 		chooseParkComboBox.getItems().addAll("Niagara", "Banias", "Safari");
@@ -73,6 +83,23 @@ public class NewReservationController {
 			Subscriber currentSubscriber = gson.fromJson(ChatClient.clientInfo, Subscriber.class);
 			EmailTxt.setText(currentSubscriber.getEmail());
 		}
+		// disable not relevant data
+		Callback<DatePicker, DateCell> callB = new Callback<DatePicker, DateCell>() {
+			@Override
+			public DateCell call(final DatePicker param) {
+				return new DateCell() {
+					@Override
+					public void updateItem(LocalDate item, boolean empty) {
+						super.updateItem(item, empty); // To change body of generated methods, choose Tools | Templates.
+						LocalDate today = LocalDate.now();
+						setDisable(empty || item.compareTo(today) < 0);
+					}
+
+				};
+			}
+
+		};
+		wantedDatePicker.setDayCellFactory(callB);
 
 	}
 
@@ -141,7 +168,7 @@ public class NewReservationController {
 			RequestHandler requestNewReservationId = new RequestHandler(controllerName.ReservationController,
 					"createNewReservation", gson.toJson(reservation));
 			ClientUI.chat.accept(gson.toJson(requestNewReservationId));
-			analyzeAnswerFromServer();
+			analyzeAnswerFromServer(reservation);
 		} else {
 			PopUp.display("Error", errorMessage.toString());
 		}
@@ -181,12 +208,29 @@ public class NewReservationController {
 	/**
 	 * Analyze the message returned from the server and display feedback using a
 	 * PopUp window
+	 *
+	 * @param reservation get the reservation details
 	 */
-	private void analyzeAnswerFromServer() {
+	private void analyzeAnswerFromServer(Reservation reservation) {
+		Stage primaryStage = new Stage();
 		String answer = ChatClient.serverMsg;
 		switch (answer) {
 		case "There is no available space in the park\n for the given time":
-			PopUp.display("Error", answer);
+			// PopUp.display("Error", answer);
+			try {
+				StaticPaneMainPageClient.clientMainPane.getChildren().clear();
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(WaitingListQuestionController.class.getResource("WaitingListQuestion.fxml"));
+				Pane root;
+				root = loader.load();
+				Scene sc = new Scene(root);
+				WaitingListQuestionController waitingListQuestionController = loader.getController();
+				waitingListQuestionController.setReservation(reservation);
+				StaticPaneMainPageClient.clientMainPane.getChildren().add(root);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			break;
 		case "fail update reservation ID":
 			PopUp.display("Error", answer);
@@ -201,5 +245,4 @@ public class NewReservationController {
 			break;
 		}
 	}
-
 }

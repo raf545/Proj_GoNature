@@ -26,7 +26,7 @@ public class PopUp {
 			PopUpWinController popUpWinController = loader.getController();
 			popUpWinController.setMessage(message);
 			primaryStage.setScene(sc);
-			primaryStage.show();
+			primaryStage.showAndWait();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
