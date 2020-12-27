@@ -47,7 +47,7 @@ public class NewGroupLeaderWorkerController {
 		StringBuilder popError = new StringBuilder();
 		String id, subscriberid, name, lastName, phone, email, creditCardNumber, subscriberType;
 		id = idTF.getText();
-		subscriberid = "123489";
+		subscriberid = null;
 		name = firstNameTF.getText();
 		lastName = lastNameTF.getText();
 		phone = phoneTF.getText();
@@ -55,31 +55,60 @@ public class NewGroupLeaderWorkerController {
 		creditCardNumber = creditCardTF.getText();
 		subscriberType = "instructor";
 
-		if (firstNameTF.getText().isEmpty()) {
-			popError.append("Must enter first name");
+		if (name.isEmpty()) 
+			popError.append("Must enter first name\n");
 
-			if (lastNameTF.getText().isEmpty())
-				popError.append("Must enter last name");
+		if (!name.matches("[a-zA-Z]+")) 
+			popError.append("No Numbers allowed in names\n");
 
-			if (idTF.getText().isEmpty())
-				popError.append("Must enter ID");
-
-			if (phoneTF.getText().isEmpty())
-				popError.append("Must enter Phone number");
-
-			if (EmailTF.getText().isEmpty())
-				popError.append("Must enter Email");
-
+		if (lastName.isEmpty()) 
+			popError.append("Must enter last name\n");
 		
+		 else if (!lastName.matches("[a-zA-Z]+"))
+				popError.append("No Numbers allowed in last names\n");
+							
+		if (id.isEmpty()) 
+			popError.append("Must enter ID\n");
+		
+		else if (!(id.matches("[0-9]+") && id.length() > 2))
+				popError.append("Please enter only numbers on ID\n");
+			
+					
+		if (phone.isEmpty())
+			popError.append("Must enter Phone number\n");
+		else {
+			if (phone.matches("[a-zA-z]+")) {
+				popError.append("Must enter only numbers for Phone number\n");
+			}else {
+				if (phone.length()!=10)
+					popError.append("Must enter 10 digit Phone number\n");
+			}
+		}
+	
+		if (email.isEmpty())
+		{
+			popError.append("Must enter Email\n");
+		}else {
+			if (!(email.matches("^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$")))
+				popError.append("Not a valid Email\n");
+		}
+			
 
 			if (popError.length() > 0)
 				PopUp.display("Error", popError.toString());
-		} else {
+				else {
 
-			 subscriber = new Subscriber(id, subscriberid, name, lastName, phone, email, null,
+					subscriber = new Subscriber(id, subscriberid, name, lastName, phone, email, null,
 					creditCardNumber, subscriberType);
-			sendLoginRequestToServer("addInstructorSub", subscriber);
-			analyzeAnswerFromServer();
+					sendLoginRequestToServer("addInstructorSub", subscriber);
+					analyzeAnswerFromServer();
+					firstNameTF.setText("");
+					lastNameTF.setText("");
+					idTF.setText("");
+					phoneTF.setText("");
+					EmailTF.setText("");
+					creditCardTF.setText("");
+					
 		}
     }
     
