@@ -32,10 +32,12 @@ public class DepartmentManagerSystemController {
 		switch (MethodName) {
 		case "showAllApprovesAndRejects":
 			return showAllApprovesAndRejects();
-		case "updateNewChangesToDB":
+		case "updateFieldStatus":
 			String[] values = data.split(" ");
-			return updateNewChangesToDB(values[0],values[1]);
-
+			return updateFieldStatus(values[1],values[0]);
+		case "updateParkInformation":
+			String[] values2 = data.split(" ");
+			return updateParkInformation(values2[0],values2[1],values2[2]);
 		}
 		return data;
 	}
@@ -62,27 +64,42 @@ public class DepartmentManagerSystemController {
 		
 		return "faild";
 	}
-	private String updateNewChangesToDB(String status,String parkName)
+	//Change Name to update new stauts for a request
+	private String updateFieldStatus(String fieldType,String parkName)
 	{
-//		try {
-//			
-//			String myStatus = gson.fromJson(status, String.class);
-//			String myParkName = gson.fromJson(parkName, String.class);
-//			String query="UPDATE `gonaturedb`.`parkdetailsapproval` SET '" + myStatus + "'= 'finished' WHERE (`parkname` = '" + myParkName +"');\r\n"
-//					+ "";
-//			
-//			boolean answer = DataBase.getInstance().update(query);
-//			if (answer) 
-//			{
-//				return "true";	
-//			}
-//		} 
-//		catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-		return "faild";
+		try
+		{		
+			String query= "UPDATE `gonaturedb`.`parkdetailsapproval` SET `" + fieldType + "status` = 'finished' WHERE (`parkname` = '" + parkName + "');";
 			
+			boolean answer = DataBase.getInstance().update(query);
+			if (answer) 
+				return "true";	
+		} 
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		return "faild";			
+	}
+	private String updateParkInformation(String parkName,String fieldType,String newData)
+	{
+		String nameOfVal = "park" + fieldType + parkName;
+		try
+		{		
+			String query= "UPDATE `gonaturedb`.`uptodateinformation` SET `num` = '" + newData +"' WHERE (`nameOfVal` = '" +  nameOfVal + "');";
+			
+			boolean answer = DataBase.getInstance().update(query);
+			if (answer) 
+				return "true";	
+		} 
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		return "faild";	
+		
 	}
 	private int isEmpty(ResultSet rs) {
 		int size = 0;
