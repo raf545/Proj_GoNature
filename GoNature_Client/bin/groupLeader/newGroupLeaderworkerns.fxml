@@ -57,8 +57,8 @@
             <Font name="Guttman Drogolin Bold" size="34.0" />
          </font>
       </Text>
-      <Circle fx:id="backBtn" fill="#ffc956" layoutX="237.0" layoutY="137.0" radius="25.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="0.0" />
-      <Text fill="WHITE" layoutX="211.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;" textAlignment="CENTER" wrappingWidth="50.0">
+      <Circle fill="#ffc956" layoutX="237.0" layoutY="137.0" radius="25.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="0.0" />
+      <Text fx:id="backBtn" fill="WHITE" layoutX="211.0" layoutY="147.0" onMouseClicked="#backBottun" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;" textAlignment="CENTER" wrappingWidth="50.0">
          <font>
             <Font name="Baloo Regular" size="30.0" />
          </font>

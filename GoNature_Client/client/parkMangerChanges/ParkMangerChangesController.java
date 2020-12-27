@@ -3,13 +3,16 @@ package parkMangerChanges;
 import java.util.ArrayList;
 
 import com.google.gson.Gson;
-
+import javafx.scene.control.Label;
 import client.ChatClient;
 import client.ClientUI;
 import employee.Employee;
+import guiCommon.StaticPaneMainPageDepartmentManager;
+import guiCommon.StaticPaneMainPageParkManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.input.InputMethodEvent;
@@ -26,7 +29,8 @@ public class ParkMangerChangesController {
 	String oldDifference;
 	String oldDiscount;
 	@FXML
-	private Text exitBtn;
+    private Text backBtn;
+
 
 	@FXML
 	private Button saveBtn;
@@ -52,6 +56,11 @@ public class ParkMangerChangesController {
 
 	@FXML
 	private Text helpBtn;
+	 @FXML
+    private Hyperlink returnToDefault;
+
+    @FXML
+	private Label parkNameTitle;
 
 	Employee parkManager;
 
@@ -82,6 +91,7 @@ public class ParkMangerChangesController {
 		discountSlider.setMax(50);
 		parkManager = employee;
 		initParkValues();
+		parkNameTitle.setText(parkManager.getParkName());
 		
 		
 
@@ -113,6 +123,9 @@ public class ParkMangerChangesController {
 
 	@FXML
 	void differenceQuestion(MouseEvent event) {
+		String answer="available capacity for visitors that didnt make a reservation before they came to the park";
+		PopUp.display("difference details", answer);
+		
 
 	}
 
@@ -124,15 +137,16 @@ public class ParkMangerChangesController {
 			break;
 		case "The changing are waiting for approval":
 			PopUp.display("success", answer);
+			break;
 			
 		default:
 			ArrayList <String> res= gson.fromJson(answer, ArrayList.class);
 			oldParkcapacity=res.get(0);
 			oldDifference=res.get(1);
 			oldDiscount=res.get(2);
-			parkCapacitySlider.setValue(Integer.valueOf(res.get(0)));
-			differenceSlider.setValue(Integer.valueOf(res.get(1)));
-			discountSlider.setValue(Integer.valueOf(res.get(2)));
+			parkCapacitySlider.setValue(Integer.valueOf(oldParkcapacity));
+			differenceSlider.setValue(Integer.valueOf(oldDifference));
+			discountSlider.setValue(Integer.valueOf(oldDiscount));
 			differenceTF.setText(String.valueOf((int) differenceSlider.getValue()));
 			discountTF.setText(String.valueOf((int) discountSlider.getValue()));
 			parkCapacityTF.setText(String.valueOf((int) parkCapacitySlider.getValue()));
@@ -158,5 +172,22 @@ public class ParkMangerChangesController {
 	void changeParkDiscountSliderByTxt(InputMethodEvent event) {
 
 	}
+	
+	@FXML
+    void retDefultValue(ActionEvent event) {
+		parkCapacitySlider.setValue(Integer.valueOf(oldParkcapacity));
+		differenceSlider.setValue(Integer.valueOf(oldDifference));
+		discountSlider.setValue(Integer.valueOf(oldDiscount));
+		differenceTF.setText(String.valueOf((int) differenceSlider.getValue()));
+		discountTF.setText(String.valueOf((int) discountSlider.getValue()));
+		parkCapacityTF.setText(String.valueOf((int) parkCapacitySlider.getValue()));
+    }
+	
+	 @FXML
+	    void backButton(MouseEvent event) {
+		 StaticPaneMainPageParkManager.parkManagerMainPane.getChildren().clear();
+
+	    }
+
 
 }

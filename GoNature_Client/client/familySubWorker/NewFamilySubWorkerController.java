@@ -3,6 +3,8 @@ package familySubWorker;
 import com.google.gson.Gson;
 import client.ChatClient;
 import client.ClientUI;
+import guiCommon.StaticPaneMainPageEmployee;
+import guiCommon.StaticPaneMainPageParkManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -151,7 +153,7 @@ public class NewFamilySubWorkerController {
 
 	@FXML
 	void back(MouseEvent event) {
-
+		StaticPaneMainPageEmployee.employeeMainPane.getChildren().clear();
 	}
 
 }
