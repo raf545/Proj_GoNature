@@ -6,11 +6,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<DialogPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="238.0" prefWidth="462.0" style="-fx-background-color: #676767; -fx-border-color: #99d487; -fx-border-width: 10;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="popup.PopUpWinController">
+<DialogPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="374.0" prefWidth="613.0" style="-fx-background-color: #676767; -fx-border-color: #99d487; -fx-border-width: 10;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="popup.PopUpWinController">
     <header>
-      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="320.0">
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="357.0" prefWidth="593.0">
          <children>
-            <Button fx:id="okButton" alignment="CENTER" layoutX="162.0" layoutY="116.0" mnemonicParsing="false" onAction="#closePopUp" prefHeight="38.0" prefWidth="118.0" style="-fx-background-color: #99d487;" text="OK" textFill="#676767">
+            <Button fx:id="okButton" alignment="CENTER" layoutX="238.0" layoutY="235.0" mnemonicParsing="false" onAction="#closePopUp" prefHeight="38.0" prefWidth="118.0" style="-fx-background-color: #99d487;" text="OK" textFill="#676767">
                <font>
                   <Font name="Arial Hebrew Bold" size="26.0" />
                </font>
