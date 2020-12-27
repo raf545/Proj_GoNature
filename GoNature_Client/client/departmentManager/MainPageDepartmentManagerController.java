@@ -14,6 +14,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import managerApproveChanges.ApproveChangesController;
+import reservation.NewReservationController;
 
 public class MainPageDepartmentManagerController {
 
@@ -59,7 +60,10 @@ public class MainPageDepartmentManagerController {
     }
 
     @FXML
-    void openNewReservation(ActionEvent event) {
+    void openNewReservation(ActionEvent event) throws IOException {
+//    	StaticPaneMainPageDepartmentManager.DepartmentManagerMainPane = departmentManagerPane;
+//		NewReservationController controller = FXMLFunctions.loadSceneToMainPane(NewReservationController.class, "NewReservation.fxml" , departmentManagerPane).getController();
+//		controller.setIdentFields();
 
     }
 }
