@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Rectangle?>
@@ -30,40 +28,23 @@
             <Font name="Baloo Regular" size="30.0" />
          </font>
       </Text>
-      <HBox layoutX="134.0" layoutY="242.0" prefHeight="37.0" prefWidth="623.0" spacing="5.0" style="-fx-background-color: #676767;">
+      <Pane fx:id="listPane" layoutX="134.0" layoutY="251.0" prefHeight="392.0" prefWidth="623.0" style="-fx-border-color: #676767;">
          <children>
-            <Text fill="WHITE" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="Reservation ID" textAlignment="CENTER" wrappingWidth="134.443359375">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-            </Text>
-            <Text fill="WHITE" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="Park Name" textAlignment="CENTER" wrappingWidth="126.443359375">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-            </Text>
-            <Text fill="WHITE" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" textAlignment="CENTER" wrappingWidth="134.443359375">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-            </Text>
-            <Text fill="WHITE" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="Time" textAlignment="CENTER" wrappingWidth="96.443359375">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-            </Text>
-         </children>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
-      </HBox>
-      <ScrollPane layoutX="134.0" layoutY="279.0" prefHeight="382.0" prefWidth="637.0">
-         <content>
-            <AnchorPane layoutX="180.0" layoutY="87.0" minHeight="0.0" minWidth="0.0" prefHeight="382.0" prefWidth="629.0">
-               <children>
-                  <ListView fx:id="reservationList" prefHeight="373.0" prefWidth="623.0" />
-               </children></AnchorPane>
-         </content>
-      </ScrollPane>
+            <TableView fx:id="reservationTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="392.0" prefWidth="623.0" style="-fx-background-color: #676767; -fx-border-color: #99d487; -fx-border-insets: 5; -fx-border-width: 4; -fx-alignment: CENTER;">
+              <columns>
+                <TableColumn fx:id="reservationCol" editable="false" prefWidth="116.0" style="-fx-alignment: CENTER;" text="Reservation ID" />
+                <TableColumn fx:id="parkNameCol" editable="false" prefWidth="120.0" style="-fx-alignment: CENTER;" text="Park Name" />
+                  <TableColumn fx:id="timeCol" editable="false" prefWidth="196.0" style="-fx-alignment: CENTER;" text="Time" />
+                  <TableColumn fx:id="actionCol" minWidth="0.0" prefWidth="84.0" style="-fx-alignment: CENTER;" />
+                  <TableColumn fx:id="actionCol1" prefWidth="79.0" style="-fx-alignment: CENTER;" />
+              </columns>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <opaqueInsets>
+                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+               </opaqueInsets>
+            </TableView>
+         </children></Pane>
    </children>
 </Pane>

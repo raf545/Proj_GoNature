@@ -2,6 +2,7 @@ package reservation;
 
 import java.sql.Timestamp;
 
+
 public class Reservation {
 
 	private String reservationID;
@@ -14,6 +15,7 @@ public class Reservation {
 	private double price;
 	private String reservetionStatus;
 
+	
 	public Reservation(String reservationID, String personalID, String parkname, String numofvisitors,
 			String reservationtype, String email, Timestamp dateAndTime, float price, String reservetionStatus) {
 		this.reservationID = reservationID;
@@ -61,6 +63,11 @@ public class Reservation {
 	public void setNumofvisitors(String numofvisitors) {
 		this.numofvisitors = numofvisitors;
 	}
+ 
+
+	public void setDateAndTime(Timestamp dateAndTime) {
+		this.dateAndTime = dateAndTime;
+	}
 
 	public String getReservationtype() {
 		return reservationtype;
@@ -83,7 +90,9 @@ public class Reservation {
 	}
 
 	public void setDate(Timestamp date) {
+		
 		this.dateAndTime = date;
+
 	}
 
 	public double getPrice() {

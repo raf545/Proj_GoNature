@@ -61,10 +61,13 @@ public class MainPageForClientController {
 
 	@FXML
 	void MyReservationBtn(ActionEvent event) throws IOException {
-		ArrayList<Reservation> myReservation = new ArrayList<>();
+		Reservation[] myReservation;
+		
 		RequestHandler getReservationsRequest = new RequestHandler(controllerName.ReservationController, "getReservations", ChatClient.clientIdString);
 		ClientUI.chat.accept(gson.toJson(getReservationsRequest));
-		myReservation = gson.fromJson(ChatClient.serverMsg, ArrayList.class);
+		myReservation = gson.fromJson(ChatClient.serverMsg, Reservation[].class);
+		for (Reservation reservation : myReservation) 
+			System.out.println(reservation);
 		StaticPaneMainPageClient.clientMainPane.getChildren().clear();
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(MyReservationsController.class.getResource("MyReservations.fxml"));

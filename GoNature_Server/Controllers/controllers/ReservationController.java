@@ -286,8 +286,8 @@ public class ReservationController {
 	}
 	
 	private String getReservations(String data, ConnectionToClient client) {
-		List<Reservation> myReservations = new ArrayList<>();
-		Reservation reservation = new Reservation();
+		ArrayList<Reservation> myReservations = new ArrayList<>();
+		
 		String personalId = gson.fromJson(data, String.class);
 		String query = "SELECT * FROM gonaturedb.reservetions where personalID = \"" + personalId 
 				+ "\" and reservetionStatus = \"Valid\";";
@@ -296,7 +296,7 @@ public class ReservationController {
 		reservationTupels = DataBase.getInstance().search(query);
 			try {
 				while (reservationTupels.next()) {
-					
+					Reservation reservation = new Reservation();
 					reservation.setReservationID(reservationTupels.getString("reservationID"));
 					reservation.setPersonalID(reservationTupels.getString("personalID"));
 					reservation.setParkname(reservationTupels.getString("parkname"));
@@ -311,7 +311,7 @@ public class ReservationController {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		return gson.toJson(myReservations);
+		return gson.toJson(myReservations.toArray());
 	}
 
 

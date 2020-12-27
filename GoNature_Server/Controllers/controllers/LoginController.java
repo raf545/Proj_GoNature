@@ -95,7 +95,7 @@ public class LoginController {
 			client.setInfo("ID", res.getString("id"));
 			client.setInfo("Table", "subscriber");
 			Subscriber subscriber = new Subscriber(res.getString("id"), res.getString("subscriberid"),
-					res.getString("name"), res.getString("lastName"), res.getString("phone"), res.getString("email"),
+					res.getString("firstName"), res.getString("lastName"), res.getString("phone"), res.getString("email"),
 					res.getString("numOfMembers"), res.getString("creditCardNumber"), res.getString("subscriberTypre"));
 			if (setLoginToDB(client, "subscriber")) {
 				return gson.toJson(subscriber);
