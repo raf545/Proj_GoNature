@@ -63,7 +63,7 @@ public class EmployeeSystemController {
 		{
 			subscriber.setSubscriberTypre("subscriber");
 		}
-	
+	//
 		query = "INSERT INTO gonaturedb.subscriber (id, subscriberid, firstName, lastName, phone, email, numOfMembers, creditCardNumber, subscriberTypre) VALUES "
 				+ subscriber.toString2() + ";";
 		if (DataBase.getInstance().update(query)) {

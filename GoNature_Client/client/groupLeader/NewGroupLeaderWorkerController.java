@@ -65,7 +65,7 @@ public class NewGroupLeaderWorkerController {
 			popError.append("Must enter last name\n");
 		
 		 else if (!lastName.matches("[a-zA-Z]+"))
-				popError.append("No Numbers allowed in names\n");
+				popError.append("No Numbers allowed in last names\n");
 							
 		if (id.isEmpty()) 
 			popError.append("Must enter ID\n");

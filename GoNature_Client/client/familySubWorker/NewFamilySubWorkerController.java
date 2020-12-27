@@ -60,7 +60,7 @@ public class NewFamilySubWorkerController {
 		subscriberType = "family";
 
 		if (name.isEmpty()) 
-			popError.append("Must enter first name\n");
+			popError.append("Must enter first name \n");
 
 		if (!name.matches("[a-zA-Z]+")) 
 			popError.append("No Numbers allowed in names\n");
