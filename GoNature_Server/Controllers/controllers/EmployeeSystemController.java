@@ -100,8 +100,13 @@ public class EmployeeSystemController {
 		}
 		query = "INSERT INTO gonaturedb.subscriber (id, subscriberid, firstName, lastName, phone, email, numOfMembers, creditCardNumber, subscriberTypre) VALUES "
 				+ subscriber.toString2() + ";";
-		if (DataBase.getInstance().update(query))
-			return "success";
+		if (DataBase.getInstance().update(query)) {
+			subidr++;
+			query = "UPDATE gonaturedb.uptodateinformation SET num = " + subidr + " WHERE (nameOfVal = \"subscriberID\");";
+			if (DataBase.getInstance().update(query)) {
+				return gson.toJson(subscriber);
+			}
+		}
 		return "fail";
 	}
 
