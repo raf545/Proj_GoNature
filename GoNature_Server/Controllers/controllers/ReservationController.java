@@ -55,6 +55,11 @@ public class ReservationController {
 			return getReservations(data, client);
 		case "showAvailableSpace":
 			return showAvailableSpace(data, client);
+		case "cancelReservation":
+			return cancelReservation(data);
+		case "approveReservation":
+			return approveReservation(data);	
+			
 		default:
 			return "fail";
 		}
@@ -347,5 +352,41 @@ public class ReservationController {
 		}
 		return gson.toJson(availableReservations.toArray());
 	}
+	
+	/**
+	 * 
+	 * This method sets a reservation status as canceled
+	 * 
+	 * @param reservationId
+	 * @return Reservation canceled succsessfuly , Reservation wasn't canceled properly
+	 */
+	private String cancelReservation(String reservationId) {
+
+
+		String query = "UPDATE gonaturedb.reservetions SET reservetionStatus = \"Canceled\" WHERE reservationID = \""+reservationId+"\";";
+		if(DataBase.getInstance().update(query))
+			return "Reservation canceled succsessfuly";
+		return "Reservation wasn't canceled properly";
+
+	}
+	private String approveReservation(String reservationId) {
+
+
+		String query = "UPDATE gonaturedb.reservetions SET reservetionStatus = \"Aproved\" WHERE reservationID = \""+reservationId+"\";";
+		if(DataBase.getInstance().update(query))
+			return "Reservation approved succsessfuly";
+		return "Reservation wasn't approved properly";
+
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

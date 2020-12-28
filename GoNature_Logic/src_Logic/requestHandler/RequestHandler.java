@@ -12,6 +12,14 @@ public class RequestHandler {
 	private String func;
 	private String data;
 	
+	/**
+	 * 
+	 * RequestHandler(controllerName ,  functionName,  data) 
+	 * 
+	 * @param myCon
+	 * @param func
+	 * @param data
+	 */
 	public RequestHandler(controllerName myCon, String func, String data) {
 		this.myCon = myCon;
 		this.func = func;
