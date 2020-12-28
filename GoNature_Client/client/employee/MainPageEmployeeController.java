@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.google.gson.Gson;
 
+import cardReader.CardReaderController;
 import client.ClientUI;
 import familySubWorker.NewFamilySubWorkerController;
 import groupLeader.NewGroupLeaderWorkerController;
@@ -22,23 +23,26 @@ import requestHandler.RequestHandler;
 import requestHandler.controllerName;
 
 public class MainPageEmployeeController {
-	@FXML
-	private Pane mainPane;
+    @FXML
+    private Pane mainPane;
 
-	@FXML
-	private ImageView openNewFamilySubBtnP;
+    @FXML
+    private ImageView openNewFamilySubBtnP;
 
-	@FXML
-	private Button NewFamilySubBtn;
+    @FXML
+    private Button NewFamilySubBtn;
 
-	@FXML
-	private ImageView openNewInstructorBtnP;
+    @FXML
+    private ImageView openNewInstructorBtnP;
 
-	@FXML
-	private Button NewInstructorBtn;
+    @FXML
+    private Button NewInstructorBtn;
 
-	@FXML
-	private Hyperlink logoutBtn;
+    @FXML
+    private Button readerSimulation;
+
+    @FXML
+    private Hyperlink logoutBtn;
 
 	Gson gson = new Gson();
 
@@ -91,5 +95,17 @@ public class MainPageEmployeeController {
 		primaryStage.show();
 
 	}
+	
+	@FXML
+    void openReaderSimulation(ActionEvent event) throws IOException {
+
+		StaticPaneMainPageEmployee.employeeMainPane=mainPane;
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(CardReaderController.class.getResource("readerSimulation.fxml"));
+
+		Pane root = loader.load();
+		mainPane.getChildren().clear();
+		mainPane.getChildren().add(root);
+    }
 
 }
