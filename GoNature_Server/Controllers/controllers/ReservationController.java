@@ -333,10 +333,10 @@ public class ReservationController {
 		Timestamp timeToCheck = new Timestamp(myReservationTime.getYear(), myReservationTime.getMonth(),
 				myReservationTime.getDate(), myReservationTime.getHours() + 1, 0, 0, 0);
 		Timestamp lastTimeToCheck = new Timestamp(myReservationTime.getYear(), myReservationTime.getMonth(),
-				myReservationTime.getDate() + 1, 17, 0, 0, 0);
+				myReservationTime.getDate() + 2, 17, 0, 0, 0);
 		while (!(timeToCheck.equals(lastTimeToCheck))) {
 			if (isThereAvailableSpace(timeToCheck, parkName, numberOfVisitors)
-					&& (timeToCheck.getHours() < 17 && timeToCheck.getHours() > 8)) {
+					&& (timeToCheck.getHours() <= 16 && timeToCheck.getHours() >= 8)) {
 				Reservation reservation = new Reservation();
 				reservation.setReservationID(myReservation.getReservationID());
 				reservation.setPersonalID(myReservation.getPersonalID());
@@ -349,7 +349,6 @@ public class ReservationController {
 				reservation.setPrice(myReservation.getPrice());
 				reservation.setReservationtype("Valid");
 				availableReservations.add(reservation);
-				// System.out.println(reservation + "\n");
 			}
 			timeToCheck.setHours(timeToCheck.getHours() + 1);
 		}

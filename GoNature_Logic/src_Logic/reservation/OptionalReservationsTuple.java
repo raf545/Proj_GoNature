@@ -1,5 +1,7 @@
 package reservation;
 
+import java.sql.Timestamp;
+
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
@@ -9,13 +11,13 @@ import javafx.scene.text.FontWeight;
 public class OptionalReservationsTuple {
 
 	private String parkname;
-	private String dateAndTimeString;
+	private Timestamp dateAndTimeString;
 	private Button approve;
 	Font commonFontSize12 = Font.font("System", FontWeight.BOLD, 12);
 
 	public OptionalReservationsTuple(Reservation reservation) {
 		this.parkname = reservation.getParkname();
-		this.dateAndTimeString = reservation.getDateAndTime().toString();
+		this.dateAndTimeString = reservation.getDateAndTime();
 
 		approve = new Button("Approve");
 		approve.setPadding(new Insets(5));
@@ -33,11 +35,11 @@ public class OptionalReservationsTuple {
 		this.parkname = parkname;
 	}
 
-	public String getDateAndTimeString() {
+	public Timestamp getDateAndTimeString() {
 		return dateAndTimeString;
 	}
 
-	public void setDateAndTimeString(String dateAndTimeString) {
+	public void setDateAndTimeString(Timestamp dateAndTimeString) {
 		this.dateAndTimeString = dateAndTimeString;
 	}
 

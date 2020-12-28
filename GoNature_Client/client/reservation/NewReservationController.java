@@ -115,7 +115,6 @@ public class NewReservationController {
 	 */
 	@FXML
 	void Back(MouseEvent event) {
-
 		StaticPaneMainPageClient.clientMainPane.getChildren().clear();
 	}
 
@@ -247,8 +246,8 @@ public class NewReservationController {
 			break;
 		default:
 			reservationFromServer = gson.fromJson(answer, Reservation.class);
-			PopUp.display("sucess", "Reservation was placed successfuly\n " + "your Reservation id is: "
-					+ reservationFromServer.getReservationID());
+			PopUp.display("Success", "Reservation was placed successfuly\n " + "your Reservation id is: "
+					+ reservationFromServer.getReservationID() + "\nPrice:" + reservationFromServer.getPrice());
 			break;
 		}
 	}

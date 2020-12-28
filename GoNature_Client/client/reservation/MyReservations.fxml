@@ -28,9 +28,9 @@
             <Font name="Baloo Regular" size="30.0" />
          </font>
       </Text>
-      <Pane fx:id="listPane" layoutX="134.0" layoutY="251.0" prefHeight="392.0" prefWidth="623.0" style="-fx-border-color: #676767;">
+      <Pane fx:id="listPane" layoutX="134.0" layoutY="251.0" prefHeight="392.0" prefWidth="645.0" style="-fx-border-color: #676767;">
          <children>
-            <TableView fx:id="reservationTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="392.0" prefWidth="623.0" style="-fx-background-color: #676767; -fx-border-color: #99d487; -fx-border-insets: 5; -fx-border-width: 4; -fx-alignment: CENTER;">
+            <TableView fx:id="reservationTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="392.0" prefWidth="645.0" style="-fx-background-color: #676767; -fx-border-color: #99d487; -fx-border-insets: 5; -fx-border-width: 4; -fx-alignment: CENTER;">
               <columns>
                 <TableColumn fx:id="reservationCol" editable="false" prefWidth="116.0" style="-fx-alignment: CENTER;" text="Reservation ID" />
                 <TableColumn fx:id="parkNameCol" editable="false" prefWidth="120.0" style="-fx-alignment: CENTER;" text="Park Name" />
