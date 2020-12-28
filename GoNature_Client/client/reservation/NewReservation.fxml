@@ -18,8 +18,8 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="920.0" style="-fx-background-color: #99d487;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="reservation.NewReservationController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="594.0" layoutX="193.0" layoutY="73.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="527.0" />
-      <Button fx:id="ContinueBtn" layoutX="241.0" layoutY="584.0" mnemonicParsing="false" onAction="#Continue" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #729d64;" text="Continue" textFill="WHITE">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="636.0" layoutX="193.0" layoutY="73.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="527.0" />
+      <Button fx:id="ContinueBtn" layoutX="242.0" layoutY="652.0" mnemonicParsing="false" onAction="#Continue" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #729d64;" text="Continue" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -29,7 +29,7 @@
             <Font name="Guttman Drogolin Bold" size="34.0" />
          </font>
       </Text>
-      <GridPane layoutX="242.0" layoutY="171.0" prefHeight="413.0" prefWidth="557.0">
+      <GridPane layoutX="239.0" layoutY="171.0" prefHeight="475.0" prefWidth="557.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="499.0" minWidth="10.0" prefWidth="437.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="273.0" minWidth="10.0" prefWidth="120.0" />
@@ -40,9 +40,10 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <VBox prefHeight="139.0" prefWidth="306.0" GridPane.rowIndex="4">
+            <VBox prefHeight="139.0" prefWidth="306.0" GridPane.rowIndex="5">
                <children>
                   <Text stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose Park:" wrappingWidth="133.443359375">
                      <font>
@@ -114,6 +115,16 @@
                   </HBox>
                </children>
             </VBox>
+            <VBox prefHeight="147.0" prefWidth="448.0" GridPane.rowIndex="4">
+               <children>
+                  <Text stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="phone" wrappingWidth="199.0">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="PhoneTxt" prefHeight="40.0" promptText="0123456789" style="-fx-background-color: #EEF2F9;" />
+               </children>
+            </VBox>
          </children>
       </GridPane>
       <Circle fill="#729d64" layoutX="240.0" layoutY="116.0" radius="25.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="0.0" />
@@ -122,17 +133,17 @@
             <Font name="Baloo Regular" size="30.0" />
          </font>
       </Text>
-      <Text fill="RED" layoutX="227.0" layoutY="526.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
+      <Text fill="RED" layoutX="227.0" layoutY="514.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
          <font>
             <Font size="21.0" />
          </font>
       </Text>
-      <Text fill="RED" layoutX="230.0" layoutY="445.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
+      <Text fill="RED" layoutX="227.0" layoutY="432.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
          <font>
             <Font size="21.0" />
          </font>
       </Text>
-      <Text fill="RED" layoutX="227.0" layoutY="364.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
+      <Text fill="RED" layoutX="227.0" layoutY="357.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
          <font>
             <Font size="21.0" />
          </font>
@@ -142,7 +153,12 @@
             <Font size="21.0" />
          </font>
       </Text>
-      <Text fill="RED" layoutX="227.0" layoutY="281.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
+      <Text fill="RED" layoutX="227.0" layoutY="276.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Text>
+      <Text fill="RED" layoutX="227.0" layoutY="591.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
          <font>
             <Font size="21.0" />
          </font>

@@ -58,8 +58,8 @@ public class ReservationController {
 		case "cancelReservation":
 			return cancelReservation(data);
 		case "approveReservation":
-			return approveReservation(data);	
-			
+			return approveReservation(data);
+
 		default:
 			return "fail";
 		}
@@ -184,8 +184,8 @@ public class ReservationController {
 	 */
 	private boolean insertReservationToDB(Reservation reservation) {
 		try {
-			PreparedStatement query = con
-					.prepareStatement("INSERT INTO gonaturedb.reservetions VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);");
+			PreparedStatement query = con.prepareStatement(
+					"INSERT INTO gonaturedb.reservetions (reservationID, personalID, parkname, numofvisitors, reservationtype, email, dateAndTime, price, phone, reservetionStatus) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
 			query.setString(1, reservation.getReservationID());
 			query.setString(2, reservation.getPersonalID());
 			query.setString(3, reservation.getParkname());
@@ -194,7 +194,8 @@ public class ReservationController {
 			query.setString(6, reservation.getEmail());
 			query.setTimestamp(7, reservation.getDateAndTime());
 			query.setDouble(8, reservation.getPrice());
-			query.setString(9, reservation.getReservetionStatus());
+			query.setString(9, reservation.getPhone());
+			query.setString(10, reservation.getReservetionStatus());
 			if (DataBase.getInstance().update(query) == false)
 				return false;
 
@@ -313,6 +314,7 @@ public class ReservationController {
 				reservation.setDate(reservationTupels.getTimestamp("dateAndTime"));
 				reservation.setPrice(reservationTupels.getDouble("price"));
 				reservation.setReservationtype("Valid");
+				reservation.setPhone(reservationTupels.getString("phone"));
 				myReservations.add(reservation);
 			}
 		} catch (SQLException e) {
@@ -333,7 +335,8 @@ public class ReservationController {
 		Timestamp lastTimeToCheck = new Timestamp(myReservationTime.getYear(), myReservationTime.getMonth(),
 				myReservationTime.getDate() + 1, 17, 0, 0, 0);
 		while (!(timeToCheck.equals(lastTimeToCheck))) {
-			if (isThereAvailableSpace(timeToCheck, parkName, numberOfVisitors)&&(timeToCheck.getHours()<17&&timeToCheck.getHours()>8)) {
+			if (isThereAvailableSpace(timeToCheck, parkName, numberOfVisitors)
+					&& (timeToCheck.getHours() < 17 && timeToCheck.getHours() > 8)) {
 				Reservation reservation = new Reservation();
 				reservation.setReservationID(myReservation.getReservationID());
 				reservation.setPersonalID(myReservation.getPersonalID());
@@ -352,41 +355,33 @@ public class ReservationController {
 		}
 		return gson.toJson(availableReservations.toArray());
 	}
-	
+
 	/**
 	 * 
 	 * This method sets a reservation status as canceled
 	 * 
 	 * @param reservationId
-	 * @return Reservation canceled succsessfuly , Reservation wasn't canceled properly
+	 * @return Reservation canceled succsessfuly , Reservation wasn't canceled
+	 *         properly
 	 */
 	private String cancelReservation(String reservationId) {
 
-
-		String query = "UPDATE gonaturedb.reservetions SET reservetionStatus = \"Canceled\" WHERE reservationID = \""+reservationId+"\";";
-		if(DataBase.getInstance().update(query))
+		String query = "UPDATE gonaturedb.reservetions SET reservetionStatus = \"Canceled\" WHERE reservationID = \""
+				+ reservationId + "\";";
+		if (DataBase.getInstance().update(query))
 			return "Reservation canceled succsessfuly";
 		return "Reservation wasn't canceled properly";
 
 	}
+
 	private String approveReservation(String reservationId) {
 
-
-		String query = "UPDATE gonaturedb.reservetions SET reservetionStatus = \"Aproved\" WHERE reservationID = \""+reservationId+"\";";
-		if(DataBase.getInstance().update(query))
+		String query = "UPDATE gonaturedb.reservetions SET reservetionStatus = \"Aproved\" WHERE reservationID = \""
+				+ reservationId + "\";";
+		if (DataBase.getInstance().update(query))
 			return "Reservation approved succsessfuly";
 		return "Reservation wasn't approved properly";
 
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 }

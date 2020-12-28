@@ -95,8 +95,9 @@ public class LoginController {
 			client.setInfo("ID", res.getString("id"));
 			client.setInfo("Table", "subscriber");
 			Subscriber subscriber = new Subscriber(res.getString("id"), res.getString("subscriberid"),
-					res.getString("firstName"), res.getString("lastName"), res.getString("phone"), res.getString("email"),
-					res.getString("numOfMembers"), res.getString("creditCardNumber"), res.getString("subscriberTypre"));
+					res.getString("firstName"), res.getString("lastName"), res.getString("phone"),
+					res.getString("email"), res.getString("numOfMembers"), res.getString("creditCardNumber"),
+					res.getString("subscriberTypre"));
 			if (setLoginToDB(client, "subscriber")) {
 				return gson.toJson(subscriber);
 			}
@@ -157,7 +158,8 @@ public class LoginController {
 					reservationDetails.getString("personalID"), reservationDetails.getString("parkname"),
 					reservationDetails.getString("numofvisitors"), reservationDetails.getString("reservationtype"),
 					reservationDetails.getString("email"), reservationDetails.getTimestamp("dateAndTime"),
-					reservationDetails.getFloat("price"), reservationDetails.getString("reservetionStatus"));
+					reservationDetails.getFloat("price"), reservationDetails.getString("reservetionStatus"),
+					reservationDetails.getString("phone"));
 			String idFromResrvation = reservationDetails.getString("personalID");
 
 			ResultSet detailsOfsubscriberFromReservation = DataBase.getInstance()
@@ -195,7 +197,7 @@ public class LoginController {
 			try {
 				resultSet.last(); // moves cursor to the last row
 				size = resultSet.getRow(); // get row id
-			} catch (SQLException e) {			
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}

@@ -11,6 +11,7 @@ import controllers.EmployeeSystemController;
 import controllers.LoginController;
 import controllers.ParkManagerSystemController;
 import controllers.ReservationController;
+import controllers.WaitingListController;
 import dataBase.DataBase;
 import ocsf.server.AbstractServer;
 import ocsf.server.ConnectionToClient;
@@ -88,6 +89,7 @@ public class EchoServer extends AbstractServer {
 		case ServiceRepresentativeController:
 			break;
 		case WaitingListController:
+			answer = WaitingListController.getInstance().loginRouter(rh.getFunc(), rh.getData(), client);
 			break;
 		case ParkManagerSystemController:
 			answer = ParkManagerSystemController.getInstance().getFunc(rh.getFunc(), rh.getData(), client);
