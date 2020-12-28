@@ -42,6 +42,8 @@ public class WaitingListController {
 			return enterToWaitingList(data, client);
 		case "getWaitingList":
 			return getWaitingList(data, client);
+		case "removeFromWaitingList":
+			return removeFromWaitingList(data, client);
 		default:
 			return "fail";
 		}
@@ -68,7 +70,7 @@ public class WaitingListController {
 			if (DataBase.getInstance().isEmpty(res) != 0)
 				return "You're already in the waiting list in this park and at this time";
 			// inserts to waiting list
-			query = con.prepareStatement("INSERT INTO gonaturedb.waitinglist VALUES (?, ?, ?, ?, ?, ?, ?);");
+			query = con.prepareStatement("INSERT INTO gonaturedb.waitinglist VALUES (?, ?, ?, ?, ?, ?, ?, ?);");
 			query.setString(1, reservation.getPersonalID());
 			query.setString(2, reservation.getParkname());
 			query.setString(3, reservation.getNumofvisitors());
@@ -76,6 +78,8 @@ public class WaitingListController {
 			query.setString(5, reservation.getEmail());
 			query.setTimestamp(6, reservation.getDateAndTime());
 			query.setString(7, reservation.getPhone());
+			query.setString(8, reservation.getReservetionStatus());
+
 			if (DataBase.getInstance().update(query) == false)
 				return "fail";
 		} catch (SQLException e) {
@@ -101,6 +105,7 @@ public class WaitingListController {
 				reservation.setEmail(reservationTupels.getString("email"));
 				reservation.setDate(reservationTupels.getTimestamp("dateAndTime"));
 				reservation.setPhone("phone");
+				reservation.setReservetionStatus(reservationTupels.getString("waitingListStatus"));
 				myWaitingList.add(reservation);
 			}
 		} catch (SQLException e) {
@@ -109,4 +114,21 @@ public class WaitingListController {
 		return gson.toJson(myWaitingList.toArray());
 	}
 
+//DELETE FROM `gonaturedb`.`waitinglist` WHERE (`personalID` = '10325485214') and (`parkname` = 'Banias') and (`dateAndTime` = '2020-12-30 14:00:00');
+	private String removeFromWaitingList(String data, ConnectionToClient client) {
+		Reservation removeReservationFromWaitingList = gson.fromJson(data, Reservation.class);
+		PreparedStatement query;
+		try {
+			query = con.prepareStatement(
+					"DELETE FROM gonaturedb.waitinglist WHERE (personalID = ?) and (`parkname` = ?) and (dateAndTime = ?);");
+			query.setString(1, removeReservationFromWaitingList.getPersonalID());
+			query.setString(2, removeReservationFromWaitingList.getParkname());
+			query.setTimestamp(3, removeReservationFromWaitingList.getDateAndTime());
+			DataBase.getInstance().update(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return "fail";
+		}
+		return "Deleted from waiting list successfully";
+	}
 }

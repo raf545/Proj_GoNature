@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 import dataBase.DataBase;
 import ocsf.server.ConnectionToClient;
 import reservation.Reservation;
+import server.CheckWaitingListPlace;
 
 /**
  * 
@@ -121,7 +122,7 @@ public class ReservationController {
 		try {
 			// FIXME
 			PreparedStatement query = con.prepareStatement(
-					"select sum(numofvisitors) from gonaturedb.reservetions events where dateAndTime between ? and ? and parkname = ?;");
+					"select sum(numofvisitors) from gonaturedb.reservetions events where dateAndTime between ? and ? and parkname = ? and (reservetionStatus = \"Valid\" OR reservetionStatus = \"halfCanceled\");");
 			query.setTimestamp(1, threeHoursBelow);
 			query.setTimestamp(2, threeHoursAbove);
 			query.setString(3, parkName);
@@ -363,10 +364,14 @@ public class ReservationController {
 	 * @return Reservation canceled succsessfuly , Reservation wasn't canceled
 	 *         properly
 	 */
-	private String cancelReservation(String reservationId) {
-
-		String query = "UPDATE gonaturedb.reservetions SET reservetionStatus = \"Canceled\" WHERE reservationID = \""
+	private String cancelReservation(String reservation) {
+		Reservation myReservation = gson.fromJson(reservation, Reservation.class);
+		String reservationId = myReservation.getReservationID();
+		String query = "UPDATE gonaturedb.reservetions SET reservetionStatus = \"halfCanceled\" WHERE reservationID = \""
 				+ reservationId + "\";";
+		Runnable run = new CheckWaitingListPlace(myReservation);
+		Thread t = new Thread(run);
+		t.start();
 		if (DataBase.getInstance().update(query))
 			return "Reservation canceled succsessfuly";
 		return "Reservation wasn't canceled properly";
