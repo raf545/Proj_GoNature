@@ -39,6 +39,7 @@ public class WaitingListQuestionController {
 
 	@FXML
 	void joinToWaitingList(ActionEvent event) {
+		reservation.setReservetionStatus("waitingList");
 		RequestHandler rh = new RequestHandler(controllerName.WaitingListController, "enterToWaitingList",
 				gson.toJson(reservation));
 		ClientUI.chat.accept(gson.toJson(rh));
