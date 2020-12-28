@@ -62,11 +62,12 @@ public class MainPageForClientController {
 	@FXML
 	void MyReservationBtn(ActionEvent event) throws IOException {
 		Reservation[] myReservation;
-		
-		RequestHandler getReservationsRequest = new RequestHandler(controllerName.ReservationController, "getReservations", ChatClient.clientIdString);
+
+		RequestHandler getReservationsRequest = new RequestHandler(controllerName.ReservationController,
+				"getReservations", ChatClient.clientIdString);
 		ClientUI.chat.accept(gson.toJson(getReservationsRequest));
 		myReservation = gson.fromJson(ChatClient.serverMsg, Reservation[].class);
-		for (Reservation reservation : myReservation) 
+		for (Reservation reservation : myReservation)
 			System.out.println(reservation);
 		StaticPaneMainPageClient.clientMainPane.getChildren().clear();
 		FXMLLoader loader = new FXMLLoader();
@@ -92,10 +93,18 @@ public class MainPageForClientController {
 
 	@FXML
 	void WaitingListBtn(ActionEvent event) throws IOException {
+		Reservation[] myWaitinigList;
+		RequestHandler getReservationsRequest = new RequestHandler(controllerName.WaitingListController,
+				"getWaitingList", ChatClient.clientIdString);
+		ClientUI.chat.accept(gson.toJson(getReservationsRequest));
+		myWaitinigList = gson.fromJson(ChatClient.serverMsg, Reservation[].class);
+
 		StaticPaneMainPageClient.clientMainPane.getChildren().clear();
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(MyWaitingListController.class.getResource("MyWaitingList.fxml"));
 		Pane root = loader.load();
+		MyWaitingListController myWaitingListController = loader.getController();
+		myWaitingListController.loadReservations(myWaitinigList);
 		StaticPaneMainPageClient.clientMainPane.getChildren().add(root);
 
 	}

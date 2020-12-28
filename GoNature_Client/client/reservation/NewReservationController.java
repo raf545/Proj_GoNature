@@ -67,6 +67,9 @@ public class NewReservationController {
 	@FXML
 	private Text BackBtn;
 
+	@FXML
+	private TextField PhoneTxt;
+
 	private int countVisitor;
 
 	// Instance methods ************************************************
@@ -82,6 +85,7 @@ public class NewReservationController {
 		if (!ChatClient.clientTypeString.equals("Guest")) {
 			Subscriber currentSubscriber = gson.fromJson(ChatClient.clientInfo, Subscriber.class);
 			EmailTxt.setText(currentSubscriber.getEmail());
+			PhoneTxt.setText(currentSubscriber.getPhone());
 		}
 		// disable not relevant data
 		Callback<DatePicker, DateCell> callB = new Callback<DatePicker, DateCell>() {
@@ -150,6 +154,10 @@ public class NewReservationController {
 			errorMessage.append("No date selected\n");
 		}
 
+		if (PhoneTxt.getText().isEmpty()) {
+			errorMessage.append("No phone number enterd\n");
+		}
+
 		if (errorMessage.length() == 0) {
 			timeFromCombo.append(hourComboBox.getValue());
 			timeFromCombo.delete(2, 5);
@@ -160,11 +168,10 @@ public class NewReservationController {
 			int year = wantedDatePicker.getValue().getYear();
 
 			reservationDateAndTime = new Timestamp(year - 1900, month - 1, day, hour, 00, 00, 00);
-			System.out.println(reservationDateAndTime);
 
 			Reservation reservation = new Reservation("", ChatClient.clientIdString, chooseParkComboBox.getValue(),
 					numOfVisitorTxt.getText(), ChatClient.clientTypeString, EmailTxt.getText(), reservationDateAndTime,
-					0, "Valid");
+					0, "Valid", PhoneTxt.getText());
 			RequestHandler requestNewReservationId = new RequestHandler(controllerName.ReservationController,
 					"createNewReservation", gson.toJson(reservation));
 			ClientUI.chat.accept(gson.toJson(requestNewReservationId));

@@ -2,7 +2,6 @@ package reservation;
 
 import java.sql.Timestamp;
 
-
 public class Reservation {
 
 	private String reservationID;
@@ -14,10 +13,11 @@ public class Reservation {
 	private Timestamp dateAndTime;
 	private double price;
 	private String reservetionStatus;
+	private String phone;
 
-	
 	public Reservation(String reservationID, String personalID, String parkname, String numofvisitors,
-			String reservationtype, String email, Timestamp dateAndTime, float price, String reservetionStatus) {
+			String reservationtype, String email, Timestamp dateAndTime, float price, String reservetionStatus,
+			String phone) {
 		this.reservationID = reservationID;
 		this.personalID = personalID;
 		this.parkname = parkname;
@@ -27,6 +27,7 @@ public class Reservation {
 		this.dateAndTime = dateAndTime;
 		this.price = price;
 		this.reservetionStatus = reservetionStatus;
+		this.phone = phone;
 	}
 
 	public Reservation() {
@@ -63,7 +64,6 @@ public class Reservation {
 	public void setNumofvisitors(String numofvisitors) {
 		this.numofvisitors = numofvisitors;
 	}
- 
 
 	public void setDateAndTime(Timestamp dateAndTime) {
 		this.dateAndTime = dateAndTime;
@@ -90,7 +90,7 @@ public class Reservation {
 	}
 
 	public void setDate(Timestamp date) {
-		
+
 		this.dateAndTime = date;
 
 	}
@@ -111,12 +111,20 @@ public class Reservation {
 		this.reservetionStatus = reservetionStatus;
 	}
 
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
 	@Override
 	public String toString() {
 		return "Reservation [reservationID=" + reservationID + ", personalID=" + personalID + ", parkname=" + parkname
 				+ ", numofvisitors=" + numofvisitors + ", reservationtype=" + reservationtype + ", email=" + email
 				+ ", dateAndTime=" + dateAndTime + ", price=" + price + ", reservetionStatus=" + reservetionStatus
-				+ "]";
+				+ ", phone=" + phone + "]";
 	}
 
 }

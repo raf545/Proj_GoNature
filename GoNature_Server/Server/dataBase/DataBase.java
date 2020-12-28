@@ -19,9 +19,9 @@ public class DataBase {
 	// Class variables *************************************************
 	private static DataBase SqlConnectorInstace = null;
 	private Connection connection = null;
-	private String jdbcURL = "jdbc:mysql://localhost:3306/?serverTimezone=CAT";
+	private String jdbcURL = "jdbc:mysql://localhost/gonaturedb?serverTimezone=CAT";
 	private String jdbcuser = "root";
-	private String jdbcPass = "a123456789";
+	private String jdbcPass = "root";
 	// Constructors ****************************************************
 
 	private DataBase() {
