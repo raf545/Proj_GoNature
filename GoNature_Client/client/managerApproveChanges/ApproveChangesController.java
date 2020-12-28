@@ -7,7 +7,6 @@ import client.ChatClient;
 import client.ClientUI;
 import guiCommon.StaticPaneMainPageDepartmentManager;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -16,6 +15,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import popup.PopUp;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
 
@@ -51,7 +51,6 @@ public class ApproveChangesController {
 	//Accept and Reject Buttons, suppose to be 9 approve/reject buttons for 3 parks with 3 fields ( 3 x 3 = 9).
 	Button[] aprBtns;
 	Button[] rejBtns;
-
 	
 	/**
 	 * Quit the current scene, stay in the main page for department manager.
@@ -60,6 +59,7 @@ public class ApproveChangesController {
 	void quitScene(MouseEvent event) throws IOException {
 		StaticPaneMainPageDepartmentManager.DepartmentManagerMainPane.getChildren().clear();	
 	}
+	
 	
 	//-------------------------------------------- Interact with server START-----------------------------------------------
 
@@ -71,47 +71,22 @@ public class ApproveChangesController {
 	public void setStatusToRequest(String parkNameAndChangeField) {
 		RequestHandler rh = new RequestHandler(controllerName.DepartmentManagerSystemController, "updateFieldStatus", parkNameAndChangeField);
 		ClientUI.chat.accept(gson.toJson(rh));
-		checkIfSetStatusQueryWorked();
 	}
 	public void updateParkDetails(String parkNameAndChangeFieldAndNewData) {
 		RequestHandler rh = new RequestHandler(controllerName.DepartmentManagerSystemController, "updateParkInformation", parkNameAndChangeFieldAndNewData);
 		ClientUI.chat.accept(gson.toJson(rh));
-		checkIfUpdatedDetails();
 	}
 	//-------------------------------------------- Interact with server END -----------------------------------------------
+	
 	//-------------------------------------------- Analyze answers from server START ------------------------------------------
 	//analyzeAnswerFromServer
 	private void checkIfGetDataQueryWorked() {
-		String answer = ChatClient.serverMsg;
-		
+		String answer = ChatClient.serverMsg;		
 		if(!answer.equals("faild"))
 			loadAllRequests(answer);
-	}
-	
-	//analyzeAnswerFromServer
-	private void checkIfSetStatusQueryWorked() {
-		String answer = ChatClient.serverMsg;
-		
-		if(!answer.equals("faild"))
-			updateNewChangesToDB();		
-	}
-	
-	//analyzeAnswerFromServer
-	private void checkIfUpdatedDetails() {
-		String answer = ChatClient.serverMsg;
-		
-		if(!answer.equals("faild"))
-			updateDetailsSuccessfully();		
-	}
-	
+	}		
 	//-------------------------------------------- Analyze answers from server END ------------------------------------------
-	private void updateDetailsSuccessfully()
-	{
-		//add
-		System.out.println("sucssess");
-	}
-	
-	
+
 	// All the requests will be in a template String
 	// This method will make sure to split it and use it as an ArrayList.
 	private void setAllChangesAsTexts(String changes)
@@ -133,6 +108,8 @@ public class ApproveChangesController {
 		setNewStatusForRequest(parkName,newData,dataIndex);
 		String stringToSend = parkName + " " + whatIsTheField(dataIndex) + " " + newData;
 		updateParkDetails(stringToSend);
+		PopUp.display("Updated Successfully", "Update Successfully");
+		refreshPage();
 		
 	}
 	//Actions for approve clicking on reject button
@@ -140,8 +117,17 @@ public class ApproveChangesController {
 	{
 		String theField = whatIsTheField(dataIndex);
 		setStatusToRequest(parkName + " " + theField);
-		//analyzeAnswerFromServer2();
+		PopUp.display("Reject Request", "Request has been rejected");
 		refreshPage();
+	}
+	
+	//After clicking on approve/reject button we need to set the request status to "finished"
+	//Other untouched requests will be defined as "waiting".
+	public void setNewStatusForRequest(String parkName,String newData,int dataIndex)
+	{
+		String theField = whatIsTheField(dataIndex);
+		setStatusToRequest(parkName + " " + theField);
+	//	refreshPage();
 	}
 	
 	//Give actions to the empty buttons.
@@ -159,21 +145,8 @@ public class ApproveChangesController {
 			}		
 	}
 	
-	//After clicking on approve/reject button we need to set the request status to "finished"
-	//Other untouched requests will be defined as "waiting".
-	public void setNewStatusForRequest(String parkName,String newData,int dataIndex)
-	{
-		String theField = whatIsTheField(dataIndex);
-		setStatusToRequest(parkName + " " + theField);
-		checkIfSetStatusQueryWorked(); //and if it does, update details
-		refreshPage();
-	}
-	
-	public void updateNewChangesToDB()
-	{
-		System.out.println("Updated");
-		
-	}
+
+
 	// Determine which field are we using.
 	public String whatIsTheField(int dataIndex)
 	{
@@ -233,8 +206,7 @@ public class ApproveChangesController {
 			for (int j = 0; j < numberOfFields; j++)
 			{
 				hb[j] = new HBox();
-				hb[j].setPrefWidth(180);
-				hb[j].setPrefHeight(25);	
+				hb[j].setPrefSize(180, 25);	
 				hb[j].setSpacing(10);
 			}
 			
@@ -249,78 +221,76 @@ public class ApproveChangesController {
 			String capStatus = allChangesAsTexts.get(i)[7];
 			String difStatus = allChangesAsTexts.get(i)[8];
 			String disStatus = allChangesAsTexts.get(i)[9];
-			
-			
-			//String.format("Capacity = %10s + -> + New Capacity = %10s",oldCapacity,capacity);
-			Text capText = new Text("Capacity   = " + oldCapacity   + "\t->\t"   + "New Capacity   = " + capacity   + "\t");
-			Text difText = new Text("Difference = " + oldDifference + "\t->\t"   + "New Difference = " + difference + "\t");
-			Text disText = new Text("Discount   = " + oldDiscount   + "\t->\t"   + "New Discount   = " + discount   + "\t");
-			
+						
+			Text capText = new Text(String.format("Capacity   = %5s \t->\t New Capacity   = %5s \t", oldCapacity,capacity));
+			Text difText = new Text(String.format("Difference = %5s \t->\t New Difference = %5s \t", oldDifference,difference));
+			Text disText = new Text(String.format("Discount   = %5s \t->\t New Discount   = %5s \t", oldDiscount,discount));
+								
 			capText.setFont(commonFontSize17);
 			difText.setFont(commonFontSize17);
 			disText.setFont(commonFontSize17);
 			
+			//Create
+			for (int j = i*numberOfFields; j < i*numberOfFields + numberOfFields; j++)							
+				createButton(j, commonFontSize12);
+						
 			
-			for (int j = i*numberOfFields; j < i*numberOfFields + numberOfFields; j++)
-			{							
-				aprBtns[j] = new Button("Approve");
-				rejBtns[j] = new Button("Reject");
-				
-				aprBtns[j].setAlignment(Pos.BASELINE_RIGHT);
-				rejBtns[j].setAlignment(Pos.BASELINE_RIGHT);
-				
-				aprBtns[j].setFont(commonFontSize12);
-				aprBtns[j].setStyle("-fx-background-color: #2ECC71; ");
-				aprBtns[j].setTextFill(Color.WHITE);
-				aprBtns[j].setPrefWidth(100);
-				aprBtns[j].setPrefHeight(23);
-				aprBtns[j].setMinSize(100, 23);
-				
-				rejBtns[j].setFont(commonFontSize12);
-				rejBtns[j].setStyle("-fx-background-color: #E74C3C; ");
-				rejBtns[j].setTextFill(Color.WHITE);
-				rejBtns[j].setMinSize(100, 23);
-				rejBtns[j].setPrefWidth(100);
-				rejBtns[j].setPrefHeight(23);
-			}
-			
-			
-			vb.getChildren().add(hb1); //Hbox with park name
-			
-			int countFinishedChanges = 0;
-			if(capStatus.equals("waiting"))
-			{
-				hb[0].getChildren().add(capText);
-				hb[0].getChildren().add(aprBtns[buttonsCounter]);
-				hb[0].getChildren().add(rejBtns[buttonsCounter]);
-				vb.getChildren().add(hb[0]);
-				countFinishedChanges++;
-			}
-			buttonsCounter++;		
-			if(difStatus.equals("waiting"))
-			{
-				hb[1].getChildren().add(difText);
-				hb[1].getChildren().add(aprBtns[buttonsCounter]);
-				hb[1].getChildren().add(rejBtns[buttonsCounter]);
-				vb.getChildren().add(hb[1]);
-				countFinishedChanges++;
-			}
-			buttonsCounter++;
-			if(disStatus.equals("waiting"))
-			{
-				hb[2].getChildren().add(disText);
-				hb[2].getChildren().add(aprBtns[buttonsCounter]);
-				hb[2].getChildren().add(rejBtns[buttonsCounter]);
-				vb.getChildren().add(hb[2]);
-				countFinishedChanges++;
-			}
-			buttonsCounter++;
-			
-			if(countFinishedChanges != 0)
-				listVBox.getChildren().add(vb);
+			buttonsCounter = addWaitingRequestsToTable(buttonsCounter, vb, hb1, hb, capStatus, difStatus, disStatus, capText, difText,disText);
 			
 		}
 		setApproveAndRejectButtonsActions();
 		
 	}
+
+	private int addWaitingRequestsToTable(int buttonsCounter, VBox vb, HBox hb1, HBox[] hb, String capStatus, String difStatus,
+			String disStatus, Text capText, Text difText, Text disText) {
+		
+		vb.getChildren().add(hb1); //Hbox with park name
+		
+		int countFinishedChanges = 0;
+		if(capStatus.equals("waiting"))
+		{
+			hb[0].getChildren().addAll(capText,aprBtns[buttonsCounter],rejBtns[buttonsCounter]);
+			vb.getChildren().add(hb[0]);
+			countFinishedChanges++;
+		}
+		buttonsCounter++;		
+		if(difStatus.equals("waiting"))
+		{
+			hb[1].getChildren().addAll(difText,aprBtns[buttonsCounter],rejBtns[buttonsCounter]);
+			vb.getChildren().add(hb[1]);
+			countFinishedChanges++;
+		}
+		buttonsCounter++;
+		if(disStatus.equals("waiting"))
+		{
+			hb[2].getChildren().addAll(disText,aprBtns[buttonsCounter],rejBtns[buttonsCounter]);
+			vb.getChildren().add(hb[2]);
+			countFinishedChanges++;
+		}
+		buttonsCounter++;
+		
+		if(countFinishedChanges != 0)
+			listVBox.getChildren().add(vb);
+		return buttonsCounter;
+	}
+
+	public void createButton(int j,Font f)
+	{
+		aprBtns[j] = new Button("Approve");
+		rejBtns[j] = new Button("Reject");
+					
+		aprBtns[j].setFont(f);
+		aprBtns[j].setStyle("-fx-background-color: #2ECC71; ");
+		aprBtns[j].setTextFill(Color.WHITE);
+		aprBtns[j].setPrefSize(100, 23);
+		aprBtns[j].setTranslateX(10);
+		
+		rejBtns[j].setFont(f);
+		rejBtns[j].setStyle("-fx-background-color: #E74C3C; ");
+		rejBtns[j].setTextFill(Color.WHITE);
+		rejBtns[j].setPrefSize(100, 23);
+		rejBtns[j].setTranslateX(10);
+	}
+
 }

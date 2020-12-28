@@ -32,7 +32,9 @@ public class DepartmentManagerChooseReportController {
     	switch(selectedCombo)
     	{
     	case "Visitors":
-    		FXMLFunctions.loadSceneToMainPane(DepartmentManagerVisitReportController.class, "DepartmentManagerVisitReport.fxml", StaticPaneMainPageDepartmentManager.DepartmentManagerMainPane);
+    		DepartmentManagerVisitReportController dmvrController;
+    		dmvrController = FXMLFunctions.loadSceneToMainPane(DepartmentManagerVisitReportController.class, "DepartmentManagerVisitReport.fxml", StaticPaneMainPageDepartmentManager.DepartmentManagerMainPane).getController();
+    		dmvrController.setTypeComboBoxOptions();
     		break;
     	case "Cancelations":
     		FXMLFunctions.loadSceneToMainPane(DepartmentManagerCancelationReportsController.class, "DepartmentManagerCancelationReports.fxml", StaticPaneMainPageDepartmentManager.DepartmentManagerMainPane);
