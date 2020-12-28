@@ -1,5 +1,6 @@
 package waitingList;
 
+import guiCommon.StaticPaneMainPageClient;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -53,7 +54,7 @@ public class MyWaitingListController {
 
 	@FXML
 	void back(MouseEvent event) {
-
+		StaticPaneMainPageClient.clientMainPane.getChildren().clear();
 	}
 
 }

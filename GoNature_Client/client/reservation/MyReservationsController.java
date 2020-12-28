@@ -8,6 +8,7 @@ import guiCommon.StaticPaneMainPageClient;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -58,7 +59,7 @@ public class MyReservationsController {
 		for (Reservation reservation : myReservation) {
 			MyReservationTuple tuple = new MyReservationTuple(reservation);
 			tuple.getApprove().setOnAction(e -> approveReservatio(tuple.getReservationID()));
-			tuple.getCancel().setOnAction(e -> cancelReservation(tuple.getReservationID()));
+			tuple.getCancel().setOnAction(e -> cancelReservation(tuple.getReservationID(), tuple));
 			reservationList.add(tuple);
 		}
 
@@ -70,18 +71,25 @@ public class MyReservationsController {
 		reservationTable.setItems(reservationList);
 	}
 
-	private void cancelReservation(String reservationId) {
+	private void cancelReservation(String reservationId, MyReservationTuple tuple) {
 		String alertTitel = "Reservation cancel";
 		String alertHeader = "You are about to cancel a reservation";
 		String alertBody = "Are you shure you want to cancel\nthe reservation?";
-		
+
 		if (AlertBox.display(alertTitel, alertHeader, alertBody)) {
 			RequestHandler cencelRequest = new RequestHandler(controllerName.ReservationController, "cancelReservation",
 					reservationId);
 			gson.toJson(cencelRequest);
 			ClientUI.chat.accept(gson.toJson(cencelRequest));
 			analyzeAnswerFromServer();
+
+			getTableView().getItems().remove(tuple);
+			reservationTable.refresh();
 		}
+	}
+
+	private TableView<MyReservationTuple> getTableView() {
+		return reservationTable;
 	}
 
 	private void approveReservatio(String reservationId) {
@@ -90,8 +98,8 @@ public class MyReservationsController {
 		String alertBody = "Are you shure you want to approve\nthe reservation?";
 
 		if (AlertBox.display(alertTitel, alertHeader, alertBody)) {
-			RequestHandler cencelRequest = new RequestHandler(controllerName.ReservationController, "approveReservation",
-					reservationId);
+			RequestHandler cencelRequest = new RequestHandler(controllerName.ReservationController,
+					"approveReservation", reservationId);
 			gson.toJson(cencelRequest);
 			ClientUI.chat.accept(gson.toJson(cencelRequest));
 			analyzeAnswerFromServer();

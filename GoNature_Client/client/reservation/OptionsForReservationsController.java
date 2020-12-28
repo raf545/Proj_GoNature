@@ -1,7 +1,12 @@
 package reservation;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 
+import com.google.gson.Gson;
+
+import client.ChatClient;
+import client.ClientUI;
 import guiCommon.StaticPaneMainPageClient;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,6 +19,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import popup.PopUp;
+import requestHandler.RequestHandler;
+import requestHandler.controllerName;
 
 public class OptionsForReservationsController {
 	@FXML
@@ -38,13 +46,14 @@ public class OptionsForReservationsController {
 
 	Reservation[] optionalReservation;
 	Reservation myReservation;
+	Gson gson = new Gson();
 
 	public void loadOptionalReservationsToTable(Reservation[] optionalReservation, Reservation myReservation) {
 		this.myReservation = myReservation;
 		this.optionalReservation = optionalReservation;
 		for (Reservation reservation : optionalReservation) {
-			System.out.println(reservation);
 			OptionalReservationsTuple tuple = new OptionalReservationsTuple(reservation);
+			tuple.getApprove().setOnAction(e -> approveReservatio(tuple.getDateAndTimeString()));
 			reservationList.add(tuple);
 		}
 
@@ -53,6 +62,28 @@ public class OptionsForReservationsController {
 		actionCol.setCellValueFactory(new PropertyValueFactory<OptionalReservationsTuple, String>("approve"));
 		reservationTable.setItems(reservationList);
 
+	}
+
+	private void approveReservatio(Timestamp newTime) {
+		myReservation.setDate(newTime);
+		RequestHandler rh = new RequestHandler(controllerName.ReservationController, "createNewReservation",
+				gson.toJson(myReservation));
+		ClientUI.chat.accept(gson.toJson(rh));
+		String answerFromServer = ChatClient.serverMsg;
+		switch (answerFromServer) {
+		case "fail update reservation ID":
+			PopUp.display("Error", answerFromServer);
+			break;
+		case "fail insert reservation to DB":
+			PopUp.display("Error", answerFromServer);
+			break;
+		default:
+			Reservation reservationFromServer = gson.fromJson(answerFromServer, Reservation.class);
+			PopUp.display("Success", "Reservation was placed successfuly\n " + "your Reservation id is: "
+					+ reservationFromServer.getReservationID() + "\nPrice:" + reservationFromServer.getPrice());
+			StaticPaneMainPageClient.clientMainPane.getChildren().clear();
+			break;
+		}
 	}
 
 	@FXML
