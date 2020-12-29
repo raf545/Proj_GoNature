@@ -1,5 +1,7 @@
 package waitingList;
 
+import java.io.IOException;
+
 import com.google.gson.Gson;
 
 import client.ChatClient;
@@ -8,16 +10,20 @@ import guiCommon.StaticPaneMainPageClient;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import popup.PopUp;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
 import reservation.OptionalReservationsTuple;
 import reservation.Reservation;
+import reservation.WaitingListQuestionController;
 import reservation.WaitingListTuple;
 
 public class MyWaitingListController {
@@ -49,7 +55,7 @@ public class MyWaitingListController {
 		this.myWaitinigList = myWaitinigList;
 		for (Reservation tupleInWaitingList : myWaitinigList) {
 			WaitingListTuple tuple = new WaitingListTuple(tupleInWaitingList);
-			tuple.getApprove().setOnAction(e -> approveReservatio());
+			tuple.getApprove().setOnAction(e -> approveReservation(tupleInWaitingList, tuple));
 			if (tupleInWaitingList.getReservetionStatus().equals("waitingList"))
 				tuple.getApprove().setVisible(false);
 			tuple.getCancel().setOnAction(e -> cancelReservation(tupleInWaitingList, tuple));
@@ -85,9 +91,28 @@ public class MyWaitingListController {
 		return reservationTable;
 	}
 
-	private Object approveReservatio() {
-		// TODO Auto-generated method stub
-		return null;
+	private void approveReservation(Reservation reservasion, WaitingListTuple tuple) {
+		RequestHandler rh = new RequestHandler(controllerName.ReservationController,
+				"addToReservationTableFromWaitingList", gson.toJson(reservasion));
+		ClientUI.chat.accept(gson.toJson(rh));
+		Reservation reservationFromServer;
+		String answer = ChatClient.serverMsg;
+		switch (answer) {
+		case "fail update reservation ID":
+			PopUp.display("Error", answer);
+			break;
+		case "fail insert reservation to DB":
+			PopUp.display("Error", answer);
+			break;
+		default:
+			reservationFromServer = gson.fromJson(answer, Reservation.class);
+			PopUp.display("Success", "Reservation was placed successfuly\n " + "your Reservation id is: "
+					+ reservationFromServer.getReservationID() + "\nPrice:" + reservationFromServer.getPrice());
+			getTableView().getItems().remove(tuple);
+			reservationTable.refresh();
+			break;
+		}
+
 	}
 
 	@FXML
