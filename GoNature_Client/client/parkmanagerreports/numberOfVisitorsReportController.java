@@ -1,10 +1,12 @@
 package parkmanagerreports;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import com.google.gson.Gson;
 
 import Reports.TotalVisitorsReport;
+import client.ChatClient;
 import client.ClientUI;
 import employee.Employee;
 import javafx.event.ActionEvent;
@@ -12,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import popup.PopUp;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
 
@@ -21,6 +24,7 @@ public class numberOfVisitorsReportController {
 	
 	
 		Employee parkManager;
+		
 		   @FXML
 		    private ComboBox<String> comboYear;
 
@@ -57,8 +61,14 @@ public class numberOfVisitorsReportController {
 			
 		}
 		private void analyzeAnswerFromServer() {
-			
-			
+			    String answer = ChatClient.serverMsg;
+				ArrayList <String> res= gson.fromJson(answer, ArrayList.class);
+				singleTF.setText(res.get(0));
+				familyTF.setText(res.get(1));
+				groupTF.setText(res.get(2));
+				totalTF.setText(String.valueOf(Integer.parseInt(res.get(0))+Integer.parseInt(res.get(1))+Integer.parseInt(res.get(2))));
+
+				
 		}
 		public void setParkManager(Employee employee) {
 	    	int thisyear = Calendar.getInstance().get(Calendar.YEAR);

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="920.0" style="-fx-background-color: #3D8FFF;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkmanagerreports.MonthlyRevenueReportsController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="485.0" layoutX="241.0" layoutY="175.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="479.0" />
+      <Text layoutX="343.0" layoutY="228.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Monthly Revenue" textAlignment="CENTER" wrappingWidth="290.443359375">
+         <font>
+            <Font name="Guttman Drogolin Bold" size="30.0" />
+         </font>
+      </Text>
+      <Circle fill="#3d8fff" layoutX="288.0" layoutY="243.0" radius="25.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="0.0" />
+      <Text fx:id="backBtn" fill="WHITE" layoutX="262.0" layoutY="253.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;" textAlignment="CENTER" wrappingWidth="50.0">
+         <font>
+            <Font name="Baloo Regular" size="30.0" />
+         </font>
+      </Text>
+      <Button fx:id="showBtn" layoutX="371.0" layoutY="345.0" mnemonicParsing="false" onAction="#showReport" prefHeight="42.0" prefWidth="228.0" style="-fx-background-color: #3D8FFF;" text="Show" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <TextField fx:id="totalTF" alignment="CENTER" layoutX="344.0" layoutY="601.0" prefHeight="35.0" prefWidth="280.0" promptText="0$" style="-fx-background-color: #EEF2F9;" />
+      <Text layoutX="384.0" layoutY="280.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="Year:" wrappingWidth="64.443359375">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <ComboBox fx:id="comboYear" layoutX="433.0" layoutY="262.0" prefWidth="150.0" />
+      <Text layoutX="368.0" layoutY="316.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="Month:" wrappingWidth="64.443359375">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <ComboBox fx:id="comboMonth" layoutX="433.0" layoutY="298.0" prefWidth="150.0" />
+      <TextField fx:id="singleTF" alignment="CENTER" layoutX="498.0" layoutY="408.0" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #EEF2F9;" />
+      <TextField fx:id="familyTF" alignment="CENTER" layoutX="498.0" layoutY="457.0" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #EEF2F9;" />
+      <TextField fx:id="groupTF" alignment="CENTER" layoutX="498.0" layoutY="507.0" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #EEF2F9;" />
+      <Text layoutX="316.0" layoutY="432.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="Single revenue:" textAlignment="CENTER" wrappingWidth="149.9999950826168">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <Text layoutX="319.0" layoutY="481.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="Family revenue:" textAlignment="CENTER" wrappingWidth="143.443359375">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <Text layoutX="316.0" layoutY="531.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="Group revenue:" textAlignment="CENTER" wrappingWidth="149.99999476131052">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <Text layoutX="389.0" layoutY="587.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="Total revenue:" textAlignment="CENTER" wrappingWidth="182.443359375">
+         <font>
+            <Font name="System Bold Italic" size="17.0" />
+         </font>
+      </Text>
+   </children>
+</Pane>

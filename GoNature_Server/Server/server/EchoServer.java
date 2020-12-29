@@ -10,6 +10,7 @@ import controllers.DepartmentManagerSystemController;
 import controllers.EmployeeSystemController;
 import controllers.LoginController;
 import controllers.ParkManagerSystemController;
+import controllers.ReportsController;
 import controllers.ReservationController;
 import controllers.WaitingListController;
 import dataBase.DataBase;
@@ -82,6 +83,7 @@ public class EchoServer extends AbstractServer {
 			answer = LoginController.getInstance().loginRouter(rh.getFunc(), rh.getData(), client);
 			break;
 		case ReportsController:
+			answer = ReportsController.getInstance().getFunc(rh.getFunc(), rh.getData(), client);
 			break;
 		case ReservationController:
 			answer = ReservationController.getInstance().loginRouter(rh.getFunc(), rh.getData(), client);
