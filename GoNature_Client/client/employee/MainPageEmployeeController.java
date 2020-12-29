@@ -18,6 +18,7 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import login.IdentificationController;
 import login.SignInEmployeeController;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
@@ -102,8 +103,9 @@ public class MainPageEmployeeController {
 		StaticPaneMainPageEmployee.employeeMainPane=mainPane;
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(CardReaderController.class.getResource("readerSimulation.fxml"));
-
 		Pane root = loader.load();
+		CardReaderController cardReaderControllerController = loader.getController();
+		cardReaderControllerController.setPrkNameComboBox();
 		mainPane.getChildren().clear();
 		mainPane.getChildren().add(root);
     }

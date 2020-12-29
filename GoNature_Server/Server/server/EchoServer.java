@@ -6,6 +6,7 @@ package server;
 import java.io.IOException;
 import com.google.gson.Gson;
 
+import controllers.CardReaderController;
 import controllers.DepartmentManagerSystemController;
 import controllers.EmployeeSystemController;
 import controllers.LoginController;
@@ -74,6 +75,7 @@ public class EchoServer extends AbstractServer {
 		String answer = null;
 		switch (myCon) {
 		case CardReaderController:
+			answer = CardReaderController.getInstance().router(rh.getFunc(), rh.getData(), client);
 			break;
 		case EmployeeSystemController:
 			answer = EmployeeSystemController.getInstance().getFunc(rh.getFunc(), rh.getData(), client);

@@ -7,6 +7,7 @@ import guiCommon.StaticPaneMainPageClient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -38,7 +39,18 @@ public class CardReaderController {
 
     @FXML
     private Button exitParkBtn;
+    
+    @FXML
+    private ComboBox<String> exitParkPicker;
+    
+    @FXML
+    private ComboBox<String> enterParkPicker;
 
+    public void setPrkNameComboBox() {
+    	enterParkPicker.getItems().addAll("Niagara", "Banias", "Safari");
+    	exitParkPicker.getItems().addAll("Niagara", "Banias", "Safari");
+	}
+    
     @FXML
     void back(MouseEvent event) {
     	StaticPaneMainPageClient.clientMainPane.getChildren().clear();
@@ -51,8 +63,11 @@ public class CardReaderController {
     		PopUp.display("Error", "Must Entern an ID");
     	}
     	else {
-    		RequestHandler rh = new RequestHandler(controllerName.CardReaderController, "enterPark", enterTxt.getText());
+    		IdAndPark idAndPark = new IdAndPark(enterTxt.getText(), enterParkPicker.getValue());
+    		RequestHandler rh = new RequestHandler(controllerName.CardReaderController, "enterPark", gson.toJson(idAndPark));
 			ClientUI.chat.accept(gson.toJson(rh));
+			
+			
     	}
     	
     }
@@ -64,7 +79,11 @@ public class CardReaderController {
     		PopUp.display("Error", "Must Enter an ID");
     	}
     	else {
-    		
+    		RequestHandler rh = new RequestHandler(controllerName.CardReaderController, "exitPark", exitTxt.getText());
+			ClientUI.chat.accept(gson.toJson(rh));
+			
+			
+			
     	}
     }
 

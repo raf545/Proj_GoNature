@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
@@ -32,6 +33,7 @@
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Button>
+                        <ComboBox fx:id="enterParkPicker" layoutX="108.0" layoutY="14.0" prefHeight="25.0" prefWidth="187.0" promptText="choose park" />
                      </children>
                   </AnchorPane>
             </content>
@@ -40,12 +42,13 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #DCDCDC;">
                      <children>
-                        <TextField fx:id="exitTxt" alignment="TOP_LEFT" layoutX="107.0" layoutY="61.0" prefHeight="25.0" prefWidth="190.0" promptText="Enter id" style="-fx-background-color: #EEF2F9;" AnchorPane.bottomAnchor="108.0" AnchorPane.leftAnchor="107.0" AnchorPane.rightAnchor="106.0" AnchorPane.topAnchor="61.0" />
+                        <TextField fx:id="exitTxt" alignment="TOP_LEFT" layoutX="107.0" layoutY="61.0" prefHeight="25.0" prefWidth="190.0" promptText="Enter id" style="-fx-background-color: #EEF2F9;" />
                         <Button fx:id="exitParkBtn" layoutX="107.0" layoutY="122.0" mnemonicParsing="false" onAction="#exitPark" prefHeight="64.0" prefWidth="190.0" style="-fx-background-color: #DC143C;" text="Exit park" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Button>
+                        <ComboBox fx:id="exitParkPicker" layoutX="108.0" layoutY="14.0" prefHeight="25.0" prefWidth="187.0" promptText="choose park" />
                      </children>
                   </AnchorPane>
             </content>
