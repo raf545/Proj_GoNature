@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 import com.google.gson.Gson;
 
@@ -39,40 +40,105 @@ public class ReportsController {
 		}
 		return "faild";
 	}
+	
+	
 	private String getRevenueReport(String data, ConnectionToClient client) {
 		
-		return null;
-	}
-	private String getTotalVisitorsReport(String data, ConnectionToClient client) {
 		TotalVisitorsReport visitorReport = gson.fromJson(data, TotalVisitorsReport.class);
-		int boded=0;
-		int family=0;
-		int group=0;
+		ArrayList <String> reportdata = new ArrayList<String>();
 		@SuppressWarnings("deprecation")
 		Timestamp fromTime = new Timestamp(Integer.parseInt(visitorReport.getYear())-1900, Integer.parseInt(visitorReport.getMonth())-1, 1, 00, 00, 00, 00);
 		@SuppressWarnings("deprecation")
 		Timestamp toTime = new Timestamp(Integer.parseInt(visitorReport.getYear())-1900,  Integer.parseInt(visitorReport.getMonth())-1, 30, 23, 59, 00, 00);
-		System.out.println();
 		try {
-			PreparedStatement query1 = con.prepareStatement("SELECT SUM(CONVERT(INT, numberOfVisitors)) FROM gonaturedb.cardreader WHERE (typeOfVisitor= \"subscriber\"  || typeOfVisitor= \"guest\") AND (entryTime between ? and ?) AND parkname=?;");
+			PreparedStatement query1 = con.prepareStatement("SELECT SUM(price) FROM gonaturedb.cardreader WHERE (typeOfVisitor= \"subscriber\"  || typeOfVisitor= \"guest\") AND (entryTime between ? and ?) AND parkname=?;");
 			query1.setTimestamp(1, fromTime);
 			query1.setTimestamp(2, toTime);
 			query1.setString(3, visitorReport.getParkname());
 			ResultSet res = DataBase.getInstance().search(query1);
 			if (DataBase.getInstance().isEmpty(res) != 0)
-				boded = res.getInt("sum(numofvisitors)");
-			System.out.println(boded);
-		//	while(res.next())
-		//		counter += res.getString("numberOfVisitors");
+				reportdata.add(String.valueOf(res.getDouble(1)));
+			else
+				reportdata.add(String.valueOf(0));
+			
+			PreparedStatement query2 = con.prepareStatement("SELECT SUM(price) FROM gonaturedb.cardreader WHERE typeOfVisitor= \"family\" AND (entryTime between ? and ?) AND parkname=?;");
+			query2.setTimestamp(1, fromTime);
+			query2.setTimestamp(2, toTime);
+			query2.setString(3, visitorReport.getParkname());
+			ResultSet res2 = DataBase.getInstance().search(query2);
+			if (DataBase.getInstance().isEmpty(res2) != 0)
+				reportdata.add(String.valueOf(res2.getDouble(1)));
+			else
+				reportdata.add(String.valueOf(0));
+			
+			
+			PreparedStatement query3 = con.prepareStatement("SELECT SUM(price) FROM gonaturedb.cardreader WHERE typeOfVisitor= \"instructor\" AND (entryTime between ? and ?) AND parkname=?;");
+			query3.setTimestamp(1, fromTime);
+			query3.setTimestamp(2, toTime);
+			query3.setString(3, visitorReport.getParkname());
+			ResultSet res3 = DataBase.getInstance().search(query3);
+			if (DataBase.getInstance().isEmpty(res3) != 0)
+				reportdata.add(String.valueOf(res3.getDouble(1)));
+			else
+				reportdata.add(String.valueOf(0));
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String quarey2="SELECT SUM(CONVERT(INT, numberOfVisitors)) FROM cardreader WHERE typeOfVisitor==family ;";
-		String quarey3="SELECT SUM(CONVERT(INT, numberOfVisitors)) FROM cardreader WHERE typeOfVisitor==instructor ;";
-	//	int t=Integer.parseInt(quarey1)+Integer.parseInt(quarey2)+Integer.parseInt(quarey3);
-		//String total=String.valueOf(t);
-		return null;
+		return gson.toJson(reportdata);
+	}
+	
+	
+	
+	
+	
+	
+	
+	private String getTotalVisitorsReport(String data, ConnectionToClient client) {
+		TotalVisitorsReport visitorReport = gson.fromJson(data, TotalVisitorsReport.class);
+		ArrayList <String> reportdata = new ArrayList<String>();
+		@SuppressWarnings("deprecation")
+		Timestamp fromTime = new Timestamp(Integer.parseInt(visitorReport.getYear())-1900, Integer.parseInt(visitorReport.getMonth())-1, 1, 00, 00, 00, 00);
+		@SuppressWarnings("deprecation")
+		Timestamp toTime = new Timestamp(Integer.parseInt(visitorReport.getYear())-1900,  Integer.parseInt(visitorReport.getMonth())-1, 30, 23, 59, 00, 00);
+		try {
+			PreparedStatement query1 = con.prepareStatement("SELECT SUM(CONVERT(numberOfVisitors,DECIMAL)) FROM gonaturedb.cardreader WHERE (typeOfVisitor= \"subscriber\"  || typeOfVisitor= \"guest\") AND (entryTime between ? and ?) AND parkname=?;");
+			query1.setTimestamp(1, fromTime);
+			query1.setTimestamp(2, toTime);
+			query1.setString(3, visitorReport.getParkname());
+			ResultSet res = DataBase.getInstance().search(query1);
+			if (DataBase.getInstance().isEmpty(res) != 0)
+				reportdata.add(String.valueOf(res.getInt(1)));
+			else
+				reportdata.add(String.valueOf(0));
+			
+			PreparedStatement query2 = con.prepareStatement("SELECT SUM(CONVERT(numberOfVisitors,DECIMAL)) FROM gonaturedb.cardreader WHERE typeOfVisitor= \"family\" AND (entryTime between ? and ?) AND parkname=?;");
+			query2.setTimestamp(1, fromTime);
+			query2.setTimestamp(2, toTime);
+			query2.setString(3, visitorReport.getParkname());
+			ResultSet res2 = DataBase.getInstance().search(query2);
+			if (DataBase.getInstance().isEmpty(res2) != 0)
+				reportdata.add(String.valueOf(res2.getInt(1)));
+			else
+				reportdata.add(String.valueOf(0));
+			
+			
+			PreparedStatement query3 = con.prepareStatement("SELECT SUM(CONVERT(numberOfVisitors,DECIMAL)) FROM gonaturedb.cardreader WHERE typeOfVisitor= \"instructor\" AND (entryTime between ? and ?) AND parkname=?;");
+			query3.setTimestamp(1, fromTime);
+			query3.setTimestamp(2, toTime);
+			query3.setString(3, visitorReport.getParkname());
+			ResultSet res3 = DataBase.getInstance().search(query3);
+			if (DataBase.getInstance().isEmpty(res3) != 0)
+				reportdata.add(String.valueOf(res3.getInt(1)));
+			else
+				reportdata.add(String.valueOf(0));
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return gson.toJson(reportdata);
 	}
 
 

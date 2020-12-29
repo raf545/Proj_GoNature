@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="920.0" style="-fx-background-color: #3D8FFF;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkmanagerreports.ParkManagerReportsController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="319.0" layoutX="144.0" layoutY="224.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="640.0" />
+      <Text layoutX="255.0" layoutY="336.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Park Manager Reports" textAlignment="CENTER" wrappingWidth="410.443359375">
+         <font>
+            <Font name="Guttman Drogolin Bold" size="30.0" />
+         </font>
+      </Text>
+      <Circle fill="#3d8fff" layoutX="187.0" layoutY="276.0" radius="25.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="0.0" />
+      <Text fx:id="backBtn" fill="WHITE" layoutX="161.0" layoutY="286.0" onMouseClicked="#quitScene" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;" textAlignment="CENTER" wrappingWidth="50.0">
+         <font>
+            <Font name="Baloo Regular" size="30.0" />
+         </font>
+      </Text>
+      <Button fx:id="continueBtn" layoutX="309.0" layoutY="472.0" mnemonicParsing="false" onAction="#continueToSpecificReport" prefHeight="50.0" prefWidth="287.0" style="-fx-background-color: #3D8FFF;" text="Continue" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Button>
+      <ComboBox fx:id="parkReportOptions" layoutX="250.0" layoutY="411.0" prefHeight="33.0" prefWidth="404.0" promptText="Choose Category" />
+      <Text layoutX="247.0" layoutY="384.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please choose your report" textAlignment="CENTER" wrappingWidth="410.443359375">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Text>
+      <Label fx:id="parkName" alignment="CENTER" layoutX="403.0" layoutY="252.0" prefHeight="40.0" prefWidth="115.0" text="Label" textFill="#3d8fff">
+         <font>
+            <Font name="Guttman Drogolin Bold" size="30.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

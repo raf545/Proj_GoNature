@@ -18,6 +18,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import login.SignInEmployeeController;
 import parkMangerChanges.ParkMangerChangesController;
+import parkmanagerreports.ParkManagerReportsController;
 import parkmanagerreports.numberOfVisitorsReportController;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
@@ -69,17 +70,18 @@ public class MainPageParkManagerController {
 	@FXML
 	void parkReport(ActionEvent event) throws IOException {
 		StaticPaneMainPageParkManager.parkManagerMainPane = parkManagerMainPane;
-//		
-//		FXMLLoader loader = new FXMLLoader();
-//		loader.setLocation(numberOfVisitorsReportController.class.getResource("TotalVisitorsReport.fxml"));
-//
-//		Pane root = loader.load();
-//		parkManagerMainPane.getChildren().clear();
-//		parkManagerMainPane.getChildren().add(root);
-//		numberOfVisitorsReportController pmcController = loader.getController();
-//		pmcController.setParkManager(parkManager);
-		
-		FXMLFunctions.loadSceneToMainPane(numberOfVisitorsReportController.class, "TotalVisitorsReport.fxml", parkManagerMainPane);
+	/*
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(ParkManagerReportsController.class.getResource("ParkManagerReports.fxml"));
+
+		Pane root = loader.load();
+	    parkManagerMainPane.getChildren().clear();
+		parkManagerMainPane.getChildren().add(root);
+	    numberOfVisitorsReportController pmcController = loader.getController();
+		pmcController.setParkManager(parkManager);
+		*/
+		ParkManagerReportsController controller=FXMLFunctions.loadSceneToMainPane(ParkManagerReportsController.class, "ParkManagerReports.fxml", parkManagerMainPane).getController();
+		controller.setComboBoxOptions(parkManager);
 
 	}
 
