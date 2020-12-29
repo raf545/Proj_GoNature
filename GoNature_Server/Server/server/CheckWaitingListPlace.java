@@ -38,7 +38,7 @@ public class CheckWaitingListPlace implements Runnable {
 
 		try {
 			PreparedStatement query = con.prepareStatement(
-					"SELECT * FROM gonaturedb.waitinglist where parkname = ? and dateAndTime between ? and ? Order by dateAndTime;");
+					"SELECT * FROM gonaturedb.waitinglist where parkname = ? and dateAndTime between ? and ? Order by enterToWaitingList;");
 			query.setString(1, myReservation.getParkname());
 			query.setTimestamp(2, from);
 			query.setTimestamp(3, to);
@@ -71,13 +71,12 @@ public class CheckWaitingListPlace implements Runnable {
 					query.setTimestamp(3, waitingListCheck.getDateAndTime());
 					DataBase.getInstance().update(query);
 					// send email to the client
-					String message = "send to email: " + waitingListCheck.getEmail() + "\nsend to phone number:"
-							+ waitingListCheck.getPhone()
+					String message = "send to " + waitingListCheck.getPersonalID() + "\nemail: "
+							+ waitingListCheck.getEmail() + "\nsend to phone number:" + waitingListCheck.getPhone()
 							+ "\nA place is available on the waiting list, please log in to confirm the order ";
 					Platform.runLater(() -> {
 						PopUp.display("send message to client mail", message);
 					});
-					
 
 					// flag turn to false if the tuple deleted from the waiting list
 					flag = true;
