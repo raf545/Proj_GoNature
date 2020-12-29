@@ -1,5 +1,6 @@
 package parkmanagerreports;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -9,11 +10,15 @@ import Reports.TotalVisitorsReport;
 import client.ChatClient;
 import client.ClientUI;
 import employee.Employee;
+import fxmlGeneralFunctions.FXMLFunctions;
+import guiCommon.StaticPaneMainPageParkManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
@@ -21,29 +26,35 @@ import requestHandler.controllerName;
 public class MonthlyRevenueReportsController {
 	Employee parkManager;
 	Gson gson = new Gson();
-    @FXML
-    private Text backBtn;
+	
+	
 
-    @FXML
-    private Button showBtn;
+	    @FXML
+	    private Text backBtn;
 
-    @FXML
-    private TextField totalTF;
+	    @FXML
+	    private Button showBtn;
 
-    @FXML
-    private ComboBox<String> comboYear;
+	    @FXML
+	    private TextField totalTF;
 
-    @FXML
-    private ComboBox<String> comboMonth;
+	    @FXML
+	    private ComboBox<String> comboYear;
 
-    @FXML
-    private TextField singleTF;
+	    @FXML
+	    private ComboBox<String> comboMonth;
 
-    @FXML
-    private TextField familyTF;
+	    @FXML
+	    private TextField singleTF;
 
-    @FXML
-    private TextField groupTF;
+	    @FXML
+	    private TextField familyTF;
+
+	    @FXML
+	    private TextField groupTF;
+	    
+	    @FXML
+	    private Label parkName;
 
     public void setParkManager(Employee employee) {
     	int thisyear = Calendar.getInstance().get(Calendar.YEAR);
@@ -51,13 +62,22 @@ public class MonthlyRevenueReportsController {
     		comboYear.getItems().add(String.valueOf(i));
     	for(int j=1;j<13;j++)
     		comboMonth.getItems().add(String.valueOf(j));
-		parkManager = employee;
+			parkManager = employee;
+			parkName.setText(parkManager.getParkName());
 		
+		
+	
 
 	}
     
     
-    
+    @FXML
+    void goBack(MouseEvent event) throws IOException {
+    	ParkManagerReportsController controller = FXMLFunctions.loadSceneToMainPane(ParkManagerReportsController.class, "ParkManagerReports.fxml", StaticPaneMainPageParkManager.parkManagerMainPane).getController();
+		controller.setComboBoxOptions(parkManager);
+    	 
+
+    }
     
     
     
