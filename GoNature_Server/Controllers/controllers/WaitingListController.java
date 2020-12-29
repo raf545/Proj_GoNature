@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import com.google.gson.Gson;
@@ -56,6 +58,7 @@ public class WaitingListController {
 	 * @param client get the client data
 	 * @return the function return if the reservation enter to the waiting list
 	 */
+	@SuppressWarnings("static-access")
 	private String enterToWaitingList(String data, ConnectionToClient client) {
 		Reservation reservation = gson.fromJson(data, Reservation.class);
 		ResultSet res = null;
@@ -70,7 +73,7 @@ public class WaitingListController {
 			if (DataBase.getInstance().isEmpty(res) != 0)
 				return "You're already in the waiting list in this park and at this time";
 			// inserts to waiting list
-			query = con.prepareStatement("INSERT INTO gonaturedb.waitinglist VALUES (?, ?, ?, ?, ?, ?, ?, ?);");
+			query = con.prepareStatement("INSERT INTO gonaturedb.waitinglist VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);");
 			query.setString(1, reservation.getPersonalID());
 			query.setString(2, reservation.getParkname());
 			query.setString(3, reservation.getNumofvisitors());
@@ -79,6 +82,8 @@ public class WaitingListController {
 			query.setTimestamp(6, reservation.getDateAndTime());
 			query.setString(7, reservation.getPhone());
 			query.setString(8, reservation.getReservetionStatus());
+			Timestamp timestamp = new Timestamp(0);
+			query.setTimestamp(9, timestamp.valueOf(LocalDateTime.now()));
 
 			if (DataBase.getInstance().update(query) == false)
 				return "fail";

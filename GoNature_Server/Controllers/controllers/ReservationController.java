@@ -124,7 +124,7 @@ public class ReservationController {
 		try {
 			// FIXME
 			PreparedStatement query = con.prepareStatement(
-					"select sum(numofvisitors) from gonaturedb.reservetions events where dateAndTime between ? and ? and parkname = ? and (reservetionStatus = \"Valid\" OR reservetionStatus = \"halfCanceled\");");
+					"select sum(numofvisitors) from gonaturedb.reservetions events where dateAndTime between ? and ? and parkname = ? and (reservetionStatus = \"Valid\" OR reservetionStatus = \"halfCanceled\" OR reservetionStatus = \"Approved\");");
 			query.setTimestamp(1, threeHoursBelow);
 			query.setTimestamp(2, threeHoursAbove);
 			query.setString(3, parkName);
@@ -301,7 +301,7 @@ public class ReservationController {
 
 		String personalId = gson.fromJson(data, String.class);
 		String query = "SELECT * FROM gonaturedb.reservetions where personalID = \"" + personalId
-				+ "\" and reservetionStatus = \"Valid\";";
+				+ "\" and (reservetionStatus = \"Valid\" OR reservetionStatus = \"sendApprovalMessage\" OR reservetionStatus = \"Aproved\");";
 		ResultSet reservationTupels;
 
 		reservationTupels = DataBase.getInstance().search(query);
@@ -316,7 +316,7 @@ public class ReservationController {
 				reservation.setEmail(reservationTupels.getString("email"));
 				reservation.setDate(reservationTupels.getTimestamp("dateAndTime"));
 				reservation.setPrice(reservationTupels.getDouble("price"));
-				reservation.setReservationtype("Valid");
+				reservation.setReservetionStatus(reservationTupels.getString("reservetionStatus"));
 				reservation.setPhone(reservationTupels.getString("phone"));
 				myReservations.add(reservation);
 			}

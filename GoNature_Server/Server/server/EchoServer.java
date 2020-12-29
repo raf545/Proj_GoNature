@@ -18,6 +18,7 @@ import ocsf.server.AbstractServer;
 import ocsf.server.ConnectionToClient;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
+import runner.PeriodicallyRunner;
 import serverGui.ServerGuiController;
 
 /**
@@ -116,6 +117,9 @@ public class EchoServer extends AbstractServer {
 		DataBase.getInstance();
 		if (DataBase.getInstance().setConnection())
 			serverPortControllerInstance.setConnectToDB();
+		PeriodicallyRunner.runEveryDayAt(8, 0, new SendMessageToExistingReservationsDayBefore());
+		PeriodicallyRunner.runEveryDayAt(10, 0, new CheckIfApproveReservation());
+		PeriodicallyRunner.runEveryDayAt(6, 0, new DeleteIrrelevantWaitingList());
 	}
 
 	/**
