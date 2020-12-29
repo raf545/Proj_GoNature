@@ -60,6 +60,8 @@ public class ReservationController {
 			return cancelReservation(data);
 		case "approveReservation":
 			return approveReservation(data);
+		case "addToReservationTableFromWaitingList":
+			return addToReservationTableFromWaitingList(data, client);
 
 		default:
 			return "fail";
@@ -386,6 +388,34 @@ public class ReservationController {
 			return "Reservation approved succsessfuly";
 		return "Reservation wasn't approved properly";
 
+	}
+
+	private String addToReservationTableFromWaitingList(String data, ConnectionToClient client) {
+		int reservationId;
+		Reservation reservation = gson.fromJson(data, Reservation.class);
+		try {
+			// delete from waiting list DB
+			PreparedStatement query = con.prepareStatement(
+					"DELETE FROM gonaturedb.waitinglist WHERE (personalID = ?) and (parkname = ?) and (dateAndTime = ?);");
+			query.setString(1, reservation.getPersonalID());
+			query.setString(2, reservation.getParkname());
+			query.setTimestamp(3, reservation.getDateAndTime());
+			DataBase.getInstance().update(query);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		reservationId = getAndIncreaseReservasionID();
+		if (reservationId < 10000)
+			return "fail update reservation ID";
+		reservation.setReservationID(Integer.toString(reservationId));
+
+		double priceForReservation = calculatePricePreOrder(reservation);
+		reservation.setPrice(priceForReservation);
+		reservation.setReservetionStatus("Valid");
+		if (insertReservationToDB(reservation) == false)
+			return "fail insert reservation to DB";
+		return gson.toJson(reservation);
 	}
 
 }
