@@ -8,20 +8,24 @@ public class CardReader {
 	private String personalID;
 	private String phoneNumber;
 	private Timestamp entryTime;
+	private Timestamp exitTime;
 	private String numberOfVisitors;
 	private String parkName;
 	private String typeOfVisitor;
+	private Double price;
 	
 	public CardReader(String reservationID, String personalID, String phoneNumber, Timestamp entryTime,
-			String numberOfVisitors, String parkName, String typeOfVisitor) {
+			Timestamp exitTime, String numberOfVisitors, String parkName, String typeOfVisitor, Double price) {
 		super();
 		this.reservationID = reservationID;
 		this.personalID = personalID;
 		this.phoneNumber = phoneNumber;
 		this.entryTime = entryTime;
+		this.exitTime = exitTime;
 		this.numberOfVisitors = numberOfVisitors;
 		this.parkName = parkName;
 		this.typeOfVisitor = typeOfVisitor;
+		this.price = price;
 	}
 	
 	public String getReservationID() {
@@ -51,8 +55,17 @@ public class CardReader {
 	public Timestamp getEntryTime() {
 		return entryTime;
 	}
+	
 	public void setEntryTime(Timestamp entryTime) {
 		this.entryTime = entryTime;
+	}
+	
+	public Timestamp getExitTime() {
+		return exitTime;
+	}
+	
+	public void setExitTime(Timestamp exitTime) {
+		this.exitTime = exitTime;
 	}
 	
 	public String getNumberOfVisitors() {
@@ -78,5 +91,15 @@ public class CardReader {
 	public void setTypeOfVisitor(String typeOfVisitor) {
 		this.typeOfVisitor = typeOfVisitor;
 	}
+	
+	public Double getPrice() {
+		return price;
+	}
+	
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+	
+
 	
 }

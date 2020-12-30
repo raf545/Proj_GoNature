@@ -2,6 +2,7 @@ package cardReader;
 
 import com.google.gson.Gson;
 
+import client.ChatClient;
 import client.ClientUI;
 import guiCommon.StaticPaneMainPageClient;
 import javafx.event.ActionEvent;
@@ -59,15 +60,22 @@ public class CardReaderController {
     @FXML
     void enterPark(ActionEvent event) {
     	
-    	if(enterTxt.getText().isEmpty()) {
-    		PopUp.display("Error", "Must Entern an ID");
+    	StringBuilder popError = new StringBuilder();
+    	
+    	if(enterTxt.getText().isEmpty()) 
+    		popError.append("Must Entern an ID\n");
+  
+    	if(enterParkPicker.getSelectionModel().getSelectedItem() == null)
+    		popError.append("Must choose Park\n");
+    		
+    	if (popError.length() > 0) {
+			PopUp.display("Error", popError.toString());
     	}
     	else {
     		IdAndPark idAndPark = new IdAndPark(enterTxt.getText(), enterParkPicker.getValue());
     		RequestHandler rh = new RequestHandler(controllerName.CardReaderController, "enterPark", gson.toJson(idAndPark));
 			ClientUI.chat.accept(gson.toJson(rh));
-			
-			
+			PopUp.display("Card reader simulation",ChatClient.serverMsg);
     	}
     	
     }
@@ -75,15 +83,22 @@ public class CardReaderController {
     @FXML
     void exitPark(ActionEvent event) {
 
-    	if(exitTxt.getText().isEmpty()) {
-    		PopUp.display("Error", "Must Enter an ID");
+    	StringBuilder popError = new StringBuilder();
+    	
+    	if(exitTxt.getText().isEmpty()) 
+    		popError.append("Must Entern an ID\n");
+  
+    	if(exitParkPicker.getSelectionModel().getSelectedItem() == null)
+    		popError.append("Must choose Park\n");
+    		
+    	if (popError.length() > 0) {
+			PopUp.display("Error", popError.toString());
     	}
     	else {
-    		RequestHandler rh = new RequestHandler(controllerName.CardReaderController, "exitPark", exitTxt.getText());
+    		IdAndPark idAndPark = new IdAndPark(exitTxt.getText(), exitParkPicker.getValue());
+    		RequestHandler rh = new RequestHandler(controllerName.CardReaderController, "exitPark", gson.toJson(idAndPark));
 			ClientUI.chat.accept(gson.toJson(rh));
-			
-			
-			
+			PopUp.display("Card reader simulation",ChatClient.serverMsg);
     	}
     }
 
