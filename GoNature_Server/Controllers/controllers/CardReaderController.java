@@ -85,7 +85,7 @@ public class CardReaderController {
 		twentyMinutsMinus = new Timestamp(currentTimeMilli - delayTime);
 
 		PreparedStatement query = null;
-
+ 
 		try {
 
 			query = con.prepareStatement(

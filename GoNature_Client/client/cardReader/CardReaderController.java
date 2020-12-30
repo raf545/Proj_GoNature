@@ -56,7 +56,7 @@ public class CardReaderController {
     void back(MouseEvent event) {
     	StaticPaneMainPageClient.clientMainPane.getChildren().clear();
     }
-
+ 
     @FXML
     void enterPark(ActionEvent event) {
     	

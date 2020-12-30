@@ -76,7 +76,7 @@ public class EchoServer extends AbstractServer {
 		controllerName myCon = rh.getMyCon();
 		String answer = null;
 		switch (myCon) {
-		case CardReaderController:
+		case CardReaderController: 
 			answer = CardReaderController.getInstance().router(rh.getFunc(), rh.getData(), client);
 			break;
 		case EmployeeSystemController:
