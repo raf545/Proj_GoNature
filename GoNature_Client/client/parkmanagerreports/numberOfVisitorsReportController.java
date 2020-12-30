@@ -1,5 +1,6 @@
 package parkmanagerreports;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -8,12 +9,20 @@ import com.google.gson.Gson;
 import Reports.TotalVisitorsReport;
 import client.ChatClient;
 import client.ClientUI;
+import departmentManagerReports.DepartmentManagerChooseReportController;
 import employee.Employee;
+import fxmlGeneralFunctions.FXMLFunctions;
+import guiCommon.StaticPaneMainPageDepartmentManager;
+import guiCommon.StaticPaneMainPageParkManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
+import parkManager.MainPageParkManagerController;
 import popup.PopUp;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
@@ -25,6 +34,8 @@ public class numberOfVisitorsReportController {
 	
 		Employee parkManager;
 		
+			@FXML
+			private Text backbtn;
 		   @FXML
 		    private ComboBox<String> comboYear;
 
@@ -45,6 +56,80 @@ public class numberOfVisitorsReportController {
 
 		    @FXML
 		    private TextField totalTF;
+		    @FXML
+		    private TextField singleTF1;
+
+		    @FXML
+		    private TextField familyTF1;
+
+		    @FXML
+		    private TextField groupTF1;
+
+		    @FXML
+		    private TextField totalTF1;
+
+		    @FXML
+		    private TextField singleTF2;
+
+		    @FXML
+		    private TextField familyTF2;
+
+		    @FXML
+		    private TextField groupTF2;
+
+		    @FXML
+		    private TextField totalTF2;
+
+		    @FXML
+		    private TextField singleTF3;
+
+		    @FXML
+		    private TextField familyTF3;
+
+		    @FXML
+		    private TextField groupTF3;
+
+		    @FXML
+		    private TextField totalTF3;
+
+		    @FXML
+		    private TextField singleTF4;
+
+		    @FXML
+		    private TextField familyTF4;
+
+		    @FXML
+		    private TextField groupTF4;
+
+		    @FXML
+		    private TextField totalTF4;
+
+		    @FXML
+		    private TextField singleTF5;
+
+		    @FXML
+		    private TextField familyTF5;
+
+		    @FXML
+		    private TextField groupTF5;
+
+		    @FXML
+		    private TextField totalTF5;
+
+		    @FXML
+		    private TextField singleTF6;
+
+		    @FXML
+		    private TextField familyTF6;
+
+		    @FXML
+		    private TextField groupTF6;
+
+		    @FXML
+		    private TextField totalTF6;
+
+		    @FXML
+		    private Label parkName;
 
 	    @FXML
 	    void showReport(ActionEvent event) {
@@ -77,9 +162,14 @@ public class numberOfVisitorsReportController {
 	    	for(int j=1;j<13;j++)
 	    		comboMonth.getItems().add(String.valueOf(j));
 			parkManager = employee;
+			parkName.setText(parkManager.getParkName());
 			
 
 		}
-	
-	
+		 @FXML
+		    void goBack(MouseEvent event) throws IOException {
+			ParkManagerReportsController controller = FXMLFunctions.loadSceneToMainPane(ParkManagerReportsController.class, "ParkManagerReports.fxml", StaticPaneMainPageParkManager.parkManagerMainPane).getController();
+			controller.setComboBoxOptions(parkManager);
+		    }
+		  
 }

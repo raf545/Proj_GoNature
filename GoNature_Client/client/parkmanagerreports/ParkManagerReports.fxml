@@ -18,7 +18,7 @@
          </font>
       </Text>
       <Circle fill="#3d8fff" layoutX="187.0" layoutY="276.0" radius="25.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="0.0" />
-      <Text fx:id="backBtn" fill="WHITE" layoutX="161.0" layoutY="286.0" onMouseClicked="#quitScene" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;" textAlignment="CENTER" wrappingWidth="50.0">
+      <Text fx:id="backBtn" fill="WHITE" layoutX="161.0" layoutY="286.0" onMouseClicked="#goBack" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;" textAlignment="CENTER" wrappingWidth="50.0">
          <font>
             <Font name="Baloo Regular" size="30.0" />
          </font>

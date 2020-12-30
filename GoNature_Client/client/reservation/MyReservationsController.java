@@ -58,7 +58,16 @@ public class MyReservationsController {
 
 		for (Reservation reservation : myReservation) {
 			MyReservationTuple tuple = new MyReservationTuple(reservation);
-			tuple.getApprove().setOnAction(e -> approveReservatio(tuple.getReservationID()));
+			tuple.getApprove().setVisible(true);
+			tuple.getApprove().setVisible(false);
+			if (reservation.getReservetionStatus().equals("sendApprovalMessage"))
+				tuple.getApprove().setVisible(true);
+			if (reservation.getReservetionStatus().equals("Aproved")) {
+				tuple.getApprove().setVisible(true);
+				tuple.getApprove().setDisable(true);
+				tuple.getApprove().setText("Aproved");
+			}
+			tuple.getApprove().setOnAction(e -> approveReservatio(tuple));
 			tuple.getCancel().setOnAction(e -> cancelReservation(reservation, tuple));
 			reservationList.add(tuple);
 		}
@@ -88,26 +97,28 @@ public class MyReservationsController {
 		}
 	}
 
-	private TableView<MyReservationTuple> getTableView() {
-		return reservationTable;
-	}
-
-	private void approveReservatio(String reservationId) {
+	private void approveReservatio(MyReservationTuple tuple) {
 		String alertTitel = "Reservation approve";
 		String alertHeader = "You are about to approve a reservation";
 		String alertBody = "Are you shure you want to approve\nthe reservation?";
 
 		if (AlertBox.display(alertTitel, alertHeader, alertBody)) {
 			RequestHandler cencelRequest = new RequestHandler(controllerName.ReservationController,
-					"approveReservation", reservationId);
+					"approveReservation", tuple.getReservationID());
 			gson.toJson(cencelRequest);
 			ClientUI.chat.accept(gson.toJson(cencelRequest));
 			analyzeAnswerFromServer();
+
+			reservationTable.refresh();
 		}
 	}
 
 	private void analyzeAnswerFromServer() {
 		PopUp.display("Success", ChatClient.serverMsg);
+
 	}
 
+	private TableView<MyReservationTuple> getTableView() {
+		return reservationTable;
+	}
 }

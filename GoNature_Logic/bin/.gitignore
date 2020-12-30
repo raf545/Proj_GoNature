@@ -1,4 +1,5 @@
 /Reports/
+/cardReader/
 /employee/
 /monthDetails/
 /ocsf/
@@ -7,4 +8,3 @@
 /requestHandler/
 /reservation/
 /subscriber/
-/cardReader/

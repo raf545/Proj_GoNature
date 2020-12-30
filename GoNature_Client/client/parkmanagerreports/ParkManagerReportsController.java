@@ -64,8 +64,8 @@ public class ParkManagerReportsController {
     }
 
     @FXML
-    void quitScene(MouseEvent event) {
-
+    void goBack(MouseEvent event) {
+    StaticPaneMainPageParkManager.parkManagerMainPane.getChildren().clear();
     }
     public void setComboBoxOptions( Employee parkManager) {
     	parkReportOptions.getItems().addAll("Total visitors", "revenue","Capacity");
