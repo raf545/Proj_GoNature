@@ -6,7 +6,7 @@ import java.util.Calendar;
 
 import com.google.gson.Gson;
 
-import Reports.TotalVisitorsReport;
+import Reports.ReportData;
 import client.ChatClient;
 import client.ClientUI;
 import employee.Employee;
@@ -85,7 +85,7 @@ public class MonthlyRevenueReportsController {
     
     @FXML
     void showReport(ActionEvent event) {
-    	TotalVisitorsReport data=new TotalVisitorsReport(parkManager.getParkName(), comboYear.getValue(), comboMonth.getValue());
+    	ReportData data=new ReportData(parkManager.getParkName(), comboYear.getValue(), comboMonth.getValue());
     	
     	
     	askTotalVisitorsReportFromServer("RevenueReport", data );
@@ -94,7 +94,7 @@ public class MonthlyRevenueReportsController {
     
     
     
-    private void askTotalVisitorsReportFromServer(String funcname, TotalVisitorsReport data) {
+    private void askTotalVisitorsReportFromServer(String funcname, ReportData data) {
     	RequestHandler rh = new RequestHandler(controllerName.ReportsController, funcname,gson.toJson(data));
 		ClientUI.chat.accept(gson.toJson(rh));
 		analyzeAnswerFromServer();

@@ -57,8 +57,15 @@ public class ParkManagerReportsController {
 			}
     		break; 
     	case "Capacity":
-    		
-    		break;
+    		VisitorCapacityReportController vcrController;
+    		try {
+    			vcrController = FXMLFunctions.loadSceneToMainPane(VisitorCapacityReportController.class, "VisitorCapacityReport.fxml", StaticPaneMainPageParkManager.parkManagerMainPane).getController();
+    			vcrController.setParkManager(parkManager);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    		break; 
     	}
 
     }
