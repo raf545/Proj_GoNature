@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import com.google.gson.Gson;
@@ -46,9 +48,80 @@ public class ReportsController {
 	
 	
 	private String getVisitorCapacityReport(String data, ConnectionToClient client) {
-		// TODO Auto-generated method stub
-		return null;
+		int sum[]=new int[30];
+		for (int i = 0; i < sum.length; i++) {
+			sum[i]=0;
+		}
+		ReportData visitorReport = gson.fromJson(data, ReportData.class);
+		String arr[][]=new String[30][2];
+		for (int i = 0; i < 30; i++) {
+			for (int k = 0; k < 2; k++) {
+				arr[i][k]="";
+			}
+			
+		}
+		int capacity=0;
+		ArrayList <String> reportdata = new ArrayList<String>();
+		@SuppressWarnings("deprecation")
+		Timestamp fromTime = new Timestamp(Integer.parseInt(visitorReport.getYear())-1900, Integer.parseInt(visitorReport.getMonth())-1, 1, 00, 00, 00, 00);
+//		Timestamp fromTime = Timestamp.valueOf(LocalDateTime.of(Integer.parseInt(visitorReport.getYear()), Integer.parseInt(visitorReport.getMonth()), 1, 00, 00, 00, 00));
+		@SuppressWarnings("deprecation")
+		Timestamp toTime = new Timestamp(Integer.parseInt(visitorReport.getYear())-1900,  Integer.parseInt(visitorReport.getMonth())-1, 30, 23, 59, 00, 00);
+		
+		ResultSet res;
+		PreparedStatement querycap;
+		try {	
+			switch (visitorReport.getParkname()) {
+			case "Banias":
+				querycap = con.prepareStatement("SELECT num FROM gonaturedb.uptodateinformation WHERE nameOfVal='parkCapacityBanias';");
+				res = DataBase.getInstance().search(querycap);
+				res.next();
+				capacity=res.getInt(1);
+				break;
+			case "Niagara":
+				querycap = con.prepareStatement("SELECT num FROM gonaturedb.uptodateinformation WHERE nameOfVal='parkCapacityNiagara';");
+				res = DataBase.getInstance().search(querycap);
+				res.next();
+				capacity=res.getInt(1);
+				break;
+			case "Safari":
+				querycap = con.prepareStatement("SELECT num FROM gonaturedb.uptodateinformation WHERE nameOfVal='parkCapacitySafari';");
+				res = DataBase.getInstance().search(querycap);
+				res.next();
+				capacity=res.getInt(1);
+				break;
+			}
+			capacity=capacity*3;	
+			PreparedStatement query1 = con.prepareStatement("SELECT entryTime,numberOfVisitors FROM gonaturedb.cardreader WHERE (entryTime between ? and ?) AND parkname=?;");
+			query1.setTimestamp(1, fromTime);
+			query1.setTimestamp(2, toTime);
+			query1.setString(3, visitorReport.getParkname());
+			res = DataBase.getInstance().search(query1);
+			while (res.next())
+			{
+				arr[res.getTimestamp(1).toLocalDateTime().toLocalDate().getDayOfMonth()-1][0]=res.getTimestamp(1).toLocalDateTime().toLocalDate().toString();	
+				sum[res.getTimestamp(1).toLocalDateTime().toLocalDate().getDayOfMonth()-1]+=Integer.parseInt(res.getString(2));
+			}
+			for (int i = 0; i < 30; i++) {
+				if(sum[i]-capacity<0)
+				{
+					arr[i][1]=String.format("%.2f",sum[i]/Double.valueOf(capacity));
+				}else
+				{
+					arr[i][0]="";
+				}
+			}
+				
+
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return gson.toJson(arr,String[][].class);
 	}
+			
+			
+			
 	private String getRevenueReport(String data, ConnectionToClient client) {
 		
 		ReportData visitorReport = gson.fromJson(data, ReportData.class);

@@ -40,7 +40,7 @@
                </font>
             </Text>
             <TextField fx:id="parkCapacityTF" alignment="CENTER" disable="true" onInputMethodTextChanged="#changeParkCapacitySliderByTxt" prefHeight="30.0" prefWidth="246.0" promptText="300" style="-fx-background-color: #EEF2F9;" />
-            <Slider fx:id="parkCapacitySlider" onDragDetected="#OnDragCapacity" prefHeight="29.0" prefWidth="257.0" />
+            <Slider fx:id="parkCapacitySlider" majorTickUnit="20.0" minorTickCount="10" onDragDetected="#OnDragCapacity" onMouseClicked="#OnDragCapacity" onMouseReleased="#OnDragCapacity" prefHeight="29.0" prefWidth="257.0" snapToTicks="true" />
             <HBox prefHeight="104.0" prefWidth="311.0" />
             <Text stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="Difference:" wrappingWidth="165.443359375">
                <font>
@@ -48,7 +48,7 @@
                </font>
             </Text>
             <TextField fx:id="differenceTF" alignment="CENTER" disable="true" onInputMethodTextChanged="#changeParkDifferenceSliderByTxt" prefHeight="37.0" prefWidth="366.0" promptText="100" style="-fx-background-color: #EEF2F9;" />
-            <Slider fx:id="differenceSlider" onDragDetected="#OnDragDifference" prefHeight="29.0" prefWidth="257.0" />
+            <Slider fx:id="differenceSlider" majorTickUnit="20.0" minorTickCount="10" onDragDetected="#OnDragDifference" onMouseClicked="#OnDragDifference" onMouseReleased="#OnDragDifference" prefHeight="29.0" prefWidth="257.0" snapToTicks="true" />
             <HBox prefHeight="104.0" prefWidth="311.0" />
             <Text stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="Discount:" wrappingWidth="219.443359375">
                <font>
@@ -56,7 +56,7 @@
                </font>
             </Text>
             <TextField fx:id="discountTF" alignment="CENTER" disable="true" onInputMethodTextChanged="#changeParkDiscountSliderByTxt" prefHeight="30.0" prefWidth="246.0" promptText="0%" style="-fx-background-color: #EEF2F9;" />
-            <Slider fx:id="discountSlider" onDragDetected="#OnDragDiscount" prefHeight="29.0" prefWidth="257.0" />
+            <Slider fx:id="discountSlider" majorTickUnit="20.0" minorTickCount="10" onDragDetected="#OnDragDiscount" onMouseClicked="#OnDragDiscount" onMouseReleased="#OnDragDiscount" prefHeight="29.0" prefWidth="257.0" snapToTicks="true" />
          </children>
       </VBox>
       <Circle fill="#2ecc71" layoutX="670.0" layoutY="330.0" radius="13.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="0.0" />
