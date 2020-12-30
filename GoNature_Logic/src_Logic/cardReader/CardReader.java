@@ -52,7 +52,7 @@ public class CardReader {
 		this.phoneNumber = phoneNumber;
 	}
 	
-	public Timestamp getEntryTime() {
+	public Timestamp getEntryTime() { 
 		return entryTime;
 	}
 	

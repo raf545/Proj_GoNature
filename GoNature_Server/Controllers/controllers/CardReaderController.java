@@ -79,13 +79,13 @@ public class CardReaderController {
 		Timestamp reservationTime;
 		Timestamp currentTime = new Timestamp(System.currentTimeMillis());
 
-		long currentTimeMilli = currentTime.getTime();
+		long currentTimeMilli = currentTime.getTime();//s
 		long delayTime = 20 * 60 * 1000;
 		twentyMinutsPlus = new Timestamp(currentTimeMilli + delayTime);
 		twentyMinutsMinus = new Timestamp(currentTimeMilli - delayTime);
 
 		PreparedStatement query = null;
-
+   
 		try {
 
 			query = con.prepareStatement(
