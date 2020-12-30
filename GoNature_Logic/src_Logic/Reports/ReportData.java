@@ -1,13 +1,13 @@
 package Reports;
 
-public class TotalVisitorsReport {
+public class ReportData {
 
 	
 	private String parkname;
 	private String year;
 	private String month;
 	
-	public TotalVisitorsReport(String parkname, String year, String month) {
+	public ReportData(String parkname, String year, String month) {
 		this.parkname = parkname;
 		this.year = year;
 		this.month = month;

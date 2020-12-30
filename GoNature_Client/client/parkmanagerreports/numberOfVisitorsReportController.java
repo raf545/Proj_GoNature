@@ -6,7 +6,7 @@ import java.util.Calendar;
 
 import com.google.gson.Gson;
 
-import Reports.TotalVisitorsReport;
+import Reports.ReportData;
 import client.ChatClient;
 import client.ClientUI;
 import departmentManagerReports.DepartmentManagerChooseReportController;
@@ -34,127 +34,228 @@ public class numberOfVisitorsReportController {
 	
 		Employee parkManager;
 		
-			@FXML
-			private Text backbtn;
-		   @FXML
+		 @FXML
+		    private Text backbtn;
+
+		    @FXML
 		    private ComboBox<String> comboYear;
 
 		    @FXML
 		    private ComboBox<String> comboMonth;
 
 		    @FXML
-		    private TextField singleTF;
-
-		    @FXML
 		    private Button showbtn;
-
-		    @FXML
-		    private TextField familyTF;
-
-		    @FXML
-		    private TextField groupTF;
-
-		    @FXML
-		    private TextField totalTF;
-		    @FXML
-		    private TextField singleTF1;
-
-		    @FXML
-		    private TextField familyTF1;
-
-		    @FXML
-		    private TextField groupTF1;
-
-		    @FXML
-		    private TextField totalTF1;
-
-		    @FXML
-		    private TextField singleTF2;
-
-		    @FXML
-		    private TextField familyTF2;
-
-		    @FXML
-		    private TextField groupTF2;
-
-		    @FXML
-		    private TextField totalTF2;
-
-		    @FXML
-		    private TextField singleTF3;
-
-		    @FXML
-		    private TextField familyTF3;
-
-		    @FXML
-		    private TextField groupTF3;
-
-		    @FXML
-		    private TextField totalTF3;
-
-		    @FXML
-		    private TextField singleTF4;
-
-		    @FXML
-		    private TextField familyTF4;
-
-		    @FXML
-		    private TextField groupTF4;
-
-		    @FXML
-		    private TextField totalTF4;
-
-		    @FXML
-		    private TextField singleTF5;
-
-		    @FXML
-		    private TextField familyTF5;
-
-		    @FXML
-		    private TextField groupTF5;
-
-		    @FXML
-		    private TextField totalTF5;
-
-		    @FXML
-		    private TextField singleTF6;
-
-		    @FXML
-		    private TextField familyTF6;
-
-		    @FXML
-		    private TextField groupTF6;
-
-		    @FXML
-		    private TextField totalTF6;
 
 		    @FXML
 		    private Label parkName;
 
+		    @FXML
+		    private Label singleLSUN;
+
+		    @FXML
+		    private Label familyLSUN;
+
+		    @FXML
+		    private Label groupLSUN;
+
+		    @FXML
+		    private Label totalLSUN;
+
+		    @FXML
+		    private Label singleLMON;
+
+		    @FXML
+		    private Label familyLMON;
+
+		    @FXML
+		    private Label groupLMON;
+
+		    @FXML
+		    private Label totalLMON;
+
+		    @FXML
+		    private Label singleLTUES;
+
+		    @FXML
+		    private Label familyLTUES;
+
+		    @FXML
+		    private Label groupLTUES;
+
+		    @FXML
+		    private Label totalLTUES;
+
+		    @FXML
+		    private Label singleLWED;
+
+		    @FXML
+		    private Label familyLWED;
+
+		    @FXML
+		    private Label groupLWED;
+
+		    @FXML
+		    private Label totalLWED;
+
+		    @FXML
+		    private Label singleLTHU;
+
+		    @FXML
+		    private Label familyLTHU;
+
+		    @FXML
+		    private Label groupLTHU;
+
+		    @FXML
+		    private Label totalLTHU;
+
+		    @FXML
+		    private Label singleLFRI;
+
+		    @FXML
+		    private Label familyLFRI;
+
+		    @FXML
+		    private Label groupLFRI;
+
+		    @FXML
+		    private Label totalLFRI;
+
+		    @FXML
+		    private Label singleLSAT;
+
+		    @FXML
+		    private Label familyLSAT;
+
+		    @FXML
+		    private Label groupLSAT;
+
+		    @FXML
+		    private Label totalLSAT;
+
+		    @FXML
+		    private Label singleLMONTH;
+
+		    @FXML
+		    private Label familyLMONTH;
+
+		    @FXML
+		    private Label groupLMONTH;
+
+		    @FXML
+		    private Label totalLMONTH;
+		    
+
+
 	    @FXML
 	    void showReport(ActionEvent event) {
-	    	TotalVisitorsReport data=new TotalVisitorsReport(parkManager.getParkName(), comboYear.getValue(), comboMonth.getValue());
+	    	ReportData data=new ReportData(parkManager.getParkName(), comboYear.getValue(), comboMonth.getValue());
 	    	
 	    	
 	    	askTotalVisitorsReportFromServer("TotalVisitorsReport", data );
 
 	    }
-	    private void askTotalVisitorsReportFromServer(String funcname, TotalVisitorsReport data) {
+	    private void askTotalVisitorsReportFromServer(String funcname, ReportData data) {
 	    	RequestHandler rh = new RequestHandler(controllerName.ReportsController, funcname,gson.toJson(data));
 			ClientUI.chat.accept(gson.toJson(rh));
 			analyzeAnswerFromServer();
 			
 		}
 		private void analyzeAnswerFromServer() {
+				int sum=0;
 			    String answer = ChatClient.serverMsg;
-				ArrayList <String> res= gson.fromJson(answer, ArrayList.class);
-				singleTF.setText(res.get(0));
-				familyTF.setText(res.get(1));
-				groupTF.setText(res.get(2));
-				totalTF.setText(String.valueOf(Integer.parseInt(res.get(0))+Integer.parseInt(res.get(1))+Integer.parseInt(res.get(2))));
-
+				int[][] res= gson.fromJson(answer, int[][].class);
+				singleLSUN.setText(String.valueOf(res[0][0]));
+				singleLMON.setText(String.valueOf(res[1][0]));
+				singleLTUES.setText(String.valueOf(res[2][0]));
+				singleLWED.setText(String.valueOf(res[3][0]));
+				singleLTHU.setText(String.valueOf(res[4][0]));
+				singleLFRI.setText(String.valueOf(res[5][0]));
+				singleLSAT.setText(String.valueOf(res[6][0]));
+				familyLSUN.setText(String.valueOf(res[0][1]));
+				familyLMON.setText(String.valueOf(res[1][1]));
+				familyLTUES.setText(String.valueOf(res[2][1]));
+				familyLWED.setText(String.valueOf(res[3][1]));
+				familyLTHU.setText(String.valueOf(res[4][1]));
+				familyLFRI.setText(String.valueOf(res[5][1]));
+				familyLSAT.setText(String.valueOf(res[6][1]));
+				groupLSUN.setText(String.valueOf(res[0][2]));
+				groupLMON.setText(String.valueOf(res[1][2]));
+				groupLTUES.setText(String.valueOf(res[2][2]));
+				groupLWED.setText(String.valueOf(res[3][2]));
+				groupLTHU.setText(String.valueOf(res[4][2]));
+				groupLFRI.setText(String.valueOf(res[5][2]));
+				groupLSAT.setText(String.valueOf(res[6][2]));
+				for(int i=0;i<3;i++)
+				{
+					sum=sum+res[0][i];
+				}
+				totalLSUN.setText(String.valueOf(sum));
+				sum=0;
+				for(int i=0;i<3;i++)
+				{
+					sum=sum+res[1][i];
+				}
+				totalLMON.setText(String.valueOf(sum));
+				sum=0;
+				for(int i=0;i<3;i++)
+				{
+					sum=sum+res[2][i];
+				}
+				totalLTUES.setText(String.valueOf(sum));
+				sum=0;
+				for(int i=0;i<3;i++)
+				{
+					sum=sum+res[3][i];
+				}
+				totalLWED.setText(String.valueOf(sum));
+				sum=0;
+				for(int i=0;i<3;i++)
+				{
+					sum=sum+res[4][i];
+				}
+				totalLTHU.setText(String.valueOf(sum));
+				sum=0;
+				for(int i=0;i<3;i++)
+				{
+					sum=sum+res[5][i];
+				}
+				totalLFRI.setText(String.valueOf(sum));
+				sum=0;
+				for(int i=0;i<3;i++)
+				{
+					sum=sum+res[6][i];
+				}
+				totalLSAT.setText(String.valueOf(sum));
+				sum=0;
+				for(int i=0;i<7;i++)
+				{
+					sum=sum+res[i][0];
+				}
+				singleLMONTH.setText(String.valueOf(sum));
+				sum=0;
+				for(int i=0;i<7;i++)
+				{
+					sum=sum+res[i][1];
+				}
+				familyLMONTH.setText(String.valueOf(sum));
+				sum=0;
+				for(int i=0;i<7;i++)
+				{
+					sum=sum+res[i][2];
+				}
+				groupLMONTH.setText(String.valueOf(sum));
+				sum=0;
 				
+				sum=Integer.parseInt(groupLMONTH.getText())+Integer.parseInt(familyLMONTH.getText())+Integer.parseInt(singleLMONTH.getText());
+				totalLMONTH.setText(String.valueOf(sum));
+				sum=0;
 		}
+		
+		
+		
+		
+		
 		public void setParkManager(Employee employee) {
 	    	int thisyear = Calendar.getInstance().get(Calendar.YEAR);
 	    	for(int i=thisyear-7;i<=thisyear;i++)
