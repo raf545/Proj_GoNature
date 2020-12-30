@@ -37,7 +37,9 @@ public class DepartmentManagerChooseReportController {
     		dmvrController.setTypeComboBoxOptions();
     		break;
     	case "Cancelations":
-    		FXMLFunctions.loadSceneToMainPane(DepartmentManagerCancelationReportsController.class, "DepartmentManagerCancelationReports.fxml", StaticPaneMainPageDepartmentManager.DepartmentManagerMainPane);
+    		DepartmentManagerCancelationReportsController dmcrController;
+    		dmcrController = FXMLFunctions.loadSceneToMainPane(DepartmentManagerCancelationReportsController.class, "DepartmentManagerCancelationReports.fxml", StaticPaneMainPageDepartmentManager.DepartmentManagerMainPane).getController();
+    		dmcrController.setTypeComboBoxOptions();
     		break; 
     	}
     }

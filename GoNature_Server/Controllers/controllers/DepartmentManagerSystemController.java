@@ -1,5 +1,7 @@
 package controllers;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -14,6 +16,7 @@ import reservation.Reservation;
 public class DepartmentManagerSystemController {
 	
 	Gson gson = new Gson();
+	Connection con = DataBase.getInstance().getConnection();
 
 	private static DepartmentManagerSystemController DepartmentManagerSystemControllerInstance = null;
 
@@ -41,27 +44,48 @@ public class DepartmentManagerSystemController {
 			return updateParkInformation(values2[0],values2[1],values2[2]);		
 		case "getEntryDetailsByHours":
 			String[] values3 = data.split(" ");
-			return getEntryDetailsByHours(values3[0],values3[1],values3[2],values3[3]);
+			return getEntryDetailsByHours(values3[0],values3[1],values3[2],values3[3],values3[4],values3[5],values3[6]);
 		case "getExitDetailsByHours":
 			String[] values4 = data.split(" ");
-			return getExitDetailsByHours(values4[0],values4[1],values4[2],values4[3]);
+			return getExitDetailsByHours(values4[0],values4[1],values4[2],values4[3],values4[4],values4[5],values4[6]);
+		case "getReservationCancelationDetails":
+			String[] values5 = data.split(" ");
+			return getReservationCancelationDetails(values5[0],values5[1],values5[2],values5[3]);
+		case "getNumberOfReservationForSpecificDay":
+			String[] values6 = data.split(" ");
+			return getNumberOfReservationForSpecificDay(values6[0],values6[1],values6[2],values6[3]);
 		}
 		return data;
-	}
+	} 
 	
 	//Functions for visitor reports
-	private String getEntryDetailsByHours(String type,String year,String month,String day)
+	private String getEntryDetailsByHours(String type,String year,String month,String day,String park1,String park2,String park3)
 	{
 		try {
-		String query;
+		//String query;
 		StringBuilder sb = new StringBuilder();
 		ResultSet rs;
 		
-		query = "SELECT HOUR(gonaturedb.cardreader.entryTime) as hoursEntry, SUM(numberOfVisitors) as counter\r\n"
+		PreparedStatement query = con.prepareStatement("SELECT HOUR(gonaturedb.cardreader.entryTime) as hoursEntry, SUM(numberOfVisitors) as counter\r\n"
 				+ "FROM gonaturedb.cardreader\r\n"
-				+ "WHERE typeOfVisitor = \"" + type + "\" AND YEAR(entryTime) = " + year + " AND MONTH(entryTime) = " + month + " AND DAY(entryTime) = " + day +"\r\n"
+				+ "WHERE typeOfVisitor = ? AND YEAR(entryTime) = ? AND MONTH(entryTime) = ? AND DAY(entryTime) = ? AND (parkName = ? OR parkName = ? OR parkName = ?)\r\n"
 				+ "GROUP BY HOUR(entryTime)\r\n"
-				+ "ORDER BY hoursEntry ASC";
+				+ "ORDER BY hoursEntry ASC");
+		
+		query.setString(1, type);
+		query.setInt(2, Integer.parseInt(year));
+		query.setInt(3, Integer.parseInt(month));
+		query.setInt(4, Integer.parseInt(day));
+		query.setString(5, park1);
+		query.setString(6, park2);
+		query.setString(7, park3);
+		
+//		query = "SELECT HOUR(gonaturedb.cardreader.entryTime) as hoursEntry, SUM(numberOfVisitors) as counter\r\n"
+//				+ "FROM gonaturedb.cardreader\r\n"
+//				+ "WHERE typeOfVisitor = \"" + type + "\" AND YEAR(entryTime) = " + year + " AND MONTH(entryTime) = " + month + " AND DAY(entryTime) = " + day +"\r\n "
+//				+ "GROUP BY HOUR(entryTime)\r\n"
+//				+ "ORDER BY hoursEntry ASC";
+
 		
 			rs = DataBase.getInstance().search(query);
 			if (isEmpty(rs) != 0) 
@@ -81,18 +105,31 @@ public class DepartmentManagerSystemController {
 	}
 	//Functions for visitor reports
 	
-	private String getExitDetailsByHours(String type,String year,String month,String day)
+	private String getExitDetailsByHours(String type,String year,String month,String day,String park1,String park2,String park3)
 	{
 		try {
-		String query;
 		StringBuilder sb = new StringBuilder();
 		ResultSet rs;
 		
-		query = "SELECT HOUR(gonaturedb.cardreader.exitTime) as hoursExit, SUM(numberOfVisitors) as counter\r\n"
+		PreparedStatement query = con.prepareStatement("SELECT HOUR(gonaturedb.cardreader.exitTime) as hoursExit, SUM(numberOfVisitors) as counter\r\n"
 				+ "FROM gonaturedb.cardreader\r\n"
-				+ "WHERE typeOfVisitor = \"" + type + "\" AND YEAR(exitTime) = " + year + " AND MONTH(exitTime) = " + month + " AND DAY(exitTime) = " + day +"\r\n"
+				+ "WHERE typeOfVisitor = ? AND YEAR(exitTime) = ? AND MONTH(exitTime) = ? AND DAY(exitTime) = ? AND (parkName = ? OR parkName = ? OR parkName = ?)\r\n"
 				+ "GROUP BY HOUR(exitTime)\r\n"
-				+ "ORDER BY hoursExit ASC";
+				+ "ORDER BY hoursExit ASC");
+		
+		query.setString(1, type);
+		query.setInt(2, Integer.parseInt(year));
+		query.setInt(3, Integer.parseInt(month));
+		query.setInt(4, Integer.parseInt(day));
+		query.setString(5, park1);
+		query.setString(6, park2);
+		query.setString(7, park3);
+
+//		query = "SELECT HOUR(gonaturedb.cardreader.exitTime) as hoursExit, SUM(numberOfVisitors) as counter\r\n"
+//				+ "FROM gonaturedb.cardreader\r\n"
+//				+ "WHERE typeOfVisitor = \"" + type + "\" AND YEAR(exitTime) = " + year + " AND MONTH(exitTime) = " + month + " AND DAY(exitTime) = " + day +"\r\n"
+//				+ "GROUP BY HOUR(exitTime)\r\n"
+//				+ "ORDER BY hoursExit ASC";
 		
 			rs = DataBase.getInstance().search(query);
 			if (isEmpty(rs) != 0) 
@@ -110,6 +147,68 @@ public class DepartmentManagerSystemController {
 		}	
 		return "faild";	
 	}
+	private String getReservationCancelationDetails(String year,String month,String day,String parkName)
+	{
+		try
+		{	
+		ResultSet rs;
+		StringBuilder sb = new StringBuilder();
+		PreparedStatement query = con.prepareStatement("SELECT gonaturedb.reservetions.dateAndTime as theDay, COUNT(numofvisitors) as NumberOfPeopleCanceled\r\n"
+				+ "FROM gonaturedb.reservetions\r\n"
+				+ "WHERE YEAR(dateAndTime) = ? AND MONTH(dateAndTime) = ? AND DAY(dateAndTime) = ? AND parkName = ? AND (reservetionStatus = \"halfCanceled\" OR reservetionStatus = \"Canceled\")\r\n"
+				+ "");
+		
+		query.setInt(1, Integer.parseInt(year));
+		query.setInt(2, Integer.parseInt(month));
+		query.setInt(3, Integer.parseInt(day));
+		query.setString(4, parkName);
+
+
+		rs = DataBase.getInstance().search(query);
+		if (isEmpty(rs) != 0) 
+		{
+			rs.first();
+			sb.append(rs.getInt(2));
+			return sb.toString();
+		}
+				
+		} 
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}	
+		return "faild";	
+	}
+	private String getNumberOfReservationForSpecificDay(String year,String month,String day,String parkName)
+	{
+		try
+		{	
+		ResultSet rs;	
+		PreparedStatement query = con.prepareStatement("SELECT gonaturedb.reservetions.dateAndTime as theDay, COUNT(numofvisitors) as NumberOfPeopleCanceled\r\n"
+				+ "FROM gonaturedb.reservetions\r\n"
+				+ "WHERE YEAR(dateAndTime) = ? AND MONTH(dateAndTime) = ? AND DAY(dateAndTime) = ? AND parkName = ? \r\n");
+		
+		query.setInt(1, Integer.parseInt(year));
+		query.setInt(2, Integer.parseInt(month));
+		query.setInt(3, Integer.parseInt(day));
+		query.setString(4, parkName);
+
+
+		rs = DataBase.getInstance().search(query);
+		if (isEmpty(rs) != 0) 
+		{
+			rs.first();
+			return rs.getInt(2) + "";
+		}
+				
+		} 
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}	
+		return "faild";	
+	}
+	
 	private String showAllApprovesAndRejects() {
 		
 		try {
@@ -172,7 +271,8 @@ public class DepartmentManagerSystemController {
 	private int isEmpty(ResultSet rs) {
 		int size = 0;
 		if (rs != null) {
-			try {
+			try
+			{
 				rs.last();
 				size = rs.getRow(); 
 			} catch (SQLException e) {

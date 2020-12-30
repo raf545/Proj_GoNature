@@ -2,6 +2,7 @@
 
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.layout.HBox?>
@@ -26,9 +27,9 @@
             <Font name="Baloo Regular" size="30.0" />
          </font>
       </Text>
-      <VBox layoutX="77.0" layoutY="163.0" prefHeight="119.0" prefWidth="682.0" spacing="5.0">
+      <VBox layoutX="77.0" layoutY="163.0" prefHeight="127.0" prefWidth="306.0" spacing="5.0">
          <children>
-            <Text stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Month and Year:" wrappingWidth="398.443359375">
+            <Text stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Date:" wrappingWidth="244.443359375">
                <font>
                   <Font size="22.0" />
                </font>
@@ -38,12 +39,12 @@
                   <DatePicker fx:id="datePick" prefHeight="25.0" prefWidth="225.0" promptText="12/06/2020" showWeekNumbers="true" />
                </children>
             </HBox>
-            <Text layoutX="14.0" layoutY="70.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Type:" wrappingWidth="398.443359375">
+            <Text layoutX="14.0" layoutY="70.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Type:" wrappingWidth="233.443359375">
                <font>
                   <Font size="22.0" />
                </font>
             </Text>
-            <ComboBox fx:id="typeComboBox" layoutX="14.0" layoutY="77.0" prefWidth="150.0" promptText="Groups" />
+            <ComboBox fx:id="typeComboBox" layoutX="14.0" layoutY="77.0" prefWidth="150.0" promptText="intructor" />
          </children>
       </VBox>
       <Button fx:id="reportButton" layoutX="76.0" layoutY="306.0" mnemonicParsing="false" onAction="#report" prefHeight="25.0" prefWidth="229.0" style="-fx-background-color: #E74C3C;" text="Report" textFill="WHITE">
@@ -52,7 +53,40 @@
          </font>
       </Button>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="340.0" layoutX="75.0" layoutY="350.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" width="754.0" />
-      <PieChart fx:id="pieOne" layoutX="102.0" layoutY="361.0" prefHeight="318.0" prefWidth="317.0" />
-      <PieChart fx:id="pieTwo" layoutX="474.0" layoutY="361.0" prefHeight="318.0" prefWidth="317.0" />
+      <PieChart fx:id="pieOne" layoutX="101.0" layoutY="370.0" prefHeight="300.0" prefWidth="317.0" title="Entry Chart" />
+      <PieChart fx:id="pieTwo" layoutX="473.0" layoutY="370.0" prefHeight="300.0" prefWidth="317.0" title="Exit Chart" />
+      <VBox layoutX="578.0" layoutY="167.0" prefHeight="122.0" prefWidth="251.0" spacing="5.0">
+         <children>
+            <Text stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Park:" wrappingWidth="233.443359375">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Text>
+            <HBox prefHeight="32.0" prefWidth="306.0">
+               <children>
+                  <CheckBox fx:id="baniasCB" mnemonicParsing="false" prefHeight="32.0" prefWidth="104.0" selected="true" text="Banias">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </CheckBox>
+                  <CheckBox fx:id="safariCB" mnemonicParsing="false" prefHeight="32.0" prefWidth="104.0" selected="true" text="Safari">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </CheckBox>
+                  <CheckBox fx:id="niagaraCB" mnemonicParsing="false" prefHeight="32.0" prefWidth="104.0" selected="true" text="Niagara">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </CheckBox>
+               </children>
+            </HBox>
+            <Button fx:id="selectAllBtn" mnemonicParsing="false" onAction="#selectAllCheckBoxes" prefHeight="25.0" prefWidth="289.0" style="-fx-background-color: #E74C3C;" text="Select All" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
    </children>
 </Pane>
