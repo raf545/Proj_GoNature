@@ -5,7 +5,7 @@ import java.util.Collection;
 public class CapacityData  {
 	@Override
 	public String toString() {
-		return date +" - "+  Float.valueOf(amoutOfP)*100 +"%" ;
+		return date +" - Park at "+  Float.valueOf(amoutOfP)*100 +"% capacity" ;
 	}
 
 
