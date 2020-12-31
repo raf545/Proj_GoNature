@@ -96,7 +96,7 @@ public class CardReaderController {
 		try {
 			Stage primaryStage = new Stage();
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(paymentController.class.getResource("payment.fxml"));
+			loader.setLocation(paymentController.class.getResource("/cardReader/payment.fxml"));
 			Pane root = loader.load();
 			Scene sc = new Scene(root);
 			primaryStage.setTitle("Payment");
