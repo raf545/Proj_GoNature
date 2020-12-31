@@ -257,11 +257,14 @@ public class numberOfVisitorsReportController {
 		
 		
 		public void setParkManager(Employee employee) {
-	    	int thisyear = Calendar.getInstance().get(Calendar.YEAR);
+			int thisyear = Calendar.getInstance().get(Calendar.YEAR);
+	    	int thismonth=Calendar.getInstance().get(Calendar.MONTH);
 	    	for(int i=thisyear-7;i<=thisyear;i++)
 	    		comboYear.getItems().add(String.valueOf(i));
+	    	comboYear.setValue(String.valueOf(thisyear));
 	    	for(int j=1;j<13;j++)
 	    		comboMonth.getItems().add(String.valueOf(j));
+	    	comboMonth.setValue(String.valueOf(thismonth));
 			parkManager = employee;
 			parkName.setText(parkManager.getParkName());
 			

@@ -26,6 +26,9 @@ public class ServerUI extends Application {
 		primaryStage.setScene(sc);
 		primaryStage.show();
 
+		primaryStage.setOnCloseRequest((event)->{
+			System.exit(0);
+		});
 	}
 
 	public static void runServer(String p, ServerGuiController serverGuiController) {
