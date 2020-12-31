@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -24,11 +25,18 @@
                      <children>
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <ImageView fitHeight="150.0" fitWidth="170.0" pickOnBounds="true">
-                                 <image>
-                                    <Image url="@../../pictures/ReportPicture.jpeg" />
-                                 </image>
-                              </ImageView>
+                              <Button fx:id="reportImageBtn" mnemonicParsing="false" onAction="#openManagerReports" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: white;">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="150.0" fitWidth="150.0" onMouseClicked="#openManagerReports" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../pictures/ReportPicture.jpeg" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
                               <Button fx:id="managerReportBtn" mnemonicParsing="false" onAction="#openManagerReports" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #E74C3C;" text="Manager Reports">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
@@ -38,11 +46,18 @@
                         </VBox>
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <ImageView fitHeight="142.0" fitWidth="166.0" pickOnBounds="true">
-                                 <image>
-                                    <Image url="@../../pictures/Settings.jpeg" />
-                                 </image>
-                              </ImageView>
+                              <Button fx:id="approveChangesBtn1" mnemonicParsing="false" onAction="#openApproveChange" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: white;">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="130.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../pictures/Settings.jpeg" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
                               <Button fx:id="approveChangesBtn" mnemonicParsing="false" onAction="#openApproveChange" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #E74C3C;" text="Approve Changes">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
@@ -52,11 +67,18 @@
                         </VBox>
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <ImageView fitHeight="136.0" fitWidth="164.0" pickOnBounds="true">
-                                 <image>
-                                    <Image url="@../../pictures/Notes.jpeg" />
-                                 </image>
-                              </ImageView>
+                              <Button fx:id="newReservationBtn1" mnemonicParsing="false" onAction="#openNewReservation" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: white;">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="140.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../pictures/Notes.jpeg" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
                               <Button fx:id="newReservationBtn" mnemonicParsing="false" onAction="#openNewReservation" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #E74C3C;" text="New Reservation">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
@@ -66,6 +88,27 @@
                         </VBox>
                         <VBox prefHeight="200.0" prefWidth="100.0" />
                         <VBox prefHeight="200.0" prefWidth="100.0" />
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Button fx:id="parkManagerReportsBtn1" mnemonicParsing="false" onAction="#openParkManagerReports" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: white;">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="140.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../pictures/ReportPicture.jpeg" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="parkManagerReportsBtn" mnemonicParsing="false" onAction="#openParkManagerReports" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #E74C3C;" text="Park Manager Reports">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </VBox>
                      </children>
                   </VBox>
                </children>
@@ -88,10 +131,10 @@
          </font>
       </Text>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e74c3c" height="45.0" layoutX="1095.0" layoutY="895.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="90.0" />
-      <Text fx:id="logoutBtn" layoutX="1095.0" layoutY="928.0" onMouseClicked="#logout" strokeType="OUTSIDE" strokeWidth="0.0" text="Logout" textAlignment="CENTER" wrappingWidth="90.00002300739288">
+      <Hyperlink fx:id="logoutBtn" layoutX="1106.0" layoutY="901.0" onAction="#logout" text="Logout">
          <font>
-            <Font name="Guttman Drogolin Bold" size="24.0" />
+            <Font name="System Bold" size="17.0" />
          </font>
-      </Text>
+      </Hyperlink>
    </children>
 </Pane>

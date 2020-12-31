@@ -155,6 +155,7 @@ public class DepartmentManagerVisitReportController {
 
 			typeComboBox.getItems().addAll("instructor","family","subscriber","guest");
 			datePick.setValue(LocalDate.now());
+			typeComboBox.setValue("subscriber");
 		}
 		
 		public String getHourTemplate(String hour)

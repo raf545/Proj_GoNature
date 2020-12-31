@@ -68,9 +68,6 @@ public class MonthlyRevenueReportsController {
 		parkManager = employee;
 		parkName.setText(parkManager.getParkName());
 		
-		
-	
-
 	}
     
     
@@ -88,9 +85,7 @@ public class MonthlyRevenueReportsController {
     
     @FXML
     void showReport(ActionEvent event) {
-    	ReportData data=new ReportData(parkManager.getParkName(), comboYear.getValue(), comboMonth.getValue());
-    	
-    	
+    	ReportData data=new ReportData(parkManager.getParkName(), comboYear.getValue(), comboMonth.getValue());   	
     	askTotalVisitorsReportFromServer("RevenueReport", data );
 
     }
@@ -114,7 +109,6 @@ public class MonthlyRevenueReportsController {
 		familyTF.setText(res.get(1));
 		groupTF.setText(res.get(2));
 		totalTF.setText(String.valueOf(Double.parseDouble(res.get(0))+Double.parseDouble(res.get(1))+Double.parseDouble(res.get(2))));
-
 		
 }
 
