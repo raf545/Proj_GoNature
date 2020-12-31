@@ -44,7 +44,7 @@
                   <Font size="22.0" />
                </font>
             </Text>
-            <ComboBox fx:id="typeComboBox" layoutX="14.0" layoutY="77.0" prefWidth="150.0" promptText="intructor" />
+            <ComboBox fx:id="typeComboBox" layoutX="14.0" layoutY="77.0" prefWidth="150.0" promptText="Choose Type" />
          </children>
       </VBox>
       <Button fx:id="reportButton" layoutX="76.0" layoutY="306.0" mnemonicParsing="false" onAction="#report" prefHeight="25.0" prefWidth="229.0" style="-fx-background-color: #E74C3C;" text="Report" textFill="WHITE">

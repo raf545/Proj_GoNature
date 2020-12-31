@@ -51,6 +51,7 @@ public class DepartmentManagerChooseReportController {
     
 	public void setComboBoxOptions() {
 		reportOptions.getItems().addAll("Visitors", "Cancelations");
+		reportOptions.setValue("Visitors");
 	}
 
 }

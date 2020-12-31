@@ -40,6 +40,7 @@ public class DepartmentManagerCancelationReportsController {
     
 	private int numberOfPeopleCanceled = 1;
 	private int totalReservations = 1; //default
+	private int numberOfPeopleHalfCanceled = 1;
 	  @FXML
 	    void quitScene(MouseEvent event) throws IOException {
 		//  	StaticPaneMainPageDepartmentManager.DepartmentManagerMainPane.getChildren().clear();
@@ -54,6 +55,7 @@ public class DepartmentManagerCancelationReportsController {
 	    	String day = datePick.getValue().getDayOfMonth() + "";
 	    	String parkName = parkComboBox.getValue();	    	
 	    	getReservationCancelationDetails(year,month,day,parkName);
+	    	getReservationHalfCancelationDetails(year,month,day,parkName);
 	    	getNumberOfReservationForSpecificDay(year,month,day,parkName);
 	    }
 	    
@@ -63,12 +65,20 @@ public class DepartmentManagerCancelationReportsController {
 			ClientUI.chat.accept(gson.toJson(rh));
 			analyzeAnswerFromServer();
 		}
+
 		public void getNumberOfReservationForSpecificDay(String year,String month,String day,String parkName) {
 			String stringToSend = year + " " + month + " " + day + " " + parkName;
  			RequestHandler rh = new RequestHandler(controllerName.DepartmentManagerSystemController, "getNumberOfReservationForSpecificDay", stringToSend);
 			ClientUI.chat.accept(gson.toJson(rh));
 			analyzeAnswerFromServer2();
 			showDetails();
+		}
+		
+		public void getReservationHalfCancelationDetails(String year,String month,String day,String parkName) {
+			String stringToSend = year + " " + month + " " + day + " " + parkName;
+ 			RequestHandler rh = new RequestHandler(controllerName.DepartmentManagerSystemController, "getReservationHalfCancelationDetails", stringToSend);
+			ClientUI.chat.accept(gson.toJson(rh));
+			analyzeAnswerFromServer3();
 		}
 		
 		//analyzeAnswerFromServer
@@ -83,30 +93,48 @@ public class DepartmentManagerCancelationReportsController {
 			if(!answer.equals("faild"))
 				totalReservations =  Integer.parseInt(answer);
 		}
+		//analyzeAnswerFromServer
+		private void analyzeAnswerFromServer3() {
+			String answer = ChatClient.serverMsg;
+			if(!answer.equals("faild"))
+				numberOfPeopleHalfCanceled = Integer.parseInt(answer);
+		}
 		
 		private void showDetails()
 		{		
 					
 			if(totalReservations == 0)
 			{
-				System.out.println("no reservations" + numberOfPeopleCanceled + " " +totalReservations);
-				totalReservations = 1;
-				//return;
+				showNoReservationsPie();
+				return;
 			}
-			numberOfPeopleCanceled = 220;	//take from DB
-			totalReservations = 450;		//take from DB
+			//Turn to precentage and show it as pie
 			double cancelPrecentage = (double)((double)numberOfPeopleCanceled/totalReservations)*100;
-			double totalPrecentage =  (double)(totalReservations -  (float)(numberOfPeopleCanceled/totalReservations));
-			PieChart.Data precentageSlice = new PieChart.Data("Number of people canceled =" + numberOfPeopleCanceled + "=>" +  cancelPrecentage + "%", cancelPrecentage);
-			PieChart.Data precentageSlice2 = new PieChart.Data("Total reservations =" +  totalPrecentage, 100 - cancelPrecentage);
+			double halfCancelationPrecentage = (double)((double)numberOfPeopleHalfCanceled/totalReservations)*100;
+			double totalPrecentage =  (double)(100 -  cancelPrecentage - halfCancelationPrecentage);
+			
+			String s1 = String.format("Number of people canceled = %d => %.2f%%",numberOfPeopleCanceled, cancelPrecentage );
+			String s2 = String.format("Number of people half canceled = %d => %.2f%%",numberOfPeopleHalfCanceled, halfCancelationPrecentage );
+			
+			PieChart.Data precentageSlice = new PieChart.Data(s1, cancelPrecentage);
+			PieChart.Data precentageSlice2 = new PieChart.Data(s2, halfCancelationPrecentage);
+			PieChart.Data precentageSlice3 = new PieChart.Data("Total reservations = " +  totalReservations, totalPrecentage); //will show the rest
+			
 			pieOne.getData().add(precentageSlice);
 			pieOne.getData().add(precentageSlice2);
+			pieOne.getData().add(precentageSlice3);
 		}
-
+		
+		private void showNoReservationsPie()
+		{
+			PieChart.Data emptySlice = new PieChart.Data("No Reservations", 1);
+			pieOne.getData().add(emptySlice);
+		}
 
 		public void setTypeComboBoxOptions() {
 			parkComboBox.getItems().addAll("Banias","Safari","Niagara");
 			datePick.setValue(LocalDate.now());
+			parkComboBox.setValue("Banias");
 		}
 		
 }

@@ -54,6 +54,19 @@ public class DepartmentManagerSystemController {
 		case "getNumberOfReservationForSpecificDay":
 			String[] values6 = data.split(" ");
 			return getNumberOfReservationForSpecificDay(values6[0],values6[1],values6[2],values6[3]);
+		case "getReservationHalfCancelationDetails":
+			String[] values7 = data.split(" ");
+			return getReservationHalfCancelationDetails(values7[0],values7[1],values7[2],values7[3]);
+		//Get from park manager reports
+		case "getTotalVisitorReportFromParkManager":
+			String[] values8 = data.split(" ");
+			return getTotalVisitorReportFromParkManager(values8[0],values8[1],values8[2]);
+		case "getMonthlyRevenueFromDB":
+			String[] values9 = data.split(" ");
+			return getMonthlyRevenueFromDB(values9[0],values9[1],values9[2]);
+		case "getParkManagerCapacityReport":
+			String[] values10 = data.split(" ");
+			return getParkManagerCapacityReport(values10[0],values10[1],values10[2]);			
 		}
 		return data;
 	} 
@@ -147,15 +160,16 @@ public class DepartmentManagerSystemController {
 		}	
 		return "faild";	
 	}
+	//CancellationReport
 	private String getReservationCancelationDetails(String year,String month,String day,String parkName)
 	{
 		try
 		{	
 		ResultSet rs;
 		StringBuilder sb = new StringBuilder();
-		PreparedStatement query = con.prepareStatement("SELECT gonaturedb.reservetions.dateAndTime as theDay, COUNT(numofvisitors) as NumberOfPeopleCanceled\r\n"
+		PreparedStatement query = con.prepareStatement("SELECT gonaturedb.reservetions.dateAndTime as theDay, SUM(numofvisitors) as NumberOfPeopleCanceled\r\n"
 				+ "FROM gonaturedb.reservetions\r\n"
-				+ "WHERE YEAR(dateAndTime) = ? AND MONTH(dateAndTime) = ? AND DAY(dateAndTime) = ? AND parkName = ? AND (reservetionStatus = \"halfCanceled\" OR reservetionStatus = \"Canceled\")\r\n"
+				+ "WHERE YEAR(dateAndTime) = ? AND MONTH(dateAndTime) = ? AND DAY(dateAndTime) = ? AND parkName = ? AND (reservetionStatus = \"Canceled\")\r\n"
 				+ "");
 		
 		query.setInt(1, Integer.parseInt(year));
@@ -163,6 +177,36 @@ public class DepartmentManagerSystemController {
 		query.setInt(3, Integer.parseInt(day));
 		query.setString(4, parkName);
 
+		rs = DataBase.getInstance().search(query);
+		if (isEmpty(rs) != 0) 
+		{
+			rs.first();
+			sb.append(rs.getInt(2));
+			return sb.toString();
+		}
+				
+		} 
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}	
+		return "faild";	
+	}
+	private String getReservationHalfCancelationDetails(String year,String month,String day,String parkName)
+	{
+		try
+		{	
+		ResultSet rs;
+		StringBuilder sb = new StringBuilder();
+		PreparedStatement query = con.prepareStatement("SELECT gonaturedb.reservetions.dateAndTime as theDay, SUM(numofvisitors) as NumberOfPeopleCanceled\r\n"
+				+ "FROM gonaturedb.reservetions\r\n"
+				+ "WHERE YEAR(dateAndTime) = ? AND MONTH(dateAndTime) = ? AND DAY(dateAndTime) = ? AND parkName = ? AND (reservetionStatus = \"halfCanceled\")\r\n"
+				+ "");
+		
+		query.setInt(1, Integer.parseInt(year));
+		query.setInt(2, Integer.parseInt(month));
+		query.setInt(3, Integer.parseInt(day));
+		query.setString(4, parkName);
 
 		rs = DataBase.getInstance().search(query);
 		if (isEmpty(rs) != 0) 
@@ -184,7 +228,7 @@ public class DepartmentManagerSystemController {
 		try
 		{	
 		ResultSet rs;	
-		PreparedStatement query = con.prepareStatement("SELECT gonaturedb.reservetions.dateAndTime as theDay, COUNT(numofvisitors) as NumberOfPeopleCanceled\r\n"
+		PreparedStatement query = con.prepareStatement("SELECT gonaturedb.reservetions.dateAndTime as theDay, SUM(numofvisitors) as NumberOfPeopleCanceled\r\n"
 				+ "FROM gonaturedb.reservetions\r\n"
 				+ "WHERE YEAR(dateAndTime) = ? AND MONTH(dateAndTime) = ? AND DAY(dateAndTime) = ? AND parkName = ? \r\n");
 		
@@ -282,8 +326,91 @@ public class DepartmentManagerSystemController {
 		return size;
 	}
 	
+	//For park manager reports -----------------------------------------------------------------
+	private String getTotalVisitorReportFromParkManager(String year,String month,String parkName)
+	{
+		try
+		{	
+		ResultSet rs;
+		StringBuilder sb = new StringBuilder();
+		PreparedStatement query = con.prepareStatement("SELECT * FROM gonaturedb.totalvisitorreport\r\n"
+				+ "WHERE YEAR(createdate) = ? AND MONTH(createdate) = ?  AND parkName = ?");
+		
+		query.setInt(1, Integer.parseInt(year));
+		query.setInt(2, Integer.parseInt(month));
+		query.setString(3, parkName);
+
+		rs = DataBase.getInstance().search(query);
+		if (isEmpty(rs) != 0) 
+		{
+			for (int i = 2; i < 24; i++) 
+				sb.append(rs.getString(i) + " ");
+				
+			return sb.toString();
+		}
+				
+		} 
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}	
+		return "faild";	
+	}
 	
-	
+	private String getMonthlyRevenueFromDB(String year,String month,String parkName)
+	{
+		try
+		{	
+		ResultSet rs;
+		StringBuilder sb = new StringBuilder();
+		PreparedStatement query = con.prepareStatement("SELECT * FROM gonaturedb.revenuereport\r\n"
+				+ "WHERE YEAR(createdate) = ? AND MONTH(createdate) = ?  AND parkName = ?");
+		
+		query.setInt(1, Integer.parseInt(year));
+		query.setInt(2, Integer.parseInt(month));
+		query.setString(3, parkName);
+
+		rs = DataBase.getInstance().search(query);
+		if (isEmpty(rs) != 0) 
+		{
+			sb.append(rs.getString(3) + " " + rs.getString(4) + " " + rs.getString(5));		
+			return sb.toString();
+		}
+				
+		} 
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}	
+		return "faild";	
+	}
+	private String getParkManagerCapacityReport(String year,String month,String parkName)
+	{
+		try
+		{	
+		ResultSet rs;
+		StringBuilder sb = new StringBuilder();
+		PreparedStatement query = con.prepareStatement("SELECT * FROM gonaturedb.capacityreport\r\n"
+				+ "WHERE YEAR(createdate) = ? AND MONTH(createdate) = ?  AND parkName = ?");
+		
+		query.setInt(1, Integer.parseInt(year));
+		query.setInt(2, Integer.parseInt(month));
+		query.setString(3, parkName);
+
+		rs = DataBase.getInstance().search(query);
+		if (isEmpty(rs) != 0) 
+		{
+			sb.append(rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3) + " " +  rs.getString(4) + ",");		
+			return sb.toString();
+		}
+				
+		} 
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}	
+		return "faild";	
+	}
 	
 	
 	
