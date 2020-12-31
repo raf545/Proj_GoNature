@@ -1,5 +1,7 @@
 package cardReader;
 
+import java.io.IOException;
+
 import com.google.gson.Gson;
 
 import client.ChatClient;
@@ -7,13 +9,18 @@ import client.ClientUI;
 import guiCommon.StaticPaneMainPageClient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import popup.PopUp;
+import popup.PopUpWinController;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
 
@@ -74,10 +81,31 @@ public class CardReaderController {
 			IdAndPark idAndPark = new IdAndPark(enterTxt.getText(), enterParkPicker.getValue());
 			RequestHandler rh = new RequestHandler(controllerName.CardReaderController, "enterPark",
 					gson.toJson(idAndPark));
+			
 			ClientUI.chat.accept(gson.toJson(rh));
-			PopUp.display("Card reader simulation", ChatClient.serverMsg);
+			String answerFromServer = ChatClient.serverMsg;
+			PopUp.display("Card reader simulation", answerFromServer);
+			
+			if(answerFromServer.contains("Entered successfully")) 
+				popUpPayment();
 		}
 
+	}
+
+	private void popUpPayment() {
+		try {
+			Stage primaryStage = new Stage();
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(paymentController.class.getResource("payment.fxml"));
+			Pane root = loader.load();
+			Scene sc = new Scene(root);
+			primaryStage.setTitle("Payment");
+			primaryStage.setScene(sc);
+			primaryStage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	@FXML
