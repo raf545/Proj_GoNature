@@ -10,6 +10,7 @@ import departmentManager.MainPageDepartmentManagerController;
 import employee.Employee;
 import employee.MainPageEmployeeController;
 import fxmlGeneralFunctions.FXMLFunctions;
+import guiCommon.StaticPaneMainPageEmployee;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,7 +26,6 @@ import parkManager.MainPageParkManagerController;
 import popup.PopUp;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
-
 
 public class SignInEmployeeController {
 	Gson gson = new Gson();
@@ -118,9 +118,12 @@ public class SignInEmployeeController {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainPageEmployeeController.class.getResource("MainPageEmployee.fxml"));
 			Pane root = loader.load();
-
 			Scene sc = new Scene(root);
-			primaryStage.setOnCloseRequest(e->FXMLFunctions.closeMainPage());
+
+			MainPageEmployeeController mainPageEmployeeController = loader.getController();
+			StaticPaneMainPageEmployee.employeeMainPane = mainPageEmployeeController.getPane();
+
+			primaryStage.setOnCloseRequest(e -> FXMLFunctions.closeMainPage());
 			primaryStage.setTitle("Employee Main Page");
 			primaryStage.setScene(sc);
 			primaryStage.show();
@@ -143,7 +146,7 @@ public class SignInEmployeeController {
 			mainPageParkManagerController.setParkManagerEmployee(parkManager);
 
 			Scene sc = new Scene(root);
-			primaryStage.setOnCloseRequest(e->FXMLFunctions.closeMainPage());
+			primaryStage.setOnCloseRequest(e -> FXMLFunctions.closeMainPage());
 			primaryStage.setTitle("Main Page Park Manager");
 			primaryStage.setScene(sc);
 			primaryStage.show();
@@ -163,7 +166,7 @@ public class SignInEmployeeController {
 			Pane root = loader.load();
 
 			Scene sc = new Scene(root);
-			primaryStage.setOnCloseRequest(e->FXMLFunctions.closeMainPage());
+			primaryStage.setOnCloseRequest(e -> FXMLFunctions.closeMainPage());
 			primaryStage.setTitle("Main Page Department Manager");
 			primaryStage.setScene(sc);
 			primaryStage.show();

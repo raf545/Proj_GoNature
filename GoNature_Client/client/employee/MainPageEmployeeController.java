@@ -22,28 +22,29 @@ import login.IdentificationController;
 import login.SignInEmployeeController;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
+import reservation.ReservationForOccasionalVisitorController;
 
 public class MainPageEmployeeController {
-    @FXML
-    private Pane mainPane;
+	@FXML
+	private Pane mainPane;
 
-    @FXML
-    private ImageView openNewFamilySubBtnP;
+	@FXML
+	private ImageView openNewFamilySubBtnP;
 
-    @FXML
-    private Button NewFamilySubBtn;
+	@FXML
+	private Button NewFamilySubBtn;
 
-    @FXML
-    private ImageView openNewInstructorBtnP;
+	@FXML
+	private ImageView openNewInstructorBtnP;
 
-    @FXML
-    private Button NewInstructorBtn;
+	@FXML
+	private Button NewInstructorBtn;
 
-    @FXML
-    private Button readerSimulation;
+	@FXML
+	private Button readerSimulation;
 
-    @FXML
-    private Hyperlink logoutBtn;
+	@FXML
+	private Hyperlink logoutBtn;
 
 	Gson gson = new Gson();
 
@@ -52,12 +53,16 @@ public class MainPageEmployeeController {
 
 	void setEmp(Employee employeeFromDB) {
 		employee = employeeFromDB;
+	}
 
+	public Pane getPane() {
+		return mainPane;
 	}
 
 	@FXML
 	void openNewFamilySub(ActionEvent event) throws IOException {
-		StaticPaneMainPageEmployee.employeeMainPane=mainPane;
+//		FIXME
+//		StaticPaneMainPageEmployee.employeeMainPane = mainPane;
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(NewFamilySubWorkerController.class.getResource("newfamilysubworker.fxml"));
 
@@ -96,11 +101,11 @@ public class MainPageEmployeeController {
 		primaryStage.show();
 
 	}
-	
-	@FXML
-    void openReaderSimulation(ActionEvent event) throws IOException {
 
-		StaticPaneMainPageEmployee.employeeMainPane=mainPane;
+	@FXML
+	void openReaderSimulation(ActionEvent event) throws IOException {
+//		FIXME
+//		StaticPaneMainPageEmployee.employeeMainPane = mainPane;
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(CardReaderController.class.getResource("readerSimulation.fxml"));
 		Pane root = loader.load();
@@ -108,6 +113,18 @@ public class MainPageEmployeeController {
 		cardReaderControllerController.setPrkNameComboBox();
 		mainPane.getChildren().clear();
 		mainPane.getChildren().add(root);
-    }
+	}
+
+	@FXML
+	void reservationForOccasionalVisitor(ActionEvent event) throws IOException {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(
+				ReservationForOccasionalVisitorController.class.getResource("ReservationForOccasionalVisitor.fxml"));
+		Pane root = loader.load();
+		ReservationForOccasionalVisitorController reservationForOccasionalVisitorController = loader.getController();
+		reservationForOccasionalVisitorController.setIdentFields();
+		mainPane.getChildren().clear();
+		mainPane.getChildren().add(root);
+	}
 
 }

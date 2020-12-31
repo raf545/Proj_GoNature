@@ -13,99 +13,144 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="960.0" prefWidth="1286.0" style="-fx-background-color: #676767;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="employee.MainPageEmployeeController">
-   <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffc956" height="45.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="1308.0" />
-      <Pane fx:id="mainPane" layoutX="265.0" layoutY="128.0" prefHeight="760.0" prefWidth="920.0" style="-fx-background-color: white;" />
-      <ScrollPane hbarPolicy="NEVER" layoutX="46.0" layoutY="125.0" prefHeight="760.0" prefWidth="200.0" vbarPolicy="ALWAYS">
-         <content>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1100.0" prefWidth="200.0" snapToPixel="false">
-               <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <ImageView fx:id="openNewFamilySubBtnP" fitHeight="150.0" fitWidth="180.0" pickOnBounds="true">
-                                 <image>
-                                    <Image url="@../../pictures/Family.png" />
-                                 </image>
-                              </ImageView>
-                              <Button fx:id="NewFamilySubBtn" mnemonicParsing="false" onAction="#openNewFamilySub" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #FFC956;" text="New Family Subscription">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </VBox>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <ImageView fx:id="openNewInstructorBtnP" fitHeight="150.0" fitWidth="176.0" pickOnBounds="true">
-                                 <image>
-                                    <Image url="@../../pictures/Instructor.png" />
-                                 </image>
-                              </ImageView>
-                              <Button fx:id="NewInstructorBtn" mnemonicParsing="false" onAction="#openNewInstructor" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #FFC956;" text="New Instructor">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </VBox>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <ImageView fitHeight="150.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../pictures/Notes.jpeg" />
-                                 </image>
-                              </ImageView>
-                              <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #FFC956;" text="New Reservation">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </VBox>
-                        <VBox prefHeight="200.0" prefWidth="100.0" />
-                        <VBox prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <ImageView fitHeight="150.0" fitWidth="168.0" pickOnBounds="true">
-                                 <image>
-                                    <Image url="@../../pictures/List.jpg" />
-                                 </image>
-                              </ImageView>
-                              <Button fx:id="readerSimulation" mnemonicParsing="false" onAction="#openReaderSimulation" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #FFC956;" text="Reader simulation">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </VBox>
-                     </children>
-                  </VBox>
-               </children>
-            </AnchorPane>
-         </content>
-         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </padding>
-      </ScrollPane>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffc956" height="45.0" layoutX="46.0" layoutY="74.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
-      <Text layoutX="61.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Menu" textAlignment="CENTER" wrappingWidth="160.0">
-         <font>
-            <Font name="Guttman Drogolin Bold" size="28.0" />
-         </font>
-      </Text>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffc956" height="45.0" layoutX="960.0" layoutY="74.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="225.0" />
-      <Text layoutX="960.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employee" textAlignment="CENTER" wrappingWidth="225.00000071525574">
-         <font>
-            <Font name="Guttman Drogolin Bold" size="24.0" />
-         </font>
-      </Text>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffc956" height="45.0" layoutX="1095.0" layoutY="901.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="90.0" />
-      <Hyperlink fx:id="logoutBtn" alignment="CENTER" contentDisplay="CENTER" layoutX="1095.0" layoutY="901.0" onAction="#logout" prefHeight="45.0" prefWidth="90.0" text="logout" textAlignment="CENTER" textFill="#141313">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Hyperlink>
-   </children>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity"
+	minHeight="-Infinity" minWidth="-Infinity" prefHeight="960.0"
+	prefWidth="1286.0" style="-fx-background-color: #676767;"
+	xmlns="http://javafx.com/javafx/8.0.171"
+	xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="employee.MainPageEmployeeController">
+	<children>
+		<Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffc956"
+			height="45.0" stroke="BLACK" strokeLineCap="ROUND"
+			strokeType="INSIDE" strokeWidth="0.0" width="1308.0" />
+		<Pane fx:id="mainPane" layoutX="265.0" layoutY="128.0"
+			prefHeight="760.0" prefWidth="920.0"
+			style="-fx-background-color: white;" />
+		<ScrollPane hbarPolicy="NEVER" layoutX="46.0"
+			layoutY="125.0" prefHeight="760.0" prefWidth="200.0"
+			vbarPolicy="ALWAYS">
+			<content>
+				<AnchorPane minHeight="0.0" minWidth="0.0"
+					prefHeight="1100.0" prefWidth="200.0" snapToPixel="false">
+					<children>
+						<VBox prefHeight="200.0" prefWidth="100.0">
+							<children>
+								<VBox prefHeight="200.0" prefWidth="100.0">
+									<children>
+										<ImageView fx:id="openNewFamilySubBtnP"
+											fitHeight="150.0" fitWidth="180.0" pickOnBounds="true">
+											<image>
+												<Image url="@../../pictures/Family.png" />
+											</image>
+										</ImageView>
+										<Button fx:id="NewFamilySubBtn" mnemonicParsing="false"
+											onAction="#openNewFamilySub" prefHeight="35.0"
+											prefWidth="437.0" style="-fx-background-color: #FFC956;"
+											text="New Family Subscription">
+											<font>
+												<Font name="System Bold" size="12.0" />
+											</font>
+										</Button>
+									</children>
+								</VBox>
+								<VBox prefHeight="200.0" prefWidth="100.0">
+									<children>
+										<ImageView fx:id="openNewInstructorBtnP"
+											fitHeight="150.0" fitWidth="176.0" pickOnBounds="true">
+											<image>
+												<Image url="@../../pictures/Instructor.png" />
+											</image>
+										</ImageView>
+										<Button fx:id="NewInstructorBtn"
+											mnemonicParsing="false" onAction="#openNewInstructor"
+											prefHeight="35.0" prefWidth="437.0"
+											style="-fx-background-color: #FFC956;" text="New Instructor">
+											<font>
+												<Font name="System Bold" size="12.0" />
+											</font>
+										</Button>
+									</children>
+								</VBox>
+								<VBox prefHeight="200.0" prefWidth="100.0">
+									<children>
+										<ImageView fitHeight="150.0" fitWidth="180.0"
+											pickOnBounds="true" preserveRatio="true">
+											<image>
+												<Image url="@../../pictures/Notes.jpeg" />
+											</image>
+										</ImageView>
+										<Button mnemonicParsing="false"
+											onAction="#reservationForOccasionalVisitor" prefHeight="35.0"
+											prefWidth="437.0" style="-fx-background-color: #FFC956;"
+											text="New Reservation">
+											<font>
+												<Font name="System Bold" size="12.0" />
+											</font>
+										</Button>
+									</children>
+								</VBox>
+								<VBox prefHeight="200.0" prefWidth="100.0" />
+								<VBox prefHeight="200.0" prefWidth="100.0">
+									<children>
+										<ImageView fitHeight="150.0" fitWidth="168.0"
+											pickOnBounds="true">
+											<image>
+												<Image url="@../../pictures/List.jpg" />
+											</image>
+										</ImageView>
+										<Button fx:id="readerSimulation"
+											mnemonicParsing="false" onAction="#openReaderSimulation"
+											prefHeight="35.0" prefWidth="437.0"
+											style="-fx-background-color: #FFC956;"
+											text="Reader simulation">
+											<font>
+												<Font name="System Bold" size="12.0" />
+											</font>
+										</Button>
+									</children>
+								</VBox>
+							</children>
+						</VBox>
+					</children>
+				</AnchorPane>
+			</content>
+			<padding>
+				<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+			</padding>
+		</ScrollPane>
+		<Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffc956"
+			height="45.0" layoutX="46.0" layoutY="74.0" stroke="BLACK"
+			strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0"
+			width="200.0" />
+		<Text layoutX="61.0" layoutY="108.0" strokeType="OUTSIDE"
+			strokeWidth="0.0" text="Menu" textAlignment="CENTER"
+			wrappingWidth="160.0">
+			<font>
+				<Font name="Guttman Drogolin Bold" size="28.0" />
+			</font>
+		</Text>
+		<Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffc956"
+			height="45.0" layoutX="960.0" layoutY="74.0" stroke="BLACK"
+			strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0"
+			width="225.0" />
+		<Text layoutX="960.0" layoutY="106.0" strokeType="OUTSIDE"
+			strokeWidth="0.0" text="Employee" textAlignment="CENTER"
+			wrappingWidth="225.00000071525574">
+			<font>
+				<Font name="Guttman Drogolin Bold" size="24.0" />
+			</font>
+		</Text>
+		<Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffc956"
+			height="45.0" layoutX="1095.0" layoutY="901.0" stroke="BLACK"
+			strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0"
+			width="90.0" />
+		<Hyperlink fx:id="logoutBtn" alignment="CENTER"
+			contentDisplay="CENTER" layoutX="1095.0" layoutY="901.0"
+			onAction="#logout" prefHeight="45.0" prefWidth="90.0" text="logout"
+			textAlignment="CENTER" textFill="#141313">
+			<font>
+				<Font size="24.0" />
+			</font>
+		</Hyperlink>
+	</children>
 </Pane>
