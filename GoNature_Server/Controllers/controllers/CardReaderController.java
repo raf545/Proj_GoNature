@@ -61,7 +61,7 @@ public class CardReaderController {
 
 					updateParkCurrentCappacity(cardReader);
 					answerToCilent = "Entered successfully";
-					return answerToCilent;
+					return answerToCilent + "\nthe price is: " + reservationTupels.getString("price") ;
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
