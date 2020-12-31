@@ -58,7 +58,7 @@
                                     <Image url="@../../pictures/Notes.jpeg" />
                                  </image>
                               </ImageView>
-                              <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #FFC956;" text="New Reservation">
+                              <Button mnemonicParsing="false" onAction="#reservationForOccasionalVisitor" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #FFC956;" text="New Reservation">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
