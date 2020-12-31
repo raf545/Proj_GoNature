@@ -77,7 +77,7 @@ public class CardReaderController {
 			ClientUI.chat.accept(gson.toJson(rh));
 			PopUp.display("Card reader simulation",ChatClient.serverMsg);
     	}
-    	
+    	 
     }
 
     @FXML

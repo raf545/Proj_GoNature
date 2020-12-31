@@ -35,7 +35,7 @@ import serverGui.ServerGuiController;
  * @Editor Yaniv Sokolov
  * @Editor Rafael elkoby
  * @version December 3 2020
- */
+ */ 
 
 public class EchoServer extends AbstractServer {
 	// Class variables *************************************************

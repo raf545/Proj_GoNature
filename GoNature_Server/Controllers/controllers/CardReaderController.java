@@ -128,7 +128,7 @@ public class CardReaderController {
 			return null;
 		}
 		return null;
-	}
+	} 
 
 	private void updateReservationStatus(ResultSet reservationTupels) throws SQLException {
 		String reservationId = reservationTupels.getString("reservationID");

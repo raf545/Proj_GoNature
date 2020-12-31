@@ -50,7 +50,7 @@ public class CardReader {
 	
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
-	}
+	} 
 	
 	public Timestamp getEntryTime() {
 		return entryTime;
