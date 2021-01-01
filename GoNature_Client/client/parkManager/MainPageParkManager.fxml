@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -23,50 +25,78 @@
                <children>
                   <VBox prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
+                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="160.0">
                            <children>
-                              <ImageView fitHeight="150.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../pictures/ReportPicture.jpeg" />
-                                 </image>
-                              </ImageView>
-                              <Button fx:id="parkReportBtn" mnemonicParsing="false" onAction="#parkReport" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #3D8FFF;" text="Park Reports">
+                              <Button fx:id="parkReportBtn" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#parkReport" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #3D8FFF;" text="Park Reports">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
+                                 <graphic>
+                                    <ImageView fitHeight="140.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../pictures/ReportPicture.jpeg" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <effect>
+                                    <DropShadow />
+                                 </effect>
                               </Button>
                            </children>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
                         </VBox>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
+                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="160.0">
                            <children>
-                              <ImageView fitHeight="150.0" fitWidth="142.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../pictures/Settings.jpeg" />
-                                 </image>
-                              </ImageView>
-                              <Button fx:id="editParkBtn" mnemonicParsing="false" onAction="#editPark" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #3D8FFF;" text="Edit Park">
+                              <Button fx:id="editParkBtn" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#editPark" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #3D8FFF;" text="Edit Park">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
+                                 <graphic>
+                                    <ImageView fitHeight="140.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../pictures/Settings.jpeg" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <effect>
+                                    <DropShadow />
+                                 </effect>
                               </Button>
                            </children>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
                         </VBox>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
+                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="160.0">
                            <children>
-                              <ImageView fitHeight="150.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../pictures/Notes.jpeg" />
-                                 </image>
-                              </ImageView>
-                              <Button fx:id="newReservationBtn" mnemonicParsing="false" onAction="#newResrvation" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #3D8FFF;" text="New Reservation">
+                              <Button fx:id="newReservationBtn" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#newResrvation" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #3D8FFF;" text="New Reservation">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
+                                 <graphic>
+                                    <ImageView fitHeight="140.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../pictures/Notes.jpeg" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <effect>
+                                    <DropShadow />
+                                 </effect>
                               </Button>
                            </children>
                         </VBox>
-                        <VBox prefHeight="200.0" prefWidth="100.0" />
-                        <VBox prefHeight="200.0" prefWidth="100.0" />
                      </children>
                   </VBox>
                </children>
