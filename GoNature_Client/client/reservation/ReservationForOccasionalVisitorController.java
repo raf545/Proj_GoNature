@@ -1,10 +1,13 @@
 package reservation;
 
+import java.io.IOException;
 import java.time.LocalDate;
 
 import com.google.gson.Gson;
 
 import client.ChatClient;
+import employee.BlankEmployeeController;
+import fxmlGeneralFunctions.FXMLFunctions;
 import guiCommon.StaticPaneMainPageEmployee;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -85,8 +88,10 @@ public class ReservationForOccasionalVisitorController {
 	}
 
 	@FXML
-	void Back(MouseEvent event) {
+	void Back(MouseEvent event) throws IOException {
 		StaticPaneMainPageEmployee.employeeMainPane.getChildren().clear();
+		BlankEmployeeController controller = FXMLFunctions.loadSceneToMainPane(BlankEmployeeController.class, "BlankEmployee.fxml" ,StaticPaneMainPageEmployee.employeeMainPane).getController();
+		controller.setBlank();
 	}
 
 	@FXML

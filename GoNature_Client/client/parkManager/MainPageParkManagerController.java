@@ -70,16 +70,7 @@ public class MainPageParkManagerController {
 	@FXML
 	void parkReport(ActionEvent event) throws IOException {
 		StaticPaneMainPageParkManager.parkManagerMainPane = parkManagerMainPane;
-	/*
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(ParkManagerReportsController.class.getResource("ParkManagerReports.fxml"));
-
-		Pane root = loader.load();
-	    parkManagerMainPane.getChildren().clear();
-		parkManagerMainPane.getChildren().add(root);
-	    numberOfVisitorsReportController pmcController = loader.getController();
-		pmcController.setParkManager(parkManager);
-		*/
+		
 		ParkManagerReportsController controller=FXMLFunctions.loadSceneToMainPane(ParkManagerReportsController.class, "ParkManagerReports.fxml", parkManagerMainPane).getController();
 		controller.setComboBoxOptions(parkManager);
 

@@ -58,7 +58,7 @@
             <TextField fx:id="CreditCardTF" prefHeight="26.0" prefWidth="194.0" style="-fx-background-color: #EEF2F9;" />
          </children>
       </VBox>
-      <Text layoutX="258.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New Family Subscription" textAlignment="CENTER" wrappingWidth="437.0">
+      <Text layoutX="258.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New Subscription" textAlignment="CENTER" wrappingWidth="437.0">
          <font>
             <Font name="Guttman Drogolin Bold" size="34.0" />
          </font>

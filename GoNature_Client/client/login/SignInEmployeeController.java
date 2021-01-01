@@ -97,7 +97,7 @@ public class SignInEmployeeController {
 				openParkManagerGui(employee);
 				break;
 			case "employee":
-				openEmployeeGui();
+				openEmployeeGui(employee);
 				break;
 
 			default:
@@ -109,7 +109,7 @@ public class SignInEmployeeController {
 //MainPageParkManager
 	// "MainPageEmployee.fxml"
 	//
-	private void openEmployeeGui() {
+	private void openEmployeeGui(Employee employee) {
 		try {
 			Stage primaryStage = new Stage();
 			Stage stage = (Stage) ContinueBtn.getScene().getWindow();
@@ -121,8 +121,9 @@ public class SignInEmployeeController {
 			Scene sc = new Scene(root);
 
 			MainPageEmployeeController mainPageEmployeeController = loader.getController();
+			mainPageEmployeeController.setEmp(employee);
+			
 			StaticPaneMainPageEmployee.employeeMainPane = mainPageEmployeeController.getPane();
-
 			primaryStage.setOnCloseRequest(e -> FXMLFunctions.closeMainPage());
 			primaryStage.setTitle("Employee Main Page");
 			primaryStage.setScene(sc);

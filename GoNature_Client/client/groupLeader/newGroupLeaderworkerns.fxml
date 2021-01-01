@@ -52,7 +52,7 @@
             <TextField fx:id="creditCardTF" prefHeight="26.0" prefWidth="194.0" style="-fx-background-color: #EEF2F9;" />
          </children>
       </VBox>
-      <Text layoutX="251.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New Group Leader" textAlignment="CENTER" wrappingWidth="437.0">
+      <Text layoutX="251.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New instructor" textAlignment="CENTER" wrappingWidth="437.0">
          <font>
             <Font name="Guttman Drogolin Bold" size="34.0" />
          </font>
@@ -63,32 +63,32 @@
             <Font name="Baloo Regular" size="30.0" />
          </font>
       </Text>
-      <Text fill="RED" layoutX="236.0" layoutY="415.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
+      <Text fill="RED" layoutX="236.0" layoutY="431.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
          <font>
             <Font size="21.0" />
          </font>
       </Text>
-      <Text fill="RED" layoutX="236.0" layoutY="486.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
+      <Text fill="RED" layoutX="236.0" layoutY="508.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
          <font>
             <Font name="System Italic" size="18.0" />
          </font>
       </Text>
-      <Text fill="RED" layoutX="236.0" layoutY="340.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
+      <Text fill="RED" layoutX="236.0" layoutY="351.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
          <font>
             <Font name="System Italic" size="18.0" />
          </font>
       </Text>
-      <Text fill="RED" layoutX="236.0" layoutY="193.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
+      <Text fill="RED" layoutX="236.0" layoutY="195.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
          <font>
             <Font size="21.0" />
          </font>
       </Text>
-      <Text fill="RED" layoutX="236.0" layoutY="261.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
+      <Text fill="RED" layoutX="236.0" layoutY="275.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
          <font>
             <Font size="21.0" />
          </font>
       </Text>
-      <Button fx:id="savebtn" layoutX="225.0" layoutY="653.0" mnemonicParsing="false" onAction="#SaveInstructor" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #FFC956;" text="Save Group Leader" textFill="WHITE">
+      <Button fx:id="savebtn" layoutX="225.0" layoutY="653.0" mnemonicParsing="false" onAction="#SaveInstructor" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #FFC956;" text="Save instructor" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
