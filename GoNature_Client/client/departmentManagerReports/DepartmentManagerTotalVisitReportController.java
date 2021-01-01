@@ -1,9 +1,6 @@
 package departmentManagerReports;
 
 import java.io.IOException;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Iterator;
 
 import com.google.gson.Gson;
 
@@ -25,15 +22,20 @@ import javafx.scene.text.Text;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
 
+/**
+ * All the visit reports will be shown in this page.
+ * @author Shay Maryuma
+ */
 public class DepartmentManagerTotalVisitReportController {
 
 	Gson gson = new Gson();
 	
 	private final int yearExpansion = 5;
 	private final int fromYear = 2020;
+	
     @FXML
-    private Text backbtn;
-
+    private Text quitBtn;
+    
     @FXML
     private ComboBox<Integer> comboYear;
 
@@ -75,16 +77,24 @@ public class DepartmentManagerTotalVisitReportController {
 
     @FXML
     private TableColumn<ReportListObject, String> monthlyCol;
-
-    @FXML
-    void goBack(MouseEvent event) throws IOException {
-    	  DepartmentManagerChooseParkManReportController controller = FXMLFunctions.loadSceneToMainPane(DepartmentManagerChooseParkManReportController.class, "DepartmentManagerChooseParkManagerReport.fxml", StaticPaneMainPageDepartmentManager.DepartmentManagerMainPane).getController();
-		  controller.setComboBoxOptions();
-    }
     
     ObservableList<ReportListObject> data = FXCollections.observableArrayList();
-  
     
+    /**
+     * Load the last window
+     * @param event 
+     * @throws IOException
+     */
+    @FXML
+    void goBack(MouseEvent event) throws IOException {
+    	DepartmentManagerChooseParkManReportController controller = FXMLFunctions.loadSceneToMainPane(DepartmentManagerChooseParkManReportController.class, "DepartmentManagerChooseParkManReport.fxml" ,StaticPaneMainPageDepartmentManager.DepartmentManagerMainPane).getController();
+    	controller.setComboBoxOptions();
+    }
+    
+    /**
+     * Get the details from the combo boxes that the user chose and send a query to the DB.
+     * @param event
+     */
     @FXML
     void showReport(ActionEvent event) {
     	String year = comboYear.getValue() + "";
@@ -96,7 +106,13 @@ public class DepartmentManagerTotalVisitReportController {
   
 
     }
-    
+	/**
+	 * Function that will get the HalfCancellation details
+	 * Send details to the server and wait for an answer.
+	 * @param year
+	 * @param month
+	 * @param parkName
+	 */
 	public void getReservationHalfCancelationDetails(String year,String month,String parkName) {
 		String stringToSend = year + " " + month  + " " + parkName;
 		RequestHandler rh = new RequestHandler(controllerName.DepartmentManagerSystemController, "getTotalVisitorReportFromParkManager", stringToSend);
@@ -104,12 +120,19 @@ public class DepartmentManagerTotalVisitReportController {
 		analyzeAnswerFromServer();
 	}
 	
-	//analyzeAnswerFromServer
+	/**
+	 * Get the details back from the query that sent to the db and continue to fillTable() if success.
+	 */
 	private void analyzeAnswerFromServer() {
 		String answer = ChatClient.serverMsg;
 		if(!answer.equals("faild"))
 				fillTable(answer);
 	}
+	
+	/** Clear the tableView and add all details and calculations into it.
+	 * @param answer will include all the details that came back from the query as String. 
+	 * The answer will be split with " ".
+	 */
 	private void fillTable(String answer)
 	{
 		data.clear();
@@ -135,6 +158,10 @@ public class DepartmentManagerTotalVisitReportController {
 		
 		
 	}
+	
+	/**
+	 * Initialize the columns of the table view.
+	 */
 	private void initializeTable()
 	{
 		typeCol.setCellValueFactory(new PropertyValueFactory<ReportListObject, String>("type"));
@@ -148,6 +175,10 @@ public class DepartmentManagerTotalVisitReportController {
 		monthlyCol.setCellValueFactory(new PropertyValueFactory<ReportListObject, String>("monthly"));
 		mainTable.setItems(data);
 	}
+	/**
+	 * A function that must be called when loading the screen
+	 * set the combo box options and value.
+	 */
 	public void setComboBoxDetails()
 	{
 		comboYear.setValue(fromYear);

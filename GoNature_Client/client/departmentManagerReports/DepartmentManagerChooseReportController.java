@@ -1,7 +1,6 @@
 package departmentManagerReports;
 
 import java.io.IOException;
-
 import fxmlGeneralFunctions.FXMLFunctions;
 import guiCommon.StaticPaneMainPageDepartmentManager;
 import javafx.event.ActionEvent;
@@ -11,7 +10,11 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
-//Pay Attention: this fxml's name changed from DepartmentManagerCancelationVisitorsReport to this new name.
+
+/**
+ * A page that will help us choose the specific report in department manager.
+ * @author Shay Maryuma
+ */
 public class DepartmentManagerChooseReportController {
 
     @FXML
@@ -23,7 +26,12 @@ public class DepartmentManagerChooseReportController {
     @FXML
     private ComboBox<String> reportOptions;
     
-    
+    /**
+     * When clicking on this button, the system will move us to the chosen window.
+     * The windows are Total visitors, Revenue and Capacity.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void continueToSpecificReport(ActionEvent event) throws IOException {
     	String selectedCombo = reportOptions.getSelectionModel().getSelectedItem();
@@ -43,12 +51,19 @@ public class DepartmentManagerChooseReportController {
     		break; 
     	}
     }
-
+	/**
+	 * Exit the specific scene, back to main page.
+	 * @param event
+	 * @throws IOException
+	 */
     @FXML
     void quitScene(MouseEvent event) throws IOException {
     	StaticPaneMainPageDepartmentManager.DepartmentManagerMainPane.getChildren().clear();
     }
-    
+    /**
+	 * A function that must be called when loading the screen
+	 * set the combo box options and value.
+	 */
 	public void setComboBoxOptions() {
 		reportOptions.getItems().addAll("Visitors", "Cancelations");
 		reportOptions.setValue("Visitors");

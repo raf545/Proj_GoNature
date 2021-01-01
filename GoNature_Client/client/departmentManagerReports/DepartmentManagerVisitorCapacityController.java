@@ -1,13 +1,14 @@
 package departmentManagerReports;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
-
 import com.google.gson.Gson;
-
 import Reports.CapacityData;
 import client.ChatClient;
 import client.ClientUI;
+import fxmlGeneralFunctions.FXMLFunctions;
+import guiCommon.StaticPaneMainPageDepartmentManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -18,6 +19,10 @@ import javafx.scene.text.Text;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
 
+/**
+ * All the visit capacity reports of the park will be shown in this page.
+ * @author Shay Maryuma
+ */
 public class DepartmentManagerVisitorCapacityController {
 
 	Gson gson = new Gson();
@@ -40,15 +45,21 @@ public class DepartmentManagerVisitorCapacityController {
     @FXML
     private ListView<CapacityData> listview;
     
-
-    
-    
-
+    /**
+     * Load the last window
+     * @param event 
+     * @throws IOException
+     */
     @FXML
-    void goBack(MouseEvent event) {
-
+    void goBack(MouseEvent event) throws IOException {
+    	DepartmentManagerChooseParkManReportController controller = FXMLFunctions.loadSceneToMainPane(DepartmentManagerChooseParkManReportController.class, "DepartmentManagerChooseParkManReport.fxml" ,StaticPaneMainPageDepartmentManager.DepartmentManagerMainPane).getController();
+    	controller.setComboBoxOptions();
     }
-
+    
+    /**
+     * Get the details from the combo boxes that the user chose and send a query to the DB.
+     * @param event
+     */
     @FXML
     void showReport(ActionEvent event) {
     	String year = comboYear.getValue() + "";
@@ -57,23 +68,36 @@ public class DepartmentManagerVisitorCapacityController {
     	getParkManagerCapacityReport(year,month,parkName);
    
     }
-
+	/**
+	 * Function that will get the park manager capacity details
+	 * Send details to the server and wait for an answer.
+	 * @param year
+	 * @param month
+	 * @param parkName
+	 */
 	public void getParkManagerCapacityReport(String year,String month,String parkName) {
 		listview.getItems().clear();
 		String stringToSend = year + " " + month + " " + parkName;
-			RequestHandler rh = new RequestHandler(controllerName.DepartmentManagerSystemController, "getParkManagerCapacityReport", stringToSend);
+		RequestHandler rh = new RequestHandler(controllerName.DepartmentManagerSystemController, "getParkManagerCapacityReport", stringToSend);
 		ClientUI.chat.accept(gson.toJson(rh));
 		analyzeAnswerFromServer();
 	}
 	
-	//analyzeAnswerFromServer
+	/**
+	 * Get the details back from the query that sent to the db and continue to showDetails() if success.
+	 */
 	private void analyzeAnswerFromServer() {
 		String answer = ChatClient.serverMsg;		
 		if(!answer.equals("faild"))
 			showDetails(answer);
 	
 	}
-	
+	/**
+	 * Add the details from the db into a listView
+	 * The details will be shown as CapacityData.toString() template.
+	 * @param answer will include all the details that came back from the query as String. 
+	 * The answer will be split with " ".
+	 */
 	private void showDetails(String answer)
 	{
 
@@ -86,7 +110,10 @@ public class DepartmentManagerVisitorCapacityController {
 			listview.getItems().add(new CapacityData(al.get(i)[0],al.get(i)[3]));
 		
 	}
-    
+	/**
+	 * A function that must be called when loading the screen
+	 * set the combo box options and value.
+	 */
     public void setComboBoxes() {
     	int thisYear = Calendar.getInstance().get(Calendar.YEAR);
     	int thisMonth=Calendar.getInstance().get(Calendar.MONTH);
@@ -106,6 +133,4 @@ public class DepartmentManagerVisitorCapacityController {
     	comboPark.setValue("Banias");
 		
 	}
-	
-
 }

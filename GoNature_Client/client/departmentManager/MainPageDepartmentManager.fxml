@@ -17,13 +17,13 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="1309.0" style="-fx-background-color: #676767;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="departmentManager.MainPageDepartmentManagerController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e74c3c" height="45.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="1308.0" />
-      <Pane fx:id="departmentManagerPane" layoutX="265.0" layoutY="128.0" prefHeight="760.0" prefWidth="920.0" style="-fx-background-color: white;" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e74c3c" height="45.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" width="1308.0" />
+      <Pane fx:id="departmentManagerPane" layoutX="265.0" layoutY="128.0" prefHeight="760.0" prefWidth="920.0" style="-fx-background-color: #e74c3c;" />
       <ScrollPane hbarPolicy="NEVER" layoutX="46.0" layoutY="125.0" prefHeight="760.0" prefWidth="200.0" vbarPolicy="ALWAYS">
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1100.0" prefWidth="200.0" snapToPixel="false">
                <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
+                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="8.0">
                      <children>
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
@@ -49,66 +49,45 @@
                         </VBox>
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <Button fx:id="approveChangesBtn1" mnemonicParsing="false" onAction="#openApproveChange" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: white;">
+                              <Button fx:id="approveChangesBtn" contentDisplay="TOP" mnemonicParsing="false" onAction="#openApproveChange" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #E74C3C;" text="Approve Changes">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                                  <graphic>
-                                    <ImageView fitHeight="130.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../../pictures/Settings.jpeg" />
                                        </image>
                                     </ImageView>
                                  </graphic>
-                              </Button>
-                              <Button fx:id="approveChangesBtn" mnemonicParsing="false" onAction="#openApproveChange" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #E74C3C;" text="Approve Changes">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <effect>
+                                    <DropShadow />
+                                 </effect>
                               </Button>
                            </children>
                         </VBox>
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <Button fx:id="newReservationBtn1" mnemonicParsing="false" onAction="#openNewReservation" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: white;">
+                              <Button fx:id="parkManagerReportsBtn" contentDisplay="TOP" mnemonicParsing="false" onAction="#openParkManagerReports" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #E74C3C;" text="Park Manager Reports">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                                  <graphic>
-                                    <ImageView fitHeight="140.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../pictures/Notes.jpeg" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </Button>
-                              <Button fx:id="newReservationBtn" mnemonicParsing="false" onAction="#openNewReservation" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #E74C3C;" text="New Reservation">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </VBox>
-                        <VBox prefHeight="200.0" prefWidth="100.0" />
-                        <VBox prefHeight="200.0" prefWidth="100.0" />
-                        <VBox prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <Button fx:id="parkManagerReportsBtn1" mnemonicParsing="false" onAction="#openParkManagerReports" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: white;">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                                 <graphic>
-                                    <ImageView fitHeight="140.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView blendMode="LIGHTEN" fitHeight="140.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../../pictures/ReportPicture.jpeg" />
                                        </image>
                                     </ImageView>
                                  </graphic>
-                              </Button>
-                              <Button fx:id="parkManagerReportsBtn" mnemonicParsing="false" onAction="#openParkManagerReports" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #E74C3C;" text="Park Manager Reports">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <effect>
+                                    <DropShadow />
+                                 </effect>
                               </Button>
                            </children>
                         </VBox>
@@ -121,22 +100,22 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
       </ScrollPane>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e74c3c" height="45.0" layoutX="46.0" layoutY="74.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e74c3c" height="45.0" layoutX="46.0" layoutY="74.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" width="200.0" />
       <Text layoutX="46.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Menu" textAlignment="CENTER" wrappingWidth="200.00001645088196">
          <font>
             <Font name="Guttman Drogolin Bold" size="28.0" />
          </font>
       </Text>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e74c3c" height="45.0" layoutX="935.0" layoutY="74.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="250.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e74c3c" height="45.0" layoutX="935.0" layoutY="74.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" width="250.0" />
       <Text layoutX="935.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Department Manager" textAlignment="CENTER" wrappingWidth="250.00000105798244">
          <font>
             <Font name="Guttman Drogolin Bold" size="24.0" />
          </font>
       </Text>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e74c3c" height="45.0" layoutX="1095.0" layoutY="895.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="90.0" />
-      <Hyperlink fx:id="logoutBtn" layoutX="1106.0" layoutY="901.0" onAction="#logout" text="Logout" textFill="#030303">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e74c3c" height="45.0" layoutX="1095.0" layoutY="895.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" width="90.0" />
+      <Hyperlink fx:id="logoutBtn" layoutX="1099.0" layoutY="897.0" onAction="#logout" text="Logout" textFill="#030303">
          <font>
-            <Font name="System Bold" size="17.0" />
+            <Font size="22.0" />
          </font>
       </Hyperlink>
    </children>

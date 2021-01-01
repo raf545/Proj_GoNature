@@ -40,12 +40,12 @@
       </ScrollPane>
       <HBox layoutX="150.0" layoutY="203.0" prefHeight="37.0" prefWidth="623.0" spacing="5.0" style="-fx-background-color: #676767;">
          <children>
-            <Text fill="WHITE" layoutY="18.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="Old " textAlignment="CENTER" wrappingWidth="164.443359375">
+            <Text fill="WHITE" layoutY="18.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="Old " textAlignment="CENTER" wrappingWidth="154.443359375">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Text>
-            <Text fill="#fffb00" layoutX="170.0" layoutY="18.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="New" textAlignment="CENTER" wrappingWidth="126.443359375">
+            <Text fill="#fffb00" layoutX="170.0" layoutY="18.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="New" textAlignment="CENTER" wrappingWidth="163.443359375">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>

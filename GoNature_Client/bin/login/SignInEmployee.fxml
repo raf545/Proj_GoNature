@@ -58,6 +58,6 @@
             <Font name="Guttman Haim" size="32.0" />
          </font>
       </Text>
-      <PasswordField fx:id="PasswordTxt" layoutX="205.0" layoutY="245.0" prefHeight="25.0" prefWidth="199.0" />
+      <PasswordField fx:id="PasswordTxt" alignment="CENTER" layoutX="205.0" layoutY="245.0" prefHeight="25.0" prefWidth="199.0" />
    </children>
 </Pane>
