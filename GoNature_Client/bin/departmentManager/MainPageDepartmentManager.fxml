@@ -25,14 +25,14 @@
                <children>
                   <VBox prefHeight="200.0" prefWidth="100.0" spacing="8.0">
                      <children>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
+                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="160.0">
                            <children>
-                              <Button fx:id="managerReportBtn" contentDisplay="TOP" mnemonicParsing="false" onAction="#openManagerReports" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #E74C3C;" text="Manager Reports">
+                              <Button fx:id="managerReportBtn" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#openManagerReports" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #E74C3C;" text="Manager Reports">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                                  <graphic>
-                                    <ImageView fitHeight="150.0" fitWidth="150.0" onMouseClicked="#openManagerReports" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="140.0" fitWidth="140.0" onMouseClicked="#openManagerReports" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../pictures/ReportPicture.jpeg" />
                                        </image>
@@ -49,12 +49,12 @@
                         </VBox>
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <Button fx:id="approveChangesBtn" contentDisplay="TOP" mnemonicParsing="false" onAction="#openApproveChange" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #E74C3C;" text="Approve Changes">
+                              <Button fx:id="approveChangesBtn" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#openApproveChange" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #E74C3C;" text="Approve Changes">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                                  <graphic>
-                                    <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="140.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../pictures/Settings.jpeg" />
                                        </image>
@@ -69,9 +69,9 @@
                               </Button>
                            </children>
                         </VBox>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
+                        <VBox maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="160.0">
                            <children>
-                              <Button fx:id="parkManagerReportsBtn" contentDisplay="TOP" mnemonicParsing="false" onAction="#openParkManagerReports" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #E74C3C;" text="Park Manager Reports">
+                              <Button fx:id="parkManagerReportsBtn" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#openParkManagerReports" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #E74C3C;" text="Park Manager Reports">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
@@ -113,9 +113,9 @@
          </font>
       </Text>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e74c3c" height="45.0" layoutX="1095.0" layoutY="895.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" width="90.0" />
-      <Hyperlink fx:id="logoutBtn" layoutX="1099.0" layoutY="897.0" onAction="#logout" text="Logout" textFill="#030303">
+      <Hyperlink fx:id="logoutBtn" layoutX="1095.0" layoutY="895.0" onAction="#logout" prefHeight="45.0" prefWidth="90.0" text="Logout" textFill="#030303">
          <font>
-            <Font size="22.0" />
+            <Font size="24.0" />
          </font>
       </Hyperlink>
    </children>
