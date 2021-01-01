@@ -1,8 +1,13 @@
 package familySubWorker;
 
+import java.io.IOException;
+
 import com.google.gson.Gson;
 import client.ChatClient;
 import client.ClientUI;
+import employee.BlankEmployeeController;
+import employee.Employee;
+import fxmlGeneralFunctions.FXMLFunctions;
 import guiCommon.StaticPaneMainPageEmployee;
 import guiCommon.StaticPaneMainPageParkManager;
 import javafx.event.ActionEvent;
@@ -11,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import parkmanagerreports.ParkManagerReportsController;
 import popup.PopUp;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
@@ -46,6 +52,9 @@ public class NewFamilySubWorkerController {
 	@FXML
 	private Button saveBtn;
 
+	/**when press on save checks that the values of the text fields are correct and sends a request for the server to create a subscription.
+	 * @param event
+	 */
 	@FXML
 	void saveFamily(ActionEvent event) {
 
@@ -104,7 +113,7 @@ public class NewFamilySubWorkerController {
 			if (numOfMembers.isEmpty()) {
 				popError.append("-Must enter Amount of pepole\n");
 			}else {
-				if (!(numOfMembers.matches("[0-9]+") && numOfMembers.length() > 2)) {
+				if (numOfMembers.matches("[a-zA-z]+")) {
 					popError.append("-Must enter Amount of pepole in numbers\n");
 				}
 		}
@@ -130,12 +139,19 @@ public class NewFamilySubWorkerController {
 
 	}
 
+	/**sends the data and the needed function to the server.
+	 * @param loginType sends to server the function it needs to do.
+	 * @param subscriber send the data to the server.
+	 */
 	private void sendLoginRequestToServer(String loginType, Subscriber subscriber) {
 		RequestHandler rh = new RequestHandler(controllerName.EmployeeSystemController, loginType,
 				gson.toJson(subscriber));
 		ClientUI.chat.accept(gson.toJson(rh));
 	}
 
+	/**Analyse the answer we got back from the server for the function we sent. and open popups if succeeded failed or already exist.
+	 * 
+	 */
 	private void analyzeAnswerFromServer() {
 		String answer = ChatClient.serverMsg;
 		switch (answer) {
@@ -151,9 +167,17 @@ public class NewFamilySubWorkerController {
 		}
 	}
 
+	/**go back to the main pane
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
-	void back(MouseEvent event) {
+	void back(MouseEvent event) throws IOException {
 		StaticPaneMainPageEmployee.employeeMainPane.getChildren().clear();
+		BlankEmployeeController controller = FXMLFunctions.loadSceneToMainPane(BlankEmployeeController.class, "BlankEmployee.fxml" ,StaticPaneMainPageEmployee.employeeMainPane).getController();
+		controller.setBlank();
+		
+
 	}
 
 }

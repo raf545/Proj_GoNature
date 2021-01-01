@@ -6,25 +6,32 @@ import com.google.gson.Gson;
 
 import cardReader.CardReaderController;
 import client.ClientUI;
+import departmentManagerReports.DepartmentManagerChooseReportController;
 import familySubWorker.NewFamilySubWorkerController;
+import fxmlGeneralFunctions.FXMLFunctions;
 import groupLeader.NewGroupLeaderWorkerController;
 import guiCommon.StaticPaneMainPageEmployee;
+import guiCommon.StaticPaneMainPageParkManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import login.GoNatureLoginController;
 import login.IdentificationController;
 import login.SignInEmployeeController;
+import parkmanagerreports.MonthlyRevenueReportsController;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
 import reservation.ReservationForOccasionalVisitorController;
 
 public class MainPageEmployeeController {
+	 
 	@FXML
 	private Pane mainPane;
 
@@ -48,17 +55,25 @@ public class MainPageEmployeeController {
 
 	Gson gson = new Gson();
 
-	@SuppressWarnings("unused")
+	
 	private Employee employee;
 
-	void setEmp(Employee employeeFromDB) {
+	public void setEmp(Employee employeeFromDB) throws IOException {
 		employee = employeeFromDB;
+		BlankEmployeeController controller = FXMLFunctions.loadSceneToMainPane(BlankEmployeeController.class, "BlankEmployee.fxml" ,mainPane).getController();
+		controller.setEmployee(employee);
+		controller.setBlank();
 	}
 
 	public Pane getPane() {
+		
 		return mainPane;
 	}
 
+	/** opens new subscription page for making new subscribers.
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	void openNewFamilySub(ActionEvent event) throws IOException {
 //		FIXME
@@ -72,6 +87,10 @@ public class MainPageEmployeeController {
 
 	}
 
+	/**opens new instructor page for making new instructors.
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	void openNewInstructor(ActionEvent event) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
@@ -82,6 +101,10 @@ public class MainPageEmployeeController {
 		mainPane.getChildren().add(root);
 	}
 
+	/**Go back to the login page when pressed in order to log in as another user. 
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	void logout(ActionEvent event) throws IOException {
 		RequestHandler rh = new RequestHandler(controllerName.LoginController, "logout", "");
@@ -93,10 +116,10 @@ public class MainPageEmployeeController {
 		// do what you have to do
 		stage.close();
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(SignInEmployeeController.class.getResource("SignInEmployee.fxml"));
+		loader.setLocation(GoNatureLoginController.class.getResource("GoNatureLogin.fxml"));
 		Pane root = loader.load();
 		Scene sc = new Scene(root);
-		primaryStage.setTitle("Sign In Employee");
+		primaryStage.setTitle("Sign In");
 		primaryStage.setScene(sc);
 		primaryStage.show();
 
@@ -115,6 +138,10 @@ public class MainPageEmployeeController {
 		mainPane.getChildren().add(root);
 	}
 
+	/**Go to reservation page for occasional visitors that came to the park at a specific time without reservation.
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	void reservationForOccasionalVisitor(ActionEvent event) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
@@ -126,5 +153,9 @@ public class MainPageEmployeeController {
 		mainPane.getChildren().clear();
 		mainPane.getChildren().add(root);
 	}
+	
+	
+	
+	
 
 }

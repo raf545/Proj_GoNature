@@ -1,9 +1,13 @@
 package groupLeader;
 
+import java.io.IOException;
+
 import com.google.gson.Gson;
 
 import client.ChatClient;
 import client.ClientUI;
+import employee.BlankEmployeeController;
+import fxmlGeneralFunctions.FXMLFunctions;
 import guiCommon.StaticPaneMainPageEmployee;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -44,6 +48,9 @@ public class NewGroupLeaderWorkerController {
     @FXML
     private Button savebtn;
 
+    /**When pressed checks that all of the text fields are correct and well written and ask to add subscription from the server.
+     * @param event
+     */
     @FXML
     void SaveInstructor(ActionEvent event) {
 
@@ -118,12 +125,19 @@ public class NewGroupLeaderWorkerController {
     
     
     
+    /**sends the data and the needed function to the server.
+     * @param loginType sends to server the function it needs to do.
+     * @param subscriber subscriber send the data to the server.
+     */
     private void sendLoginRequestToServer(String loginType, Subscriber subscriber) {
 		RequestHandler rh = new RequestHandler(controllerName.EmployeeSystemController, loginType,
 				gson.toJson(subscriber));
 		ClientUI.chat.accept(gson.toJson(rh));
 	}
 
+	/**Analyse the answer we got back from the server for the function we sent. and open popups if succeeded failed or already exist.
+	 * 
+	 */
 	private void analyzeAnswerFromServer() {
 		String answer = ChatClient.serverMsg;
 		switch (answer) {
@@ -139,10 +153,15 @@ public class NewGroupLeaderWorkerController {
 		}
 	}
 	
-	 @FXML
-	    void backBottun(MouseEvent event) {
+	 /**go back to the main pane
+	 * @param event
+	 * @throws IOException 
+	 */
+	@FXML
+	    void backBottun(MouseEvent event) throws IOException {
 		 StaticPaneMainPageEmployee.employeeMainPane.getChildren().clear();
-
+		 BlankEmployeeController controller = FXMLFunctions.loadSceneToMainPane(BlankEmployeeController.class, "BlankEmployee.fxml" ,StaticPaneMainPageEmployee.employeeMainPane).getController();
+		 controller.setBlank();
 	    }
 
 }

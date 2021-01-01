@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="743.0" prefWidth="900.0" style="-fx-background-color: #FFC956;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="employee.BlankEmployeeController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="524.0" layoutX="147.0" layoutY="110.0" stroke="BLACK" strokeType="INSIDE" width="606.0" />
+      <Label layoutX="158.0" layoutY="111.0" prefHeight="54.0" prefWidth="149.0" text="welcome ">
+         <font>
+            <Font name="Guttman Drogolin Bold" size="30.0" />
+         </font>
+      </Label>
+      <Label layoutX="188.0" layoutY="362.0" prefHeight="42.0" prefWidth="119.0" text="Your Email:" underline="true">
+         <font>
+            <Font name="Guttman Drogolin Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="188.0" layoutY="441.0" prefHeight="42.0" prefWidth="119.0" text="Your Park:" underline="true">
+         <font>
+            <Font name="Guttman Drogolin Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="316.0" layoutY="179.0" prefHeight="49.0" prefWidth="304.0" text="Employee information" underline="true">
+         <font>
+            <Font name="Guttman Drogolin Bold" size="30.0" />
+         </font>
+      </Label>
+      <Label fx:id="empname" layoutX="298.0" layoutY="111.0" prefHeight="54.0" prefWidth="149.0" text="lable">
+         <font>
+            <Font name="Guttman Drogolin Bold" size="30.0" />
+         </font>
+      </Label>
+      <Label fx:id="empemail" layoutX="298.0" layoutY="362.0" prefHeight="42.0" prefWidth="441.0" text="lable">
+         <font>
+            <Font name="Guttman Drogolin Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="emppark" layoutX="298.0" layoutY="441.0" prefHeight="42.0" prefWidth="441.0" text="lable">
+         <font>
+            <Font name="Guttman Drogolin Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="188.0" layoutY="293.0" prefHeight="42.0" prefWidth="119.0" text="Your ID:" underline="true">
+         <font>
+            <Font name="Guttman Drogolin Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="empid" layoutX="271.0" layoutY="293.0" prefHeight="42.0" prefWidth="460.0" text="lable">
+         <font>
+            <Font name="Guttman Drogolin Bold" size="20.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="199.0" fitWidth="212.0" layoutX="527.0" layoutY="441.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../pictures/Tree.png" />
+         </image>
+         <effect>
+            <ColorAdjust brightness="-0.32" contrast="1.0" hue="-0.18" saturation="1.0" />
+         </effect>
+      </ImageView>
+   </children>
+</Pane>
