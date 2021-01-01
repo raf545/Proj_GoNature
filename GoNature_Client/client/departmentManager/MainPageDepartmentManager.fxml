@@ -34,7 +34,7 @@
                                  <graphic>
                                     <ImageView fitHeight="150.0" fitWidth="150.0" onMouseClicked="#openManagerReports" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../pictures/ReportPicture.jpeg" />
+                                          <Image url="@../pictures/ReportPicture.jpeg" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -56,7 +56,7 @@
                                  <graphic>
                                     <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../pictures/Settings.jpeg" />
+                                          <Image url="@../pictures/Settings.jpeg" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -78,7 +78,7 @@
                                  <graphic>
                                     <ImageView blendMode="LIGHTEN" fitHeight="140.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../pictures/ReportPicture.jpeg" />
+                                          <Image url="@../pictures/ReportPicture.jpeg" />
                                        </image>
                                     </ImageView>
                                  </graphic>
