@@ -17,7 +17,7 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="370.0" layoutX="23.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="547.0" />
       <ImageView fitHeight="387.0" fitWidth="369.0" layoutX="-146.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../pictures/Tree.png" />
+            <Image url="@../pictures/Tree.png" />
          </image>
          <effect>
             <ColorAdjust brightness="0.38" />
@@ -25,7 +25,7 @@
       </ImageView>
       <ImageView fitHeight="387.0" fitWidth="369.0" layoutX="402.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../pictures/Tree.png" />
+            <Image url="@../pictures/Tree.png" />
          </image>
          <effect>
             <ColorAdjust brightness="0.38" />

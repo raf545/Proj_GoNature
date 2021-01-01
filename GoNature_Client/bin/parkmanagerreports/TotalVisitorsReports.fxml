@@ -3,19 +3,20 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="920.0" style="-fx-background-color: #3D8FFF;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkmanagerreports.numberOfVisitorsReportController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="747.0" prefWidth="904.0" style="-fx-background-color: #3D8FFF;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkmanagerreports.numberOfVisitorsReportController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="605.0" layoutX="95.0" layoutY="99.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="695.0" />
-      <Text layoutX="301.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Visitors Report" textAlignment="CENTER" wrappingWidth="290.443359375">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="606.0" layoutX="63.0" layoutY="71.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="761.0" />
+      <Text layoutX="307.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Visitors Report" textAlignment="CENTER" wrappingWidth="290.443359375">
          <font>
             <Font name="Guttman Drogolin Bold" size="30.0" />
          </font>
@@ -26,7 +27,7 @@
             <Font name="Baloo Regular" size="30.0" />
          </font>
       </Text>
-      <VBox layoutX="324.0" layoutY="214.0" prefHeight="79.0" prefWidth="245.0">
+      <VBox layoutX="321.0" layoutY="187.0" prefHeight="79.0" prefWidth="245.0">
          <children>
             <HBox prefHeight="42.0" prefWidth="258.0">
                <children>
@@ -50,107 +51,28 @@
             </HBox>
          </children>
       </VBox>
-      <Button fx:id="showbtn" layoutX="302.0" layoutY="316.0" mnemonicParsing="false" onAction="#showReport" prefHeight="35.0" prefWidth="290.0" style="-fx-background-color: #3D8FFF;" text="Show" textFill="WHITE">
+      <Button fx:id="showbtn" layoutX="307.0" layoutY="266.0" mnemonicParsing="false" onAction="#showReport" prefHeight="35.0" prefWidth="290.0" style="-fx-background-color: #3D8FFF;" text="Show" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Text layoutX="96.0" layoutY="477.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="Single:" textAlignment="CENTER" wrappingWidth="80.443359375">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </Text>
-      <Text layoutX="95.0" layoutY="522.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="Family:" textAlignment="CENTER" wrappingWidth="80.443359375">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </Text>
-      <Text layoutX="95.0" layoutY="566.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="Group:" textAlignment="CENTER" wrappingWidth="80.443359375">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </Text>
-      <Text layoutX="100.0" layoutY="608.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="Total:" textAlignment="CENTER" wrappingWidth="80.443359375">
-         <font>
-            <Font name="System Bold Italic" size="17.0" />
-         </font>
-      </Text>
-      <Label layoutX="184.0" layoutY="425.0" text="Sunday" />
-      <Label layoutX="247.0" layoutY="425.0" text="Monday" />
-      <Label layoutX="313.0" layoutY="425.0" text="Tuesday" />
-      <Label layoutX="378.0" layoutY="425.0" text="Wednesday" />
-      <Label layoutX="464.0" layoutY="425.0" text="Thursday" />
-      <Label layoutX="542.0" layoutY="425.0" text="Friday" />
-      <Label layoutX="597.0" layoutY="424.0" prefHeight="23.0" prefWidth="60.0" text="Saturday" />
-      <Label fx:id="parkName" alignment="CENTER" layoutX="371.0" layoutY="115.0" prefHeight="49.0" prefWidth="150.0" text="Label" textFill="#3d8fff">
+      <Label fx:id="parkName" alignment="CENTER" layoutX="377.0" layoutY="95.0" prefHeight="49.0" prefWidth="150.0" text="Label" textFill="#3d8fff">
          <font>
             <Font name="Guttman Drogolin Bold" size="30.0" />
          </font>
       </Label>
-      <Line endX="602.0" endY="-7.0" layoutX="139.0" layoutY="454.0" startX="-29.0" startY="-7.0" />
-      <Label layoutX="667.0" layoutY="424.0" prefHeight="26.0" prefWidth="77.0" text="Monthly">
-         <font>
-            <Font name="System Bold Italic" size="17.0" />
-         </font>
-      </Label>
-      <Line endX="-10.0" endY="174.0" layoutX="248.0" layoutY="443.0" startX="-10.0" startY="-22.0" />
-      <Line endX="-10.0" endY="176.5" layoutX="320.0" layoutY="442.0" startX="-10.0" startY="-22.0" />
-      <Line endX="-10.0" endY="177.5" layoutX="386.0" layoutY="442.0" startX="-10.0" startY="-22.0" />
-      <Line endX="-10.0" endY="176.0" layoutX="470.0" layoutY="442.0" startX="-10.0" startY="-22.0" />
-      <Line endX="-10.0" endY="176.0" layoutX="542.0" layoutY="442.0" startX="-10.0" startY="-22.0" />
-      <Line endX="-10.0" endY="177.0" layoutX="603.0" layoutY="442.0" startX="-10.0" startY="-22.0" />
-      <Line endX="-10.0" endY="175.0" layoutX="671.0" layoutY="443.0" startX="-10.0" startY="-22.0" />
-      <Line endX="-10.0" endY="175.5" layoutX="189.0" layoutY="444.0" startX="-10.0" startY="-22.0" />
-      <Label fx:id="singleLSUN" layoutX="191.0" layoutY="459.0" text="0" />
-      <Label fx:id="familyLSUN" layoutX="191.0" layoutY="504.0" text="0" />
-      <Label fx:id="groupLSUN" layoutX="191.0" layoutY="548.0" text="0" />
-      <Label fx:id="totalLSUN" layoutX="191.0" layoutY="590.0" text="0" />
-      <Label fx:id="singleLMON" layoutX="257.0" layoutY="459.0" text="0" />
-      <Label fx:id="familyLMON" layoutX="257.0" layoutY="504.0" text="0" />
-      <Label fx:id="groupLMON" layoutX="257.0" layoutY="548.0" text="0" />
-      <Label fx:id="totalLMON" layoutX="257.0" layoutY="590.0" text="0" />
-      <Label fx:id="singleLTUES" layoutX="323.0" layoutY="459.0" text="0" />
-      <Label fx:id="familyLTUES" layoutX="323.0" layoutY="504.0" text="0" />
-      <Label fx:id="groupLTUES" layoutX="323.0" layoutY="548.0" text="0" />
-      <Label fx:id="totalLTUES" layoutX="323.0" layoutY="590.0" text="0" />
-      <Label fx:id="singleLWED" layoutX="401.0" layoutY="459.0" text="0" />
-      <Label fx:id="familyLWED" layoutX="401.0" layoutY="504.0" text="0" />
-      <Label fx:id="groupLWED" layoutX="401.0" layoutY="548.0" text="0" />
-      <Label fx:id="totalLWED" layoutX="401.0" layoutY="590.0" text="0" />
-      <Label fx:id="singleLTHU" layoutX="477.0" layoutY="459.0" text="0" />
-      <Label fx:id="familyLTHU" layoutX="477.0" layoutY="504.0" text="0" />
-      <Label fx:id="groupLTHU" layoutX="477.0" layoutY="548.0" text="0" />
-      <Label fx:id="totalLTHU" layoutX="477.0" layoutY="590.0" text="0" />
-      <Label fx:id="singleLFRI" layoutX="544.0" layoutY="459.0" text="0" />
-      <Label fx:id="familyLFRI" layoutX="544.0" layoutY="504.0" text="0" />
-      <Label fx:id="groupLFRI" layoutX="544.0" layoutY="548.0" text="0" />
-      <Label fx:id="totalLFRI" layoutX="544.0" layoutY="590.0" text="0" />
-      <Label fx:id="singleLSAT" layoutX="610.0" layoutY="459.0" text="0" />
-      <Label fx:id="familyLSAT" layoutX="610.0" layoutY="504.0" text="0" />
-      <Label fx:id="groupLSAT" layoutX="610.0" layoutY="548.0" text="0" />
-      <Label fx:id="totalLSAT" layoutX="610.0" layoutY="590.0" text="0" />
-      <Label fx:id="singleLMONTH" layoutX="680.0" layoutY="459.0" text="0">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-      </Label>
-      <Label fx:id="familyLMONTH" layoutX="680.0" layoutY="504.0" text="0">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-      </Label>
-      <Label fx:id="groupLMONTH" layoutX="680.0" layoutY="548.0" text="0">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-      </Label>
-      <Label fx:id="totalLMONTH" layoutX="680.0" layoutY="590.0" text="0">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-      </Label>
-      <Line endX="602.0" endY="-7.0" layoutX="139.0" layoutY="500.0" startX="-29.0" startY="-7.0" />
-      <Line endX="602.0" endY="-7.0" layoutX="140.0" layoutY="546.0" startX="-29.0" startY="-7.0" />
-      <Line endX="602.0" endY="-7.0" layoutX="140.0" layoutY="586.0" startX="-29.0" startY="-7.0" />
+      <TableView fx:id="mainTable" layoutX="71.0" layoutY="385.0" prefHeight="244.0" prefWidth="746.0" style="-fx-background-color: #676767; -fx-border-color: #3D8FFF; -fx-border-insets: 5; -fx-border-width: 4; -fx-alignment: CENTER;">
+         <columns>
+            <TableColumn fx:id="typeCol" prefWidth="91.0" style="-fx-alignment: CENTER;" text="Type" />
+            <TableColumn fx:id="sundayCol" prefWidth="77.0" style="-fx-alignment: CENTER;" text="Sunday" />
+            <TableColumn fx:id="mondayCol" prefWidth="74.0" style="-fx-alignment: CENTER;" text="Monday" />
+            <TableColumn fx:id="tuesdayCol" prefWidth="76.0" style="-fx-alignment: CENTER;" text="Tuesday" />
+            <TableColumn fx:id="wednesdayCol" prefWidth="91.0" style="-fx-alignment: CENTER;" text="Wednesday" />
+            <TableColumn fx:id="thursdayCol" prefWidth="77.0" style="-fx-alignment: CENTER;" text="Thursday" />
+            <TableColumn fx:id="fridayCol" prefWidth="63.0" style="-fx-alignment: CENTER;" text="Friday" />
+            <TableColumn fx:id="saturdayCol" prefWidth="72.0" style="-fx-alignment: CENTER;" text="Saturday" />
+            <TableColumn fx:id="monthlyCol" prefWidth="106.0" style="-fx-alignment: CENTER;" text="Monthly" />
+         </columns>
+      </TableView>
    </children>
 </Pane>
