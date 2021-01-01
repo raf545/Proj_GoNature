@@ -51,6 +51,7 @@ public class LoginController {
 	 * 
 	 * @return fail if there is no such login route
 	 */
+	
 	public String loginRouter(String MethodName, String data, ConnectionToClient client) {
 
 		switch (MethodName) {
