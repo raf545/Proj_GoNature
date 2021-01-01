@@ -27,13 +27,7 @@
 							<children>
 								<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="160.0">
 									<children>
-
-										<ImageView fx:id="openNewFamilySubBtnP" fitHeight="150.0" fitWidth="180.0" pickOnBounds="true">
-											<image>
-												<Image url="@../../pictures/Family.png" />
-											</image>
-										</ImageView>
-										<Button fx:id="NewFamilySubBtn" mnemonicParsing="false" onAction="#openNewFamilySub" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #FFC956;" text="New Subscription">
+										<Button fx:id="NewFamilySubBtn" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#openNewFamilySub" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #FFC956;" text="New Subscription">
 											<font>
 												<Font name="System Bold" size="12.0" />
 											</font>
@@ -44,6 +38,15 @@
       											</image>
       										</ImageView>
                                  </graphic>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <effect>
+                                    <DropShadow />
+                                 </effect>
 										</Button>
 									</children>
                            <VBox.margin>
@@ -52,12 +55,7 @@
 								</VBox>
 								<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="160.0">
 									<children>
-										<ImageView fx:id="openNewInstructorBtnP" fitHeight="150.0" fitWidth="176.0" pickOnBounds="true">
-											<image>
-												<Image url="@../../pictures/Instructor.png" />
-											</image>
-										</ImageView>
-										<Button fx:id="NewInstructorBtn" mnemonicParsing="false" onAction="#openNewInstructor" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #FFC956;" text="New Instructor">
+										<Button fx:id="NewInstructorBtn" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#openNewInstructor" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #FFC956;" text="New Instructor">
 
 											<font>
 												<Font name="System Bold" size="12.0" />
@@ -75,6 +73,9 @@
                                  <effect>
                                     <DropShadow />
                                  </effect>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin>
 										</Button>
 									</children>
                            <VBox.margin>
@@ -83,13 +84,7 @@
 								</VBox>
 								<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="160.0">
 									<children>
-
-										<ImageView fitHeight="150.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
-											<image>
-												<Image url="@../../pictures/Notes.jpeg" />
-											</image>
-										</ImageView>
-										<Button mnemonicParsing="false" onAction="#reservationForOccasionalVisitor" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #FFC956;" text="New Reservation">
+										<Button contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#reservationForOccasionalVisitor" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #FFC956;" text="New Reservation">
 
 											<font>
 												<Font name="System Bold" size="12.0" />
@@ -107,6 +102,9 @@
                                  <effect>
                                     <DropShadow />
                                  </effect>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin>
 										</Button>
 									</children>
                            <VBox.margin>
@@ -115,13 +113,7 @@
 								</VBox>
 								<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="160.0">
 									<children>
-
-										<ImageView fitHeight="150.0" fitWidth="168.0" pickOnBounds="true">
-											<image>
-												<Image url="@../../pictures/List.jpg" />
-											</image>
-										</ImageView>
-										<Button fx:id="readerSimulation" mnemonicParsing="false" onAction="#openReaderSimulation" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #FFC956;" text="Reader simulation">
+										<Button fx:id="readerSimulation" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#openReaderSimulation" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #FFC956;" text="Reader simulation">
 
 											<font>
 												<Font name="System Bold" size="12.0" />
