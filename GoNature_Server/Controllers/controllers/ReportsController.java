@@ -113,7 +113,7 @@ public class ReportsController {
 				}
 			}
 			int t=0;
-			PreparedStatement query=con.prepareStatement("INSERT INTO `gonaturedb`.`capacityreport` (`createdate`, `month`, `parkname`, `capacityrep`) VALUES ( ?, ?, ?, ?);");
+			PreparedStatement query=con.prepareStatement("INSERT IGNORE INTO `gonaturedb`.`capacityreport` (`createdate`, `month`, `parkname`, `capacityrep`) VALUES ( ?, ?, ?, ?);");
 			for (int i = 0; i < 30; i++) {
 				if(!arr[i][0].equals("")) {
 					query.setString(1, arr[i][0]);
@@ -176,7 +176,7 @@ public class ReportsController {
 			else
 				reportdata.add(String.valueOf(0));
 			
-			String queryrev = "INSERT INTO `gonaturedb`.`revenuereport` (`createdate`, `parkname`, `singlerev`, `familyrev`, `grouprev`) VALUES (" +"\""+fromTime+"\""+", "+"\""+visitorReport.getParkname()+"\""+", "+reportdata.get(0)+", "+reportdata.get(1)+", "+reportdata.get(2)+");";
+			String queryrev = "INSERT IGNORE INTO `gonaturedb`.`revenuereport` (`createdate`, `parkname`, `singlerev`, `familyrev`, `grouprev`) VALUES (" +"\""+fromTime+"\""+", "+"\""+visitorReport.getParkname()+"\""+", "+reportdata.get(0)+", "+reportdata.get(1)+", "+reportdata.get(2)+");";
 			DataBase.getInstance().update(queryrev);
 			
 		} catch (SQLException e) {
@@ -250,7 +250,7 @@ public class ReportsController {
 				reportdata[day][2]=reportdata[day][2] +res3.getInt(2);
 					
 			}
-			PreparedStatement querytotalin=con.prepareStatement("INSERT INTO `gonaturedb`.`totalvisitorreport` (`createdate`, `parkname`, `singlesun`, `familysun`, `groupsun`, `singlemon`, `familymon`, `groupmon`, `singletues`, `familytues`, `grouptues`, `singlewed`, `familywed`, `groupwed`, `singlethu`, `familythu`, `groupthu`, `singlefri`, `familyfri`, `groupfri`, `singlesat`, `familysat`, `groupsat`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+			PreparedStatement querytotalin=con.prepareStatement("INSERT IGNORE INTO `gonaturedb`.`totalvisitorreport` (`createdate`, `parkname`, `singlesun`, `familysun`, `groupsun`, `singlemon`, `familymon`, `groupmon`, `singletues`, `familytues`, `grouptues`, `singlewed`, `familywed`, `groupwed`, `singlethu`, `familythu`, `groupthu`, `singlefri`, `familyfri`, `groupfri`, `singlesat`, `familysat`, `groupsat`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
 			querytotalin.setTimestamp(1, fromTime);
 			querytotalin.setString(2,visitorReport.getParkname());
 			for (int i = 0; i < 7; i++) {
