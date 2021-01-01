@@ -1,5 +1,11 @@
 package departmentManagerReports;
 
+/**
+ * @author Shay Maryuma
+ * An object that will be used in "DepartmentManagerTotalVisitReportController".
+ * Use for insert details for table view.
+ *
+ */
 public class ReportListObject {
 	
 	private String type;
@@ -12,6 +18,18 @@ public class ReportListObject {
 	private String saturday;
 	private String monthly;
  
+	/**
+	 * Parameters that will be in a table view.
+	 * @param type
+	 * @param sunday
+	 * @param monday
+	 * @param tuesday
+	 * @param wednesday
+	 * @param thursday
+	 * @param friday
+	 * @param saturday
+	 * @param monthly
+	 */
 	public ReportListObject(String type, String sunday, String monday, String tuesday, String wednesday,
 			String thursday, String friday, String saturday, String monthly) {
 		super();

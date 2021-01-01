@@ -4,15 +4,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-
 import com.google.gson.Gson;
-
 import dataBase.DataBase;
 import ocsf.server.ConnectionToClient;
-import reservation.Reservation;
 
 
+/**
+ * All the functions that we use between department manager and the database will be here.
+ * @author Shay Maryuma
+ *
+ */
 public class DepartmentManagerSystemController {
 	
 	Gson gson = new Gson();
@@ -20,10 +21,16 @@ public class DepartmentManagerSystemController {
 
 	private static DepartmentManagerSystemController DepartmentManagerSystemControllerInstance = null;
 
+	/**
+	 * empty private constructor for singleton
+	 */
 	private DepartmentManagerSystemController() {
 
 	}
 
+	/**
+	 * @return singletone instance of this controller
+	 */
 	public static DepartmentManagerSystemController getInstance() {
 
 		if (DepartmentManagerSystemControllerInstance == null)
@@ -31,6 +38,13 @@ public class DepartmentManagerSystemController {
 		return DepartmentManagerSystemControllerInstance;
 	}
 	
+	/**
+	 * Each function from department manager will be here.
+	 * @param MethodName The name of the method we want to use
+	 * @param data The attributes for the method
+	 * @param client the link to the client
+	 * @return
+	 */
 	public String getFunc(String MethodName, String data, ConnectionToClient client) {
 
 		switch (MethodName) {
@@ -71,7 +85,20 @@ public class DepartmentManagerSystemController {
 		return data;
 	} 
 	
-	//Functions for visitor reports
+	
+	/**
+	 * Function that will get the visit report splitted to hours.
+	 * For instance, at 8:00 there was 10 people that entered the park
+	 * Send details to the server and wait for an answer.
+	 * @param type Instructor/Family/Subscriber/Guest
+	 * @param year
+	 * @param month
+	 * @param day
+	 * @param park1 Option 1: for example "Banias"
+	 * @param park2 Option 2: for example "Niagara"
+	 * @param park3 Option 3: for example "Safari"
+	 * @return Enter the park details splitted to hours for a specific day.
+	 */
 	private String getEntryDetailsByHours(String type,String year,String month,String day,String park1,String park2,String park3)
 	{
 		try {
@@ -93,13 +120,6 @@ public class DepartmentManagerSystemController {
 		query.setString(6, park2);
 		query.setString(7, park3);
 		
-//		query = "SELECT HOUR(gonaturedb.cardreader.entryTime) as hoursEntry, SUM(numberOfVisitors) as counter\r\n"
-//				+ "FROM gonaturedb.cardreader\r\n"
-//				+ "WHERE typeOfVisitor = \"" + type + "\" AND YEAR(entryTime) = " + year + " AND MONTH(entryTime) = " + month + " AND DAY(entryTime) = " + day +"\r\n "
-//				+ "GROUP BY HOUR(entryTime)\r\n"
-//				+ "ORDER BY hoursEntry ASC";
-
-		
 			rs = DataBase.getInstance().search(query);
 			if (isEmpty(rs) != 0) 
 			{
@@ -116,8 +136,19 @@ public class DepartmentManagerSystemController {
 		}	
 		return "faild";	
 	}
-	//Functions for visitor reports
-	
+	/**
+	 * Function that will get the visit report splitted to hours.
+	 * For instance, at 8:00 there was 10 people that exited the park
+	 * Send details to the server and wait for an answer.
+	 * @param type Instructor/Family/Subscriber/Guest
+	 * @param year
+	 * @param month
+	 * @param day
+	 * @param park1 Option 1: for example "Banias"
+	 * @param park2 Option 2: for example "Niagara"
+	 * @param park3 Option 3: for example "Safari"
+	 * @return Exit the park details splitted to hours for a specific day.
+	 */
 	private String getExitDetailsByHours(String type,String year,String month,String day,String park1,String park2,String park3)
 	{
 		try {
@@ -138,12 +169,6 @@ public class DepartmentManagerSystemController {
 		query.setString(6, park2);
 		query.setString(7, park3);
 
-//		query = "SELECT HOUR(gonaturedb.cardreader.exitTime) as hoursExit, SUM(numberOfVisitors) as counter\r\n"
-//				+ "FROM gonaturedb.cardreader\r\n"
-//				+ "WHERE typeOfVisitor = \"" + type + "\" AND YEAR(exitTime) = " + year + " AND MONTH(exitTime) = " + month + " AND DAY(exitTime) = " + day +"\r\n"
-//				+ "GROUP BY HOUR(exitTime)\r\n"
-//				+ "ORDER BY hoursExit ASC";
-		
 			rs = DataBase.getInstance().search(query);
 			if (isEmpty(rs) != 0) 
 			{
@@ -160,7 +185,14 @@ public class DepartmentManagerSystemController {
 		}	
 		return "faild";	
 	}
-	//CancellationReport
+	/**
+	 * Function that will be used in report function
+	 * @param year
+	 * @param month
+	 * @param day
+	 * @param parkName
+	 * @return cancellation details
+	 */
 	private String getReservationCancelationDetails(String year,String month,String day,String parkName)
 	{
 		try
@@ -192,6 +224,14 @@ public class DepartmentManagerSystemController {
 		}	
 		return "faild";	
 	}
+	/**
+	 * Function that will be used in report function
+	 * @param year
+	 * @param month
+	 * @param day
+	 * @param parkName
+	 * @return half cancellation details
+	 */
 	private String getReservationHalfCancelationDetails(String year,String month,String day,String parkName)
 	{
 		try
@@ -223,6 +263,14 @@ public class DepartmentManagerSystemController {
 		}	
 		return "faild";	
 	}
+	/**
+	 * Function that will be used in report function
+	 * @param year
+	 * @param month
+	 * @param day
+	 * @param parkName
+	 * @return Number of reservation for a specific day
+	 */
 	private String getNumberOfReservationForSpecificDay(String year,String month,String day,String parkName)
 	{
 		try
@@ -253,6 +301,10 @@ public class DepartmentManagerSystemController {
 		return "faild";	
 	}
 	
+	/**
+	 * Get the information about the requests from park manager to department manager.
+	 * @return all approves and rejects info from db
+	 */
 	private String showAllApprovesAndRejects() {
 		
 		try {
@@ -264,8 +316,10 @@ public class DepartmentManagerSystemController {
 				rs.beforeFirst();
 				while(rs.next())
 				{
-					//Must Refactor
-					sb.append(rs.getString(1) + "," + rs.getString(2) + "," + rs.getString(3) + "," + rs.getString(4)+ "," + rs.getString(5)+ "," + rs.getString(6)+ "," + rs.getString(7)+ "," + rs.getString(8)+ "," + rs.getString(9)+ "," + rs.getString(10) + " ");
+					for (int i = 1; i < 10; i++) 
+						sb.append(rs.getString(i) + ",");
+					
+					sb.append(rs.getString(10) + " ");					
 				}
 				return sb.toString();
 			}
@@ -275,7 +329,13 @@ public class DepartmentManagerSystemController {
 		
 		return "faild";
 	}
-	//Change Name to update new stauts for a request
+
+	/**
+	 * Update the status of a request from "waiting" to "finished"
+	 * @param fieldType Instructor/Family/Subscriber/Guest
+	 * @param parkName
+	 * @return true if updated successfully, otherwise else.
+	 */
 	private String updateFieldStatus(String fieldType,String parkName)
 	{
 		try
@@ -293,6 +353,14 @@ public class DepartmentManagerSystemController {
 		
 		return "faild";			
 	}
+	
+	/**
+	 * Update new data to park information.
+	 * @param parkName name of park
+	 * @param fieldType Instructor/Family/Subscriber/Guest
+	 * @param newData new data to update in the db
+	 * @return
+	 */
 	private String updateParkInformation(String parkName,String fieldType,String newData)
 	{
 		String nameOfVal = "park" + fieldType + parkName;
@@ -312,6 +380,12 @@ public class DepartmentManagerSystemController {
 		return "faild";	
 		
 	}
+	
+	/**
+	 * Count the amount of rows in a result set.
+	 * @param rs
+	 * @return 0 for empty
+	 */
 	private int isEmpty(ResultSet rs) {
 		int size = 0;
 		if (rs != null) {
@@ -327,6 +401,13 @@ public class DepartmentManagerSystemController {
 	}
 	
 	//For park manager reports -----------------------------------------------------------------
+	
+	/**Total visitor for each day at the week for a specific month.
+	 * @param year
+	 * @param month
+	 * @param parkName
+	 * @return Visitor report details
+	 */
 	private String getTotalVisitorReportFromParkManager(String year,String month,String parkName)
 	{
 		try
@@ -357,6 +438,13 @@ public class DepartmentManagerSystemController {
 		return "faild";	
 	}
 	
+	/**
+	 * Get year and month and return the revenue of a specific park
+	 * @param year
+	 * @param month
+	 * @param parkName
+	 * @return the monthly revenue
+	 */
 	private String getMonthlyRevenueFromDB(String year,String month,String parkName)
 	{
 		try
@@ -384,6 +472,14 @@ public class DepartmentManagerSystemController {
 		}	
 		return "faild";	
 	}
+	
+	/**
+	 * Get year and month and return the capacity of a specific park
+	 * @param year
+	 * @param month
+	 * @param parkName
+	 * @return capacity report of specific park
+	 */
 	private String getParkManagerCapacityReport(String year,String month,String parkName)
 	{
 		try

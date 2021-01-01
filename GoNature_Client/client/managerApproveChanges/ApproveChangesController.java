@@ -22,13 +22,11 @@ import requestHandler.controllerName;
 /**
  * This class will provide all details about requests from park managers to department manager.
  * The department manager should approve/reject the requests, therefore the details will be updated in the DB.
- * 
  * @author Shay Maryuma
  * @version December 27 2020
  */
-
-
 public class ApproveChangesController {
+	
 	Gson gson = new Gson();
 
 	@FXML
@@ -37,15 +35,19 @@ public class ApproveChangesController {
 	@FXML
 	private VBox listVBox;
 
-	//Example for how the requests will be look like in our arraylist.
-	//Banias,100,20,40,123,32,2,waiting,waiting,finished
-	//Niagara,100,20,40,123,32,2,waiting,waiting,finished
-	//Safari,100,20,40,123,32,2,waiting,finished,waiting
-
+	/**
+	 * Example for how the requests will be look like in our ArrayList.     :
+	 * Banias,100,20,40,123,32,2,waiting,waiting,finished
+	 */
 	private ArrayList<String[]> allChangesAsTexts = new ArrayList<>();
 
-	//Fields are: Capacity, Difference, Discount
+	/**
+	 * Fields are: Capacity, Difference, Discount
+	 */
 	private final int numberOfFields = 3;
+	/**
+	 * Depend on how many requests in the db.
+	 */
 	private int numberOfParks;
 
 	//Accept and Reject Buttons, suppose to be 9 approve/reject buttons for 3 parks with 3 fields ( 3 x 3 = 9).
@@ -63,23 +65,37 @@ public class ApproveChangesController {
 	
 	//-------------------------------------------- Interact with server START-----------------------------------------------
 
+	/**
+	 * Ask all approves and rejects from the db.
+	 * After that check if the data came back successfully and if it does, add it.
+	 */
 	public void getChangesFromDataBase() {
 		RequestHandler rh = new RequestHandler(controllerName.DepartmentManagerSystemController, "showAllApprovesAndRejects", "");
 		ClientUI.chat.accept(gson.toJson(rh));
 		checkIfGetDataQueryWorked();
 	}
+	/**
+	 * Update the status of a request in the database.
+	 */
 	public void setStatusToRequest(String parkNameAndChangeField) {
 		RequestHandler rh = new RequestHandler(controllerName.DepartmentManagerSystemController, "updateFieldStatus", parkNameAndChangeField);
 		ClientUI.chat.accept(gson.toJson(rh));
 	}
+	/**
+	 * After the manager approved the changes, update the new data to the database.
+	 */
 	public void updateParkDetails(String parkNameAndChangeFieldAndNewData) {
 		RequestHandler rh = new RequestHandler(controllerName.DepartmentManagerSystemController, "updateParkInformation", parkNameAndChangeFieldAndNewData);
 		ClientUI.chat.accept(gson.toJson(rh));
 	}
 	//-------------------------------------------- Interact with server END -----------------------------------------------
 	
+	
 	//-------------------------------------------- Analyze answers from server START ------------------------------------------
-	//analyzeAnswerFromServer
+
+	/**
+	 * Check if the query worked fine and if it does go to loadAllRequests.
+	 */
 	private void checkIfGetDataQueryWorked() {
 		String answer = ChatClient.serverMsg;		
 		if(!answer.equals("faild"))
@@ -87,10 +103,17 @@ public class ApproveChangesController {
 	}		
 	//-------------------------------------------- Analyze answers from server END ------------------------------------------
 
-	// All the requests will be in a template String
-	// This method will make sure to split it and use it as an ArrayList.
+
+	/** Analyze the details from the db and put them in a string.
+	 * Also create new buttons for approve and reject.
+	 * @param changes The changes that came back from the query came back as a string with " " between each word
+	 * and "," between rows.
+	 */
 	private void setAllChangesAsTexts(String changes)
 	{
+		// All the requests will be in a template String
+		// This method will make sure to split it and use it as an ArrayList.
+		
 		String[] tables = changes.split(" ");
 
 		for (String s : tables) 
@@ -102,17 +125,33 @@ public class ApproveChangesController {
 
 	}
 
-	//Actions for approve clicking on approve button
+	/**
+	 * Actions for approve by clicking on approve button
+	 * @param parkName
+	 * @param newData the new data that will be updated in the database thanks to the approval of the manager.
+	 * @param dataIndex will determine which field are we talking about
+	 * 0 - Capacity
+	 * 1 - Difference
+	 * 2 - Discount
+	 */
 	public void approveRequest(String parkName,String newData,int dataIndex)
 	{
-		setNewStatusForRequest(parkName,newData,dataIndex);
+		setNewStatusForRequest(parkName,dataIndex);
 		String stringToSend = parkName + " " + whatIsTheField(dataIndex) + " " + newData;
 		updateParkDetails(stringToSend);
 		PopUp.display("Updated Successfully", "Update Successfully");
 		refreshPage();
 		
 	}
-	//Actions for approve clicking on reject button
+
+	/**
+	 * Actions for reject by clicking on reject button
+	 * @param parkName
+	 * @param dataIndex will determine which field are we talking about
+	 * 0 - Capacity
+	 * 1 - Difference
+	 * 2 - Discount
+	 */
 	public void rejectRequest(String parkName,int dataIndex)
 	{
 		String theField = whatIsTheField(dataIndex);
@@ -121,16 +160,24 @@ public class ApproveChangesController {
 		refreshPage();
 	}
 	
-	//After clicking on approve/reject button we need to set the request status to "finished"
-	//Other untouched requests will be defined as "waiting".
-	public void setNewStatusForRequest(String parkName,String newData,int dataIndex)
+	/**
+	 * After clicking on approve/reject button we need to set the request status to "finished"
+	 * Other untouched requests will be defined as "waiting".
+	 * @param parkName
+	 * @param dataIndex will determine which field are we talking about
+	 * 0 - Capacity
+	 * 1 - Difference
+	 * 2 - Discount
+	 */
+	public void setNewStatusForRequest(String parkName,int dataIndex)
 	{
 		String theField = whatIsTheField(dataIndex);
 		setStatusToRequest(parkName + " " + theField);
-	//	refreshPage();
 	}
 	
-	//Give actions to the empty buttons.
+	/**
+	 * Give actions to the approve/reject buttons.
+	 */
 	public void setApproveAndRejectButtonsActions()
 	{
 		int buttonsCounter = 0;
@@ -144,10 +191,15 @@ public class ApproveChangesController {
 				aprBtns[buttonsCounter++].setOnAction(e -> approveRequest(parkName,newData,dataIndex));
 			}		
 	}
-	
 
-
-	// Determine which field are we using.
+	/**
+	 * Determine which field are we using.
+	 * @param dataIndex	will be the index to decide which field needed.
+	 * @return
+	 * 0 - Capacity
+	 * 1 - Difference
+	 * 2 - Discount
+	 */
 	public String whatIsTheField(int dataIndex)
 	{
 		switch(dataIndex)
@@ -161,9 +213,11 @@ public class ApproveChangesController {
 		}
 		return null;
 	}
-	
-	//Remove the current data from the page and reload it
-	//The advantage of this function is that the page will be organized.
+
+	/**
+	 * Remove the current data from the page and reload it
+	 * The advantage of this function is that the page will be organized.
+	 */
 	private void refreshPage()
 	{
 		listVBox.getChildren().clear();
@@ -171,18 +225,25 @@ public class ApproveChangesController {
 		getChangesFromDataBase();
 	}
 	
-	//Load all the requests.
-	//Requests that have been finished won't be load to this page.
+
+	/**
+	 * 	Load all the requests.
+	 *	Requests that have been finished won't be load to this page.
+	 * @param changes all the changes should be in a string that came from the query that we used in the db.
+	 */
 	private void loadAllRequests(String changes)
 	{
-		
+		//Get the details from the query into a string.
 		setAllChangesAsTexts(changes);
 		
+		//Common font that we will use.
 		Font commonFontSize12 = Font.font("System", FontWeight.BOLD, 12);
 		Font commonFontSize17 = Font.font("System", FontWeight.NORMAL, 17);
 		
-		int buttonsCounter = 0; // count how many approve and reject buttons we have.
+		// count how many approve and reject buttons we have.
+		int buttonsCounter = 0; 
 		
+		//Create all buttons and text fields using javafx functions.
 		for(int i = 0; i < numberOfParks; i++)
 		{
 			//VBox that will hold each park changes.
@@ -210,6 +271,7 @@ public class ApproveChangesController {
 				hb[j].setSpacing(10);
 			}
 			
+			//Take the data and give it names.
 			String capacity = allChangesAsTexts.get(i)[1];
 			String difference = allChangesAsTexts.get(i)[2];
 			String discount = allChangesAsTexts.get(i)[3];
@@ -222,6 +284,7 @@ public class ApproveChangesController {
 			String difStatus = allChangesAsTexts.get(i)[8];
 			String disStatus = allChangesAsTexts.get(i)[9];
 						
+			//Create new texts.
 			Text capText = new Text(String.format("Capacity   = %5s \t->\t New Capacity   = %5s \t", oldCapacity,capacity));
 			Text difText = new Text(String.format("Difference = %5s \t->\t New Difference = %5s \t", oldDifference,difference));
 			Text disText = new Text(String.format("Discount   = %5s \t->\t New Discount   = %5s \t", oldDiscount,discount));
@@ -230,22 +293,39 @@ public class ApproveChangesController {
 			difText.setFont(commonFontSize17);
 			disText.setFont(commonFontSize17);
 			
-			//Create
+			//Create approve and reject buttons
 			for (int j = i*numberOfFields; j < i*numberOfFields + numberOfFields; j++)							
 				createButton(j, commonFontSize12);
-						
 			
+			//Check if the requests are in state "waiting", if they are, we can add them.
+			//"finished" requests won't be added.
 			buttonsCounter = addWaitingRequestsToTable(buttonsCounter, vb, hb1, hb, capStatus, difStatus, disStatus, capText, difText,disText);
 			
 		}
+		//Give actions to the buttons that we made.
 		setApproveAndRejectButtonsActions();
 		
 	}
 
+	/**
+	 * Check if the requests are in state "waiting", if they are, we can add them.
+	 * "finished" requests won't be added.
+	 * @param buttonsCounter count number of buttons
+	 * @param vb main VBox that hold all requests
+	 * @param hb1 HBox that hold the park name.
+	 * @param hb Array with 3 HBox for each text field.
+	 * @param capStatus Status of Capacity
+	 * @param difStatus Status of Difference
+	 * @param disStatus Status of Discount
+	 * @param capText Capacity text
+	 * @param difText Difference text
+	 * @param disText Discount text
+	 * @return
+	 */
 	private int addWaitingRequestsToTable(int buttonsCounter, VBox vb, HBox hb1, HBox[] hb, String capStatus, String difStatus,
 			String disStatus, Text capText, Text difText, Text disText) {
 		
-		vb.getChildren().add(hb1); //Hbox with park name
+		vb.getChildren().add(hb1); //HBox with park name
 		
 		int countFinishedChanges = 0;
 		if(capStatus.equals("waiting"))
@@ -275,6 +355,11 @@ public class ApproveChangesController {
 		return buttonsCounter;
 	}
 
+	/**
+	 * By given index and font, create approve and reject buttons.
+	 * @param j index 
+	 * @param f font
+	 */
 	public void createButton(int j,Font f)
 	{
 		aprBtns[j] = new Button("Approve");

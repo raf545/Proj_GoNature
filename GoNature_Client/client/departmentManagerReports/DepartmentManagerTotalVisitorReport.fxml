@@ -15,13 +15,13 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="920.0" style="-fx-background-color: #e74c3c;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="departmentManagerReports.DepartmentManagerTotalVisitReportController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="646.0" layoutX="41.0" layoutY="67.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="839.0" />
-      <Text layoutX="301.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Visitors Report" textAlignment="CENTER" wrappingWidth="290.443359375">
+      <Text layoutX="315.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Visitors Report" textAlignment="CENTER" wrappingWidth="290.443359375">
          <font>
             <Font name="Guttman Drogolin Bold" size="30.0" />
          </font>
       </Text>
-      <Circle fill="#e74c3c" layoutX="139.0" layoutY="172.0" radius="25.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="0.0" />
-      <Text fx:id="backbtn" fill="WHITE" layoutX="113.0" layoutY="182.0" onMouseClicked="#goBack" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;" textAlignment="CENTER" wrappingWidth="50.0">
+      <Circle fill="#e74c3c" layoutX="140.0" layoutY="157.0" radius="25.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="0.0" />
+      <Text fx:id="quitBtn" fill="WHITE" layoutX="114.0" layoutY="167.0" onMouseClicked="#goBack" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;" textAlignment="CENTER" wrappingWidth="50.0">
          <font>
             <Font name="Baloo Regular" size="30.0" />
          </font>
@@ -37,8 +37,8 @@
                <children>
                   <HBox layoutY="-15.0" prefHeight="52.0" prefWidth="167.0">
                      <children>
-                        <ComboBox fx:id="comboYear" layoutY="-15.0" prefHeight="25.0" prefWidth="73.0" promptText="2020" />
-                        <ComboBox fx:id="comboMonth" layoutX="60.0" layoutY="-15.0" prefHeight="25.0" prefWidth="60.0" promptText="12" />
+                        <ComboBox fx:id="comboYear" layoutY="-15.0" prefHeight="25.0" prefWidth="83.0" promptText="2020" />
+                        <ComboBox fx:id="comboMonth" layoutX="60.0" layoutY="-15.0" prefHeight="25.0" prefWidth="67.0" promptText="12" />
                      </children>
                   </HBox>
                </children>
@@ -49,6 +49,7 @@
                </font>
             </Text>
             <ComboBox fx:id="parkComboBox" layoutY="77.0" prefWidth="150.0" promptText="Select Park" />
+            <HBox prefHeight="100.0" prefWidth="200.0" />
             <Button fx:id="showbtn" layoutY="107.0" mnemonicParsing="false" onAction="#showReport" prefHeight="26.0" prefWidth="251.0" style="-fx-background-color: #e74c3c;" text="Show" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
@@ -56,7 +57,7 @@
             </Button>
          </children>
       </VBox>
-      <TableView fx:id="mainTable" layoutX="98.0" layoutY="380.0" prefHeight="244.0" prefWidth="725.0" style="-fx-background-color: #676767; -fx-border-color: #e74c3c; -fx-border-insets: 5; -fx-border-width: 4; -fx-alignment: CENTER;">
+      <TableView fx:id="mainTable" layoutX="98.0" layoutY="370.0" prefHeight="316.0" prefWidth="725.0" style="-fx-background-color: #676767; -fx-border-color: #e74c3c; -fx-border-insets: 5; -fx-border-width: 4; -fx-alignment: CENTER;">
          <columns>
             <TableColumn fx:id="typeCol" prefWidth="91.0" style="-fx-alignment: CENTER;" text="Type" />
             <TableColumn fx:id="sundayCol" prefWidth="77.0" style="-fx-alignment: CENTER;" text="Sunday" />
