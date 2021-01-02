@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
@@ -62,18 +63,21 @@
          <font>
             <Font name="Baloo Regular" size="30.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Text>
-      <Text fill="RED" layoutX="236.0" layoutY="431.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
+      <Text fill="RED" layoutX="236.0" layoutY="416.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
          <font>
             <Font size="21.0" />
          </font>
       </Text>
-      <Text fill="RED" layoutX="236.0" layoutY="508.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
+      <Text fill="RED" layoutX="236.0" layoutY="488.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
          <font>
             <Font name="System Italic" size="18.0" />
          </font>
       </Text>
-      <Text fill="RED" layoutX="236.0" layoutY="351.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
+      <Text fill="RED" layoutX="236.0" layoutY="343.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
          <font>
             <Font name="System Italic" size="18.0" />
          </font>
@@ -83,15 +87,18 @@
             <Font size="21.0" />
          </font>
       </Text>
-      <Text fill="RED" layoutX="236.0" layoutY="275.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
+      <Text fill="RED" layoutX="236.0" layoutY="271.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
          <font>
             <Font size="21.0" />
          </font>
       </Text>
-      <Button fx:id="savebtn" layoutX="225.0" layoutY="653.0" mnemonicParsing="false" onAction="#SaveInstructor" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #FFC956;" text="Save instructor" textFill="WHITE">
+      <Button fx:id="savebtn" layoutX="225.0" layoutY="639.0" mnemonicParsing="false" onAction="#SaveInstructor" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #FFC956;" text="Save instructor" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
    </children>
 </Pane>

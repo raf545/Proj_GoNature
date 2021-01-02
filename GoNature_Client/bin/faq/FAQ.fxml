@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
@@ -9,7 +10,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="445.0" prefWidth="669.0" style="-fx-background-color: #99D487;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="faq.FaqController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="409.0" layoutX="14.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="630.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="418.0" layoutX="14.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="639.0" />
       <Text fill="#99d487" layoutX="190.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FAQ" textAlignment="CENTER" wrappingWidth="263.443359375">
          <font>
             <Font name="Guttman Haim" size="48.0" />
@@ -80,6 +81,9 @@
          <font>
             <Font name="Baloo Regular" size="30.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Text>
    </children>
 </Pane>

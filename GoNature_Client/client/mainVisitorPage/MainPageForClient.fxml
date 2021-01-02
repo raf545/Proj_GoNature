@@ -7,7 +7,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -21,19 +20,13 @@
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" cache="true" fill="#99d487" height="45.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="1239.0" />
       <Pane fx:id="PaneChange" layoutX="265.0" layoutY="128.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="760.0" prefWidth="920.0" style="-fx-background-color: white;" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#99d487" height="45.0" layoutX="46.0" layoutY="74.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="200.0">
-         <effect>
-            <InnerShadow />
-         </effect></Rectangle>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#99d487" height="45.0" layoutX="46.0" layoutY="74.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
       <Text layoutX="66.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Menu" textAlignment="CENTER" wrappingWidth="160.0">
          <font>
             <Font name="Guttman Drogolin Bold" size="28.0" />
          </font>
       </Text>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#99d487" height="45.0" layoutX="960.0" layoutY="74.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="225.0">
-         <effect>
-            <InnerShadow />
-         </effect></Rectangle>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#99d487" height="45.0" layoutX="960.0" layoutY="74.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="225.0" />
       <Text fx:id="mainPageTypeOfClient" layoutX="960.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Subscriber" textAlignment="CENTER" wrappingWidth="225.00000071525574">
          <font>
             <Font name="Guttman Drogolin Bold" size="24.0" />
