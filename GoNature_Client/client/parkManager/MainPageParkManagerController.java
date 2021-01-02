@@ -23,6 +23,10 @@ import parkmanagerreports.numberOfVisitorsReportController;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
 
+/**the main page of an park manager,contains all the metods that he can do
+ * @author zivi9
+ *
+ */
 public class MainPageParkManagerController {
 
 	Gson gson = new Gson();
@@ -44,10 +48,17 @@ public class MainPageParkManagerController {
 
 	Employee parkManager;
 
+	/**set the information of this park manager
+	 * @param parkManagerEmp
+	 */
 	public void setParkManagerEmployee(Employee parkManagerEmp) {
 		parkManager = parkManagerEmp;
 	}
 
+	/**open the page of edit the park, with this page the park manager can edit parameters about this park 
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	void editPark(ActionEvent event) throws IOException {
 		StaticPaneMainPageParkManager.parkManagerMainPane = parkManagerMainPane;
@@ -59,7 +70,7 @@ public class MainPageParkManagerController {
 		parkManagerMainPane.getChildren().clear();
 		parkManagerMainPane.getChildren().add(root);
 		ParkMangerChangesController pmcController = loader.getController();
-		pmcController.initializeSlidersAndSetParkMan(parkManager);
+		pmcController.initializeSlidersAndSetParkManager(parkManager);
 	}
 
 	@FXML
@@ -67,6 +78,10 @@ public class MainPageParkManagerController {
 
 	}
 
+	/**open the page that manager could generate reports
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	void parkReport(ActionEvent event) throws IOException {
 		StaticPaneMainPageParkManager.parkManagerMainPane = parkManagerMainPane;
@@ -76,6 +91,10 @@ public class MainPageParkManagerController {
 
 	}
 
+	/**log out and return to the login page
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	void logout(ActionEvent event) throws IOException {
 		RequestHandler rh = new RequestHandler(controllerName.LoginController, "logout", "");

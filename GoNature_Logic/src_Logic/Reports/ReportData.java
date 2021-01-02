@@ -1,5 +1,9 @@
 package Reports;
 
+/**save data that define witch report data should be import from the server 
+ * @author zivi9
+ *
+ */
 public class ReportData {
 
 	

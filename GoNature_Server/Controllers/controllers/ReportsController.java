@@ -24,6 +24,9 @@ public class ReportsController {
 	private ReportsController() {
 
 	}
+	/**singleton constructor
+	 * @return instance of this class
+	 */
 	public static ReportsController getInstance() {
 
 		if (reportsControllerGetInstance == null)
@@ -31,6 +34,12 @@ public class ReportsController {
 		return reportsControllerGetInstance ;
 	}
 
+	/**differs between the reports 
+	 * @param MethodName
+	 * @param data
+	 * @param client
+	 * @return answer from server 
+	 */
 	public String getFunc(String MethodName, String data, ConnectionToClient client) {
 
 		switch (MethodName) {
@@ -47,6 +56,11 @@ public class ReportsController {
 	}
 	
 	
+	/**get visitor capacity report
+	 * @param data
+	 * @param client
+	 * @return capacity report
+	 */
 	private String getVisitorCapacityReport(String data, ConnectionToClient client) {
 		int sum[]=new int[30];
 		for (int i = 0; i < sum.length; i++) {
@@ -61,7 +75,6 @@ public class ReportsController {
 			
 		}
 		int capacity=0;
-		ArrayList <String> reportdata = new ArrayList<String>();
 		@SuppressWarnings("deprecation")
 		Timestamp fromTime = new Timestamp(Integer.parseInt(visitorReport.getYear())-1900, Integer.parseInt(visitorReport.getMonth())-1, 1, 00, 00, 00, 00);
 //		Timestamp fromTime = Timestamp.valueOf(LocalDateTime.of(Integer.parseInt(visitorReport.getYear()), Integer.parseInt(visitorReport.getMonth()), 1, 00, 00, 00, 00));
@@ -136,6 +149,11 @@ public class ReportsController {
 			
 			
 			
+	/** get revenue  report from data base
+	 * @param data
+	 * @param client
+	 * @return revenue report
+	 */
 	private String getRevenueReport(String data, ConnectionToClient client) {
 		
 		ReportData visitorReport = gson.fromJson(data, ReportData.class);
@@ -192,6 +210,11 @@ public class ReportsController {
 	
 	
 	
+	/**get Total Visitors Report
+	 * @param data
+	 * @param client
+	 * @return Total Visitors Report 
+	 */
 	private String getTotalVisitorsReport(String data, ConnectionToClient client) {
 		ReportData visitorReport = gson.fromJson(data, ReportData.class);
 		int day;

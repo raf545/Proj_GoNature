@@ -1,5 +1,9 @@
 package parkChange;
 
+/**define the data that has to be save for park change request from the server
+ * @author zivi9
+ *
+ */
 public class ParkChangeDetails {
 	private String parkCapacity;
 	private String difference;

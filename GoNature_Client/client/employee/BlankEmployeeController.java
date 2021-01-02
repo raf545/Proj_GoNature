@@ -4,6 +4,10 @@ package employee;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
+/**contains the data about this employee and present at the front main page
+ * @author zivi9
+ *
+ */
 public class BlankEmployeeController {
 
     @FXML
@@ -23,6 +27,9 @@ public class BlankEmployeeController {
 
 
 
+	/**save the informations of the employee for the all the instance of this class
+	 * @param employeeall
+	 */
 	public void setEmployee(Employee employeeall) {
 		employee = employeeall;
 	}
@@ -30,6 +37,9 @@ public class BlankEmployeeController {
 
 
 
+	/**set the information of the employee at the labels
+	 * 
+	 */
 	public void setBlank()
 	{
 		empname.setText(employee.getName());

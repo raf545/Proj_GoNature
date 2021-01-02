@@ -32,6 +32,10 @@ import parkManager.MainPageParkManagerController;
 import popup.PopUp;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
+/**class that generate and show the number of visitors report
+ * @author zivi9
+ *
+ */
 public class numberOfVisitorsReportController {
 	Gson gson = new Gson();
 	
@@ -88,6 +92,9 @@ public class numberOfVisitorsReportController {
 
 
 
+	    /**save the request and call methods that will send it to the server
+	     * @param event
+	     */
 	    @FXML
 	    void showReport(ActionEvent event) {
 	    	ReportData data=new ReportData(parkManager.getParkName(), comboYear.getValue(), comboMonth.getValue());
@@ -96,12 +103,19 @@ public class numberOfVisitorsReportController {
 	    	askTotalVisitorsReportFromServer("TotalVisitorsReport", data );
 
 	    }
+	    /**send a request to the server and call methods that will analyze the answer 
+	     * @param funcname
+	     * @param data
+	     */
 	    private void askTotalVisitorsReportFromServer(String funcname, ReportData data) {
 	    	RequestHandler rh = new RequestHandler(controllerName.ReportsController, funcname,gson.toJson(data));
 			ClientUI.chat.accept(gson.toJson(rh));
 			analyzeAnswerFromServer();
 			
 		}
+		/**set the server answer into table view 
+		 * 
+		 */
 		private void analyzeAnswerFromServer() {
 			 int sum1=0;
 			 int sum2=0;
@@ -180,6 +194,9 @@ public class numberOfVisitorsReportController {
 				
 		}
 		
+		/**initialize the tabke view
+		 * 
+		 */
 		private void initializeTable()
 		{
 			data.clear();
@@ -198,6 +215,9 @@ public class numberOfVisitorsReportController {
 		
 		
 		
+		/**set the information of the park manager and set the combo boxes 
+		 * @param employee
+		 */
 		public void setParkManager(Employee employee) {
 			int thisyear = Calendar.getInstance().get(Calendar.YEAR);
 	    	int thismonth=Calendar.getInstance().get(Calendar.MONTH);
@@ -212,7 +232,11 @@ public class numberOfVisitorsReportController {
 			
 
 		}
-		 @FXML
+		 /** go back to the park manager report main page
+		 * @param event
+		 * @throws IOException
+		 */
+		@FXML
 		    void goBack(MouseEvent event) throws IOException {
 			ParkManagerReportsController controller = FXMLFunctions.loadSceneToMainPane(ParkManagerReportsController.class, "ParkManagerReports.fxml", StaticPaneMainPageParkManager.parkManagerMainPane).getController();
 			controller.setComboBoxOptions(parkManager);

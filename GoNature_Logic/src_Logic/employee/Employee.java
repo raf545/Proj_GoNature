@@ -1,5 +1,9 @@
 package employee;
 
+/**class that define the data of an employee contains setters ,getters and to string
+ * @author zivi9
+ *
+ */
 public class Employee {
 	private String employeeId;
 	private String password;

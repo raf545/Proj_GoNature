@@ -9,6 +9,10 @@ import dataBase.DataBase;
 import ocsf.server.ConnectionToClient;
 import subscriber.Subscriber;
 
+/**class that save family and instructor changes into the data base ,changes that employee can do  
+ * @author zivi9
+ *
+ */
 public class EmployeeSystemController {
 	Gson gson = new Gson();
 
@@ -18,6 +22,9 @@ public class EmployeeSystemController {
 
 	}
 
+	/**singleton constructor
+	 * @return instance of this class
+	 */
 	public static EmployeeSystemController getInstance() {
 
 		if (EmployeeSystemControllerInstacne == null)
@@ -25,6 +32,12 @@ public class EmployeeSystemController {
 		return EmployeeSystemControllerInstacne;
 	}
 
+	/**differs between add family request or an instructor request
+	 * @param MethodName
+	 * @param data
+	 * @param client
+	 * @return answer from server
+	 */
 	public String getFunc(String MethodName, String data, ConnectionToClient client) {
 
 		switch (MethodName) {
@@ -38,6 +51,11 @@ public class EmployeeSystemController {
 		return data;
 	}
 
+	/**save family subscriber into the data base
+	 * @param data
+	 * @param client
+	 * @return answer from the server
+	 */
 	private String addFamilySub(String data, ConnectionToClient client) {
 		Subscriber subscriber = gson.fromJson(data, Subscriber.class);
 		int subidr = 0;
@@ -49,11 +67,11 @@ public class EmployeeSystemController {
 		query = "SELECT * FROM gonaturedb.uptodateinformation WHERE nameOfVal = \"subscriberID\";";
 		res = DataBase.getInstance().search(query);
 		if (isEmpty(res) == 0) {
-			System.out.println("here!!");
-			return "";
+			
+			return "faild to get subscriber id";
 		}
 		try {
-			System.out.println(res.getString(1) + "!!!!!!");
+			
 			subidr = res.getInt(2);
 			subscriber.setSubscriberId(String.valueOf(subidr));
 		} catch (SQLException e) {
@@ -63,7 +81,7 @@ public class EmployeeSystemController {
 		{
 			subscriber.setSubscriberTypre("subscriber");
 		}
-	//
+	
 		query = "INSERT INTO gonaturedb.subscriber (id, subscriberid, firstName, lastName, phone, email, numOfMembers, creditCardNumber, subscriberTypre) VALUES "
 				+ subscriber.toString2() + ";";
 		if (DataBase.getInstance().update(query)) {
@@ -77,6 +95,11 @@ public class EmployeeSystemController {
 		return "fail";
 	}
 
+	/**save family subscriber into the data base
+	 * @param data
+	 * @param client
+	 * @return answer from the server
+	 */
 	private String addInstructorSub(String data, ConnectionToClient client) {
 		int subidr = 0;
 		Subscriber subscriber = gson.fromJson(data, Subscriber.class);
@@ -110,6 +133,10 @@ public class EmployeeSystemController {
 		return "fail";
 	}
 
+	/**check if the result set is empty
+	 * @param rs
+	 * @return the numbers of the rows in the result set
+	 */
 	private int isEmpty(ResultSet rs) {
 		int size = 0;
 		if (rs != null) {

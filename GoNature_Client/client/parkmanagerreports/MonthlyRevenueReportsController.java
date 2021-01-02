@@ -23,6 +23,10 @@ import javafx.scene.text.Text;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
 
+/**class that generate and show the monthly revenue report
+ * @author zivi9
+ *
+ */
 public class MonthlyRevenueReportsController {
 	Employee parkManager;
 	Gson gson = new Gson();
@@ -56,6 +60,9 @@ public class MonthlyRevenueReportsController {
 	    @FXML
 	    private Label parkName;
 
+    /**set the information of the park manager and set the combo boxes 
+     * @param employee
+     */
     public void setParkManager(Employee employee) {
     	int thisyear = Calendar.getInstance().get(Calendar.YEAR);
     	int thismonth=Calendar.getInstance().get(Calendar.MONTH);
@@ -71,6 +78,10 @@ public class MonthlyRevenueReportsController {
 	}
     
     
+    /**go back to the park manager report main page 
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void goBack(MouseEvent event) throws IOException {
     	ParkManagerReportsController controller = FXMLFunctions.loadSceneToMainPane(ParkManagerReportsController.class, "ParkManagerReports.fxml", StaticPaneMainPageParkManager.parkManagerMainPane).getController();
@@ -83,6 +94,9 @@ public class MonthlyRevenueReportsController {
     
     
     
+    /**save the request and call methods that will send it to the server
+     * @param event
+     */
     @FXML
     void showReport(ActionEvent event) {
     	ReportData data=new ReportData(parkManager.getParkName(), comboYear.getValue(), comboMonth.getValue());   	
@@ -92,6 +106,10 @@ public class MonthlyRevenueReportsController {
     
     
     
+    /**send a request to the server and call methods that will analyze the answer 
+     * @param funcname
+     * @param data
+     */
     private void askTotalVisitorsReportFromServer(String funcname, ReportData data) {
     	RequestHandler rh = new RequestHandler(controllerName.ReportsController, funcname,gson.toJson(data));
 		ClientUI.chat.accept(gson.toJson(rh));
@@ -101,6 +119,9 @@ public class MonthlyRevenueReportsController {
     }
     
     
+    /**set the server answer into labels 
+     * 
+     */
     @SuppressWarnings("unchecked")
 	private void analyzeAnswerFromServer() {
 	    String answer = ChatClient.serverMsg;
