@@ -21,7 +21,7 @@ public class DataBase {
 	private Connection connection = null;
 	private String jdbcURL = "jdbc:mysql://localhost/gonaturedb?serverTimezone=CAT";
 	private String jdbcuser = "root";
-	private String jdbcPass = "root";
+	private String jdbcPass = "a123456789";
 	// Constructors ****************************************************
 
 	private DataBase() {
@@ -146,7 +146,7 @@ public class DataBase {
 		}
 	}
 
-	public int isEmpty(ResultSet resultSet) {
+	public int getResultSetSize(ResultSet resultSet) {
 		int size = 0;
 		if (resultSet != null) {
 			try {

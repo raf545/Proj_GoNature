@@ -24,7 +24,7 @@ public class CheckIfVisitInPark implements Runnable {
 			DataBase.getInstance().update(query);
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	}

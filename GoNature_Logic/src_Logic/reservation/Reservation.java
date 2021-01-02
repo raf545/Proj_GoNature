@@ -126,5 +126,14 @@ public class Reservation {
 				+ ", dateAndTime=" + dateAndTime + ", price=" + price + ", reservetionStatus=" + reservetionStatus
 				+ ", phone=" + phone + "]";
 	}
+	public String createReceipt() {
+		StringBuilder receipt = new StringBuilder();
+		receipt.append("ReservationID : " + getReservationID()+"\n");
+		receipt.append("numofvisitors : " + getNumofvisitors()+"\n");
+		receipt.append("Reservation time : " + getDateAndTime()+"\n");
+		receipt.append("Total price : " + getPrice() +"\n");
+		receipt.append("Thank you for coming\n");
+		return receipt.toString();
+	}
 
 }

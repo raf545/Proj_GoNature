@@ -41,7 +41,7 @@ public class ParkManagerReportsController {
 				novrController = FXMLFunctions.loadSceneToMainPane(numberOfVisitorsReportController.class, "TotalVisitorsReports.fxml", StaticPaneMainPageParkManager.parkManagerMainPane).getController();
 				novrController.setParkManager(parkManager);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				//
 				e.printStackTrace();
 			}
     		
@@ -52,7 +52,7 @@ public class ParkManagerReportsController {
     			mrrcController = FXMLFunctions.loadSceneToMainPane(MonthlyRevenueReportsController.class, "MonthlyRevenueReports.fxml", StaticPaneMainPageParkManager.parkManagerMainPane).getController();
     			mrrcController.setParkManager(parkManager);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
     		break; 
@@ -62,7 +62,7 @@ public class ParkManagerReportsController {
     			vcrController = FXMLFunctions.loadSceneToMainPane(VisitorCapacityReportController.class, "VisitorCapacityReport.fxml", StaticPaneMainPageParkManager.parkManagerMainPane).getController();
     			vcrController.setParkManager(parkManager);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
     		break; 

@@ -128,7 +128,7 @@ public class ReportsController {
 				
 
 		}catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		return gson.toJson(arr,String[][].class);
@@ -150,7 +150,7 @@ public class ReportsController {
 			query1.setTimestamp(2, toTime);
 			query1.setString(3, visitorReport.getParkname());
 			ResultSet res = DataBase.getInstance().search(query1);
-			if (DataBase.getInstance().isEmpty(res) != 0)
+			if (DataBase.getInstance().getResultSetSize(res) != 0)
 				reportdata.add(String.valueOf(res.getDouble(1)));
 			else
 				reportdata.add(String.valueOf(0));
@@ -160,7 +160,7 @@ public class ReportsController {
 			query2.setTimestamp(2, toTime);
 			query2.setString(3, visitorReport.getParkname());
 			ResultSet res2 = DataBase.getInstance().search(query2);
-			if (DataBase.getInstance().isEmpty(res2) != 0)
+			if (DataBase.getInstance().getResultSetSize(res2) != 0)
 				reportdata.add(String.valueOf(res2.getDouble(1)));
 			else
 				reportdata.add(String.valueOf(0));
@@ -171,7 +171,7 @@ public class ReportsController {
 			query3.setTimestamp(2, toTime);
 			query3.setString(3, visitorReport.getParkname());
 			ResultSet res3 = DataBase.getInstance().search(query3);
-			if (DataBase.getInstance().isEmpty(res3) != 0)
+			if (DataBase.getInstance().getResultSetSize(res3) != 0)
 				reportdata.add(String.valueOf(res3.getDouble(1)));
 			else
 				reportdata.add(String.valueOf(0));
@@ -180,7 +180,7 @@ public class ReportsController {
 			DataBase.getInstance().update(queryrev);
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		
 			e.printStackTrace();
 		}
 		return gson.toJson(reportdata);
@@ -263,7 +263,7 @@ public class ReportsController {
 			}
 			DataBase.getInstance().update(querytotalin);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 		

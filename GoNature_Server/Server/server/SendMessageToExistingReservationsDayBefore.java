@@ -34,7 +34,7 @@ public class SendMessageToExistingReservationsDayBefore implements Runnable {
 			query.setTimestamp(1, fromCheck);
 			query.setTimestamp(2, toCheck);
 			res = DataBase.getInstance().search(query);
-			if (DataBase.getInstance().isEmpty(res) == 0)
+			if (DataBase.getInstance().getResultSetSize(res) == 0)
 				return;
 			do {
 				// send email to the client
@@ -53,7 +53,7 @@ public class SendMessageToExistingReservationsDayBefore implements Runnable {
 			DataBase.getInstance().update(query);
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		System.out.println("end approve thread");

@@ -22,7 +22,7 @@ public class CheckIfApproveReservation implements Runnable {
 					"select personalID,email,phone from gonaturedb.reservetions where reservetionStatus = \"sendApprovalMessage\";");
 
 			res = DataBase.getInstance().search(query);
-			if (DataBase.getInstance().isEmpty(res) == 0)
+			if (DataBase.getInstance().getResultSetSize(res) == 0)
 				return;
 			do {
 				// send email to the client
@@ -37,7 +37,6 @@ public class CheckIfApproveReservation implements Runnable {
 					"Update gonaturedb.reservetions SET reservetionStatus = \"Canceled\" WHERE (reservationID <> \"\" AND reservetionStatus = \"sendApprovalMessage\");");
 			DataBase.getInstance().update(query);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
