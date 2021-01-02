@@ -23,7 +23,7 @@
             <Font size="19.0" />
          </font>
       </Text>
-      <Circle fill="#99d487" layoutX="176.0" layoutY="153.0" radius="25.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fill="#729d64" layoutX="176.0" layoutY="153.0" radius="25.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="0.0" />
       <Text fx:id="backBtn" fill="WHITE" layoutX="150.0" layoutY="163.0" onMouseClicked="#back" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;" textAlignment="CENTER" wrappingWidth="50.0">
          <font>
             <Font name="Baloo Regular" size="30.0" />

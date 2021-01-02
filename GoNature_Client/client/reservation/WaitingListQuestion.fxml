@@ -24,7 +24,7 @@
       </Text>
       <HBox layoutX="264.0" layoutY="382.0" prefHeight="59.0" prefWidth="408.0" spacing="10.0">
          <children>
-            <Button fx:id="joinToWaitingListBtn" mnemonicParsing="false" onAction="#joinToWaitingList" prefHeight="61.0" prefWidth="192.0" style="-fx-background-color: #99d487;" text="Yes, join waiting list" textFill="WHITE">
+            <Button fx:id="joinToWaitingListBtn" mnemonicParsing="false" onAction="#joinToWaitingList" prefHeight="61.0" prefWidth="192.0" style="-fx-background-color: #729d64;" text="Yes, join waiting list" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -32,7 +32,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="showOtherOptionsBtn" mnemonicParsing="false" onAction="#showOtherOptions" prefHeight="61.0" prefWidth="192.0" style="-fx-background-color: #99d487;" text="No, show me other options" textAlignment="CENTER" textFill="WHITE">
+            <Button fx:id="showOtherOptionsBtn" mnemonicParsing="false" onAction="#showOtherOptions" prefHeight="61.0" prefWidth="192.0" style="-fx-background-color: #729d64;" text="No, show me other options" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -42,7 +42,7 @@
             </Button>
          </children>
       </HBox>
-      <Circle fill="#99d487" layoutX="222.0" layoutY="266.0" radius="25.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fill="#729d64" layoutX="222.0" layoutY="266.0" radius="25.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="0.0" />
       <Text fx:id="backBtn" fill="WHITE" layoutX="196.0" layoutY="276.0" onMouseClicked="#back" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;" textAlignment="CENTER" wrappingWidth="50.0">
          <font>
             <Font name="Baloo Regular" size="30.0" />
