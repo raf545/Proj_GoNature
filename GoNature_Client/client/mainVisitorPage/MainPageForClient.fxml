@@ -19,7 +19,19 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="955.0" prefWidth="1239.0" style="-fx-background-color: #676767;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainVisitorPage.MainPageForClientController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" cache="true" fill="#99d487" height="45.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="1239.0" />
-      <Pane fx:id="PaneChange" layoutX="265.0" layoutY="128.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="760.0" prefWidth="920.0" style="-fx-background-color: white;" />
+      <Pane fx:id="PaneChange" layoutX="265.0" layoutY="128.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="760.0" prefWidth="920.0" style="-fx-background-color: #99d487;">
+         <children>
+            <ImageView blendMode="MULTIPLY" fitHeight="590.0" fitWidth="730.0" layoutX="124.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../pictures/Tree.png" />
+               </image>
+            </ImageView>
+            <Label alignment="CENTER" blendMode="MULTIPLY" contentDisplay="CENTER" layoutX="186.0" layoutY="604.0" prefHeight="103.0" prefWidth="548.0" text="GoNature" textAlignment="CENTER">
+               <font>
+                  <Font size="70.0" />
+               </font>
+            </Label>
+         </children></Pane>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#99d487" height="45.0" layoutX="46.0" layoutY="74.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" width="200.0" />
       <Text layoutX="66.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Menu" textAlignment="CENTER" wrappingWidth="160.0">
          <font>

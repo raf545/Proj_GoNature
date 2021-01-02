@@ -106,11 +106,10 @@ public class SignInEmployeeController {
 			cardReaderControllerController.setPrkNameComboBox();
 			cardReader.setScene(sc);
 			cardReader.show();
-	
 
 			switch (employee.getTypeOfEmployee()) {
 			case "department manager":
-				openDepartmentManagerGui();
+				openDepartmentManagerGui(employee);
 				break;
 			case "park manager":
 				openParkManagerGui(employee);
@@ -141,7 +140,7 @@ public class SignInEmployeeController {
 
 			MainPageEmployeeController mainPageEmployeeController = loader.getController();
 			mainPageEmployeeController.setEmp(employee);
-			
+
 			StaticPaneMainPageEmployee.employeeMainPane = mainPageEmployeeController.getPane();
 			primaryStage.setOnCloseRequest(e -> FXMLFunctions.closeMainPage());
 			primaryStage.setTitle("Employee Main Page");
@@ -175,7 +174,7 @@ public class SignInEmployeeController {
 		}
 	}
 
-	private void openDepartmentManagerGui() {
+	private void openDepartmentManagerGui(Employee employee) {
 		try {
 			Stage primaryStage = new Stage();
 			Stage stage = (Stage) ContinueBtn.getScene().getWindow();
@@ -186,6 +185,10 @@ public class SignInEmployeeController {
 			Pane root = loader.load();
 
 			Scene sc = new Scene(root);
+
+			MainPageDepartmentManagerController mainPageDepartmentManagerController = loader.getController();
+			mainPageDepartmentManagerController.setDepDetails(employee);
+
 			primaryStage.setOnCloseRequest(e -> FXMLFunctions.closeMainPage());
 			primaryStage.setTitle("Main Page Department Manager");
 			primaryStage.setScene(sc);

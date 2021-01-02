@@ -104,7 +104,7 @@ public class ReservationForOccasionalVisitorController {
 			occasionalVisitor.setPhone(PhoneTxt.getText());
 			RequestHandler requestToServer = new RequestHandler(controllerName.ReservationController,
 					"occasionalVisitor", gson.toJson(occasionalVisitor));
-			
+
 			ClientUI.chat.accept(gson.toJson(requestToServer));
 			analyzeMessegeFromServer();
 		} else {
@@ -112,8 +112,6 @@ public class ReservationForOccasionalVisitorController {
 		}
 
 	}
-
-
 
 	/**
 	 * Increase the number of people in the counter
@@ -144,9 +142,9 @@ public class ReservationForOccasionalVisitorController {
 			numOfVisitorTxt.setText(String.valueOf(countVisitor));
 		}
 	}
-	
+
 	private void analyzeMessegeFromServer() {
-		
+
 		switch (ChatClient.serverMsg) {
 		case "No available space at the park":
 			PopUp.display("Error", ChatClient.serverMsg);
@@ -156,15 +154,17 @@ public class ReservationForOccasionalVisitorController {
 			break;
 		case "fail":
 			PopUp.display("Error", ChatClient.serverMsg);
-			break;			
+			break;
 		case "Instructor cant make a reservaion for more then 15 pepole":
 			PopUp.display("Error", ChatClient.serverMsg);
-			break;			
+			break;
 		default:
 			Reservation reservation = gson.fromJson(ChatClient.serverMsg, Reservation.class);
-			PopUp.display("Succses", reservation.createReceipt() );
+			PopUp.display("Succses", reservation.createReceipt());
+			StaticPaneMainPageEmployee.employeeMainPane.getChildren().clear();
+//FIXME
 			break;
 		}
-		
+
 	}
 }

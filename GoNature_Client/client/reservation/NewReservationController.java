@@ -234,7 +234,7 @@ public class NewReservationController {
 				waitingListQuestionController.setReservation(reservation);
 				StaticPaneMainPageClient.clientMainPane.getChildren().add(root);
 			} catch (IOException e) {
-				
+
 				e.printStackTrace();
 			}
 			break;
@@ -248,6 +248,7 @@ public class NewReservationController {
 			reservationFromServer = gson.fromJson(answer, Reservation.class);
 			PopUp.display("Success", "Reservation was placed successfuly\n " + "your Reservation id is: "
 					+ reservationFromServer.getReservationID() + "\nPrice:" + reservationFromServer.getPrice());
+			StaticPaneMainPageClient.clientMainPane.getChildren().clear();
 			break;
 		}
 	}

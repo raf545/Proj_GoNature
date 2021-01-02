@@ -48,7 +48,7 @@ public class IdentificationController {
 	 * Sets the identifaction combobox options
 	 */
 	public void setIdentificationComboBox() {
-		OptionCombo.getItems().addAll("Guest ID", "Subscriber", "Reservation ID");
+		OptionCombo.getItems().addAll("Guest ID", "Subscriber");
 	}
 
 	/**

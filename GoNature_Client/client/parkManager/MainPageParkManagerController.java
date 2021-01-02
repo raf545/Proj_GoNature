@@ -14,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import login.SignInEmployeeController;
@@ -45,6 +46,9 @@ public class MainPageParkManagerController {
 	@FXML
 	private Hyperlink logoutBtn;
 
+	@FXML
+	private Label manePageParkName;
+
 	Employee parkManager;
 
 	/**
@@ -54,6 +58,7 @@ public class MainPageParkManagerController {
 	 */
 	public void setParkManagerEmployee(Employee parkManagerEmp) {
 		parkManager = parkManagerEmp;
+		manePageParkName.setText("Hello " + parkManagerEmp.getName() + " " + parkManagerEmp.getLasstName());
 	}
 
 	/**

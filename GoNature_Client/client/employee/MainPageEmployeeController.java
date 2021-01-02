@@ -30,13 +30,14 @@ import requestHandler.RequestHandler;
 import requestHandler.controllerName;
 import reservation.ReservationForOccasionalVisitorController;
 
-/**The main page for an employee,contains all the methods that employee can do 
+/**
+ * The main page for an employee,contains all the methods that employee can do
  * 
  * @author zivi9
  *
  */
 public class MainPageEmployeeController {
-	 
+
 	@FXML
 	private Pane mainPane;
 
@@ -52,28 +53,32 @@ public class MainPageEmployeeController {
 	@FXML
 	private Button NewInstructorBtn;
 
+	@FXML
+	private Label manPageEmpName;
 
 	@FXML
 	private Hyperlink logoutBtn;
 
 	Gson gson = new Gson();
 
-	
 	private Employee employee;
 
 	public void setEmp(Employee employeeFromDB) throws IOException {
 		employee = employeeFromDB;
-		BlankEmployeeController controller = FXMLFunctions.loadSceneToMainPane(BlankEmployeeController.class, "BlankEmployee.fxml" ,mainPane).getController();
+		BlankEmployeeController controller = FXMLFunctions
+				.loadSceneToMainPane(BlankEmployeeController.class, "BlankEmployee.fxml", mainPane).getController();
 		controller.setEmployee(employee);
 		controller.setBlank();
+		manPageEmpName.setText("Hello " + employeeFromDB.getName() + " " + employeeFromDB.getLasstName());
 	}
 
 	public Pane getPane() {
-		
 		return mainPane;
 	}
 
-	/** opens new subscription page for making new subscribers.
+	/**
+	 * opens new subscription page for making new subscribers.
+	 * 
 	 * @param event
 	 * @throws IOException
 	 */
@@ -90,7 +95,9 @@ public class MainPageEmployeeController {
 
 	}
 
-	/**opens new instructor page for making new instructors.
+	/**
+	 * opens new instructor page for making new instructors.
+	 * 
 	 * @param event
 	 * @throws IOException
 	 */
@@ -104,7 +111,9 @@ public class MainPageEmployeeController {
 		mainPane.getChildren().add(root);
 	}
 
-	/**Go back to the login page when pressed in order to log in as another user. 
+	/**
+	 * Go back to the login page when pressed in order to log in as another user.
+	 * 
 	 * @param event
 	 * @throws IOException
 	 */
@@ -128,8 +137,10 @@ public class MainPageEmployeeController {
 
 	}
 
-
-	/**Go to reservation page for occasional visitors that came to the park at a specific time without reservation.
+	/**
+	 * Go to reservation page for occasional visitors that came to the park at a
+	 * specific time without reservation.
+	 * 
 	 * @param event
 	 * @throws IOException
 	 */
@@ -144,9 +155,5 @@ public class MainPageEmployeeController {
 		mainPane.getChildren().clear();
 		mainPane.getChildren().add(root);
 	}
-	
-	
-	
-	
 
 }
