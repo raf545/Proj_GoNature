@@ -13,6 +13,10 @@ public class CheckIfApproveReservation implements Runnable {
 
 	Connection con = DataBase.getInstance().getConnection();
 
+	/**
+	 * if the client don't approve the reservation after 2 hours the reservation is
+	 * cancelled
+	 */
 	@Override
 	public void run() {
 		try {

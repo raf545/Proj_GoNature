@@ -10,6 +10,9 @@ import dataBase.DataBase;
 public class DeleteIrrelevantWaitingList implements Runnable {
 	Connection con = DataBase.getInstance().getConnection();
 
+	/**
+	 * this thread run every day and delete irrelevant waiting list tuple from DB
+	 */
 	@Override
 	public void run() {
 		Timestamp check = new Timestamp(System.currentTimeMillis());
@@ -20,7 +23,7 @@ public class DeleteIrrelevantWaitingList implements Runnable {
 			query.setTimestamp(1, check);
 			DataBase.getInstance().update(query);
 		} catch (SQLException e) {
-			
+
 			e.printStackTrace();
 		}
 	}

@@ -112,7 +112,10 @@ public class EchoServer extends AbstractServer {
 
 	/**
 	 * This method overrides the one in the superclass. Called when the server
-	 * starts listening for connections.
+	 * starts listening for connections. this method start 4 different threads in
+	 * different time for clean waiting list , send message for relevant client with
+	 * reservation day before , check if client don't approve the message , check if
+	 * have reservation that approved and don't come to the park
 	 */
 	@Override
 	protected void serverStarted() {

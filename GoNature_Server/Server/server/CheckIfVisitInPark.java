@@ -11,6 +11,9 @@ import dataBase.DataBase;
 public class CheckIfVisitInPark implements Runnable {
 	Connection con = DataBase.getInstance().getConnection();
 
+	/**
+	 * Check if have reservation that approved and don't come to the park
+	 */
 	@SuppressWarnings("static-access")
 	@Override
 	public void run() {
@@ -24,7 +27,7 @@ public class CheckIfVisitInPark implements Runnable {
 			DataBase.getInstance().update(query);
 
 		} catch (SQLException e) {
-			
+
 			e.printStackTrace();
 		}
 	}
