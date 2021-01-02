@@ -88,7 +88,7 @@ public class CheckWaitingListPlace implements Runnable {
 						query.setString(2, waitingListCheck.getParkname());
 						query.setTimestamp(3, waitingListCheck.getDateAndTime());
 						res = DataBase.getInstance().search(query);
-						if (DataBase.getInstance().isEmpty(res) == 0) {
+						if (DataBase.getInstance().getResultSetSize(res) == 0) {
 							flag = false;
 							numOfVisitorsThatCancel -= Integer.parseInt(waitingListCheck.getNumofvisitors());
 						}
@@ -104,7 +104,7 @@ public class CheckWaitingListPlace implements Runnable {
 					query.setString(2, waitingListCheck.getParkname());
 					query.setTimestamp(3, waitingListCheck.getDateAndTime());
 					res = DataBase.getInstance().search(query);
-					if (DataBase.getInstance().isEmpty(res) != 0) {
+					if (DataBase.getInstance().getResultSetSize(res) != 0) {
 						query = con.prepareStatement(
 								"DELETE FROM gonaturedb.waitinglist WHERE (personalID = ?) and (parkname = ?) and (dateAndTime = ?);");
 						query.setString(1, waitingListCheck.getPersonalID());
@@ -122,7 +122,7 @@ public class CheckWaitingListPlace implements Runnable {
 					+ reservationIdForCancelReservation + "\";";
 			DataBase.getInstance().update(queryForCancelReservation);
 		} catch (SQLException | InterruptedException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	}

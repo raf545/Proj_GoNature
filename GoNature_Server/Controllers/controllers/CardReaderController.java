@@ -50,7 +50,7 @@ public class CardReaderController {
 		ResultSet reservationTupels;
 		reservationTupels = checkReservationExistence(idAndPark);
 
-		if (DataBase.getInstance().isEmpty(reservationTupels) != 0) {
+		if (DataBase.getInstance().getResultSetSize(reservationTupels) != 0) {
 			try {
 				if (checkVisitorInPark(reservationTupels)) {
 
@@ -64,7 +64,7 @@ public class CardReaderController {
 					return answerToCilent + "\nthe price is: " + reservationTupels.getString("price") ;
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 		}
@@ -199,7 +199,7 @@ public class CardReaderController {
 				.prepareStatement("select * from gonaturedb.cardreader where reservationID = ? ;");
 		searchQuery.setString(1, reservationID);
 		reservationInPark = DataBase.getInstance().search(searchQuery);
-		if (DataBase.getInstance().isEmpty(reservationInPark) == 0
+		if (DataBase.getInstance().getResultSetSize(reservationInPark) == 0
 				|| reservationInPark.getTimestamp("exitTime") != null) {
 			return true;
 		}
@@ -221,14 +221,13 @@ public class CardReaderController {
 			searchQuery.setString(2, idAndPark.getParkName());
 			cardReaderInPark = DataBase.getInstance().search(searchQuery);
 
-			if (DataBase.getInstance().isEmpty(cardReaderInPark) == 0)
+			if (DataBase.getInstance().getResultSetSize(cardReaderInPark) == 0)
 				return "ERROR - The visitor (s) belonging to this identity card not in the park";
 
 			updateReservationOnExit(cardReaderInPark.getString("reservationID"));
 			updateParkCurrentCapacityOnExit(idAndPark.getParkName(), cardReaderInPark.getString("numberOfVisitors"));
 			updateCardReader(cardReaderInPark.getString("reservationID"));
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "Exit successfully";

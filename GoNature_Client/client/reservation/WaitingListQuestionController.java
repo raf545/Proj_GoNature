@@ -92,7 +92,7 @@ public class WaitingListQuestionController {
 			newReservationController.setIdentFields();
 			StaticPaneMainPageClient.clientMainPane.getChildren().add(root);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	}

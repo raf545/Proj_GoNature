@@ -99,7 +99,7 @@ public class OptionsForReservationsController {
 			waitingListQuestionController.setReservation(myReservation);
 			StaticPaneMainPageClient.clientMainPane.getChildren().add(root);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	}

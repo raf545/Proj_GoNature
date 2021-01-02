@@ -70,7 +70,7 @@ public class WaitingListController {
 			query.setString(2, reservation.getParkname());
 			query.setTimestamp(3, reservation.getDateAndTime());
 			res = DataBase.getInstance().search(query);
-			if (DataBase.getInstance().isEmpty(res) != 0)
+			if (DataBase.getInstance().getResultSetSize(res) != 0)
 				return "You're already in the waiting list in this park and at this time";
 			// inserts to waiting list
 			query = con.prepareStatement("INSERT INTO gonaturedb.waitinglist VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);");

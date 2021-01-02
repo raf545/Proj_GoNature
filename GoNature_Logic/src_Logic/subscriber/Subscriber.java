@@ -1,20 +1,23 @@
 package subscriber;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Subscriber {
-	private String id=null;
-	private  String subscriberid=null;
-	private String name=null;
-	private String lastName=null;
-	private String phone=null;
-	private String email=null;
-	private String numOfMembers=null;
-	private String creditCardNumber=null;
-	private String subscriberType=null;
+	private String id = null;
+	private String subscriberid = null;
+	private String name = null;
+	private String lastName = null;
+	private String phone = null;
+	private String email = null;
+	private String numOfMembers = null;
+	private String creditCardNumber = null;
+	private String subscriberType = null;
 
 	public Subscriber(String id, String subscriberid, String name, String lastName, String phone, String email,
 			String numOfMembers, String creditCardNumber, String subscriberType) {
 		this.id = id;
-		this.subscriberid=	subscriberid;
+		this.subscriberid = subscriberid;
 		this.name = name;
 		this.lastName = lastName;
 		this.phone = phone;
@@ -22,6 +25,22 @@ public class Subscriber {
 		this.numOfMembers = numOfMembers;
 		this.creditCardNumber = creditCardNumber;
 		this.subscriberType = subscriberType;
+	}
+
+	public Subscriber(ResultSet subscriber) {
+		try {
+			this.id = subscriber.getString("id");
+			this.subscriberid = subscriber.getString("subscriberid");
+			this.name = subscriber.getString("firstName");
+			this.lastName = subscriber.getString("lastName");
+			this.phone = subscriber.getString("phone");
+			this.email = subscriber.getString("email");
+			this.numOfMembers = subscriber.getString("numOfMembers");
+			this.creditCardNumber = subscriber.getString("creditCardNumber");
+			this.subscriberType = subscriber.getString("subscriberTypre");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public String getId() {
@@ -35,8 +54,6 @@ public class Subscriber {
 	public String getSubscriberid() {
 		return subscriberid;
 	}
-
-
 
 	public String getName() {
 		return name;
@@ -93,19 +110,20 @@ public class Subscriber {
 	public void setSubscriberTypre(String subscriberTypre) {
 		this.subscriberType = subscriberTypre;
 	}
+
 	public void setSubscriberId(String subscriberid) {
 		this.subscriberid = subscriberid;
 	}
 
 	@Override
 	public String toString() {
-		return "(" + id + ", " + subscriberid + ", \"" + name + "\", \"" + lastName + "\", " + phone + ", \"" + email + "\", "
-				+ numOfMembers + ", " + creditCardNumber + ", \"" + subscriberType + "\")";
-	}
-	public String toString2() {
-		return "('" + id + "', '" + subscriberid + "','" + name + "','" + lastName + "','" + phone + "','" + email + "','"
-				+ numOfMembers + "',' " + creditCardNumber + "','" + subscriberType + "')";
+		return "(" + id + ", " + subscriberid + ", \"" + name + "\", \"" + lastName + "\", " + phone + ", \"" + email
+				+ "\", " + numOfMembers + ", " + creditCardNumber + ", \"" + subscriberType + "\")";
 	}
 
+	public String toString2() {
+		return "('" + id + "', '" + subscriberid + "','" + name + "','" + lastName + "','" + phone + "','" + email
+				+ "','" + numOfMembers + "',' " + creditCardNumber + "','" + subscriberType + "')";
+	}
 
 }
