@@ -27,8 +27,6 @@ import requestHandler.controllerName;
 public class CardReaderController {
 
 	Gson gson = new Gson();
-	@FXML
-	private Text backBtn;
 
 	@FXML
 	private Tab entranceBtn;
@@ -59,10 +57,6 @@ public class CardReaderController {
 		exitParkPicker.getItems().addAll("Niagara", "Banias", "Safari");
 	}
 
-	@FXML
-	void back(MouseEvent event) {
-		StaticPaneMainPageClient.clientMainPane.getChildren().clear();
-	}
 
 	@FXML
 	void enterPark(ActionEvent event) {

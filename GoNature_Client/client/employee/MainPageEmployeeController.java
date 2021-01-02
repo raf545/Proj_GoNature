@@ -52,8 +52,6 @@ public class MainPageEmployeeController {
 	@FXML
 	private Button NewInstructorBtn;
 
-	@FXML
-	private Button readerSimulation;
 
 	@FXML
 	private Hyperlink logoutBtn;
@@ -130,18 +128,6 @@ public class MainPageEmployeeController {
 
 	}
 
-	@FXML
-	void openReaderSimulation(ActionEvent event) throws IOException {
-//		FIXME
-//		StaticPaneMainPageEmployee.employeeMainPane = mainPane;
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(CardReaderController.class.getResource("readerSimulation.fxml"));
-		Pane root = loader.load();
-		CardReaderController cardReaderControllerController = loader.getController();
-		cardReaderControllerController.setPrkNameComboBox();
-		mainPane.getChildren().clear();
-		mainPane.getChildren().add(root);
-	}
 
 	/**Go to reservation page for occasional visitors that came to the park at a specific time without reservation.
 	 * @param event

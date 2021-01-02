@@ -556,7 +556,7 @@ public class ReservationController {
 				return "No available space at the park";
 			
 			else {
-				
+				Subscriber subscriber = new Subscriber(returnedSubscriber);
 				if (DataBase.getInstance().getResultSetSize(returnedSubscriber) == 0) {
 					reservation.setReservationtype("Guest");
 					reservation.setPrice(calculateOccasionalVisitorPrice(reservation, null));
@@ -566,6 +566,10 @@ public class ReservationController {
 				} else {
 					// FIXME subscriberTypre -> subscriberType in db to.
 					try {
+						if(subscriber.getSubscriberType().equals("instructor")) {
+							if(Integer.parseInt(reservation.getNumofvisitors()) == 15)
+								return "Instructor cant make a reservaion for more then 15 pepole";
+						}
 						reservation.setReservationtype(returnedSubscriber.getString("subscriberTypre"));
 						reservation.setPrice(calculateOccasionalVisitorPrice(reservation, new Subscriber(returnedSubscriber)));
 						reservation.setReservationID(Integer.toString(getAndIncreaseReservasionID()));
