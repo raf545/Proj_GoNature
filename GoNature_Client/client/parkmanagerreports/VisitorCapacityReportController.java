@@ -24,6 +24,10 @@ import popup.PopUp;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
 
+/**class that generate and show the visitor capacity report
+ * @author zivi9
+ *
+ */
 public class VisitorCapacityReportController {
 	Employee parkManager;
 	Gson gson = new Gson();
@@ -45,6 +49,10 @@ public class VisitorCapacityReportController {
     @FXML
     private ListView<CapacityData> listview;
 
+    /**go back to the park manager report main page 
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void goBack(MouseEvent event) throws IOException {
     	ParkManagerReportsController controller = FXMLFunctions.loadSceneToMainPane(ParkManagerReportsController.class, "ParkManagerReports.fxml", StaticPaneMainPageParkManager.parkManagerMainPane).getController();
@@ -52,6 +60,9 @@ public class VisitorCapacityReportController {
 		controller.setComboBoxOptions(parkManager);
     }
 
+    /**save the request and call methods that will send it to the server
+     * @param event
+     */
     @FXML
     void showReport(ActionEvent event) {
     	
@@ -61,6 +72,10 @@ public class VisitorCapacityReportController {
 		
     	
     }
+    /**send a request to the server and call methods that will analyze the answer
+     * @param funcname
+     * @param data
+     */
     private void askVisitorCapacityReportFromServer(String funcname, ReportData data) {
     	RequestHandler rh = new RequestHandler(controllerName.ReportsController, funcname,gson.toJson(data));
 		ClientUI.chat.accept(gson.toJson(rh));
@@ -69,6 +84,9 @@ public class VisitorCapacityReportController {
 	}
     
 
+	/**set the server answer into list view
+	 * 
+	 */
 	private void analyzeAnswerFromServer() {
 		 String answer = ChatClient.serverMsg;
 		 CapacityData [] data= new  CapacityData [30];

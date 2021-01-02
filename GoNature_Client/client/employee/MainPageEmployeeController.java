@@ -30,6 +30,11 @@ import requestHandler.RequestHandler;
 import requestHandler.controllerName;
 import reservation.ReservationForOccasionalVisitorController;
 
+/**The main page for an employee,contains all the methods that employee can do 
+ * 
+ * @author zivi9
+ *
+ */
 public class MainPageEmployeeController {
 	 
 	@FXML

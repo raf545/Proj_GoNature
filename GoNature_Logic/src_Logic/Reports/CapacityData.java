@@ -1,7 +1,9 @@
 package Reports;
 
-import java.util.Collection;
-
+/**class that help save data and present in capacity list view report
+ * @author zivi9
+ *
+ */
 public class CapacityData  {
 	@Override
 	public String toString() {

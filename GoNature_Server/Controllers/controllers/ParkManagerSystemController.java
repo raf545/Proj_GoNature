@@ -13,12 +13,18 @@ import parkChange.ParkChangeDetails;
 public class ParkManagerSystemController {
 	Gson gson = new Gson();
 
+	/**class that saves park change request and get the current values from the server 
+	 * 
+	 */
 	private static ParkManagerSystemController ParkManagerSystemControllerInstacne = null;
 
 	private ParkManagerSystemController() {
 
 	}
 
+	/**singleton constructor
+	 * @return instance of this class
+	 */
 	public static ParkManagerSystemController getInstance() {
 
 		if (ParkManagerSystemControllerInstacne == null)
@@ -26,6 +32,12 @@ public class ParkManagerSystemController {
 		return ParkManagerSystemControllerInstacne;
 	}
 
+	/**differs between change park details request and get the current values of this park
+	 * @param MethodName
+	 * @param data
+	 * @param client
+	 * @return answer from server
+	 */
 	public String getFunc(String MethodName, String data, ConnectionToClient client) {
 
 		switch (MethodName) {
@@ -38,6 +50,11 @@ public class ParkManagerSystemController {
 		return "faild";
 	}
 
+	/**get the current values of this park
+	 * @param data
+	 * @param client
+	 * @return park value
+	 */
 	private String initParkValues(String data, ConnectionToClient client) {
 		
 		String queryc = "SELECT * FROM gonaturedb.uptodateinformation WHERE nameOfVal = \"parkCapacity" + data + "\""
@@ -81,6 +98,11 @@ public class ParkManagerSystemController {
 
 	}
 
+	/**update park details request
+	 * @param data
+	 * @param client
+	 * @return answer from server
+	 */
 	private String changeParkDetails(String data, ConnectionToClient client) {
 		ParkChangeDetails parkdetails = gson.fromJson(data, ParkChangeDetails.class);
 		String query = "UPDATE `gonaturedb`.`parkdetailsapproval` SET `parkcapacity` = "+ parkdetails.getParkCapacity()+", `difference` = "+parkdetails.getDifference()+", `discount` = "+parkdetails.getDiscount()+", `oldparkcapacity` = "+parkdetails.getOldParkCapacity()+", `olddifference` = "+parkdetails.getOldDifference()+", `olddiscount` = "+parkdetails.getOldDiscount()+", `capacitystatus` = 'waiting', `differencestatus` = 'waiting', `discountstatus` = 'waiting' WHERE (`parkname` = "+"\""+parkdetails.getParkName()+"\""+");";
@@ -92,7 +114,10 @@ public class ParkManagerSystemController {
 		}
 		return "faild";
 	}
-
+	/**check if the result set is empty
+	 * @param rs
+	 * @return the numbers of the rows in the result set
+	 */
 	private int isEmpty(ResultSet rs) {
 		int size = 0;
 		if (rs != null) {

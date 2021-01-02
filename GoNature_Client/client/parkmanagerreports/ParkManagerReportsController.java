@@ -16,6 +16,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
 
+/**class the navigate the park manger to correct report
+ * @author zivi9
+ *
+ */
 public class ParkManagerReportsController {
     Employee parkManager;
     @FXML
@@ -28,6 +32,9 @@ public class ParkManagerReportsController {
     @FXML
     private ComboBox<String> parkReportOptions;
 
+    /**open the specific report that the park manager choose
+     * @param event
+     */
     @FXML
     void continueToSpecificReport(ActionEvent event) {
     	String selectedCombo = parkReportOptions.getSelectionModel().getSelectedItem();
@@ -70,6 +77,9 @@ public class ParkManagerReportsController {
 
     }
 
+    /**go back to the main page of park manger
+     * @param event
+     */
     @FXML
     void goBack(MouseEvent event) {
     StaticPaneMainPageParkManager.parkManagerMainPane.getChildren().clear();
