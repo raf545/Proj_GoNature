@@ -24,7 +24,7 @@
          </effect>
       </ImageView>
       <Text layoutX="120.0" layoutY="286.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Not sure what to choose?" wrappingWidth="179.28466796875" />
-      <Hyperlink fx:id="ClickHereBtn" accessibleRole="BUTTON" layoutX="262.0" layoutY="270.0" onAction="#ClickHere" text="Click here">
+      <Hyperlink fx:id="ClickHereBtn" accessibleRole="BUTTON" layoutX="298.0" layoutY="268.0" onAction="#ClickHere" text="Click here">
          <font>
             <Font name="System Italic" size="12.0" />
          </font>

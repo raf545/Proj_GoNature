@@ -23,7 +23,9 @@ import parkmanagerreports.numberOfVisitorsReportController;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
 
-/**the main page of an park manager,contains all the metods that he can do
+/**
+ * the main page of an park manager,contains all the metods that he can do
+ * 
  * @author zivi9
  *
  */
@@ -41,28 +43,30 @@ public class MainPageParkManagerController {
 	private Button editParkBtn;
 
 	@FXML
-	private Button newReservationBtn;
-
-	@FXML
 	private Hyperlink logoutBtn;
 
 	Employee parkManager;
 
-	/**set the information of this park manager
+	/**
+	 * set the information of this park manager
+	 * 
 	 * @param parkManagerEmp
 	 */
 	public void setParkManagerEmployee(Employee parkManagerEmp) {
 		parkManager = parkManagerEmp;
 	}
 
-	/**open the page of edit the park, with this page the park manager can edit parameters about this park 
+	/**
+	 * open the page of edit the park, with this page the park manager can edit
+	 * parameters about this park
+	 * 
 	 * @param event
 	 * @throws IOException
 	 */
 	@FXML
 	void editPark(ActionEvent event) throws IOException {
 		StaticPaneMainPageParkManager.parkManagerMainPane = parkManagerMainPane;
-		
+
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(ParkMangerChangesController.class.getResource("ParkManagerChanges.fxml"));
 
@@ -73,45 +77,33 @@ public class MainPageParkManagerController {
 		pmcController.initializeSlidersAndSetParkManager(parkManager);
 	}
 
-	@FXML
-	void newResrvation(ActionEvent event) {
-
-	}
-
-	/**open the page that manager could generate reports
+	/**
+	 * open the page that manager could generate reports
+	 * 
 	 * @param event
 	 * @throws IOException
 	 */
 	@FXML
 	void parkReport(ActionEvent event) throws IOException {
 		StaticPaneMainPageParkManager.parkManagerMainPane = parkManagerMainPane;
-		
-		ParkManagerReportsController controller=FXMLFunctions.loadSceneToMainPane(ParkManagerReportsController.class, "ParkManagerReports.fxml", parkManagerMainPane).getController();
+
+		ParkManagerReportsController controller = FXMLFunctions
+				.loadSceneToMainPane(ParkManagerReportsController.class, "ParkManagerReports.fxml", parkManagerMainPane)
+				.getController();
 		controller.setComboBoxOptions(parkManager);
 
 	}
 
-	/**log out and return to the login page
+	/**
+	 * log out and return to the login page
+	 * 
 	 * @param event
 	 * @throws IOException
 	 */
 	@FXML
 	void logout(ActionEvent event) throws IOException {
-		RequestHandler rh = new RequestHandler(controllerName.LoginController, "logout", "");
-		ClientUI.chat.accept(gson.toJson(rh));
+		FXMLFunctions.logOutFromMainPage(parkReportBtn.getScene());
 
-		Stage primaryStage = new Stage();
-		// get a handle to the stage
-		Stage stage = (Stage) editParkBtn.getScene().getWindow();
-		// do what you have to do
-		stage.close();
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(SignInEmployeeController.class.getResource("SignInEmployee.fxml"));
-		Pane root = loader.load();
-		Scene sc = new Scene(root);
-		primaryStage.setTitle("Sign In Employee");
-		primaryStage.setScene(sc);
-		primaryStage.show();
 	}
 
 }

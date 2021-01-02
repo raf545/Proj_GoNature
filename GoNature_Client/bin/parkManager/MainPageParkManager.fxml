@@ -75,28 +75,6 @@
                               <Insets bottom="10.0" />
                            </VBox.margin>
                         </VBox>
-                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="160.0">
-                           <children>
-                              <Button fx:id="newReservationBtn" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#newResrvation" prefHeight="180.0" prefWidth="160.0" style="-fx-background-color: #3D8FFF;" text="New Reservation">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                                 <graphic>
-                                    <ImageView fitHeight="140.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../pictures/Notes.jpeg" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                                 <effect>
-                                    <DropShadow />
-                                 </effect>
-                              </Button>
-                           </children>
-                        </VBox>
                      </children>
                   </VBox>
                </children>

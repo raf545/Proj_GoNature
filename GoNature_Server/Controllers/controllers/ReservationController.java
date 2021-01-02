@@ -445,7 +445,7 @@ public class ReservationController {
 		returndTicketPrice = DataBase.getInstance().search(query);
 		try {
 			while (returndTicketPrice.next()) {
-			ticketPrice = returndTicketPrice.getInt("num");
+				ticketPrice = returndTicketPrice.getInt("num");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -469,8 +469,7 @@ public class ReservationController {
 			price *= getParkDiscountPercentage(reservation.getParkname());
 			return price;
 		} else if (reservation.getReservationtype().equals("instructor")) {
-			price = getTicketPrice() * getDiscontPercentage("instructorCasualVisit")
-					* (numberOfVisitorsInReservation);
+			price = getTicketPrice() * getDiscontPercentage("instructorCasualVisit") * (numberOfVisitorsInReservation);
 			return price;
 		} else {
 			if (familyMembersNumber >= numberOfVisitorsInReservation) {
@@ -501,39 +500,42 @@ public class ReservationController {
 		ResultSet returnedDiscount = DataBase.getInstance().search(query);
 		try {
 			while (returnedDiscount.next()) {
-			discount = returnedDiscount.getDouble("num");
+				discount = returnedDiscount.getDouble("num");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return discount;
 	}
-	
+
 	private double getCurrentCapacity(String parkName) {
 		double capacity = -1;
-		String query = "SELECT * FROM gonaturedb.uptodateinformation where nameOfVal = \""+ parkName +"CurrentCapacity\"";
+		String query = "SELECT * FROM gonaturedb.uptodateinformation where nameOfVal = \"" + parkName
+				+ "CurrentCapacity\"";
 		ResultSet returnedDiscount = DataBase.getInstance().search(query);
 		try {
 			while (returnedDiscount.next()) {
-			capacity = returnedDiscount.getDouble("num");
+				capacity = returnedDiscount.getDouble("num");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return capacity;
 	}
+
 	private double getParkCapacity(String parkName) {
 		double capacity = -1;
-		String query = "SELECT * FROM gonaturedb.uptodateinformation where nameOfVal = \"parkCapacity"+parkName+"\"";
+		String query = "SELECT * FROM gonaturedb.uptodateinformation where nameOfVal = \"parkCapacity" + parkName
+				+ "\"";
 		ResultSet returnedCapacity = DataBase.getInstance().search(query);
 		try {
 			while (returnedCapacity.next()) {
-			capacity = returnedCapacity.getDouble("num");
+				capacity = returnedCapacity.getDouble("num");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return capacity;
 	}
 
@@ -550,13 +552,12 @@ public class ReservationController {
 		double currentCapacity = getCurrentCapacity(reservation.getParkname());
 		double parkCapacity = getParkCapacity(reservation.getParkname());
 		int numofvisitors = Integer.parseInt(reservation.getNumofvisitors());
-		
-		if(currentCapacity != -1 && parkCapacity != -1) {
-			if(currentCapacity + numofvisitors > parkCapacity)
+
+		if (currentCapacity != -1 && parkCapacity != -1) {
+			if (currentCapacity + numofvisitors > parkCapacity)
 				return "No available space at the park";
-			
+
 			else {
-				Subscriber subscriber = new Subscriber(returnedSubscriber);
 				if (DataBase.getInstance().getResultSetSize(returnedSubscriber) == 0) {
 					reservation.setReservationtype("Guest");
 					reservation.setPrice(calculateOccasionalVisitorPrice(reservation, null));
@@ -565,13 +566,15 @@ public class ReservationController {
 					return gson.toJson(reservation);
 				} else {
 					// FIXME subscriberTypre -> subscriberType in db to.
+					Subscriber subscriber = new Subscriber(returnedSubscriber);
 					try {
-						if(subscriber.getSubscriberType().equals("instructor")) {
-							if(Integer.parseInt(reservation.getNumofvisitors()) == 15)
+						if (subscriber.getSubscriberType().equals("instructor")) {
+							if (Integer.parseInt(reservation.getNumofvisitors()) == 15)
 								return "Instructor cant make a reservaion for more then 15 pepole";
 						}
 						reservation.setReservationtype(returnedSubscriber.getString("subscriberTypre"));
-						reservation.setPrice(calculateOccasionalVisitorPrice(reservation, new Subscriber(returnedSubscriber)));
+						reservation.setPrice(
+								calculateOccasionalVisitorPrice(reservation, new Subscriber(returnedSubscriber)));
 						reservation.setReservationID(Integer.toString(getAndIncreaseReservasionID()));
 						insertReservationToDB(reservation);
 						return gson.toJson(reservation);
@@ -581,10 +584,9 @@ public class ReservationController {
 
 				}
 			}
-		}else {
+		} else {
 			return "faild to get park data";
 		}
-		
 
 		return "fail";
 	}
