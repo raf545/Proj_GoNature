@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
@@ -68,18 +69,21 @@
          <font>
             <Font name="Baloo Regular" size="30.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Text>
-      <Text fill="RED" layoutX="243.0" layoutY="536.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
+      <Text fill="RED" layoutX="245.0" layoutY="507.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
          <font>
             <Font size="21.0" />
          </font>
       </Text>
-      <Text fill="RED" layoutX="243.0" layoutY="305.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
+      <Text fill="RED" layoutX="243.0" layoutY="292.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
          <font>
             <Font size="21.0" />
          </font>
       </Text>
-      <Text fill="RED" layoutX="243.0" layoutY="460.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
+      <Text fill="RED" layoutX="243.0" layoutY="435.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
          <font>
             <Font size="21.0" />
          </font>
@@ -89,17 +93,20 @@
             <Font size="21.0" />
          </font>
       </Text>
-      <Text fill="RED" layoutX="243.0" layoutY="230.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
+      <Text fill="RED" layoutX="243.0" layoutY="220.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
          <font>
             <Font size="21.0" />
          </font>
       </Text>
-      <Button fx:id="saveBtn" layoutX="242.0" layoutY="678.0" mnemonicParsing="false" onAction="#saveFamily" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #FFC956;" text="Save Family Subscription" textFill="WHITE">
+      <Button fx:id="saveBtn" layoutX="242.0" layoutY="645.0" mnemonicParsing="false" onAction="#saveFamily" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #FFC956;" text="Save Family Subscription" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
-      <Text fill="RED" layoutX="243.0" layoutY="382.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
+      <Text fill="RED" layoutX="243.0" layoutY="366.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
          <font>
             <Font size="21.0" />
          </font>

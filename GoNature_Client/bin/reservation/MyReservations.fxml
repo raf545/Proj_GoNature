@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.Pane?>
@@ -27,6 +28,9 @@
          <font>
             <Font name="Baloo Regular" size="30.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Text>
       <Pane fx:id="listPane" layoutX="134.0" layoutY="251.0" prefHeight="392.0" prefWidth="645.0" style="-fx-border-color: #676767;">
          <children>

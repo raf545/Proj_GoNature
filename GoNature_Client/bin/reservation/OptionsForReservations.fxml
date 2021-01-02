@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.Pane?>
@@ -22,11 +23,14 @@
             <Font size="19.0" />
          </font>
       </Text>
-      <Circle fill="#729d64" layoutX="176.0" layoutY="153.0" radius="25.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fill="#99d487" layoutX="176.0" layoutY="153.0" radius="25.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="0.0" />
       <Text fx:id="backBtn" fill="WHITE" layoutX="150.0" layoutY="163.0" onMouseClicked="#back" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;" textAlignment="CENTER" wrappingWidth="50.0">
          <font>
             <Font name="Baloo Regular" size="30.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Text>
       <Pane fx:id="listPane" layoutX="240.0" layoutY="252.0" prefHeight="392.0" prefWidth="469.0" style="-fx-border-color: #676767;">
          <children>
