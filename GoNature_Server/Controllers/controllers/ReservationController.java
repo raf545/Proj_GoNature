@@ -461,7 +461,6 @@ public class ReservationController {
 	private double calculateOccasionalVisitorPrice(Reservation reservation, Subscriber subscriber) {
 		double price;
 		int familyMembersNumber, numberOfVisitorsInReservation;
-		familyMembersNumber = Integer.parseInt(subscriber.getNumOfMembers());
 		numberOfVisitorsInReservation = Integer.parseInt(reservation.getNumofvisitors());
 
 		if (reservation.getReservationtype().equals("Guest")) {
@@ -472,6 +471,7 @@ public class ReservationController {
 			price = getTicketPrice() * getDiscontPercentage("instructorCasualVisit") * (numberOfVisitorsInReservation);
 			return price;
 		} else {
+			familyMembersNumber = Integer.parseInt(subscriber.getNumOfMembers());
 			if (familyMembersNumber >= numberOfVisitorsInReservation) {
 				price = getTicketPrice() * getDiscontPercentage("subscriber") * numberOfVisitorsInReservation;
 				price *= getParkDiscountPercentage(reservation.getParkname());
