@@ -22,6 +22,11 @@ public class CheckWaitingListPlace implements Runnable {
 		this.myReservation = myReservation;
 	}
 
+	/**
+	 * this thread run every time when client delete his reservation and check if
+	 * have somebody in the waiting list if have we send message for the client if
+	 * the client not approve the request than we delete his waiting list request
+	 */
 	@SuppressWarnings({ "deprecation", "static-access" })
 	@Override
 	public void run() {
@@ -122,7 +127,7 @@ public class CheckWaitingListPlace implements Runnable {
 					+ reservationIdForCancelReservation + "\";";
 			DataBase.getInstance().update(queryForCancelReservation);
 		} catch (SQLException | InterruptedException e) {
-			
+
 			e.printStackTrace();
 		}
 	}

@@ -13,6 +13,10 @@ import popup.PopUp;
 public class SendMessageToExistingReservationsDayBefore implements Runnable {
 	Connection con = DataBase.getInstance().getConnection();
 
+	/**
+	 * this thread run every day and sends to the client a message the day before
+	 * reservation a confirmation message
+	 */
 	@Override
 	public void run() {
 		System.out.println("in the approve thread");
@@ -53,7 +57,7 @@ public class SendMessageToExistingReservationsDayBefore implements Runnable {
 			DataBase.getInstance().update(query);
 
 		} catch (SQLException e) {
-			
+
 			e.printStackTrace();
 		}
 		System.out.println("end approve thread");

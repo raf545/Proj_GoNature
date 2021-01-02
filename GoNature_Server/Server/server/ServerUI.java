@@ -31,6 +31,12 @@ public class ServerUI extends Application {
 		});
 	}
 
+	/**
+	 * after push done button start the connection
+	 * 
+	 * @param p get the port from the user and start connection
+	 * @param serverGuiController the gui controller
+	 */
 	public static void runServer(String p, ServerGuiController serverGuiController) {
 		int port = 0; // Port to listen on
 		sPC = serverGuiController;
