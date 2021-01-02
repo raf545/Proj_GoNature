@@ -299,7 +299,7 @@ public class ApproveChangesController {
 			
 			//Check if the requests are in state "waiting", if they are, we can add them.
 			//"finished" requests won't be added.
-			buttonsCounter = addWaitingRequestsToTable(buttonsCounter, vb, hb1, hb, capStatus, difStatus, disStatus, capText, difText,disText);
+			buttonsCounter = addWaitingRequestsToTable(buttonsCounter, vb, hb1, hb, capStatus, difStatus, disStatus, capText, difText,disText,i);
 			
 		}
 		//Give actions to the buttons that we made.
@@ -323,26 +323,26 @@ public class ApproveChangesController {
 	 * @return
 	 */
 	private int addWaitingRequestsToTable(int buttonsCounter, VBox vb, HBox hb1, HBox[] hb, String capStatus, String difStatus,
-			String disStatus, Text capText, Text difText, Text disText) {
+			String disStatus, Text capText, Text difText, Text disText,int i) {
 		
 		vb.getChildren().add(hb1); //HBox with park name
 		
 		int countFinishedChanges = 0;
-		if(capStatus.equals("waiting"))
+		if(capStatus.equals("waiting") && !allChangesAsTexts.get(i)[1].equals(allChangesAsTexts.get(i)[4]))
 		{
 			hb[0].getChildren().addAll(capText,aprBtns[buttonsCounter],rejBtns[buttonsCounter]);
 			vb.getChildren().add(hb[0]);
 			countFinishedChanges++;
 		}
 		buttonsCounter++;		
-		if(difStatus.equals("waiting"))
+		if(difStatus.equals("waiting") && !allChangesAsTexts.get(i)[2].equals(allChangesAsTexts.get(i)[5]))
 		{
 			hb[1].getChildren().addAll(difText,aprBtns[buttonsCounter],rejBtns[buttonsCounter]);
 			vb.getChildren().add(hb[1]);
 			countFinishedChanges++;
 		}
 		buttonsCounter++;
-		if(disStatus.equals("waiting"))
+		if(disStatus.equals("waiting") && !allChangesAsTexts.get(i)[3].equals(allChangesAsTexts.get(i)[6]))
 		{
 			hb[2].getChildren().addAll(disText,aprBtns[buttonsCounter],rejBtns[buttonsCounter]);
 			vb.getChildren().add(hb[2]);
