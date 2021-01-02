@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.google.gson.Gson;
 
+import cardReader.CardReaderController;
 import client.ChatClient;
 import client.ClientUI;
 import departmentManager.MainPageDepartmentManagerController;
@@ -24,6 +25,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import parkManager.MainPageParkManagerController;
 import popup.PopUp;
+import popup.PopUpWinController;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
 
@@ -89,6 +91,23 @@ public class SignInEmployeeController {
 			break;
 		default:
 			Employee employee = gson.fromJson(ChatClient.serverMsg, Employee.class);
+			Stage cardReader = new Stage();
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(CardReaderController.class.getResource("readerSimulation.fxml"));
+			Pane root = null;
+			try {
+				root = loader.load();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			Scene sc = new Scene(root);
+			cardReader.setTitle("Card Reader simulation");
+			CardReaderController cardReaderControllerController = loader.getController();
+			cardReaderControllerController.setPrkNameComboBox();
+			cardReader.setScene(sc);
+			cardReader.show();
+	
+
 			switch (employee.getTypeOfEmployee()) {
 			case "department manager":
 				openDepartmentManagerGui();

@@ -157,6 +157,9 @@ public class ReservationForOccasionalVisitorController {
 		case "fail":
 			PopUp.display("Error", ChatClient.serverMsg);
 			break;			
+		case "Instructor cant make a reservaion for more then 15 pepole":
+			PopUp.display("Error", ChatClient.serverMsg);
+			break;			
 		default:
 			Reservation reservation = gson.fromJson(ChatClient.serverMsg, Reservation.class);
 			PopUp.display("Succses", reservation.createReceipt() );
