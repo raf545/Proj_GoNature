@@ -1,5 +1,8 @@
 package server;
 
+import java.io.IOException;
+
+import cardReaderSimulator.CardReaderControllerSimulator;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -26,15 +29,34 @@ public class ServerUI extends Application {
 		primaryStage.setScene(sc);
 		primaryStage.show();
 
-		primaryStage.setOnCloseRequest((event)->{
+		primaryStage.setOnCloseRequest((event) -> {
 			System.exit(0);
 		});
+
+		try {
+			Stage cardReader = new Stage();
+			FXMLLoader loaderCardReaderSimulator = new FXMLLoader();
+			loaderCardReaderSimulator
+					.setLocation(CardReaderControllerSimulator.class.getResource("readerSimulation.fxml"));
+
+			Pane rootCardReaderSimulator = loaderCardReaderSimulator.load();
+
+			Scene scCardReaderSimulator = new Scene(rootCardReaderSimulator);
+			cardReader.setTitle("Card Reader simulation");
+			CardReaderControllerSimulator cardReaderControllerSimulator = loaderCardReaderSimulator.getController();
+			cardReaderControllerSimulator.setPrkNameComboBox();
+			cardReader.setScene(scCardReaderSimulator);
+			cardReader.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	/**
 	 * after push done button start the connection
 	 * 
-	 * @param p get the port from the user and start connection
+	 * @param p                   get the port from the user and start connection
 	 * @param serverGuiController the gui controller
 	 */
 	public static void runServer(String p, ServerGuiController serverGuiController) {

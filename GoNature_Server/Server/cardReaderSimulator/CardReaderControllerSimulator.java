@@ -1,12 +1,11 @@
-package cardReader;
+package cardReaderSimulator;
 
 import java.io.IOException;
 
 import com.google.gson.Gson;
 
-import client.ChatClient;
-import client.ClientUI;
-import guiCommon.StaticPaneMainPageClient;
+import cardReader.IdAndPark;
+import controllers.CardReaderController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +23,7 @@ import popup.PopUpWinController;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
 
-public class CardReaderController {
+public class CardReaderControllerSimulator {
 
 	Gson gson = new Gson();
 
@@ -57,7 +56,6 @@ public class CardReaderController {
 		exitParkPicker.getItems().addAll("Niagara", "Banias", "Safari");
 	}
 
-
 	@FXML
 	void enterPark(ActionEvent event) {
 
@@ -73,14 +71,12 @@ public class CardReaderController {
 			PopUp.display("Error", popError.toString());
 		} else {
 			IdAndPark idAndPark = new IdAndPark(enterTxt.getText(), enterParkPicker.getValue());
-			RequestHandler rh = new RequestHandler(controllerName.CardReaderController, "enterPark",
-					gson.toJson(idAndPark));
-			
-			ClientUI.chat.accept(gson.toJson(rh));
-			String answerFromServer = ChatClient.serverMsg;
+
+			String answerFromServer = CardReaderController.getInstance().router("enterPark", gson.toJson(idAndPark),
+					null);
 			PopUp.display("Card reader simulation", answerFromServer);
-			
-			if(answerFromServer.contains("Entered successfully")) 
+
+			if (answerFromServer.contains("Entered successfully"))
 				popUpPayment();
 		}
 
@@ -90,7 +86,7 @@ public class CardReaderController {
 		try {
 			Stage primaryStage = new Stage();
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(paymentController.class.getResource("/cardReader/payment.fxml"));
+			loader.setLocation(paymentController.class.getResource("payment.fxml"));
 			Pane root = loader.load();
 			Scene sc = new Scene(root);
 			primaryStage.setTitle("Payment");
@@ -99,7 +95,7 @@ public class CardReaderController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@FXML
@@ -117,10 +113,9 @@ public class CardReaderController {
 			PopUp.display("Error", popError.toString());
 		} else {
 			IdAndPark idAndPark = new IdAndPark(exitTxt.getText(), exitParkPicker.getValue());
-			RequestHandler rh = new RequestHandler(controllerName.CardReaderController, "exitPark",
-					gson.toJson(idAndPark));
-			ClientUI.chat.accept(gson.toJson(rh));
-			PopUp.display("Card reader simulation", ChatClient.serverMsg);
+			String answerFromServer = CardReaderController.getInstance().router("exitPark", gson.toJson(idAndPark),
+					null);
+			PopUp.display("Card reader simulation", answerFromServer);
 		}
 	}
 
