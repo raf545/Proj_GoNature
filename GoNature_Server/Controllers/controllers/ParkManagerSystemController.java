@@ -65,12 +65,14 @@ public class ParkManagerSystemController {
 				+ ";";
 
 		ResultSet res = DataBase.getInstance().search(queryc);
+	
 		if (isEmpty(res) == 0) {
 			return "faild";
 		}
-		ArrayList<String> result = new ArrayList<String>();
+		
+		ArrayList<String> result1 = new ArrayList<String>();
 		try {
-			result.add(res.getString(2));
+			result1.add(String.valueOf(res.getDouble(2)));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -80,7 +82,7 @@ public class ParkManagerSystemController {
 			return "faild";
 		}
 		try {
-			result.add(res.getString(2));
+			result1.add(String.valueOf(res.getDouble(2)));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -90,11 +92,11 @@ public class ParkManagerSystemController {
 			return "faild";
 		}
 		try {
-			result.add(res.getString(2));
+			result1.add(String.valueOf(res.getDouble(2)));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return gson.toJson(result);
+		return gson.toJson(result1);
 
 	}
 
