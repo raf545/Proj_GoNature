@@ -1,4 +1,4 @@
-package cardReader;
+package cardReaderSimulator;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

@@ -4,14 +4,10 @@ import java.io.IOException;
 
 import com.google.gson.Gson;
 
-import cardReader.CardReaderController;
 import client.ClientUI;
-import departmentManagerReports.DepartmentManagerChooseReportController;
 import familySubWorker.NewFamilySubWorkerController;
 import fxmlGeneralFunctions.FXMLFunctions;
 import groupLeader.NewGroupLeaderWorkerController;
-import guiCommon.StaticPaneMainPageEmployee;
-import guiCommon.StaticPaneMainPageParkManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,9 +19,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import login.GoNatureLoginController;
-import login.IdentificationController;
-import login.SignInEmployeeController;
-import parkmanagerreports.MonthlyRevenueReportsController;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
 import reservation.ReservationForOccasionalVisitorController;
