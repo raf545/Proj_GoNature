@@ -8,7 +8,6 @@ import com.google.gson.Gson;
 import dataBase.DataBase;
 import employee.Employee;
 import ocsf.server.ConnectionToClient;
-import reservation.Reservation;
 import subscriber.Subscriber;
 
 /**
@@ -51,16 +50,12 @@ public class LoginController {
 	 * 
 	 * @return fail if there is no such login route
 	 */
-	
+
 	public String loginRouter(String MethodName, String data, ConnectionToClient client) {
 
 		switch (MethodName) {
-		case "Guest ID":
-			return GuestID(data, client);
-		case "Subscriber":
-			return subscriberLogin(data, client);
-		case "Reservation ID":
-			return ReservationIDLogin(data, client);
+		case "clientLogin":
+			return clientLogin(data, client);
 		case "employeeLogIn":
 			return employeeLogIn(data, client);
 		case "logout":
@@ -85,12 +80,12 @@ public class LoginController {
 	 * 
 	 * 
 	 */
-	private String subscriberLogin(String id, ConnectionToClient client) {
+	private String clientLogin(String id, ConnectionToClient client) {
 		String query = "SELECT * FROM gonaturedb.subscriber WHERE id = " + id + " OR subscriberid = " + id + ";";
 		ResultSet res = DataBase.getInstance().search(query);
 		try {
 			if (isEmpty(res) == 0)
-				return "not subscriber";
+				return GuestID(id, client);
 			if (res.getInt("connected") == 1)
 				return "all ready connected";
 			client.setInfo("ID", res.getString("id"));
@@ -129,59 +124,11 @@ public class LoginController {
 			if (addToTableinDb(guestId, "logedin")) {
 				client.setInfo("ID", guestId);
 				client.setInfo("Table", "logedin");
-				return guestId;
+				Subscriber subscriber = new Subscriber(guestId, null, null, null, null, null, null, null, null);
+				return gson.toJson(subscriber);
 			} else
 				return "update faild";
 		}
-
-	}
-
-	/**
-	 * 
-	 * This method is for loging in with a reservation id
-	 * 
-	 * @param reservationId
-	 * @param client        the specific client trying to log in
-	 * 
-	 * @return "no reservation" if no reservation was found with the given id
-	 *         answerFromGuestID if diden't return the same id reservation as gson
-	 *         if found "update faild" if login failed "error" for any other case
-	 */
-	private String ReservationIDLogin(String reservationId, ConnectionToClient client) {
-		String query = "SELECT * FROM gonaturedb.reservetions WHERE reservationID = " + reservationId + ";";
-		ResultSet reservationDetails = DataBase.getInstance().search(query);
-		String answerFromGuestID = null;
-		try {
-			if (isEmpty(reservationDetails) == 0)
-				return "no reservation";
-
-			Reservation reservation = new Reservation(reservationDetails.getString("reservationID"),
-					reservationDetails.getString("personalID"), reservationDetails.getString("parkname"),
-					reservationDetails.getString("numofvisitors"), reservationDetails.getString("reservationtype"),
-					reservationDetails.getString("email"), reservationDetails.getTimestamp("dateAndTime"),
-					reservationDetails.getFloat("price"), reservationDetails.getString("reservetionStatus"),
-					reservationDetails.getString("phone"));
-			String idFromResrvation = reservationDetails.getString("personalID");
-
-			ResultSet detailsOfsubscriberFromReservation = DataBase.getInstance()
-					.search("SELECT * FROM gonaturedb.subscriber WHERE id = " + idFromResrvation + ";");
-			if (isEmpty(detailsOfsubscriberFromReservation) == 0) {
-				answerFromGuestID = GuestID(idFromResrvation, client);
-				if (answerFromGuestID.equals(idFromResrvation))
-					return gson.toJson(reservation);
-				return answerFromGuestID;
-			}
-
-			client.setInfo("ID", idFromResrvation);
-			client.setInfo("Table", "subscriber");
-
-			if (setLoginToDB(client, "subscriber"))
-				return gson.toJson(reservation);
-			return "update faild";
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return "error";
 
 	}
 

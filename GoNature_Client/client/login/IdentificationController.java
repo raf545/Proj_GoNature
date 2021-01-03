@@ -36,9 +36,6 @@ public class IdentificationController {
 	private TextField IDText;
 
 	@FXML
-	private ComboBox<String> OptionCombo;
-
-	@FXML
 	private Button ContinueBtn;
 
 	@FXML
@@ -48,7 +45,7 @@ public class IdentificationController {
 	 * Sets the identifaction combobox options
 	 */
 	public void setIdentificationComboBox() {
-		OptionCombo.getItems().addAll("Guest ID", "Subscriber");
+
 	}
 
 	/**
@@ -90,11 +87,7 @@ public class IdentificationController {
 	@FXML
 	void identificationContinueButton(ActionEvent event) throws IOException {
 
-		String selectedCombo = OptionCombo.getSelectionModel().getSelectedItem();
 		StringBuilder popError = new StringBuilder();
-		if (selectedCombo == null) {
-			popError.append("Must choose Login Type\n");
-		}
 
 		if (IDText.getText().isEmpty()) {
 			popError.append("Must enter id\n");
@@ -103,8 +96,8 @@ public class IdentificationController {
 		if (popError.length() > 0) {
 			PopUp.display("Error", popError.toString());
 		} else {
-			sendLoginRequestToServer(selectedCombo);
-			analyzeAnswerFromServer(selectedCombo);
+			sendLoginRequestToServer();
+			analyzeAnswerFromServer();
 		}
 	}
 
@@ -112,7 +105,7 @@ public class IdentificationController {
 	 * 
 	 * @param selectedCombo The option selected from the combobox
 	 */
-	private void analyzeAnswerFromServer(String selectedCombo) {
+	private void analyzeAnswerFromServer() {
 		String VisitorName = null;
 		String VisitorType = null;
 		switch (ChatClient.serverMsg) {
@@ -125,33 +118,18 @@ public class IdentificationController {
 			PopUp.display("Error", "update faild");
 			break;
 
-		case "not subscriber":
-			PopUp.display("Error", "not subscriber");
-			break;
-
-		case "no reservation":
-			PopUp.display("Error", "no reservation");
-			break;
-
 		default:
-			if (selectedCombo == "Guest ID") {
+			Subscriber subscriberFromServer = gson.fromJson(ChatClient.serverMsg, Subscriber.class);
+			if (subscriberFromServer.getSubscriberid() == null) {
 				setClientInfoAndType(String.class, "Guest");
-				VisitorName = ChatClient.serverMsg;
+				VisitorName = subscriberFromServer.getId();
 				VisitorType = "guest";
 				ChatClient.clientIdString = ChatClient.clientInfo;
-			} else if (selectedCombo == "Subscriber") {
-				Subscriber savedSubscriberName = gson.fromJson(ChatClient.serverMsg, Subscriber.class);
-				ChatClient.clientIdString = savedSubscriberName.getId();
-				setClientInfoAndType(Subscriber.class, savedSubscriberName.getSubscriberType());
-				VisitorName = savedSubscriberName.getName() + " " + savedSubscriberName.getLastName();
-				VisitorType = savedSubscriberName.getSubscriberType();
-			} else if (selectedCombo == "Reservation ID") {
-				setClientInfoAndType(Reservation.class, "Reservation");
-				Reservation saveRsesrvationId = gson.fromJson(ChatClient.serverMsg, Reservation.class);
-				ChatClient.clientIdString = saveRsesrvationId.getPersonalID();
-				VisitorName = saveRsesrvationId.getPersonalID() + "Reservasion id: "
-						+ saveRsesrvationId.getReservationID();
-				VisitorType = "Reservation";
+			} else {
+				ChatClient.clientIdString = subscriberFromServer.getId();
+				setClientInfoAndType(Subscriber.class, subscriberFromServer.getSubscriberType());
+				VisitorName = subscriberFromServer.getName() + " " + subscriberFromServer.getLastName();
+				VisitorType = subscriberFromServer.getSubscriberType();
 			}
 			openPageUsingFxmlName(VisitorName, VisitorType);
 			break;
@@ -180,7 +158,7 @@ public class IdentificationController {
 			StaticPaneMainPageClient.clientMainPane = mainPageForClientController.getPane();
 
 			Scene sc = new Scene(root);
-			primaryStage.setOnCloseRequest(e->FXMLFunctions.closeMainPage());
+			primaryStage.setOnCloseRequest(e -> FXMLFunctions.closeMainPage());
 			primaryStage.setTitle("Main page");
 			primaryStage.setScene(sc);
 			primaryStage.show();
@@ -192,8 +170,8 @@ public class IdentificationController {
 	/**
 	 * @param loginType The selected combobox Type for login
 	 */
-	private void sendLoginRequestToServer(String loginType) {
-		RequestHandler rh = new RequestHandler(controllerName.LoginController, loginType, IDText.getText());
+	private void sendLoginRequestToServer() {
+		RequestHandler rh = new RequestHandler(controllerName.LoginController, "clientLogin", IDText.getText());
 		ClientUI.chat.accept(gson.toJson(rh));
 	}
 
