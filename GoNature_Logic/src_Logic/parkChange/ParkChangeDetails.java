@@ -22,7 +22,7 @@ public class ParkChangeDetails {
 		this.parkName=parkName;
 		this.oldParkCapacity=oldParkCapacity;
 		this.oldDiscount=oldDiscount;
-		this.oldDifference=difference;
+		this.oldDifference=oldDifference;
 	}
 
 

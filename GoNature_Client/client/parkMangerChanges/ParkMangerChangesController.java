@@ -76,7 +76,7 @@ public class ParkMangerChangesController {
 				discountTF.getText(),parkManager.getParkName(),oldParkcapacity,oldDifference,oldDiscount);
 
 		sendParkManagerChangeRequestToServer("changeParkDetails", parkDetails);
-		analyzeAnswerFromServer();
+		
 
 	}
 
