@@ -110,6 +110,7 @@ public class VisitorCapacityReportController {
 	public void setParkManager(Employee employee) {
     	int thisyear = Calendar.getInstance().get(Calendar.YEAR);
     	int thismonth=Calendar.getInstance().get(Calendar.MONTH);
+    	thismonth++;
     	for(int i=thisyear-7;i<=thisyear;i++)
     		comboYear.getItems().add(String.valueOf(i));
     	comboYear.setValue(String.valueOf(thisyear));

@@ -70,7 +70,7 @@ public class ReservationForOccasionalVisitorController {
 		StaticPaneMainPageEmployee.employeeMainPane.getChildren().clear();
 		BlankEmployeeController controller = FXMLFunctions.loadSceneToMainPane(BlankEmployeeController.class,
 				"BlankEmployee.fxml", StaticPaneMainPageEmployee.employeeMainPane).getController();
-		controller.setBlank();
+		
 	}
 
 	@FXML

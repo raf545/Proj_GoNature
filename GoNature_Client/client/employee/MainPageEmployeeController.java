@@ -17,6 +17,7 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import login.GoNatureLoginController;
 import requestHandler.RequestHandler;
@@ -31,6 +32,9 @@ import reservation.ReservationForOccasionalVisitorController;
  */
 public class MainPageEmployeeController {
 
+	 @FXML
+	 private Text emppark;
+	
 	@FXML
 	private Pane mainPane;
 
@@ -58,11 +62,9 @@ public class MainPageEmployeeController {
 
 	public void setEmp(Employee employeeFromDB) throws IOException {
 		employee = employeeFromDB;
-		BlankEmployeeController controller = FXMLFunctions
-				.loadSceneToMainPane(BlankEmployeeController.class, "BlankEmployee.fxml", mainPane).getController();
-		controller.setEmployee(employee);
-		controller.setBlank();
+		FXMLFunctions.loadSceneToMainPane(BlankEmployeeController.class, "BlankEmployee.fxml", mainPane);
 		manPageEmpName.setText("Hello " + employeeFromDB.getName() + " " + employeeFromDB.getLasstName());
+		emppark.setText(employee.getParkName()+" Employee" );
 	}
 
 	public Pane getPane() {

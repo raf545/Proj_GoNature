@@ -127,8 +127,8 @@
 				<Font name="Guttman Drogolin Bold" size="28.0" />
 			</font>
 		</Text>
-		<Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffc956" height="45.0" layoutX="960.0" layoutY="74.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" width="225.0" />
-		<Text layoutX="960.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employee" textAlignment="CENTER" wrappingWidth="225.00000071525574">
+		<Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffc956" height="45.0" layoutX="865.0" layoutY="74.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" width="320.0" />
+		<Text fx:id="emppark" layoutX="877.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employee" textAlignment="CENTER" wrappingWidth="295.00000554323196">
 			<font>
 				<Font name="Guttman Drogolin Bold" size="24.0" />
 			</font>
@@ -139,7 +139,7 @@
 				<Font size="24.0" />
 			</font>
 		</Hyperlink>
-      <Label fx:id="manPageEmpName" layoutX="265.0" layoutY="72.0" prefHeight="45.0" prefWidth="691.0" text="Label" textAlignment="CENTER" textFill="#ffc956" underline="true">
+      <Label fx:id="manPageEmpName" layoutX="265.0" layoutY="72.0" prefHeight="49.0" prefWidth="571.0" text="Label" textAlignment="CENTER" textFill="#ffc956" underline="true">
          <font>
             <Font name="Arial Hebrew Bold" size="33.0" />
          </font>
