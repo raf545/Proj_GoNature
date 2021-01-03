@@ -174,11 +174,11 @@ public class ParkMangerChangesController {
 			oldParkcapacity=res.get(0);
 			oldDifference=res.get(1);
 			oldDiscount=res.get(2);
-			parkCapacitySlider.setValue(Integer.valueOf(oldParkcapacity));
-			differenceSlider.setValue(Integer.valueOf(oldDifference));
-			discountSlider.setValue(Integer.valueOf(oldDiscount));
+			parkCapacitySlider.setValue(Double.valueOf(oldParkcapacity).intValue());
+			differenceSlider.setValue(Double.valueOf(oldDifference).intValue());
+			discountSlider.setValue(Double.valueOf(oldDiscount));
 			differenceTF.setText(String.valueOf((int) differenceSlider.getValue()));
-			discountTF.setText(String.valueOf((int) discountSlider.getValue()));
+			discountTF.setText(String.valueOf( discountSlider.getValue()));
 			parkCapacityTF.setText(String.valueOf((int) parkCapacitySlider.getValue()));
 
 			break;
@@ -195,11 +195,11 @@ public class ParkMangerChangesController {
 	 */
 	@FXML
     void retDefultValue(ActionEvent event) {
-		parkCapacitySlider.setValue(Integer.valueOf(oldParkcapacity));
-		differenceSlider.setValue(Integer.valueOf(oldDifference));
-		discountSlider.setValue(Integer.valueOf(oldDiscount));
+		parkCapacitySlider.setValue(Double.valueOf(oldParkcapacity).intValue());
+		differenceSlider.setValue(Double.valueOf(oldDifference).intValue());
+		discountSlider.setValue(Double.valueOf(oldDiscount));
 		differenceTF.setText(String.valueOf((int) differenceSlider.getValue()));
-		discountTF.setText(String.valueOf((int) discountSlider.getValue()));
+		discountTF.setText(String.valueOf( discountSlider.getValue()));
 		parkCapacityTF.setText(String.valueOf((int) parkCapacitySlider.getValue()));
     }
 	
