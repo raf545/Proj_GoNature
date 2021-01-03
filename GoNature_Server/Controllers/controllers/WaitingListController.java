@@ -14,6 +14,12 @@ import dataBase.DataBase;
 import ocsf.server.ConnectionToClient;
 import reservation.Reservation;
 
+/**
+ * This class is responsible for all the actions related waiting list
+ * 
+ * @author Yaniv Sokolov
+ *
+ */
 public class WaitingListController {
 
 	private static WaitingListController waitingListControllerInstacne = null;
@@ -93,6 +99,13 @@ public class WaitingListController {
 		return "You entered to waiting list";
 	}
 
+	/**
+	 * The function returns an array list of all customer waiting lists
+	 * 
+	 * @param data   the id of the client
+	 * @param client get the client data
+	 * @return string of waiting list
+	 */
 	private String getWaitingList(String data, ConnectionToClient client) {
 		ArrayList<Reservation> myWaitingList = new ArrayList<>();
 
@@ -119,7 +132,13 @@ public class WaitingListController {
 		return gson.toJson(myWaitingList.toArray());
 	}
 
-//DELETE FROM `gonaturedb`.`waitinglist` WHERE (`personalID` = '10325485214') and (`parkname` = 'Banias') and (`dateAndTime` = '2020-12-30 14:00:00');
+	/**
+	 * the function delete from waiting list table
+	 * 
+	 * @param data   the id of the client
+	 * @param client get the client data
+	 * @return if success to delete from waiting list table
+	 */
 	private String removeFromWaitingList(String data, ConnectionToClient client) {
 		Reservation removeReservationFromWaitingList = gson.fromJson(data, Reservation.class);
 		PreparedStatement query;
