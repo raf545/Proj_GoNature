@@ -17,13 +17,13 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="747.0" prefWidth="904.0" style="-fx-background-color: #3D8FFF;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkmanagerreports.numberOfVisitorsReportController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="543.0" layoutX="63.0" layoutY="110.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="782.0" />
-      <Text layoutX="299.0" layoutY="234.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Visitors Report" textAlignment="CENTER" wrappingWidth="290.443359375">
+      <Text layoutX="299.0" layoutY="206.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Visitors Report" textAlignment="CENTER" wrappingWidth="290.443359375">
          <font>
             <Font name="Guttman Drogolin Bold" size="30.0" />
          </font>
       </Text>
-      <Circle fill="#3d8fff" layoutX="139.0" layoutY="181.0" radius="25.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="0.0" />
-      <Text fx:id="backbtn" fill="WHITE" layoutX="113.0" layoutY="191.0" onMouseClicked="#goBack" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;" textAlignment="CENTER" wrappingWidth="50.0">
+      <Circle fill="#3d8fff" layoutX="115.0" layoutY="157.0" radius="25.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="0.0" />
+      <Text fx:id="backbtn" fill="WHITE" layoutX="89.0" layoutY="167.0" onMouseClicked="#goBack" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;" textAlignment="CENTER" wrappingWidth="50.0">
          <font>
             <Font name="Baloo Regular" size="30.0" />
          </font>
@@ -31,7 +31,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Text>
-      <VBox layoutX="322.0" layoutY="259.0" prefHeight="39.0" prefWidth="245.0" spacing="10.0">
+      <VBox layoutX="323.0" layoutY="232.0" prefHeight="39.0" prefWidth="245.0" spacing="10.0">
          <children>
             <HBox layoutY="39.0" prefHeight="20.0" prefWidth="258.0">
                <children>
@@ -61,7 +61,7 @@
             </HBox>
          </children>
       </VBox>
-      <Button fx:id="showbtn" layoutX="299.0" layoutY="329.0" mnemonicParsing="false" onAction="#showReport" prefHeight="35.0" prefWidth="290.0" style="-fx-background-color: #3D8FFF;" text="Show" textFill="WHITE">
+      <Button fx:id="showbtn" layoutX="301.0" layoutY="322.0" mnemonicParsing="false" onAction="#showReport" prefHeight="35.0" prefWidth="290.0" style="-fx-background-color: #3D8FFF;" text="Show" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -69,7 +69,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Label fx:id="parkName" alignment="CENTER" layoutX="369.0" layoutY="148.0" prefHeight="49.0" prefWidth="150.0" text="Label" textFill="#3d8fff">
+      <Label fx:id="parkName" alignment="CENTER" layoutX="370.0" layoutY="132.0" prefHeight="49.0" prefWidth="150.0" text="Label" textFill="#3d8fff">
          <font>
             <Font name="Guttman Drogolin Bold" size="30.0" />
          </font>

@@ -14,6 +14,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import parkManager.BlankParkManagerController;
 
 
 /**class the navigate the park manger to correct report
@@ -79,10 +80,12 @@ public class ParkManagerReportsController {
 
     /**go back to the main page of park manger
      * @param event
+     * @throws IOException 
      */
     @FXML
-    void goBack(MouseEvent event) {
+    void goBack(MouseEvent event) throws IOException {
     StaticPaneMainPageParkManager.parkManagerMainPane.getChildren().clear();
+    FXMLFunctions.loadSceneToMainPane(	BlankParkManagerController.class, "BlankParkManager.fxml",  StaticPaneMainPageParkManager.parkManagerMainPane);
     }
     public void setComboBoxOptions( Employee parkManager) {
     	parkReportOptions.getItems().addAll("Total visitors", "revenue","Capacity");

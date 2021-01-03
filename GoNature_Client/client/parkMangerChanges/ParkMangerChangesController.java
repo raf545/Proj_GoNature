@@ -1,5 +1,6 @@
 package parkMangerChanges;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import com.google.gson.Gson;
@@ -7,6 +8,7 @@ import javafx.scene.control.Label;
 import client.ChatClient;
 import client.ClientUI;
 import employee.Employee;
+import fxmlGeneralFunctions.FXMLFunctions;
 import guiCommon.StaticPaneMainPageParkManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,6 +19,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import parkChange.ParkChangeDetails;
+import parkManager.BlankParkManagerController;
 import popup.PopUp;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
@@ -205,11 +208,12 @@ public class ParkMangerChangesController {
 	
 	 /**go back to park manager main page
 	 * @param event
+	 * @throws IOException 
 	 */
 	@FXML
-	    void backButton(MouseEvent event) {
+	    void backButton(MouseEvent event) throws IOException {
 		 StaticPaneMainPageParkManager.parkManagerMainPane.getChildren().clear();
-
+		 FXMLFunctions.loadSceneToMainPane(	BlankParkManagerController.class, "BlankParkManager.fxml",  StaticPaneMainPageParkManager.parkManagerMainPane);
 	    }
 
 

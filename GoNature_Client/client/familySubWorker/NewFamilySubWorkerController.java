@@ -175,7 +175,6 @@ public class NewFamilySubWorkerController {
 	void back(MouseEvent event) throws IOException {
 		StaticPaneMainPageEmployee.employeeMainPane.getChildren().clear();
 		BlankEmployeeController controller = FXMLFunctions.loadSceneToMainPane(BlankEmployeeController.class, "BlankEmployee.fxml" ,StaticPaneMainPageEmployee.employeeMainPane).getController();
-		controller.setBlank();
 		
 
 	}

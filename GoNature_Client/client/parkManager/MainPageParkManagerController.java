@@ -5,6 +5,7 @@ import java.io.IOException;
 import com.google.gson.Gson;
 
 import client.ClientUI;
+import employee.BlankEmployeeController;
 import employee.Employee;
 import fxmlGeneralFunctions.FXMLFunctions;
 import guiCommon.StaticPaneMainPageParkManager;
@@ -16,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import login.SignInEmployeeController;
 import parkMangerChanges.ParkMangerChangesController;
@@ -48,6 +50,9 @@ public class MainPageParkManagerController {
 
 	@FXML
 	private Label manePageParkName;
+	
+	  @FXML
+	    private Text parknamew;
 
 	Employee parkManager;
 
@@ -55,10 +60,13 @@ public class MainPageParkManagerController {
 	 * set the information of this park manager
 	 * 
 	 * @param parkManagerEmp
+	 * @throws IOException 
 	 */
-	public void setParkManagerEmployee(Employee parkManagerEmp) {
+	public void setParkManagerEmployee(Employee parkManagerEmp) throws IOException {
 		parkManager = parkManagerEmp;
+		FXMLFunctions.loadSceneToMainPane(	BlankParkManagerController.class, "BlankParkManager.fxml", parkManagerMainPane);
 		manePageParkName.setText("Hello " + parkManagerEmp.getName() + " " + parkManagerEmp.getLasstName());
+		parknamew.setText(parkManager.getParkName()+" Park Manager" );
 	}
 
 	/**

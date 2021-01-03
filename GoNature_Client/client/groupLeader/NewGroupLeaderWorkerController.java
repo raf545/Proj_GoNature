@@ -161,7 +161,6 @@ public class NewGroupLeaderWorkerController {
 	    void backBottun(MouseEvent event) throws IOException {
 		 StaticPaneMainPageEmployee.employeeMainPane.getChildren().clear();
 		 BlankEmployeeController controller = FXMLFunctions.loadSceneToMainPane(BlankEmployeeController.class, "BlankEmployee.fxml" ,StaticPaneMainPageEmployee.employeeMainPane).getController();
-		 controller.setBlank();
 	    }
 
 }
