@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+
 import com.google.gson.Gson;
 import dataBase.DataBase;
 import ocsf.server.ConnectionToClient;
@@ -80,7 +82,9 @@ public class DepartmentManagerSystemController {
 			return getMonthlyRevenueFromDB(values9[0],values9[1],values9[2]);
 		case "getParkManagerCapacityReport":
 			String[] values10 = data.split(" ");
-			return getParkManagerCapacityReport(values10[0],values10[1],values10[2]);			
+			return getParkManagerCapacityReport(values10[0],values10[1],values10[2]);	
+		case "getAmountOfPeopleTodayInPark":
+			return getAmountOfPeopleTodayInPark();	
 		}
 		return data;
 	} 
@@ -499,6 +503,44 @@ public class DepartmentManagerSystemController {
 			sb.append(rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3) + " " +  rs.getString(4) + ",");		
 			return sb.toString();
 		}
+				
+		} 
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}	
+		return "faild";	
+	}
+	
+	/**
+	 * @return The amount of people in Banias, Safari,Niagara in this order.
+	 */
+	private String getAmountOfPeopleTodayInPark()
+	{
+		try
+		{	
+		ResultSet rs;
+		StringBuilder sb = new StringBuilder();
+		PreparedStatement query = con.prepareStatement("SELECT num FROM gonaturedb.uptodateinformation\r\n"
+				+ "WHERE nameOfVal = ? \r\n"
+				+ "");
+		
+		query.setString(1, "BaniasCurrentCapacity");
+		rs = DataBase.getInstance().search(query);
+		if (isEmpty(rs) != 0) 
+			sb.append(rs.getInt(1) + " ");	
+		
+		query.setString(1, "SafariCurrentCapacity");
+		rs = DataBase.getInstance().search(query);
+		if (isEmpty(rs) != 0) 
+			sb.append(rs.getInt(1) + " ");	
+		
+		query.setString(1, "NiagaraCurrentCapacity");
+		rs = DataBase.getInstance().search(query);
+		if (isEmpty(rs) != 0) 
+			sb.append(rs.getInt(1) + "");	
+		
+		return sb.toString();
 				
 		} 
 		catch (SQLException e)

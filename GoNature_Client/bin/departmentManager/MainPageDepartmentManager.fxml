@@ -131,9 +131,19 @@
             <Font size="24.0" />
          </font>
       </Hyperlink>
-      <Label fx:id="manPageDepName" layoutX="265.0" layoutY="72.0" prefHeight="45.0" prefWidth="691.0" text="Label" textAlignment="CENTER" textFill="#0d0d0d" underline="true">
+      <Label fx:id="manPageDepName" layoutX="265.0" layoutY="72.0" prefHeight="49.0" prefWidth="663.0" text="Label" textAlignment="CENTER" textFill="#0d0d0d">
          <font>
-            <Font name="Arial Hebrew Bold" size="33.0" />
+            <Font size="33.0" />
+         </font>
+      </Label>
+      <Label layoutX="265.0" layoutY="887.0" prefHeight="49.0" prefWidth="119.0" text="Capacity:" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="capacityText" layoutX="378.0" layoutY="889.0" prefHeight="49.0" prefWidth="617.0" text="Report" textAlignment="CENTER">
+         <font>
+            <Font size="25.0" />
          </font>
       </Label>
    </children>

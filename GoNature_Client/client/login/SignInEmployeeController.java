@@ -172,7 +172,8 @@ public class SignInEmployeeController {
 
 			MainPageDepartmentManagerController mainPageDepartmentManagerController = loader.getController();
 			mainPageDepartmentManagerController.setDepDetails(employee);
-
+			mainPageDepartmentManagerController.getAmountOfPeopleTodayInPark();
+			
 			primaryStage.setOnCloseRequest(e -> FXMLFunctions.closeMainPage());
 			primaryStage.setTitle("Main Page Department Manager");
 			primaryStage.setScene(sc);
