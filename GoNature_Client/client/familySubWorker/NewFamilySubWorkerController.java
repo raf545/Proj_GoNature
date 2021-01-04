@@ -52,7 +52,10 @@ public class NewFamilySubWorkerController {
 	@FXML
 	private Button saveBtn;
 
-	/**when press on save checks that the values of the text fields are correct and sends a request for the server to create a subscription.
+	/**
+	 * when press on save checks that the values of the text fields are correct and
+	 * sends a request for the server to create a subscription.
+	 * 
 	 * @param event
 	 */
 	@FXML
@@ -70,58 +73,52 @@ public class NewFamilySubWorkerController {
 		creditCardNumber = CreditCardTF.getText();
 		subscriberType = "family";
 
-		if (name.isEmpty()) 
+		if (name.isEmpty())
 			popError.append("-Must enter first name \n");
 
-		if (!name.matches("[a-zA-Z]+")) 
+		if (!name.matches("[a-zA-Z]+"))
 			popError.append("-No Numbers allowed in names\n");
 
-		if (lastName.isEmpty()) 
+		if (lastName.isEmpty())
 			popError.append("-Must enter last name\n");
-		
-		 else if (!lastName.matches("[a-zA-Z]+"))
-				popError.append("-No Numbers allowed in last names\n");
-							
-		if (id.isEmpty()) 
+
+		else if (!lastName.matches("[a-zA-Z]+"))
+			popError.append("-No Numbers allowed in last names\n");
+
+		if (id.isEmpty())
 			popError.append("-Must enter ID\n");
-		
+
 		else if (!(id.matches("[0-9]+") && id.length() > 2))
-				popError.append("-Please enter only numbers on ID\n");
-			
-					
+			popError.append("-Please enter only numbers on ID\n");
+
 		if (phone.isEmpty())
 			popError.append("-Must enter Phone number\n");
 		else {
-			if (phone.matches("[a-zA-z]+")) {
+			if (!(phone.matches("[0-9]+"))) {
 				popError.append("-Must enter only numbers for Phone number\n");
-			}else {
-				if (phone.length()!=10)
+			} else {
+				if (phone.length() != 10)
 					popError.append("-Must enter 10 digit Phone number\n");
 			}
 		}
-	
-		if (email.isEmpty())
-		{
+
+		if (email.isEmpty()) {
 			popError.append("-Must enter Email\n");
-		}else {
+		} else {
 			if (!(email.matches("^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$")))
 				popError.append("-Not a valid Email\n");
 		}
-			
 
-	
-			if (numOfMembers.isEmpty()) {
-				popError.append("-Must enter Amount of pepole\n");
-			}else {
-				if (numOfMembers.matches("[a-zA-z]+")) {
-					popError.append("-Must enter Amount of pepole in numbers\n");
-				}
-		}
-			if (popError.length() > 0)
-			{
-				PopUp.display("Error", popError.toString());
+		if (numOfMembers.isEmpty()) {
+			popError.append("-Must enter Amount of pepole\n");
+		} else {
+			if (numOfMembers.matches("[a-zA-z]+")) {
+				popError.append("-Must enter Amount of pepole in numbers\n");
 			}
-			else {
+		}
+		if (popError.length() > 0) {
+			PopUp.display("Error", popError.toString());
+		} else {
 
 			subscriber = new Subscriber(id, subscriberid, name, lastName, phone, email, numOfMembers, creditCardNumber,
 					subscriberType);
@@ -134,13 +131,15 @@ public class NewFamilySubWorkerController {
 			EmailTF.setText("");
 			AmountTF.setText("");
 			CreditCardTF.setText("");
-			
+
 		}
 
 	}
 
-	/**sends the data and the needed function to the server.
-	 * @param loginType sends to server the function it needs to do.
+	/**
+	 * sends the data and the needed function to the server.
+	 * 
+	 * @param loginType  sends to server the function it needs to do.
 	 * @param subscriber send the data to the server.
 	 */
 	private void sendLoginRequestToServer(String loginType, Subscriber subscriber) {
@@ -149,7 +148,9 @@ public class NewFamilySubWorkerController {
 		ClientUI.chat.accept(gson.toJson(rh));
 	}
 
-	/**Analyse the answer we got back from the server for the function we sent. and open popups if succeeded failed or already exist.
+	/**
+	 * Analyse the answer we got back from the server for the function we sent. and
+	 * open popups if succeeded failed or already exist.
 	 * 
 	 */
 	private void analyzeAnswerFromServer() {
@@ -167,15 +168,17 @@ public class NewFamilySubWorkerController {
 		}
 	}
 
-	/**go back to the main pane
+	/**
+	 * go back to the main pane
+	 * 
 	 * @param event
 	 * @throws IOException
 	 */
 	@FXML
 	void back(MouseEvent event) throws IOException {
 		StaticPaneMainPageEmployee.employeeMainPane.getChildren().clear();
-		BlankEmployeeController controller = FXMLFunctions.loadSceneToMainPane(BlankEmployeeController.class, "BlankEmployee.fxml" ,StaticPaneMainPageEmployee.employeeMainPane).getController();
-		
+		BlankEmployeeController controller = FXMLFunctions.loadSceneToMainPane(BlankEmployeeController.class,
+				"BlankEmployee.fxml", StaticPaneMainPageEmployee.employeeMainPane).getController();
 
 	}
 

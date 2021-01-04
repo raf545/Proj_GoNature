@@ -6,6 +6,7 @@ package server;
 import java.io.IOException;
 import com.google.gson.Gson;
 
+import cardReaderSimulator.CardReaderControllerSimulator;
 import controllers.CardReaderController;
 import controllers.DepartmentManagerSystemController;
 import controllers.EmployeeSystemController;
@@ -15,6 +16,11 @@ import controllers.ReportsController;
 import controllers.ReservationController;
 import controllers.WaitingListController;
 import dataBase.DataBase;
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import ocsf.server.AbstractServer;
 import ocsf.server.ConnectionToClient;
 import requestHandler.RequestHandler;
@@ -120,8 +126,32 @@ public class EchoServer extends AbstractServer {
 	@Override
 	protected void serverStarted() {
 		DataBase.getInstance();
-		if (DataBase.getInstance().setConnection())
+		if (DataBase.getInstance().setConnection()) {
 			serverPortControllerInstance.setConnectToDB();
+			Platform.runLater(() -> {
+
+				try {
+					Stage cardReader = new Stage();
+					FXMLLoader loaderCardReaderSimulator = new FXMLLoader();
+					loaderCardReaderSimulator
+							.setLocation(CardReaderControllerSimulator.class.getResource("readerSimulation.fxml"));
+
+					Pane rootCardReaderSimulator = loaderCardReaderSimulator.load();
+
+					Scene scCardReaderSimulator = new Scene(rootCardReaderSimulator);
+					cardReader.setTitle("Card Reader simulation");
+					CardReaderControllerSimulator cardReaderControllerSimulator = loaderCardReaderSimulator
+							.getController();
+					cardReaderControllerSimulator.setPrkNameComboBox();
+					cardReader.setScene(scCardReaderSimulator);
+					cardReader.show();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+			});
+
+		}
 		PeriodicallyRunner.runEveryDayAt(8, 0, new SendMessageToExistingReservationsDayBefore());
 		PeriodicallyRunner.runEveryDayAt(10, 0, new CheckIfApproveReservation());
 		PeriodicallyRunner.runEveryDayAt(6, 0, new DeleteIrrelevantWaitingList());

@@ -33,24 +33,7 @@ public class ServerUI extends Application {
 			System.exit(0);
 		});
 
-		try {
-			Stage cardReader = new Stage();
-			FXMLLoader loaderCardReaderSimulator = new FXMLLoader();
-			loaderCardReaderSimulator
-					.setLocation(CardReaderControllerSimulator.class.getResource("readerSimulation.fxml"));
-
-			Pane rootCardReaderSimulator = loaderCardReaderSimulator.load();
-
-			Scene scCardReaderSimulator = new Scene(rootCardReaderSimulator);
-			cardReader.setTitle("Card Reader simulation");
-			CardReaderControllerSimulator cardReaderControllerSimulator = loaderCardReaderSimulator.getController();
-			cardReaderControllerSimulator.setPrkNameComboBox();
-			cardReader.setScene(scCardReaderSimulator);
-			cardReader.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
+		
 	}
 
 	/**
