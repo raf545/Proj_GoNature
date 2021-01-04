@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import com.google.gson.Gson;
 
-import cardReader.IdAndPark;
+import cardReader.IdAndParkAndNum;
 import controllers.CardReaderController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,6 +27,9 @@ public class CardReaderControllerSimulator {
 
 	Gson gson = new Gson();
 
+    @FXML
+    private TextField numOfVisitorsTxt;
+    
 	@FXML
 	private Tab entranceBtn;
 
@@ -67,30 +70,38 @@ public class CardReaderControllerSimulator {
 		if (enterParkPicker.getSelectionModel().getSelectedItem() == null)
 			popError.append("Must choose Park\n");
 
+		if (numOfVisitorsTxt.getText().isEmpty())
+			popError.append("Must enter the number of visitors\n");
+		
 		if (popError.length() > 0) {
 			PopUp.display("Error", popError.toString());
 		} else {
-			IdAndPark idAndPark = new IdAndPark(enterTxt.getText(), enterParkPicker.getValue());
+			IdAndParkAndNum idAndParkAndNum = new IdAndParkAndNum(enterTxt.getText(), enterParkPicker.getValue(),numOfVisitorsTxt.getText());
 
-			String answerFromServer = CardReaderController.getInstance().router("enterPark", gson.toJson(idAndPark),
+			String answerFromServer = CardReaderController.getInstance().router("enterPark", gson.toJson(idAndParkAndNum),
 					null);
 			PopUp.display("Card reader simulation", answerFromServer);
 
 			if (answerFromServer.contains("Entered successfully"))
-				popUpPayment();
+				popUpPayment(enterTxt.getText());
 		}
+		numOfVisitorsTxt.clear();
+    	enterTxt.clear();
+    	enterParkPicker.getSelectionModel().clearSelection();
 
 	}
 
-	private void popUpPayment() {
+	private void popUpPayment(String id) {
 		try {
 			Stage primaryStage = new Stage();
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(paymentController.class.getResource("payment.fxml"));
+			loader.setLocation(PaymentController.class.getResource("payment.fxml"));
 			Pane root = loader.load();
 			Scene sc = new Scene(root);
 			primaryStage.setTitle("Payment");
 			primaryStage.setScene(sc);
+			PaymentController PaymentController = loader.getController();
+			PaymentController.checkCredit(id);
 			primaryStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -112,11 +123,28 @@ public class CardReaderControllerSimulator {
 		if (popError.length() > 0) {
 			PopUp.display("Error", popError.toString());
 		} else {
-			IdAndPark idAndPark = new IdAndPark(exitTxt.getText(), exitParkPicker.getValue());
-			String answerFromServer = CardReaderController.getInstance().router("exitPark", gson.toJson(idAndPark),
+			IdAndParkAndNum idAndParkAndNum = new IdAndParkAndNum(exitTxt.getText(), exitParkPicker.getValue(),null);
+			String answerFromServer = CardReaderController.getInstance().router("exitPark", gson.toJson(idAndParkAndNum),
 					null);
 			PopUp.display("Card reader simulation", answerFromServer);
 		}
+		exitTxt.clear();
+    	exitParkPicker.getSelectionModel().clearSelection();
 	}
+
+    @FXML
+    void clearTxtEntrance(ActionEvent event) {
+
+    	exitTxt.clear();
+    	exitParkPicker.getSelectionModel().clearSelection();
+    
+    }
+
+    @FXML
+    void clearTxtExit(ActionEvent event) {
+    	numOfVisitorsTxt.clear();
+    	enterTxt.clear();
+    	enterParkPicker.getSelectionModel().clearSelection();
+    }
 
 }

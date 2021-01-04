@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 import com.google.gson.Gson;
 
 import cardReader.CardReader;
-import cardReader.IdAndPark;
+import cardReader.IdAndParkAndNum;
 import dataBase.DataBase;
 import ocsf.server.ConnectionToClient;
 import reservation.Reservation;
@@ -46,22 +46,23 @@ public class CardReaderController {
 	private String enterPark(String data, ConnectionToClient client) {
 
 		answerToCilent = "no reservation found for this day";
-		IdAndPark idAndPark = gson.fromJson(data, IdAndPark.class);
+		IdAndParkAndNum idAndParkAndNum = gson.fromJson(data, IdAndParkAndNum.class);
 		ResultSet reservationTupels;
-		reservationTupels = checkReservationExistence(idAndPark);
+		reservationTupels = checkReservationExistence(idAndParkAndNum);
 
 		if (DataBase.getInstance().getResultSetSize(reservationTupels) != 0) {
 			try {
+				
 				if (checkVisitorInPark(reservationTupels)) {
-
 					updateReservationStatus(reservationTupels);
 					CardReader cardReader = updateCardReader(reservationTupels,
-							reservationTupels.getString("reservationID"), idAndPark,
+							reservationTupels.getString("reservationID"), idAndParkAndNum,
 							new Timestamp(System.currentTimeMillis()));
 
 					updateParkCurrentCappacity(cardReader);
 					answerToCilent = "Entered successfully";
 					return answerToCilent + "\nthe price is: " + reservationTupels.getString("price") ;
+					
 				}
 			} catch (SQLException e) {
 				
@@ -71,7 +72,7 @@ public class CardReaderController {
 		return answerToCilent;
 	}
 
-	private ResultSet checkReservationExistence(IdAndPark idAndPark) {
+	private ResultSet checkReservationExistence(IdAndParkAndNum idAndPark) {
 
 		ResultSet reservationTupels;
 		Timestamp twentyMinutsPlus;
@@ -118,8 +119,19 @@ public class CardReaderController {
 					}
 
 					if ((reservationTime.before(twentyMinutsPlus) && reservationTime.after(twentyMinutsMinus))
-							|| reservationTupels.getString("reservetionStatus").equals("inPark"))
+							|| reservationTupels.getString("reservetionStatus").equals("inPark")) {
+						
+						int numOfReservationVitors = Integer.parseInt(reservationTupels.getString("numofvisitors"));
+						int numOfActualVisitors = Integer.parseInt(idAndPark.getNumOfVisitors());
+						
+						if(numOfActualVisitors > numOfReservationVitors) {
+							answerToCilent = "your reservation is for "+ numOfReservationVitors + " and not for "+numOfActualVisitors + "\n" + 
+									"Please go to the checkout to place an order for people who do not appear in the order";
+							return null;
+						}
 						return reservationTupels;
+					}
+						
 				}
 			}
 		} catch (SQLException e) {
@@ -137,10 +149,10 @@ public class CardReaderController {
 		DataBase.getInstance().update(updatequery);
 	}
 
-	private CardReader updateCardReader(ResultSet reservationTupels, String reservationId, IdAndPark idAndPark,
+	private CardReader updateCardReader(ResultSet reservationTupels, String reservationId, IdAndParkAndNum idAndPark,
 			Timestamp currentTime) throws SQLException {
 		CardReader cardReader = new CardReader(reservationId, idAndPark.getId(), reservationTupels.getString("phone"),
-				currentTime, null, reservationTupels.getString("numofvisitors"), idAndPark.getParkName(),
+				currentTime, null, idAndPark.getNumOfVisitors(), idAndPark.getParkName(),
 				reservationTupels.getString("reservationtype"), reservationTupels.getDouble("price"));
 
 		PreparedStatement insertQuery = con.prepareStatement(
@@ -211,7 +223,7 @@ public class CardReaderController {
 
 	private String exitPark(String data, ConnectionToClient client) {
 
-		IdAndPark idAndPark = gson.fromJson(data, IdAndPark.class);
+		IdAndParkAndNum idAndPark = gson.fromJson(data, IdAndParkAndNum.class);
 		ResultSet cardReaderInPark;
 		PreparedStatement searchQuery;
 		try {
