@@ -91,6 +91,8 @@ public class IdentificationController {
 
 		if (IDText.getText().isEmpty()) {
 			popError.append("Must enter id\n");
+		} else if (!(IDText.getText().matches("[0-9]+"))) {
+			popError.append("Must enter numbers\n");
 		}
 
 		if (popError.length() > 0) {

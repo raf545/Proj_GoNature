@@ -144,7 +144,10 @@ public class NewReservationController {
 		}
 		if (EmailTxt.getText().isEmpty()) {
 			errorMessage.append("No Email enterd\n");
+		} else if (!(EmailTxt.getText().matches("^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$"))) {
+			errorMessage.append("-Not a valid Email\n");
 		}
+
 		selectedCombo = chooseParkComboBox.getSelectionModel().getSelectedItem();
 		if (selectedCombo == null) {
 			errorMessage.append("No park selected\n");
@@ -155,6 +158,8 @@ public class NewReservationController {
 
 		if (PhoneTxt.getText().isEmpty()) {
 			errorMessage.append("No phone number enterd\n");
+		} else if (!(PhoneTxt.getText().matches("[0-9]+"))) {
+			errorMessage.append("-Must enter only numbers for Phone number\n");
 		}
 
 		if (errorMessage.length() == 0) {
