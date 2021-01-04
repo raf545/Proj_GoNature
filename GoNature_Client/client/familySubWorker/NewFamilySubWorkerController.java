@@ -22,6 +22,10 @@ import requestHandler.RequestHandler;
 import requestHandler.controllerName;
 import subscriber.Subscriber;
 
+/**creates a new subscriber for the system only by employee!
+ * @author Avri
+ *
+ */
 public class NewFamilySubWorkerController {
 	Gson gson = new Gson();
 	Subscriber subscriber;
