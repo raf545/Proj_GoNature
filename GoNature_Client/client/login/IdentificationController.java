@@ -124,7 +124,7 @@ public class IdentificationController {
 				setClientInfoAndType(String.class, "Guest");
 				VisitorName = subscriberFromServer.getId();
 				VisitorType = "guest";
-				ChatClient.clientIdString = ChatClient.clientInfo;
+				ChatClient.clientIdString = subscriberFromServer.getId();
 			} else {
 				ChatClient.clientIdString = subscriberFromServer.getId();
 				setClientInfoAndType(Subscriber.class, subscriberFromServer.getSubscriberType());
