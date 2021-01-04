@@ -67,27 +67,27 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Text>
-      <Text fill="RED" layoutX="236.0" layoutY="416.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
+      <Text fill="RED" layoutX="236.0" layoutY="435.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
          <font>
             <Font size="21.0" />
          </font>
       </Text>
-      <Text fill="RED" layoutX="236.0" layoutY="488.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
+      <Text fill="RED" layoutX="236.0" layoutY="512.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
          <font>
             <Font name="System Italic" size="18.0" />
          </font>
       </Text>
-      <Text fill="RED" layoutX="236.0" layoutY="343.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
+      <Text fill="RED" layoutX="236.0" layoutY="355.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
          <font>
             <Font name="System Italic" size="18.0" />
          </font>
       </Text>
-      <Text fill="RED" layoutX="236.0" layoutY="195.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
+      <Text fill="RED" layoutX="236.0" layoutY="199.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
          <font>
             <Font size="21.0" />
          </font>
       </Text>
-      <Text fill="RED" layoutX="236.0" layoutY="271.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
+      <Text fill="RED" layoutX="236.0" layoutY="278.0" stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="*" wrappingWidth="23.0">
          <font>
             <Font size="21.0" />
          </font>

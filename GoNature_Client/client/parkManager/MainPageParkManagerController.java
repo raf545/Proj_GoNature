@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.google.gson.Gson;
 
+import client.ChatClient;
 import client.ClientUI;
 import employee.BlankEmployeeController;
 import employee.Employee;
@@ -29,12 +30,15 @@ import requestHandler.controllerName;
 /**
  * the main page of an park manager,contains all the metods that he can do
  * 
- * @author zivi9
+ * @author ziv
  *
  */
 public class MainPageParkManagerController {
 
 	Gson gson = new Gson();
+
+	 @FXML
+	 private Label capacityText;
 
 	@FXML
 	private Pane parkManagerMainPane;
@@ -69,6 +73,37 @@ public class MainPageParkManagerController {
 		parknamew.setText(parkManager.getParkName()+" Park Manager" );
 	}
 
+	/**asks from the server for current capacity of the park.
+	 * 
+	 */
+	public void getAmountOfPeopleTodayInPark()
+	{
+		RequestHandler rh = new RequestHandler(controllerName.ParkManagerSystemController, "getAmountOfPeopleTodayInPark", parkManager.getParkName());
+		ClientUI.chat.accept(gson.toJson(rh));
+		analyzeAnswerFromServer();
+		
+	}	
+	
+	/**handle the massage from the server.
+	 * 
+	 */
+	private void analyzeAnswerFromServer() {
+		String answer = ChatClient.serverMsg;		
+		if(!answer.equals("faild"))
+			setCapacityTextField(answer);
+		
+	}
+
+	/**prints the capacity on main
+	 * @param answer capacity from the server.
+	 */
+	private void setCapacityTextField(String answer) {
+		System.out.println("Shay");
+		String parkCapacities = answer;
+		capacityText.setText(parkManager.getParkName() +" capacity is: "+ parkCapacities );
+		
+	}
+	
 	/**
 	 * open the page of edit the park, with this page the park manager can edit
 	 * parameters about this park

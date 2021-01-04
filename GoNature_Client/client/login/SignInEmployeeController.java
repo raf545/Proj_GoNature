@@ -124,6 +124,7 @@ public class SignInEmployeeController {
 
 			MainPageEmployeeController mainPageEmployeeController = loader.getController();
 			mainPageEmployeeController.setEmp(employee);
+			mainPageEmployeeController.getAmountOfPeopleTodayInPark();
 
 			StaticPaneMainPageEmployee.employeeMainPane = mainPageEmployeeController.getPane();
 			primaryStage.setOnCloseRequest(e -> FXMLFunctions.closeMainPage());
@@ -147,6 +148,7 @@ public class SignInEmployeeController {
 
 			MainPageParkManagerController mainPageParkManagerController = loader.getController();
 			mainPageParkManagerController.setParkManagerEmployee(parkManager);
+			mainPageParkManagerController.getAmountOfPeopleTodayInPark();
 
 			Scene sc = new Scene(root);
 			primaryStage.setOnCloseRequest(e -> FXMLFunctions.closeMainPage());
