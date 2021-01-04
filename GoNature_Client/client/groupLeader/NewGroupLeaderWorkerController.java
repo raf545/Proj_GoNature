@@ -21,6 +21,10 @@ import requestHandler.RequestHandler;
 import requestHandler.controllerName;
 import subscriber.Subscriber;
 
+/**creates new instructor in the system only by employee.
+ * @author avriz
+ *
+ */
 public class NewGroupLeaderWorkerController {
 	Gson gson = new Gson();
 	Subscriber subscriber;

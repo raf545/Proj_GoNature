@@ -1,5 +1,7 @@
 package controllers;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -12,6 +14,8 @@ import parkChange.ParkChangeDetails;
 
 public class ParkManagerSystemController {
 	Gson gson = new Gson();
+	Connection con = DataBase.getInstance().getConnection();
+
 
 	/**class that saves park change request and get the current values from the server 
 	 * 
@@ -45,11 +49,53 @@ public class ParkManagerSystemController {
 			return changeParkDetails(data, client);
 		case "initParkValues":
 			return initParkValues(data, client);
+		case "getAmountOfPeopleTodayInPark":
+			return getAmountOfPeopleTodayInPark(data);	
 
 		}
 		return "faild";
 	}
 
+	/**
+	 * @return The amount of people in the worker park
+	 */
+	private String getAmountOfPeopleTodayInPark(String data)
+	{
+		try
+		{	
+		ResultSet rs;
+		String cap = null;
+		PreparedStatement query = con.prepareStatement("SELECT num FROM gonaturedb.uptodateinformation\r\n"
+				+ "WHERE nameOfVal = ? \r\n"
+				+ "");
+		if(data.equals("Banias")) {
+			query.setString(1, "BaniasCurrentCapacity");
+			rs = DataBase.getInstance().search(query);
+			if (isEmpty(rs) != 0) 
+				cap=String.valueOf(rs.getInt(1));
+		}else if(data.equals("Safari")) {
+			query.setString(1, "SafariCurrentCapacity");
+			rs = DataBase.getInstance().search(query);
+			if (isEmpty(rs) != 0) 
+				cap=String.valueOf(rs.getInt(1));
+		}else  {
+			query.setString(1, "NiagaraCurrentCapacity");
+			rs = DataBase.getInstance().search(query);
+			if (isEmpty(rs) != 0) 
+				cap=String.valueOf(rs.getInt(1));
+		}
+		
+		
+		return cap;
+				
+		} 
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}	
+		return "faild";	
+	}
+	
 	/**get the current values of this park
 	 * @param data
 	 * @param client
