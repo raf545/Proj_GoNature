@@ -1,15 +1,25 @@
 package cardReader;
 
-public class IdAndPark {
+public class IdAndParkAndNum {
 
 	private String id;
 	private String parkName;
+	private String numOfVisitors;
 
-	public IdAndPark(String id, String parkName) {
+	public IdAndParkAndNum(String id, String parkName, String numOfVisitors) {
 		this.id = id;
 		this.parkName = parkName;
+		this.numOfVisitors = numOfVisitors;
 	}
-	
+
+	public String getNumOfVisitors() {
+		return numOfVisitors;
+	}
+
+	public void setNumOfVisitors(String numOfVisitors) {
+		this.numOfVisitors = numOfVisitors;
+	}
+
 	public String getId() {
 		return id;
 	}

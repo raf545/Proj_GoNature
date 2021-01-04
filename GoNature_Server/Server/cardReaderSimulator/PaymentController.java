@@ -1,5 +1,9 @@
 package cardReaderSimulator;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import dataBase.DataBase;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
@@ -8,8 +12,9 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import popup.PopUp;
 
-public class paymentController {
-
+public class PaymentController {
+	
+	
 	@FXML
 	private TextField creditCardText;
 
@@ -39,10 +44,25 @@ public class paymentController {
 		if (popError.length() > 0) {
 			PopUp.display("Error", popError.toString());
 		} else {
+			PopUp.display("success", "the payment was succesful");
 			Stage stage = (Stage) payBtn.getScene().getWindow();
 			stage.close();
 		}
 
+	}
+
+	void checkCredit(String id){
+		String searchQuery = null;
+		searchQuery = "select creditCardNumber from gonaturedb.subscriber where id = \"" + id + "\";";
+		ResultSet creditCard = DataBase.getInstance().search(searchQuery);
+		try {
+			while (creditCard.next()) {
+				creditCardText.setText(creditCard.getString("creditCardNumber"));
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
 	}
 
 }

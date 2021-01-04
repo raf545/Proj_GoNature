@@ -16,32 +16,48 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="410.0" layoutX="70.0" layoutY="61.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="528.0" />
       <TabPane layoutX="133.0" layoutY="166.0" prefHeight="239.0" prefWidth="403.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab fx:id="entranceBtn" text="Entrance">
+          <Tab fx:id="entranceBtn" onClosed="#clearTxtEntrance" text="Entrance">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="216.0" prefWidth="437.0" style="-fx-background-color: #DCDCDC;">
                      <children>
-                        <TextField fx:id="enterTxt" alignment="TOP_LEFT" layoutX="107.0" layoutY="61.0" prefHeight="25.0" prefWidth="190.0" promptText="Enter id" style="-fx-background-color: #EEF2F9;" />
+                        <TextField fx:id="enterTxt" alignment="TOP_LEFT" layoutX="107.0" layoutY="51.0" prefHeight="25.0" prefWidth="190.0" promptText="Enter id" />
                         <Button fx:id="enterParkBtn" layoutX="107.0" layoutY="122.0" mnemonicParsing="false" onAction="#enterPark" prefHeight="64.0" prefWidth="190.0" style="-fx-background-color: #2e7d32;" text=" Enter Park" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Button>
                         <ComboBox fx:id="enterParkPicker" layoutX="108.0" layoutY="14.0" prefHeight="25.0" prefWidth="187.0" promptText="choose park" />
+                        <TextField fx:id="numOfVisitorsTxt" layoutX="170.0" layoutY="85.0" prefHeight="25.0" prefWidth="125.0" />
+                        <Text layoutX="81.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID:" wrappingWidth="25.208984375">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="12.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of visitors:" wrappingWidth="163.197265625">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab fx:id="exitBtn" text="Exit">
+          <Tab fx:id="exitBtn" onClosed="#clearTxtExit" text="Exit">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #DCDCDC;">
                      <children>
-                        <TextField fx:id="exitTxt" alignment="TOP_LEFT" layoutX="107.0" layoutY="61.0" prefHeight="25.0" prefWidth="190.0" promptText="Enter id" style="-fx-background-color: #EEF2F9;" />
+                        <TextField fx:id="exitTxt" alignment="TOP_LEFT" layoutX="107.0" layoutY="51.0" prefHeight="25.0" prefWidth="190.0" promptText="Enter id" />
                         <Button fx:id="exitParkBtn" layoutX="107.0" layoutY="122.0" mnemonicParsing="false" onAction="#exitPark" prefHeight="64.0" prefWidth="190.0" style="-fx-background-color: #DC143C;" text="Exit park" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Button>
                         <ComboBox fx:id="exitParkPicker" layoutX="108.0" layoutY="14.0" prefHeight="25.0" prefWidth="187.0" promptText="choose park" />
+                        <Text layoutX="82.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID:" wrappingWidth="25.208984375">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
                      </children>
                   </AnchorPane>
             </content>
