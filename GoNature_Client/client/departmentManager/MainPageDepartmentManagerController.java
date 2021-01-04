@@ -2,6 +2,9 @@ package departmentManager;
 
 import java.io.IOException;
 import com.google.gson.Gson;
+
+import client.ChatClient;
+import client.ClientUI;
 import departmentManagerReports.DepartmentManagerChooseParkManReportController;
 import departmentManagerReports.DepartmentManagerChooseReportController;
 import employee.Employee;
@@ -12,6 +15,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import managerApproveChanges.ApproveChangesController;
+import requestHandler.RequestHandler;
+import requestHandler.controllerName;
 
 /**
  * This page will be the main page for Department Manager All the options for
@@ -30,6 +35,9 @@ public class MainPageDepartmentManagerController {
 	@FXML
 	private Pane departmentManagerPane;
 
+    @FXML
+    private Label capacityText;
+    
 	/**
 	 * set the department manager
 	 * 
@@ -99,6 +107,36 @@ public class MainPageDepartmentManagerController {
 						"DepartmentManagerChooseParkManReport.fxml", departmentManagerPane)
 				.getController();
 		controller.setComboBoxOptions();
+	}
+		
+	
+	/**
+	 * Get from the data base how many people in parks Banias, Safari and Niagara.
+	 */
+	public void getAmountOfPeopleTodayInPark()
+	{
+		RequestHandler rh = new RequestHandler(controllerName.DepartmentManagerSystemController, "getAmountOfPeopleTodayInPark", "");
+		ClientUI.chat.accept(gson.toJson(rh));
+		analyzeAnswerFromServer();
+		
+	}	
+	/**
+	 * Get the details back from the query that sent to the db and continue to setCapacityTextField() if success.
+	 * In case of fail, continue to showEmptyDetails().
+	 */
+	private void analyzeAnswerFromServer() {
+		String answer = ChatClient.serverMsg;		
+		if(!answer.equals("faild"))
+			setCapacityTextField(answer);
+	}
+	
+	private void setCapacityTextField(String answer)
+	{
+		System.out.println("Shay");
+		String[] parkCapacities = answer.split(" ");
+		int totalCapacity = Integer.parseInt(parkCapacities[0]) +  Integer.parseInt(parkCapacities[1]) +  Integer.parseInt(parkCapacities[2]);
+		capacityText.setText("Banias - " + parkCapacities[0] + ", Safari - " + parkCapacities[1] + ", Niagara - " + parkCapacities[2] + ", Total - " + totalCapacity);
+		
 	}
 
 }
