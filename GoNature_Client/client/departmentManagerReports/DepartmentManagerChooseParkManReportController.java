@@ -1,6 +1,8 @@
 package departmentManagerReports;
 
 import java.io.IOException;
+
+import departmentManager.BlankDepartmentManagerController;
 import fxmlGeneralFunctions.FXMLFunctions;
 import guiCommon.StaticPaneMainPageDepartmentManager;
 import javafx.event.ActionEvent;
@@ -62,8 +64,9 @@ public class DepartmentManagerChooseParkManReportController {
 	 * @throws IOException
 	 */
     @FXML
-    void quitScene(MouseEvent event) {
+    void quitScene(MouseEvent event) throws IOException {
     	StaticPaneMainPageDepartmentManager.DepartmentManagerMainPane.getChildren().clear();
+    	FXMLFunctions.loadSceneToMainPane(BlankDepartmentManagerController.class, "BlankDepartmentManager.fxml", StaticPaneMainPageDepartmentManager.DepartmentManagerMainPane);
     }
 	/**
 	 * A function that must be called when loading the screen

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import com.google.gson.Gson;
 import client.ChatClient;
 import client.ClientUI;
+import departmentManager.BlankDepartmentManagerController;
+import fxmlGeneralFunctions.FXMLFunctions;
 import guiCommon.StaticPaneMainPageDepartmentManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -60,6 +62,7 @@ public class ApproveChangesController {
 	@FXML
 	void quitScene(MouseEvent event) throws IOException {
 		StaticPaneMainPageDepartmentManager.DepartmentManagerMainPane.getChildren().clear();	
+    	FXMLFunctions.loadSceneToMainPane(BlankDepartmentManagerController.class, "BlankDepartmentManager.fxml", StaticPaneMainPageDepartmentManager.DepartmentManagerMainPane);
 	}
 	
 	

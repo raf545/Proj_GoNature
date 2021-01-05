@@ -15,6 +15,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import monthDetails.Months;
+import popup.PopUp;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
 
@@ -90,7 +92,7 @@ public class DepartmentManagerMonthlyRevenueController {
 	 */
 	public void getMonthlyRevenueFromDB(String year,String month,String parkName) {
 		String stringToSend = year + " " + month + " " + parkName;
-			RequestHandler rh = new RequestHandler(controllerName.DepartmentManagerSystemController, "getMonthlyRevenueFromDB", stringToSend);
+		RequestHandler rh = new RequestHandler(controllerName.DepartmentManagerSystemController, "getMonthlyRevenueFromDB", stringToSend);
 		ClientUI.chat.accept(gson.toJson(rh));
 		analyzeAnswerFromServer();
 	}
@@ -118,6 +120,8 @@ public class DepartmentManagerMonthlyRevenueController {
 		familyTF.setText("0$");
 		groupTF.setText("0$");
 		totalTF.setText("0$");
+		PopUp.display("No revenues", "No revenue for park " + comboPark.getValue() + " in : " + Months.values()[Integer.parseInt(comboMonth.getValue())-1] + " " + comboYear.getValue());
+		
 	}
 	
 	/**
@@ -155,7 +159,7 @@ public class DepartmentManagerMonthlyRevenueController {
     	comboPark.getItems().addAll("Banias","Niagara","Safari");
     	
     	comboYear.setValue(String.valueOf(thisYear));
-    	comboMonth.setValue(String.valueOf(thisMonth));
+    	comboMonth.setValue(String.valueOf(thisMonth)+1);
     	comboPark.setValue("Banias");
 		
 	}

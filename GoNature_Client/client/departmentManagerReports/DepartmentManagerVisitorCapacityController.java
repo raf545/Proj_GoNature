@@ -16,6 +16,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import monthDetails.Months;
+import popup.PopUp;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
 
@@ -90,6 +92,7 @@ public class DepartmentManagerVisitorCapacityController {
 		String answer = ChatClient.serverMsg;		
 		if(!answer.equals("faild"))
 			showDetails(answer);
+		else PopUp.display("No data", "No data for park " + comboPark.getValue() + " in : " + Months.values()[Integer.parseInt(comboMonth.getValue())-1] + " " + comboYear.getValue());
 	
 	}
 	/**
@@ -108,7 +111,7 @@ public class DepartmentManagerVisitorCapacityController {
 		
 		for(int i = 0; i < al.size(); i++)
 			listview.getItems().add(new CapacityData(al.get(i)[0],al.get(i)[3]));
-		
+
 	}
 	/**
 	 * A function that must be called when loading the screen
@@ -129,7 +132,7 @@ public class DepartmentManagerVisitorCapacityController {
     	comboPark.getItems().addAll("Banias","Niagara","Safari");
     	
     	comboYear.setValue(String.valueOf(thisYear));
-    	comboMonth.setValue(String.valueOf(thisMonth));
+    	comboMonth.setValue(String.valueOf(thisMonth)+1);
     	comboPark.setValue("Banias");
 		
 	}
