@@ -23,6 +23,12 @@ import popup.PopUpWinController;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
 
+/**
+ * this is the class of the controller for the card reader gui.
+ * this class contains all the card reader gui buttons functions and operation.
+ * @author dan
+ *
+ */
 public class CardReaderControllerSimulator {
 
 	Gson gson = new Gson();
@@ -54,11 +60,21 @@ public class CardReaderControllerSimulator {
 	@FXML
 	private ComboBox<String> enterParkPicker;
 
+	/**
+	 * sets the combo boxes that are in the fxml page.
+	 */
 	public void setPrkNameComboBox() {
 		enterParkPicker.getItems().addAll("Niagara", "Banias", "Safari");
 		exitParkPicker.getItems().addAll("Niagara", "Banias", "Safari");
 	}
 
+	/**
+	 * * enable to visitors to enter the park.
+	 * the method checks if there is a problem with the inserted details, if there is a problem a popup window will
+	 * show. else, the method sends the data to the server and show the returned answer.
+	 * at the end cleans the text fields and the combo box. 
+	 * @param event (mouse click)
+	 */
 	@FXML
 	void enterPark(ActionEvent event) {
 
@@ -91,6 +107,10 @@ public class CardReaderControllerSimulator {
 
 	}
 
+	/**
+	 * shows the payment window 
+	 * @param id - the id of the visitor
+	 */
 	private void popUpPayment(String id) {
 		try {
 			Stage primaryStage = new Stage();
@@ -109,6 +129,13 @@ public class CardReaderControllerSimulator {
 
 	}
 
+	/**
+	 * enable to visitors to exit the park.
+	 * the method checks if there is a problem with the inserted details, if there is a problem a popup window will
+	 * show. else, the method sends the data to the server and show the returned answer.
+	 * at the end cleans the text fields and the combo box. 
+	 * @param event (mouse click)
+	 */
 	@FXML
 	void exitPark(ActionEvent event) {
 
@@ -131,20 +158,5 @@ public class CardReaderControllerSimulator {
 		exitTxt.clear();
     	exitParkPicker.getSelectionModel().clearSelection();
 	}
-
-    @FXML
-    void clearTxtEntrance(ActionEvent event) {
-
-    	exitTxt.clear();
-    	exitParkPicker.getSelectionModel().clearSelection();
-    
-    }
-
-    @FXML
-    void clearTxtExit(ActionEvent event) {
-    	numOfVisitorsTxt.clear();
-    	enterTxt.clear();
-    	enterParkPicker.getSelectionModel().clearSelection();
-    }
-
+	
 }

@@ -1,11 +1,22 @@
 package cardReader;
 
+/**
+ * this class is made to contain the data of (id, park name and number of visitors) of a specific reservation.
+ * 
+ * @author dan
+ *
+ */
 public class IdAndParkAndNum {
 
 	private String id;
 	private String parkName;
 	private String numOfVisitors;
 
+	/**
+	 * @param id
+	 * @param parkName
+	 * @param numOfVisitors
+	 */
 	public IdAndParkAndNum(String id, String parkName, String numOfVisitors) {
 		this.id = id;
 		this.parkName = parkName;

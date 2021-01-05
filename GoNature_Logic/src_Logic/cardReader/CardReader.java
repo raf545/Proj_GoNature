@@ -2,6 +2,12 @@ package cardReader;
 
 import java.sql.Timestamp;
 
+/**
+ * this class represent all the data that the card reader has.
+ * its purpose is mainly to save the card data and upload it to the server later.
+ * @author dan
+ *
+ */
 public class CardReader {
 
 	private String reservationID;
