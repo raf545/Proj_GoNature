@@ -16,6 +16,11 @@ public class FaqController {
 	@FXML
 	private Text BackBtn;
 
+	/**
+	 * Go back from FAQ page to Login page.
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	void Back(MouseEvent event) throws IOException {
 		Stage primaryStage = new Stage();
