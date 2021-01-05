@@ -28,6 +28,12 @@ import popup.PopUpWinController;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
 
+/**
+ * This class inserts the user into the system as employee
+ * 
+ * @author Yaniv Sokolov
+ *
+ */
 public class SignInEmployeeController {
 	Gson gson = new Gson();
 	@FXML
@@ -42,6 +48,12 @@ public class SignInEmployeeController {
 	@FXML
 	private Text BackBtn;
 
+	/**
+	 * back to the main page
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	void Back(MouseEvent event) throws IOException {
 		Stage primaryStage = new Stage();
@@ -59,6 +71,11 @@ public class SignInEmployeeController {
 
 	}
 
+	/**
+	 * check if the id is valid or not and insert the user
+	 * 
+	 * @param event
+	 */
 	@FXML
 	void Continue(ActionEvent event) {
 		@SuppressWarnings("unused")
@@ -71,6 +88,9 @@ public class SignInEmployeeController {
 		analyzeAnswerFromServer();
 	}
 
+	/**
+	 * check the answer from the server
+	 */
 	private void analyzeAnswerFromServer() {
 		@SuppressWarnings("unused")
 		String fxmlName = null;
@@ -90,7 +110,7 @@ public class SignInEmployeeController {
 			break;
 		default:
 			Employee employee = gson.fromJson(ChatClient.serverMsg, Employee.class);
-			
+
 			switch (employee.getTypeOfEmployee()) {
 			case "department manager":
 				openDepartmentManagerGui(employee);
@@ -108,9 +128,11 @@ public class SignInEmployeeController {
 		}
 	}
 
-//MainPageParkManager
-	// "MainPageEmployee.fxml"
-	//
+	/**
+	 * insert the user as employee
+	 * 
+	 * @param employee
+	 */
 	private void openEmployeeGui(Employee employee) {
 		try {
 			Stage primaryStage = new Stage();
@@ -136,6 +158,11 @@ public class SignInEmployeeController {
 		}
 	}
 
+	/**
+	 * insert the user an park manager
+	 * 
+	 * @param parkManager
+	 */
 	private void openParkManagerGui(Employee parkManager) {
 		try {
 			Stage primaryStage = new Stage();
@@ -160,6 +187,11 @@ public class SignInEmployeeController {
 		}
 	}
 
+	/**
+	 * insert the user as department manager
+	 * 
+	 * @param employee
+	 */
 	private void openDepartmentManagerGui(Employee employee) {
 		try {
 			Stage primaryStage = new Stage();
@@ -175,7 +207,7 @@ public class SignInEmployeeController {
 			MainPageDepartmentManagerController mainPageDepartmentManagerController = loader.getController();
 			mainPageDepartmentManagerController.setDepDetails(employee);
 			mainPageDepartmentManagerController.getAmountOfPeopleTodayInPark();
-			
+
 			primaryStage.setOnCloseRequest(e -> FXMLFunctions.closeMainPage());
 			primaryStage.setTitle("Main Page Department Manager");
 			primaryStage.setScene(sc);

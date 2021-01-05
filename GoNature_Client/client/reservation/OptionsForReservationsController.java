@@ -25,6 +25,12 @@ import popup.PopUp;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
 
+/**
+ * show the options for the client if the time that the client choose is full
+ * 
+ * @author Yaniv Sokolov
+ *
+ */
 public class OptionsForReservationsController {
 	@FXML
 	private Text backBtn;
@@ -50,6 +56,12 @@ public class OptionsForReservationsController {
 	Reservation myReservation;
 	Gson gson = new Gson();
 
+	/**
+	 * load all the options that available
+	 * 
+	 * @param optionalReservation list of free space time
+	 * @param myReservation
+	 */
 	public void loadOptionalReservationsToTable(Reservation[] optionalReservation, Reservation myReservation) {
 		this.myReservation = myReservation;
 		this.optionalReservation = optionalReservation;
@@ -66,6 +78,11 @@ public class OptionsForReservationsController {
 
 	}
 
+	/**
+	 * make a reservation for the new time that the client choose
+	 * 
+	 * @param newTime the time that the client choose
+	 */
 	private void approveReservatio(Timestamp newTime) {
 		myReservation.setDate(newTime);
 		RequestHandler rh = new RequestHandler(controllerName.ReservationController, "createNewReservation",
@@ -96,6 +113,11 @@ public class OptionsForReservationsController {
 		}
 	}
 
+	/**
+	 * back to the quistion if the client want to enter to the waiting list
+	 * 
+	 * @param event
+	 */
 	@FXML
 	void back(MouseEvent event) {
 		try {

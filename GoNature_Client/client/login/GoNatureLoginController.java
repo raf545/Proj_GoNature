@@ -14,6 +14,14 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * this class is the open gui for the program and give to the client options to
+ * login
+ * 
+ * @author Yaniv Sokolov
+ *
+ */
 public class GoNatureLoginController {
 
 	@FXML
@@ -28,6 +36,12 @@ public class GoNatureLoginController {
 	@FXML
 	private Circle ExitBtn;
 
+	/**
+	 * This function directs you to help connect
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	void ClickHere(ActionEvent event) throws IOException {
 		Stage primaryStage = new Stage();
@@ -52,6 +66,12 @@ public class GoNatureLoginController {
 		stage.close();
 	}
 
+	/**
+	 * this button direct you to sign in gui
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	void SignIn(ActionEvent event) throws IOException {
 		Stage primaryStage = new Stage();
@@ -65,13 +85,16 @@ public class GoNatureLoginController {
 		Scene sc = new Scene(root);
 		primaryStage.setTitle("Login");
 		primaryStage.setScene(sc);
-		// set comboBox
-		IdentificationController identificationController = loader.getController();
-		identificationController.setIdentificationComboBox();
 		primaryStage.show();
 
 	}
 
+	/**
+	 * this button direct you to employee sign in
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	void signInEmployee(ActionEvent event) throws IOException {
 		Stage primaryStage = new Stage();

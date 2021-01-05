@@ -24,6 +24,12 @@ import popup.PopUp;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
 
+/**
+ * show the list of the reservation
+ * 
+ * @author Yaniv Sokolov
+ *
+ */
 public class MyReservationsController {
 
 	Gson gson = new Gson();
@@ -56,9 +62,15 @@ public class MyReservationsController {
 	@FXML
 	void back(MouseEvent event) throws IOException {
 		StaticPaneMainPageClient.clientMainPane.getChildren().clear();
-		FXMLFunctions.loadSceneToMainPane(BlankVisitorController.class, "BlankVisitor.fxml" ,StaticPaneMainPageClient.clientMainPane);
+		FXMLFunctions.loadSceneToMainPane(BlankVisitorController.class, "BlankVisitor.fxml",
+				StaticPaneMainPageClient.clientMainPane);
 	}
 
+	/**
+	 * show the reservation of the client
+	 * 
+	 * @param myReservation get list of reservation
+	 */
 	public void loadReservations(Reservation[] myReservation) {
 
 		for (Reservation reservation : myReservation) {
@@ -85,6 +97,12 @@ public class MyReservationsController {
 		reservationTable.setItems(reservationList);
 	}
 
+	/**
+	 * cancel the reservation
+	 * 
+	 * @param reservation
+	 * @param tuple
+	 */
 	private void cancelReservation(Reservation reservation, MyReservationTuple tuple) {
 		String alertTitel = "Reservation cancel";
 		String alertHeader = "You are about to cancel a reservation";
@@ -102,6 +120,11 @@ public class MyReservationsController {
 		}
 	}
 
+	/**
+	 * approve the reservation
+	 * 
+	 * @param tuple
+	 */
 	private void approveReservatio(MyReservationTuple tuple) {
 		String alertTitel = "Reservation approve";
 		String alertHeader = "You are about to approve a reservation";
@@ -113,11 +136,14 @@ public class MyReservationsController {
 			gson.toJson(cencelRequest);
 			ClientUI.chat.accept(gson.toJson(cencelRequest));
 			analyzeAnswerFromServer();
-
+			tuple.getApprove().setDisable(true);
 			reservationTable.refresh();
 		}
 	}
 
+	/**
+	 * Analyze the answer from the server
+	 */
 	private void analyzeAnswerFromServer() {
 		PopUp.display("Success", ChatClient.serverMsg);
 

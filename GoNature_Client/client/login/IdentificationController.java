@@ -26,6 +26,12 @@ import requestHandler.controllerName;
 import reservation.Reservation;
 import subscriber.Subscriber;
 
+/**
+ * This class inserts the user into the system as client
+ * 
+ * @author Yaniv Sokolov
+ *
+ */
 public class IdentificationController {
 
 	Gson gson = new Gson();
@@ -40,13 +46,6 @@ public class IdentificationController {
 
 	@FXML
 	private Text BackButton;
-
-	/**
-	 * Sets the identifaction combobox options
-	 */
-	public void setIdentificationComboBox() {
-
-	}
 
 	/**
 	 * This method is called every time the BackButton is pressed

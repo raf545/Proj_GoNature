@@ -30,6 +30,12 @@ import reservation.Reservation;
 import reservation.WaitingListQuestionController;
 import reservation.WaitingListTuple;
 
+/**
+ * show to the client his waiting list and give him option to cancel or approve
+ * 
+ * @author Yaniv Sokolov
+ *
+ */
 public class MyWaitingListController {
 
 	@FXML
@@ -55,6 +61,11 @@ public class MyWaitingListController {
 	Reservation[] myWaitinigList;
 	Gson gson = new Gson();
 
+	/**
+	 * show to the client the waiting list
+	 * 
+	 * @param myWaitinigList list of waiting list
+	 */
 	public void loadReservations(Reservation[] myWaitinigList) {
 		this.myWaitinigList = myWaitinigList;
 		for (Reservation tupleInWaitingList : myWaitinigList) {
@@ -74,6 +85,12 @@ public class MyWaitingListController {
 
 	}
 
+	/**
+	 * cancel the reservation from waiting list table
+	 * 
+	 * @param reservasion
+	 * @param tuple
+	 */
 	private void cancelReservation(Reservation reservasion, WaitingListTuple tuple) {
 		RequestHandler rh = new RequestHandler(controllerName.WaitingListController, "removeFromWaitingList",
 				gson.toJson(reservasion));
@@ -95,6 +112,12 @@ public class MyWaitingListController {
 		return reservationTable;
 	}
 
+	/**
+	 * approve the reservation from waiting list
+	 * 
+	 * @param reservasion
+	 * @param tuple
+	 */
 	private void approveReservation(Reservation reservasion, WaitingListTuple tuple) {
 		RequestHandler rh = new RequestHandler(controllerName.ReservationController,
 				"addToReservationTableFromWaitingList", gson.toJson(reservasion));
@@ -119,16 +142,21 @@ public class MyWaitingListController {
 
 	}
 
+	/**
+	 * go back to the main page
+	 * 
+	 * @param event
+	 */
 	@FXML
 	void back(MouseEvent event) {
 		StaticPaneMainPageClient.clientMainPane.getChildren().clear();
 		try {
-			FXMLFunctions.loadSceneToMainPane(BlankVisitorController.class, "BlankVisitor.fxml" ,StaticPaneMainPageClient.clientMainPane);
+			FXMLFunctions.loadSceneToMainPane(BlankVisitorController.class, "BlankVisitor.fxml",
+					StaticPaneMainPageClient.clientMainPane);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 
 	}
 

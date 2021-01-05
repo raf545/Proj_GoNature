@@ -32,6 +32,12 @@ import requestHandler.RequestHandler;
 import requestHandler.controllerName;
 import subscriber.Subscriber;
 
+/**
+ * new reservation class
+ * 
+ * @author Yaniv Sokolov
+ *
+ */
 public class NewReservationController {
 
 	// Class variables *************************************************

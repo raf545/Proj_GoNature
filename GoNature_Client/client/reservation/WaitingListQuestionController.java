@@ -21,6 +21,12 @@ import popup.PopUp;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
 
+/**
+ * ask the client if he wants to enter waiting list
+ * 
+ * @author Yaniv Sokolov
+ *
+ */
 public class WaitingListQuestionController {
 
 	@FXML
@@ -39,6 +45,11 @@ public class WaitingListQuestionController {
 		this.reservation = reservation;
 	}
 
+	/**
+	 * enter to the waiting list
+	 * 
+	 * @param event
+	 */
 	@FXML
 	void joinToWaitingList(ActionEvent event) {
 		reservation.setReservetionStatus("waitingList");
@@ -67,6 +78,11 @@ public class WaitingListQuestionController {
 		}
 	}
 
+	/**
+	 * open new window with the new options to the same park
+	 * 
+	 * @param event
+	 */
 	@FXML
 	void showOtherOptions(ActionEvent event) {
 		try {
@@ -89,6 +105,11 @@ public class WaitingListQuestionController {
 		}
 	}
 
+	/**
+	 * go back to the reservation window
+	 * 
+	 * @param event
+	 */
 	@FXML
 	void back(MouseEvent event) {
 		try {

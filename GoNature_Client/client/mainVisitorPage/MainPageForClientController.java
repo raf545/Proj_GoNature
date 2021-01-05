@@ -25,6 +25,12 @@ import reservation.NewReservationController;
 import reservation.Reservation;
 import waitingList.MyWaitingListController;
 
+/**
+ * This class is the menue for the client
+ * 
+ * @author Yaniv Sokolov
+ *
+ */
 public class MainPageForClientController {
 
 	Gson gson = new Gson();
@@ -50,6 +56,12 @@ public class MainPageForClientController {
 	@FXML
 	private Button WaitingListBtn;
 
+	/**
+	 * set the type of the client and the name
+	 * 
+	 * @param welcome
+	 * @param typeOfClient
+	 */
 	public void setTitels(String welcome, String typeOfClient) {
 		mainPageTypeOfClient.setText(typeOfClient);
 		mainPageWelcomLabel.setText(welcome);
@@ -59,6 +71,13 @@ public class MainPageForClientController {
 		return PaneChange;
 	}
 
+	/**
+	 * 
+	 * show the reservation of the client
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	void MyReservationBtn(ActionEvent event) throws IOException {
 		Reservation[] myReservation;
@@ -79,6 +98,12 @@ public class MainPageForClientController {
 
 	}
 
+	/**
+	 * give the client to do an reservation
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	void NewReservation(ActionEvent event) throws IOException {
 		StaticPaneMainPageClient.clientMainPane.getChildren().clear();
@@ -91,6 +116,12 @@ public class MainPageForClientController {
 
 	}
 
+	/**
+	 * show the client the waiting list
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	void WaitingListBtn(ActionEvent event) throws IOException {
 		Reservation[] myWaitinigList;
@@ -109,6 +140,11 @@ public class MainPageForClientController {
 
 	}
 
+	/**
+	 * give the client option to logout
+	 * 
+	 * @param event
+	 */
 	@FXML
 	void logout(MouseEvent event) {
 		FXMLFunctions.logOutFromMainPage(NewReservationBtn.getScene());
