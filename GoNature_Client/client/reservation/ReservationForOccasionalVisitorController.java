@@ -25,6 +25,12 @@ import requestHandler.RequestHandler;
 import requestHandler.controllerName;
 import subscriber.Subscriber;
 
+/**
+ * reservation for occasional visitor
+ * 
+ * @author Refael Alkoby
+ *
+ */
 public class ReservationForOccasionalVisitorController {
 
 	@FXML
@@ -58,6 +64,9 @@ public class ReservationForOccasionalVisitorController {
 
 	Gson gson = new Gson();
 
+	/**
+	 * set the window
+	 */
 	public void setIdentFields() {
 		chooseParkComboBox.getItems().addAll("Niagara", "Banias", "Safari");
 		countVisitor = 1;
@@ -65,26 +74,50 @@ public class ReservationForOccasionalVisitorController {
 
 	}
 
+	/**
+	 * back to the employee window
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
-	void Back(MouseEvent event) throws IOException {
+	void Back(MouseEvent event) {
 		StaticPaneMainPageEmployee.employeeMainPane.getChildren().clear();
-		BlankEmployeeController controller = FXMLFunctions.loadSceneToMainPane(BlankEmployeeController.class,
-				"BlankEmployee.fxml", StaticPaneMainPageEmployee.employeeMainPane).getController();
-		
+		try {
+			BlankEmployeeController controller = FXMLFunctions.loadSceneToMainPane(BlankEmployeeController.class,
+					"BlankEmployee.fxml", StaticPaneMainPageEmployee.employeeMainPane).getController();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
+	/**
+	 * check if the details are valid
+	 * 
+	 * @param event
+	 */
 	@FXML
 	void Continue(ActionEvent event) {
 		String selectedCombo = chooseParkComboBox.getSelectionModel().getSelectedItem();
 		StringBuilder errorMessage = new StringBuilder();
 		if (EmailTxt.getText().isEmpty()) {
 			errorMessage.append("No Email enterd\n");
+		} else if (!(EmailTxt.getText().matches("^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$"))) {
+			errorMessage.append("-Not a valid Email\n");
 		}
 		if (PhoneTxt.getText().isEmpty()) {
 			errorMessage.append("No Phone number enterd\n");
+		} else if (!(PhoneTxt.getText().matches("[0-9]+"))) {
+			errorMessage.append("-Must enter only numbers for Phone number\n");
+		} else if (PhoneTxt.getText().length() != 10) {
+			errorMessage.append("Must enter 10 digit Phone number\n");
 		}
 		if (IdTxt.getText().isEmpty()) {
 			errorMessage.append("No id number enterd\n");
+		} else if (!(IdTxt.getText().matches("[0-9]+"))) {
+			errorMessage.append("Must enter numbers\n");
 		}
 
 		if (selectedCombo == null) {
@@ -143,6 +176,9 @@ public class ReservationForOccasionalVisitorController {
 		}
 	}
 
+	/**
+	 * check the answer from the server
+	 */
 	private void analyzeMessegeFromServer() {
 
 		switch (ChatClient.serverMsg) {
@@ -162,7 +198,13 @@ public class ReservationForOccasionalVisitorController {
 			Reservation reservation = gson.fromJson(ChatClient.serverMsg, Reservation.class);
 			PopUp.display("Succses", reservation.createReceipt());
 			StaticPaneMainPageEmployee.employeeMainPane.getChildren().clear();
-//FIXME
+			try {
+				FXMLFunctions.loadSceneToMainPane(BlankEmployeeController.class, "BlankEmployee.fxml",
+						StaticPaneMainPageEmployee.employeeMainPane).getController();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			break;
 		}
 
