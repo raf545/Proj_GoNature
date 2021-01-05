@@ -80,14 +80,20 @@ public class CardReaderControllerSimulator {
 
 		StringBuilder popError = new StringBuilder();
 
+		if (!(enterTxt.getText().matches("[0-9]+")))
+			popError.append("*Must enter only numbers in ID\n");
+		
+		if (!(numOfVisitorsTxt.getText().matches("[0-9]+")))
+			popError.append("*Must enter only numbers in the visitors amount\n");
+		
 		if (enterTxt.getText().isEmpty())
-			popError.append("Must Entern an ID\n");
+			popError.append("*Must Entern an ID\n");
 
 		if (enterParkPicker.getSelectionModel().getSelectedItem() == null)
-			popError.append("Must choose Park\n");
+			popError.append("*Must choose Park\n");
 
 		if (numOfVisitorsTxt.getText().isEmpty())
-			popError.append("Must enter the number of visitors\n");
+			popError.append("*Must enter the number of visitors\n");
 		
 		if (popError.length() > 0) {
 			PopUp.display("Error", popError.toString());
@@ -141,6 +147,9 @@ public class CardReaderControllerSimulator {
 
 		StringBuilder popError = new StringBuilder();
 
+		if (!(exitTxt.getText().matches("[0-9]+")))
+			popError.append("Must enter only numbers in the ID\n");
+		
 		if (exitTxt.getText().isEmpty())
 			popError.append("Must Entern an ID\n");
 
