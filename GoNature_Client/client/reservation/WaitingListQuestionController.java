@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 
 import client.ChatClient;
 import client.ClientUI;
+import fxmlGeneralFunctions.FXMLFunctions;
 import guiCommon.StaticPaneMainPageClient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,6 +16,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Popup;
+import mainVisitorPage.BlankVisitorController;
 import popup.PopUp;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
@@ -50,6 +52,13 @@ public class WaitingListQuestionController {
 		case "You entered to waiting list":
 			PopUp.display("Success", ChatClient.serverMsg);
 			StaticPaneMainPageClient.clientMainPane.getChildren().clear();
+			try {
+				FXMLFunctions.loadSceneToMainPane(BlankVisitorController.class, "BlankVisitor.fxml",
+						StaticPaneMainPageClient.clientMainPane);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			break;
 		case "fail":
 			PopUp.display("ERROR", ChatClient.serverMsg);
@@ -92,7 +101,7 @@ public class WaitingListQuestionController {
 			newReservationController.setIdentFields();
 			StaticPaneMainPageClient.clientMainPane.getChildren().add(root);
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
 		}
 	}

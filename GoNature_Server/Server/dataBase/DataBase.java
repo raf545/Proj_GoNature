@@ -21,7 +21,7 @@ public class DataBase {
 	private Connection connection = null;
 	private String jdbcURL = "jdbc:mysql://localhost/gonaturedb?serverTimezone=CAT";
 	private String jdbcuser = "root";
-	private String jdbcPass = "1234";
+	private String jdbcPass = "root";
 	// Constructors ****************************************************
 
 	private DataBase() {

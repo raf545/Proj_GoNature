@@ -1,9 +1,12 @@
 package reservation;
 
+import java.io.IOException;
+
 import com.google.gson.Gson;
 
 import client.ChatClient;
 import client.ClientUI;
+import fxmlGeneralFunctions.FXMLFunctions;
 import guiCommon.StaticPaneMainPageClient;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,6 +18,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import mainVisitorPage.BlankVisitorController;
 import popup.AlertBox;
 import popup.PopUp;
 import requestHandler.RequestHandler;
@@ -50,8 +54,9 @@ public class MyReservationsController {
 	ObservableList<MyReservationTuple> reservationList = FXCollections.observableArrayList();
 
 	@FXML
-	void back(MouseEvent event) {
+	void back(MouseEvent event) throws IOException {
 		StaticPaneMainPageClient.clientMainPane.getChildren().clear();
+		FXMLFunctions.loadSceneToMainPane(BlankVisitorController.class, "BlankVisitor.fxml" ,StaticPaneMainPageClient.clientMainPane);
 	}
 
 	public void loadReservations(Reservation[] myReservation) {

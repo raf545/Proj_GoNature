@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import client.ChatClient;
 import client.ClientUI;
 import faq.FaqController;
+import fxmlGeneralFunctions.FXMLFunctions;
 import guiCommon.StaticPaneMainPageClient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,6 +26,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import mainVisitorPage.BlankVisitorController;
 import popup.PopUp;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
@@ -112,10 +114,14 @@ public class NewReservationController {
 	 * This method is invoked by the back button
 	 * 
 	 * @param event
+	 * @throws IOException
 	 */
 	@FXML
-	void Back(MouseEvent event) {
+	void Back(MouseEvent event) throws IOException {
 		StaticPaneMainPageClient.clientMainPane.getChildren().clear();
+		FXMLFunctions.loadSceneToMainPane(BlankVisitorController.class, "BlankVisitor.fxml",
+				StaticPaneMainPageClient.clientMainPane);
+
 	}
 
 	@FXML
@@ -254,6 +260,14 @@ public class NewReservationController {
 			PopUp.display("Success", "Reservation was placed successfuly\n " + "your Reservation id is: "
 					+ reservationFromServer.getReservationID() + "\nPrice:" + reservationFromServer.getPrice());
 			StaticPaneMainPageClient.clientMainPane.getChildren().clear();
+			try {
+				FXMLFunctions.loadSceneToMainPane(BlankVisitorController.class, "BlankVisitor.fxml",
+						StaticPaneMainPageClient.clientMainPane);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 			break;
 		}
 	}
