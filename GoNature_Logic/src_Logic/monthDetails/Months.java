@@ -1,30 +1,25 @@
 package monthDetails;
 
 public enum Months {
-	JANUARY(1),
-	FEBRUARY(2),
-	MARCH(3),
-	APRIL(4),
-	MAY(5),
-	JUNE(6),
-	JULY(7),
-	AUGUST(8),
-	SEPTEMBER(9),
-	OCTOBER(10),
-	NOVEMBER(11),
-	DECEMBER(12);
+	JANUARY(1), FEBRUARY(2), MARCH(3), APRIL(4), MAY(5), JUNE(6), JULY(7), AUGUST(8), SEPTEMBER(9), OCTOBER(10),
+	NOVEMBER(11), DECEMBER(12);
 
 	Months(int i) {
-		//------ Use this for timestamps: Months.APRIL.ordinal(); ----------
+		// ------ Use this for timestamps: Months.APRIL.ordinal(); ----------
 	}
-	public static int getNumberOfDays(Months m)
-	{
-		switch(m)
-		{
+
+	/**
+	 * get the number of the month and return the numbers of days
+	 * 
+	 * @param m number of month
+	 * @return the numbers of day in the month
+	 */
+	public static int getNumberOfDays(Months m) {
+		switch (m) {
 		case JANUARY:
 			return 31;
 		case FEBRUARY:
-			return 28;	//Need to pay attention to Leap Year
+			return 28; // Need to pay attention to Leap Year
 		case MARCH:
 			return 31;
 		case APRIL:
@@ -44,10 +39,10 @@ public enum Months {
 		case NOVEMBER:
 			return 30;
 		case DECEMBER:
-			return 31;					
+			return 31;
 		}
 		return 0;
-		
+
 	}
 
 }

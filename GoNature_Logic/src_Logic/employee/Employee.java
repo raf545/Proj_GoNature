@@ -1,7 +1,10 @@
 package employee;
 
-/**class that define the data of an employee contains setters ,getters and to string
- * @author zivi9
+/**
+ * class that define the data of an employee contains setters ,getters and to
+ * string
+ * 
+ * @author Ziv Tziunit
  *
  */
 public class Employee {

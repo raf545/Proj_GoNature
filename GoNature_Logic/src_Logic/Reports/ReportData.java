@@ -1,16 +1,17 @@
 package Reports;
 
-/**save data that define witch report data should be import from the server 
- * @author zivi9
+/**
+ * save data that define witch report data should be import from the server
+ * 
+ * @author Ziv Tziunit
  *
  */
 public class ReportData {
 
-	
 	private String parkname;
 	private String year;
 	private String month;
-	
+
 	public ReportData(String parkname, String year, String month) {
 		this.parkname = parkname;
 		this.year = year;
@@ -40,9 +41,5 @@ public class ReportData {
 	public void setMonth(String month) {
 		this.month = month;
 	}
-	
-	
-	
-	
-	
+
 }

@@ -1,7 +1,8 @@
 package requestHandler;
 
 /**
- * This Class contains all thi info needed to handel a given data and controller name 
+ * This Class contains all thi info needed to handel a given data and controller
+ * name
  * 
  * @author rafaelelkoby
  *
@@ -11,10 +12,10 @@ public class RequestHandler {
 	private controllerName myCon;
 	private String func;
 	private String data;
-	
+
 	/**
 	 * 
-	 * RequestHandler(controllerName ,  functionName,  data) 
+	 * RequestHandler(controllerName , functionName, data)
 	 * 
 	 * @param myCon
 	 * @param func
@@ -25,7 +26,6 @@ public class RequestHandler {
 		this.func = func;
 		this.data = data;
 	}
-
 
 	public controllerName getMyCon() {
 		return myCon;
@@ -38,6 +38,5 @@ public class RequestHandler {
 	public String getData() {
 		return data;
 	}
-	
-	
+
 }
