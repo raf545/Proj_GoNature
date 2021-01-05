@@ -14,6 +14,13 @@ import dataBase.DataBase;
 import ocsf.server.ConnectionToClient;
 import reservation.Reservation;
 
+/**
+ * this class is responsible for all the card reader functions and operations, it contains the mechanism of the entrance
+ * and the exit of the park and the communication with the data base.
+ * 
+ * @author dan
+ *
+ */
 public class CardReaderController {
 
 	private String answerToCilent = "no reservation found for this day";
@@ -24,6 +31,10 @@ public class CardReaderController {
 	private CardReaderController() {
 	}
 
+	/**
+	 * generates a CardReaderController instance if never created else, returns the existing one.
+	 * @return an instance of card reader controller class.
+	 */
 	public static CardReaderController getInstance() {
 
 		if (CardReaderControllerInstacne == null)
@@ -31,6 +42,13 @@ public class CardReaderController {
 		return CardReaderControllerInstacne;
 	}
 
+	/**
+	 * This method route to a specific method, enter to the park or exit from the park
+	 * @param functionName - the name of the function that have to be called
+	 * @param data - the data that need to be sent to the function
+	 * @param client - the clients connection details 
+	 * @return the answer from the called function or null if no function have been called
+	 */
 	public String router(String functionName, String data, ConnectionToClient client) {
 
 		switch (functionName) {
@@ -43,6 +61,13 @@ public class CardReaderController {
 		return null;
 	}
 
+	/**
+	 * this function contains the mechanism of the entrance to the park.
+	 * if all the stages passed the function will return a success string.
+	 * @param data - the data of the visitors (it's id,park and visitor number) 
+	 * @param client - the clients connection details
+	 * @return answerToCilent parameter
+	 */
 	private String enterPark(String data, ConnectionToClient client) {
 
 		answerToCilent = "no reservation found for this day";
@@ -72,6 +97,11 @@ public class CardReaderController {
 		return answerToCilent;
 	}
 
+	/**
+	 * this function checks if the given visitor has a valid reservation around 20 minutes plus or minus
+	 * @param idAndPark - the data of the visitors (it's id,park and visitor number)  
+	 * @return the reservation tuples on success or null on fail
+	 */
 	private ResultSet checkReservationExistence(IdAndParkAndNum idAndPark) {
 
 		ResultSet reservationTupels;
@@ -141,6 +171,11 @@ public class CardReaderController {
 		return null;
 	}
 
+	/**
+	 * updates the status of a given reservation to "inPark"
+	 * @param reservationTupels - the tuple that has to be updated
+	 * @throws SQLException if there was a problem with the update in the data base
+	 */
 	private void updateReservationStatus(ResultSet reservationTupels) throws SQLException {
 		String reservationId = reservationTupels.getString("reservationID");
 		String updatequery = "UPDATE gonaturedb.reservetions SET reservetionStatus = \"inPark\" WHERE reservationID = \""
@@ -149,6 +184,15 @@ public class CardReaderController {
 		DataBase.getInstance().update(updatequery);
 	}
 
+	/**
+	 * inserts the card reader details to the data base
+	 * @param reservationTupels - reservation from the data base
+	 * @param reservationId
+	 * @param idAndPark
+	 * @param currentTime
+	 * @return updated cardReader instance
+	 * @throws SQLException if there was a problem with the update in the data base
+	 */
 	private CardReader updateCardReader(ResultSet reservationTupels, String reservationId, IdAndParkAndNum idAndPark,
 			Timestamp currentTime) throws SQLException {
 		CardReader cardReader = new CardReader(reservationId, idAndPark.getId(), reservationTupels.getString("phone"),
@@ -172,6 +216,11 @@ public class CardReaderController {
 		return cardReader;
 	}
 
+	/**
+	 * updates the park current capacity by the amount of people that entered to the park
+	 * @param cardReader - the details of the visitors that entered the park
+	 * @throws SQLException if there was a problem with the update in the data base
+	 */
 	private void updateParkCurrentCappacity(CardReader cardReader) throws SQLException {
 		String searchQuery = null;
 		String parkName = null;
@@ -202,6 +251,12 @@ public class CardReaderController {
 		DataBase.getInstance().update(updatequery);
 	}
 
+	/**
+	 * checks if the visitors associated with the reservation are currently in the park
+	 * @param reservationTupels - reservation from the data base
+	 * @return true if the given visitor is currently in the park. else, returns false
+	 * @throws SQLException if there was a problem with the update in the data base
+	 */
 	private boolean checkVisitorInPark(ResultSet reservationTupels) throws SQLException {
 
 		String reservationID = reservationTupels.getString("reservationID");
@@ -221,6 +276,12 @@ public class CardReaderController {
 		return false;
 	}
 
+	/**
+	 * this function contains the mechanism of the exit of the park.
+	 * @param data - the data of the visitors (it's id,park and visitor number)
+	 * @param client -the clients connection details
+	 * @return string of error or success
+	 */
 	private String exitPark(String data, ConnectionToClient client) {
 
 		IdAndParkAndNum idAndPark = gson.fromJson(data, IdAndParkAndNum.class);
@@ -245,6 +306,11 @@ public class CardReaderController {
 		return "Exit successfully";
 	}
 
+	/**
+	 * updates the exit time for a given reservation in the card reader table in the data base
+	 * @param reservationID
+	 * @throws SQLException if there was a problem with the update in the data base
+	 */
 	private void updateCardReader(String reservationID) throws SQLException {
 
 		PreparedStatement updateQuery = con
@@ -254,6 +320,12 @@ public class CardReaderController {
 		DataBase.getInstance().update(updateQuery);
 	}
 
+	/**
+	 * updates the park capacity for the exit function
+	 * @param parkName
+	 * @param numberOfVisitors
+	 * @throws SQLException if there was a problem with the update in the data base
+	 */
 	private void updateParkCurrentCapacityOnExit(String parkName, String numberOfVisitors) throws SQLException {
 
 		String searchQuery = null;
@@ -285,6 +357,10 @@ public class CardReaderController {
 
 	}
 
+	/**
+	 * updates the reservation status to used
+	 * @param reservationId
+	 */
 	private void updateReservationOnExit(String reservationId) {
 
 		String updatequery = "UPDATE gonaturedb.reservetions SET reservetionStatus = \"Used\" WHERE reservationID = \""

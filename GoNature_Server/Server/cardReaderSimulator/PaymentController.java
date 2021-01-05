@@ -12,6 +12,12 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import popup.PopUp;
 
+/**
+ *this is the class of the controller for the payment gui.
+ * this class contains all the payment gui buttons functions and operation.
+ * @author dan
+ *
+ */
 public class PaymentController {
 	
 	
@@ -27,6 +33,11 @@ public class PaymentController {
 	@FXML
 	private Button payBtn;
 
+	/**
+	 * checks if the text fileds of the gui are filled correctly. if the filled correctly a success pop up window will 
+	 * appear. else, an error message will appear.
+	 * @param event (mouse click)
+	 */
 	@FXML
 	void pay(ActionEvent event) {
 
@@ -51,6 +62,11 @@ public class PaymentController {
 
 	}
 
+	/**
+	 * checks if the visitor with the given id has a saved credit card number, if so print it in the credit card text
+	 * field.
+	 * @param id (visitor's id)
+	 */
 	void checkCredit(String id){
 		String searchQuery = null;
 		searchQuery = "select creditCardNumber from gonaturedb.subscriber where id = \"" + id + "\";";

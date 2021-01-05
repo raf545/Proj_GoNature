@@ -16,7 +16,7 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="410.0" layoutX="70.0" layoutY="61.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="528.0" />
       <TabPane layoutX="133.0" layoutY="166.0" prefHeight="239.0" prefWidth="403.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab fx:id="entranceBtn" onClosed="#clearTxtEntrance" text="Entrance">
+          <Tab fx:id="entranceBtn" text="Entrance">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="216.0" prefWidth="437.0" style="-fx-background-color: #DCDCDC;">
                      <children>
@@ -42,7 +42,7 @@
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab fx:id="exitBtn" onClosed="#clearTxtExit" text="Exit">
+          <Tab fx:id="exitBtn" text="Exit">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #DCDCDC;">
                      <children>
