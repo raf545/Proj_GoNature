@@ -171,7 +171,9 @@ public class NewReservationController {
 		if (PhoneTxt.getText().isEmpty()) {
 			errorMessage.append("No phone number enterd\n");
 		} else if (!(PhoneTxt.getText().matches("[0-9]+"))) {
-			errorMessage.append("-Must enter only numbers for Phone number\n");
+			errorMessage.append("Must enter only numbers for Phone number\n");
+		} else if (PhoneTxt.getText().length() != 10) {
+			errorMessage.append("Must enter 10 digit Phone number\n");
 		}
 
 		if (errorMessage.length() == 0) {
