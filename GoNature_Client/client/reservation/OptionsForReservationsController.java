@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 
 import client.ChatClient;
 import client.ClientUI;
+import fxmlGeneralFunctions.FXMLFunctions;
 import guiCommon.StaticPaneMainPageClient;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,6 +20,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import mainVisitorPage.BlankVisitorController;
 import popup.PopUp;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
@@ -82,6 +84,14 @@ public class OptionsForReservationsController {
 			PopUp.display("Success", "Reservation was placed successfuly\n " + "your Reservation id is: "
 					+ reservationFromServer.getReservationID() + "\nPrice:" + reservationFromServer.getPrice());
 			StaticPaneMainPageClient.clientMainPane.getChildren().clear();
+			try {
+				FXMLFunctions.loadSceneToMainPane(BlankVisitorController.class, "BlankVisitor.fxml",
+						StaticPaneMainPageClient.clientMainPane);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 			break;
 		}
 	}
@@ -99,7 +109,7 @@ public class OptionsForReservationsController {
 			waitingListQuestionController.setReservation(myReservation);
 			StaticPaneMainPageClient.clientMainPane.getChildren().add(root);
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
 		}
 	}

@@ -6,7 +6,10 @@ import com.google.gson.Gson;
 
 import client.ChatClient;
 import client.ClientUI;
+import employee.BlankEmployeeController;
+import fxmlGeneralFunctions.FXMLFunctions;
 import guiCommon.StaticPaneMainPageClient;
+import guiCommon.StaticPaneMainPageEmployee;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,6 +21,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import mainVisitorPage.BlankVisitorController;
 import popup.PopUp;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
@@ -118,6 +122,14 @@ public class MyWaitingListController {
 	@FXML
 	void back(MouseEvent event) {
 		StaticPaneMainPageClient.clientMainPane.getChildren().clear();
+		try {
+			FXMLFunctions.loadSceneToMainPane(BlankVisitorController.class, "BlankVisitor.fxml" ,StaticPaneMainPageClient.clientMainPane);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+
 	}
 
 }
