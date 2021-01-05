@@ -2,7 +2,6 @@ package departmentManager;
 
 import java.io.IOException;
 import com.google.gson.Gson;
-
 import client.ChatClient;
 import client.ClientUI;
 import departmentManagerReports.DepartmentManagerChooseParkManReportController;
@@ -130,9 +129,12 @@ public class MainPageDepartmentManagerController {
 			setCapacityTextField(answer);
 	}
 	
+	/**
+	 * Show the manager how many people in the park today.
+	 * @param answer the answer from that came from the database
+	 */
 	private void setCapacityTextField(String answer)
 	{
-		System.out.println("Shay");
 		String[] parkCapacities = answer.split(" ");
 		int totalCapacity = Integer.parseInt(parkCapacities[0]) +  Integer.parseInt(parkCapacities[1]) +  Integer.parseInt(parkCapacities[2]);
 		capacityText.setText("Banias - " + parkCapacities[0] + ", Safari - " + parkCapacities[1] + ", Niagara - " + parkCapacities[2] + ", Total - " + totalCapacity);

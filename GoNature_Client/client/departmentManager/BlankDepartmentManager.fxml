@@ -8,7 +8,7 @@
 
 <Pane fx:id="departmentManagerPane" prefHeight="760.0" prefWidth="920.0" style="-fx-background-color: #e74c3c;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="departmentManager.MainPageDepartmentManagerController">
    <children>
-      <ImageView blendMode="RED" fitHeight="590.0" fitWidth="730.0" layoutX="124.0" layoutY="26.0" onMouseClicked="#openManagerReports" pickOnBounds="true" preserveRatio="true">
+      <ImageView blendMode="RED" fitHeight="590.0" fitWidth="730.0" layoutX="124.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../pictures/Tree.png" />
          </image>
