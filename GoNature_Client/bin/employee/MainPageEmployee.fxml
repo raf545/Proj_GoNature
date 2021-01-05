@@ -144,11 +144,6 @@
             <Font name="Arial Hebrew Bold" size="33.0" />
          </font>
       </Label>
-      <Label layoutX="278.0" layoutY="907.0" prefHeight="49.0" prefWidth="119.0" text="Capacity:" textAlignment="CENTER" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="25.0" />
-         </font>
-      </Label>
       <Label fx:id="capacityText" layoutX="391.0" layoutY="909.0" prefHeight="49.0" prefWidth="617.0" text="Report" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font size="25.0" />
