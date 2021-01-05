@@ -13,14 +13,14 @@ import javafx.stage.Stage;
 import popup.PopUp;
 
 /**
- *this is the class of the controller for the payment gui.
- * this class contains all the payment gui buttons functions and operation.
+ * this is the class of the controller for the payment gui. this class contains
+ * all the payment gui buttons functions and operation.
+ * 
  * @author dan
  *
  */
 public class PaymentController {
-	
-	
+
 	@FXML
 	private TextField creditCardText;
 
@@ -34,8 +34,10 @@ public class PaymentController {
 	private Button payBtn;
 
 	/**
-	 * checks if the text fileds of the gui are filled correctly. if the filled correctly a success pop up window will 
-	 * appear. else, an error message will appear.
+	 * checks if the text fileds of the gui are filled correctly. if the filled
+	 * correctly a success pop up window will appear. else, an error message will
+	 * appear.
+	 * 
 	 * @param event (mouse click)
 	 */
 	@FXML
@@ -43,14 +45,23 @@ public class PaymentController {
 
 		StringBuilder popError = new StringBuilder();
 
+		if (!(dateText.getText().matches("(?:0[1-9]|1[0-2])/[0-9]{2}")))
+			popError.append("*Must Entern a valid date: MM/YY \n");
+
+		if (!(creditCardText.getText().matches("[0-9]+")))
+			popError.append("*Must enter only numbers in the credit card\n");
+
 		if (creditCardText.getText().isEmpty())
-			popError.append("Must Entern a Credit card\n");
+			popError.append("*Must Entern a Credit card\n");
 
 		if (dateText.getText().isEmpty())
-			popError.append("Must Entern a date\n");
+			popError.append("*Must Entern a date\n");
 
 		if (cvcText.getText().isEmpty())
-			popError.append("Must Entern a cvc\n");
+			popError.append("*Must Entern a cvc\n");
+
+		if (cvcText.getText().length() != 3)
+			popError.append("*cvc must be 3 numbers\n");
 
 		if (popError.length() > 0) {
 			PopUp.display("Error", popError.toString());
@@ -63,11 +74,12 @@ public class PaymentController {
 	}
 
 	/**
-	 * checks if the visitor with the given id has a saved credit card number, if so print it in the credit card text
-	 * field.
+	 * checks if the visitor with the given id has a saved credit card number, if so
+	 * print it in the credit card text field.
+	 * 
 	 * @param id (visitor's id)
 	 */
-	void checkCredit(String id){
+	void checkCredit(String id) {
 		String searchQuery = null;
 		searchQuery = "select creditCardNumber from gonaturedb.subscriber where id = \"" + id + "\";";
 		ResultSet creditCard = DataBase.getInstance().search(searchQuery);
@@ -76,7 +88,7 @@ public class PaymentController {
 				creditCardText.setText(creditCard.getString("creditCardNumber"));
 			}
 		} catch (SQLException e) {
-			
+
 			e.printStackTrace();
 		}
 	}
