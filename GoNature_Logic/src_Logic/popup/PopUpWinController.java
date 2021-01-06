@@ -8,14 +8,22 @@ import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * This class is the popup window controller
+ * 
+ * @author rafaelelkoby
+ *
+ */
 public class PopUpWinController {
-
+// Class variables =========================
     @FXML
     private Button okButton;
 
     @FXML
     private Text messageField;
 
+//  Class methods =========================
     @FXML
     void closePopUp(ActionEvent event) {
     	Stage stage;

@@ -3,7 +3,16 @@ package subscriber;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Subscriber {
+/**
+ * 
+ * This class represents a subscriber
+ * 
+ * @author rafaelelkoby
+ *
+ */
+public class Subscriber { 
+	
+//Class variables ===============================
 	private String id = null;
 	private String subscriberid = null;
 	private String name = null;
@@ -13,7 +22,7 @@ public class Subscriber {
 	private String numOfMembers = null;
 	private String creditCardNumber = null;
 	private String subscriberType = null;
-
+// Class constructors =================================
 	public Subscriber(String id, String subscriberid, String name, String lastName, String phone, String email,
 			String numOfMembers, String creditCardNumber, String subscriberType) {
 		this.id = id;
@@ -42,7 +51,7 @@ public class Subscriber {
 			e.printStackTrace();
 		}
 	}
-
+// Class getters and setters ======================
 	public String getId() {
 		return id;
 	}
@@ -114,7 +123,7 @@ public class Subscriber {
 	public void setSubscriberId(String subscriberid) {
 		this.subscriberid = subscriberid;
 	}
-
+// class methods =============================
 	@Override
 	public String toString() {
 		return "(" + id + ", " + subscriberid + ", \"" + name + "\", \"" + lastName + "\", " + phone + ", \"" + email

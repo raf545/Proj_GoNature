@@ -6,6 +6,13 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * This class displays a PopUp window 
+ * 
+ * @author rafaelelkoby
+ *
+ */
 public class PopUp {
 
 	/**

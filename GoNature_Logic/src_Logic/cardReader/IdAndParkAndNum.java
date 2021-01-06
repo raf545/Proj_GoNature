@@ -12,11 +12,7 @@ public class IdAndParkAndNum {
 	private String parkName;
 	private String numOfVisitors;
 
-	/**
-	 * @param id
-	 * @param parkName
-	 * @param numOfVisitors
-	 */
+
 	public IdAndParkAndNum(String id, String parkName, String numOfVisitors) {
 		this.id = id;
 		this.parkName = parkName;
