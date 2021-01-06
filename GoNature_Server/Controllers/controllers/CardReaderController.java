@@ -111,7 +111,7 @@ public class CardReaderController {
 		Timestamp currentTime = new Timestamp(System.currentTimeMillis());
 
 		long currentTimeMilli = currentTime.getTime();
-		long delayTime = 20 * 60 * 1000;
+		long delayTime = 30 * 60 * 1000;
 		twentyMinutsPlus = new Timestamp(currentTimeMilli + delayTime);
 		twentyMinutsMinus = new Timestamp(currentTimeMilli - delayTime);
 

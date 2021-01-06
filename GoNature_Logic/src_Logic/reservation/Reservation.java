@@ -1,5 +1,7 @@
 package reservation;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 
 public class Reservation {
@@ -29,7 +31,25 @@ public class Reservation {
 		this.reservetionStatus = reservetionStatus;
 		this.phone = phone;
 	}
-
+	
+	public Reservation(ResultSet reservarion) {
+		try {
+			while(reservarion.next()) {
+			this.reservationID = reservarion.getString("reservationID");
+			this.personalID = reservarion.getString("personalID");
+			this.parkname = reservarion.getString("parkname");
+			this.numofvisitors = reservarion.getString("numofvisitors");
+			this.reservationtype = reservarion.getString("reservationtype");
+			this.email = reservarion.getString("email");
+			this.dateAndTime = reservarion.getTimestamp("dateAndTime");
+			this.price = reservarion.getDouble("price");
+			this.reservetionStatus = reservarion.getString("reservetionStatus");
+			this.phone = reservarion.getString("phone");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	public Reservation() {
 	}
 
