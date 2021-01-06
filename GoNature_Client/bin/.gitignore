@@ -6,8 +6,8 @@
 /familySubWorker/
 /faq/
 /fxmlGeneralFunctions/
-/groupLeader/
 /guiCommon/
+/instructorSubWorker/
 /login/
 /mainVisitorPage/
 /managerApproveChanges/
@@ -17,4 +17,3 @@
 /pictures/
 /reservation/
 /waitingList/
-/instructorSubWorker/

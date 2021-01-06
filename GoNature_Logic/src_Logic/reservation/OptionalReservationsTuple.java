@@ -8,13 +8,23 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
+/**
+ * 
+ * This class represent a tuple in the optional reservation table of optional
+ * times in case of a occupied hour
+ * 
+ * @author rafael elkoby
+ *
+ */
 public class OptionalReservationsTuple {
 
+// Class Variables =======================================
 	private String parkname;
 	private Timestamp dateAndTimeString;
 	private Button approve;
 	Font commonFontSize12 = Font.font("System", FontWeight.BOLD, 12);
-
+	
+// Class constructors =======================================
 	public OptionalReservationsTuple(Reservation reservation) {
 		this.parkname = reservation.getParkname();
 		this.dateAndTimeString = reservation.getDateAndTime();
@@ -26,7 +36,8 @@ public class OptionalReservationsTuple {
 		approve.setStyle("-fx-background-color: #2ECC71; ");
 		approve.setTextFill(Color.WHITE);
 	}
-
+	
+// Class Getters and Setters =======================================
 	public String getParkname() {
 		return parkname;
 	}

@@ -6,13 +6,20 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
+/**
+ * This class is representing a tuple in the table of the waiting list window
+ *
+ */
 public class WaitingListTuple {
+	
+// Class Variables ========================================================
 	private String parkname;
 	private String dateAndTimeString;
 	private Button approve;
 	private Button cancel;
 	Font commonFontSize12 = Font.font("System", FontWeight.BOLD, 12);
-
+	
+// Class Constructors =====================================================
 	public WaitingListTuple(String parkname, String dateAndTimeString) {
 		super();
 		this.parkname = parkname;
@@ -21,16 +28,23 @@ public class WaitingListTuple {
 		approve.setPadding(new Insets(5));
 		cancel = new Button("Cancel");
 		cancel.setPadding(new Insets(5));
-
+		
+		//set fonts and color of the approve and cancel button
 		approve.setFont(commonFontSize12);
-		approve.setStyle("-fx-background-color: #2ECC71; ");
+		approve.setStyle("-fx-background-color: #2ECC71; "); // green
 		approve.setTextFill(Color.WHITE);
 
 		cancel.setFont(commonFontSize12);
-		cancel.setStyle("-fx-background-color: #E74C3C; ");
+		cancel.setStyle("-fx-background-color: #E74C3C; "); // red
 		cancel.setTextFill(Color.WHITE);
 	}
 
+	/**
+	 * 
+	 * Constracts a WaitingList tuple using a reservation 
+	 * 
+	 * @param witingList
+	 */
 	public WaitingListTuple(Reservation witingList) {
 		this.parkname = witingList.getParkname();
 		this.dateAndTimeString = witingList.getDateAndTime().toString();

@@ -6,7 +6,16 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
+/**
+ * 
+ * This class represents a tuple in the myreservations window table that every visitor
+ * has
+ * 
+ * @author rafaelelkoby
+ *
+ */
 public class MyReservationTuple {
+//Class variables ==============================
 	private String numofvisitors;
 	private String reservationID;
 	private String parkname;
@@ -14,7 +23,7 @@ public class MyReservationTuple {
 	private Button approve;
 	private Button cancel;
 	Font commonFontSize12 = Font.font("System", FontWeight.BOLD, 12);
-	
+// Class constructors ===========================
 	public MyReservationTuple(String numofvisitors, String reservationID, String parkname, String dateAndTimeString) {
 		super();
 		this.numofvisitors = numofvisitors;
@@ -26,10 +35,11 @@ public class MyReservationTuple {
 		cancel = new Button("Cancel");
 		cancel.setPadding(new Insets(5));
 		
+		// set the font and color of the tuple buttons
 		approve.setFont(commonFontSize12);
 		approve.setStyle("-fx-background-color: #2ECC71; ");
 		approve.setTextFill(Color.WHITE);
-		
+
 		cancel.setFont(commonFontSize12);
 		cancel.setStyle("-fx-background-color: #E74C3C; ");
 		cancel.setTextFill(Color.WHITE);
@@ -45,16 +55,17 @@ public class MyReservationTuple {
 		approve.setPadding(new Insets(5));
 		cancel = new Button("Cancel");
 		cancel.setPadding(new Insets(5));
-		
+
 		approve.setFont(commonFontSize12);
 		approve.setStyle("-fx-background-color: #2ECC71; ");
 		approve.setTextFill(Color.WHITE);
-		
+
 		cancel.setFont(commonFontSize12);
 		cancel.setStyle("-fx-background-color: #E74C3C; ");
 		cancel.setTextFill(Color.WHITE);
 	}
 
+// class getters and setters ======================================
 	public Button getCancel() {
 		return cancel;
 	}
