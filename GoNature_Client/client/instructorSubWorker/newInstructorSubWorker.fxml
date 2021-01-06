@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="920.0" style="-fx-background-color: #FFC956;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="groupLeader.NewGroupLeaderWorkerController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="920.0" style="-fx-background-color: #FFC956;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="instructorSubWorker.NewInstructorSubWorkerController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="615.0" layoutX="190.0" layoutY="94.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="527.0" />
       <VBox layoutX="247.0" layoutY="177.0" prefHeight="416.0" prefWidth="393.0" spacing="12.0">
@@ -92,7 +92,7 @@
             <Font size="21.0" />
          </font>
       </Text>
-      <Button fx:id="savebtn" layoutX="225.0" layoutY="639.0" mnemonicParsing="false" onAction="#SaveInstructor" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #FFC956;" text="Save instructor" textFill="WHITE">
+      <Button fx:id="savebtn" layoutX="225.0" layoutY="661.0" mnemonicParsing="false" onAction="#SaveInstructor" prefHeight="35.0" prefWidth="437.0" style="-fx-background-color: #FFC956;" text="Save instructor" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

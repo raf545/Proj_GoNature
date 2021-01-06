@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -77,6 +76,7 @@ public class ReportsController {
 	 */
 	private String getVisitorCapacityReport(String data, ConnectionToClient client) {
 		int sum[] = new int[30];
+		int flag=0;
 		for (int i = 0; i < sum.length; i++) {
 			sum[i] = 0;
 		}
@@ -84,7 +84,7 @@ public class ReportsController {
 		String arr[][] = new String[30][2];
 		for (int i = 0; i < 30; i++) {
 			for (int k = 0; k < 2; k++) {
-				arr[i][k] = "";
+				arr[i][k] = " ";
 			}
 
 		}
@@ -136,7 +136,16 @@ public class ReportsController {
 				sum[res.getTimestamp(1).toLocalDateTime().toLocalDate().getDayOfMonth() - 1] += Integer
 						.parseInt(res.getString(2));
 			}
+			
 			for (int i = 0; i < 30; i++) {
+				if(arr[i][0].equals(" "))
+				{
+					
+					Timestamp t1 = Timestamp.valueOf(LocalDateTime.of(Integer.parseInt(visitorReport.getYear()), Integer.parseInt(visitorReport.getMonth()), i+1, 00, 00, 00, 00));
+					arr[i][0]=t1.toLocalDateTime().toLocalDate().toString();
+					
+				}
+					
 				if (sum[i] - capacity < 0) {
 
 					arr[i][1] = String.format("%.2f", sum[i] / Double.valueOf(capacity));
@@ -144,6 +153,13 @@ public class ReportsController {
 					arr[i][0] = "";
 				}
 			}
+			
+			for (int i = 0; i < 30; i++) {
+				if(arr[i][0].equals(""))
+					flag++;
+			}
+			if (flag==30)
+				return "faild";
 			int t = 0;
 			PreparedStatement query = con.prepareStatement(
 					"INSERT IGNORE INTO `gonaturedb`.`capacityreport` (`createdate`, `month`, `parkname`, `capacityrep`) VALUES ( ?, ?, ?, ?);");
@@ -174,6 +190,7 @@ public class ReportsController {
 	 * @return revenue report
 	 */
 	private String getRevenueReport(String data, ConnectionToClient client) {
+		int flag=0;
 
 		ReportData visitorReport = gson.fromJson(data, ReportData.class);
 		ArrayList<String> reportdata = new ArrayList<String>();
@@ -216,6 +233,13 @@ public class ReportsController {
 				reportdata.add(String.valueOf(res3.getDouble(1)));
 			else
 				reportdata.add(String.valueOf(0));
+			for (int i = 0; i < 3; i++) {
+				if(reportdata.get(i).equals("0.0"))
+					flag++;
+				
+			}
+			if(flag==3)
+				return "faild";
 
 			String queryrev = "INSERT IGNORE INTO `gonaturedb`.`revenuereport` (`createdate`, `parkname`, `singlerev`, `familyrev`, `grouprev`) VALUES ("
 					+ "\"" + fromTime + "\"" + ", " + "\"" + visitorReport.getParkname() + "\"" + ", "
@@ -226,6 +250,7 @@ public class ReportsController {
 
 			e.printStackTrace();
 		}
+		
 		return gson.toJson(reportdata);
 	}
 
@@ -293,6 +318,8 @@ public class ReportsController {
 				reportdata[day][2] = reportdata[day][2] + res3.getInt(2);
 
 			}
+			if(isEmpty(res)+isEmpty(res2)+isEmpty(res3)==0)
+				return "faild";
 			PreparedStatement querytotalin = con.prepareStatement(
 					"INSERT IGNORE INTO `gonaturedb`.`totalvisitorreport` (`createdate`, `parkname`, `singlesun`, `familysun`, `groupsun`, `singlemon`, `familymon`, `groupmon`, `singletues`, `familytues`, `grouptues`, `singlewed`, `familywed`, `groupwed`, `singlethu`, `familythu`, `groupthu`, `singlefri`, `familyfri`, `groupfri`, `singlesat`, `familysat`, `groupsat`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
 			querytotalin.setTimestamp(1, fromTime);
@@ -312,6 +339,20 @@ public class ReportsController {
 		}
 
 		return gson.toJson(reportdata, int[][].class);
+	}
+	
+	private int isEmpty(ResultSet rs) {
+		int size = 0;
+		if (rs != null) {
+			try
+			{
+				rs.last();
+				size = rs.getRow(); 
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return size;
 	}
 
 }

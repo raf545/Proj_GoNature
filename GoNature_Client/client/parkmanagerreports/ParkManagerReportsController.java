@@ -44,9 +44,9 @@ public class ParkManagerReportsController {
     	switch(selectedCombo)
     	{
     	case "Total visitors":
-    		numberOfVisitorsReportController novrController;
+    		TotalVisitorReportsController novrController;
     		try {
-				novrController = FXMLFunctions.loadSceneToMainPane(numberOfVisitorsReportController.class, "TotalVisitorsReports.fxml", StaticPaneMainPageParkManager.parkManagerMainPane).getController();
+				novrController = FXMLFunctions.loadSceneToMainPane(TotalVisitorReportsController.class, "TotalVisitorsReports.fxml", StaticPaneMainPageParkManager.parkManagerMainPane).getController();
 				novrController.setParkManager(parkManager);
 			} catch (IOException e) {
 				//

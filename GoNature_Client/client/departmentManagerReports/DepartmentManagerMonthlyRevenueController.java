@@ -120,7 +120,7 @@ public class DepartmentManagerMonthlyRevenueController {
 		familyTF.setText("0$");
 		groupTF.setText("0$");
 		totalTF.setText("0$");
-		PopUp.display("No revenues", "No revenue for park " + comboPark.getValue() + " in : " + Months.values()[Integer.parseInt(comboMonth.getValue())-1] + " " + comboYear.getValue());
+		PopUp.display("No revenues", "No revenue for park " + comboPark.getValue() + " at : " + Months.values()[Integer.parseInt(comboMonth.getValue())-1] + " " + comboYear.getValue());
 		
 	}
 	

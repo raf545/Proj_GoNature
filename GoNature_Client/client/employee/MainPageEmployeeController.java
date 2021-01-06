@@ -8,7 +8,7 @@ import client.ChatClient;
 import client.ClientUI;
 import familySubWorker.NewFamilySubWorkerController;
 import fxmlGeneralFunctions.FXMLFunctions;
-import groupLeader.NewGroupLeaderWorkerController;
+import instructorSubWorker.NewInstructorSubWorkerController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -141,7 +141,7 @@ public class MainPageEmployeeController {
 	@FXML
 	void openNewInstructor(ActionEvent event) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(NewGroupLeaderWorkerController.class.getResource("newGroupLeaderworkerns.fxml"));
+		loader.setLocation(NewInstructorSubWorkerController.class.getResource("newInstructorSubWorker.fxml"));
 
 		Pane root = loader.load();
 		mainPane.getChildren().clear();

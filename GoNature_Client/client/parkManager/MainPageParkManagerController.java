@@ -23,7 +23,7 @@ import javafx.stage.Stage;
 import login.SignInEmployeeController;
 import parkMangerChanges.ParkMangerChangesController;
 import parkmanagerreports.ParkManagerReportsController;
-import parkmanagerreports.numberOfVisitorsReportController;
+import parkmanagerreports.TotalVisitorReportsController;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
 

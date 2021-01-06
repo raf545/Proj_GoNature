@@ -20,6 +20,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import monthDetails.Months;
+import popup.PopUp;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
 
@@ -126,12 +128,29 @@ public class MonthlyRevenueReportsController {
     @SuppressWarnings("unchecked")
 	private void analyzeAnswerFromServer() {
 	    String answer = ChatClient.serverMsg;
+	    if(answer.equals("faild"))
+	    	showEmptyDetails();
+	    else
+	    {
 		ArrayList <String> res= gson.fromJson(answer, ArrayList.class);
 		singleTF.setText(res.get(0));
 		familyTF.setText(res.get(1));
 		groupTF.setText(res.get(2));
 		totalTF.setText(String.valueOf(Double.parseDouble(res.get(0))+Double.parseDouble(res.get(1))+Double.parseDouble(res.get(2))));
-		
+	    }
 }
+    /**
+	 * The data that came from the data base was empty.
+	 * Set single,family,group and total as 0.
+	 */
+	private void showEmptyDetails()
+	{
+		singleTF.setText("0$");
+		familyTF.setText("0$");
+		groupTF.setText("0$");
+		totalTF.setText("0$");
+		PopUp.display("No revenues", "No revenue for park " + parkManager.getParkName() + " at : " + Months.values()[Integer.parseInt(comboMonth.getValue())-1] + " " + comboYear.getValue());
+		
+	}
 
 }
