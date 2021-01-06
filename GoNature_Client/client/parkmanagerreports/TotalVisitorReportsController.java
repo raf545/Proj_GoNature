@@ -1,7 +1,6 @@
 package parkmanagerreports;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Calendar;
 
 import com.google.gson.Gson;
@@ -9,11 +8,9 @@ import com.google.gson.Gson;
 import Reports.ReportData;
 import client.ChatClient;
 import client.ClientUI;
-import departmentManagerReports.DepartmentManagerChooseReportController;
 import departmentManagerReports.ReportListObject;
 import employee.Employee;
 import fxmlGeneralFunctions.FXMLFunctions;
-import guiCommon.StaticPaneMainPageDepartmentManager;
 import guiCommon.StaticPaneMainPageParkManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,11 +21,10 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
-import parkManager.MainPageParkManagerController;
+import monthDetails.Months;
 import popup.PopUp;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
@@ -36,7 +32,7 @@ import requestHandler.controllerName;
  * @author zivi9
  *
  */
-public class numberOfVisitorsReportController {
+public class TotalVisitorReportsController {
 	Gson gson = new Gson();
 	
 	
@@ -129,6 +125,12 @@ public class numberOfVisitorsReportController {
 			 int sumrow3=0;
 			 int totalsum=0;
 			    String answer = ChatClient.serverMsg;
+			    if(answer.equals("faild"))
+			    {
+			    	PopUp.display("No visitors", "No visitors in park " + parkManager.getParkName() + " at : " + Months.values()[Integer.parseInt(comboMonth.getValue())-1] + " " + comboYear.getValue());
+			    }
+			    else
+			    {
 				int[][] res= gson.fromJson(answer, int[][].class);
 				
 				for(int i=0;i<3;i++)
@@ -190,7 +192,7 @@ public class numberOfVisitorsReportController {
 				//Total data
 				data.add(new ReportListObject("total",sum1 + "",sum2 + "",sum3 + "",sum4 + "",sum5 + "",sum6 + "",sum7 + "",totalsum + ""));
 				
-				
+			    }
 				
 		}
 		

@@ -1,4 +1,4 @@
-package groupLeader;
+package instructorSubWorker;
 
 import java.io.IOException;
 
@@ -14,7 +14,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import popup.PopUp;
 import requestHandler.RequestHandler;
@@ -27,7 +26,7 @@ import subscriber.Subscriber;
  * @author Avri Zaguri
  *
  */
-public class NewGroupLeaderWorkerController {
+public class NewInstructorSubWorkerController {
 	Gson gson = new Gson();
 	Subscriber subscriber;
 	@FXML
@@ -169,8 +168,7 @@ public class NewGroupLeaderWorkerController {
 	@FXML
 	void backBottun(MouseEvent event) throws IOException {
 		StaticPaneMainPageEmployee.employeeMainPane.getChildren().clear();
-		BlankEmployeeController controller = FXMLFunctions.loadSceneToMainPane(BlankEmployeeController.class,
-				"BlankEmployee.fxml", StaticPaneMainPageEmployee.employeeMainPane).getController();
+		 FXMLFunctions.loadSceneToMainPane(BlankEmployeeController.class,"BlankEmployee.fxml", StaticPaneMainPageEmployee.employeeMainPane);
 	}
 
 }

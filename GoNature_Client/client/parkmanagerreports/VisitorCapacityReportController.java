@@ -20,6 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import monthDetails.Months;
 import popup.PopUp;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
@@ -89,6 +90,10 @@ public class VisitorCapacityReportController {
 	 */
 	private void analyzeAnswerFromServer() {
 		 String answer = ChatClient.serverMsg;
+		 if(answer.equals("faild"))
+			 PopUp.display("No capacity reports", "The park " + parkManager.getParkName() + " was fully booked at : " + Months.values()[Integer.parseInt(comboMonth.getValue())-1] + " " + comboYear.getValue());
+		 else
+		 {
 		 CapacityData [] data= new  CapacityData [30];
 		 String[][] res= gson.fromJson(answer,String[][].class);
 		 for (int i = 0; i < 30; i++) {
@@ -102,7 +107,7 @@ public class VisitorCapacityReportController {
 			
 		}
 		 
-			
+		 }
 			
 		
 	}
