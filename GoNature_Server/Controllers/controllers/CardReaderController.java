@@ -80,6 +80,7 @@ public class CardReaderController {
 				
 				if (checkVisitorInPark(reservationTupels)) {
 					updateReservationStatus(reservationTupels);
+					reservationTupels.first();
 					CardReader cardReader = updateCardReader(reservationTupels,
 							reservationTupels.getString("reservationID"), idAndParkAndNum,
 							new Timestamp(System.currentTimeMillis()));
@@ -111,7 +112,7 @@ public class CardReaderController {
 		Timestamp currentTime = new Timestamp(System.currentTimeMillis());
 
 		long currentTimeMilli = currentTime.getTime();
-		long delayTime = 20 * 60 * 1000;
+		long delayTime = 30 * 60 * 1000;
 		twentyMinutsPlus = new Timestamp(currentTimeMilli + delayTime);
 		twentyMinutsMinus = new Timestamp(currentTimeMilli - delayTime);
 
@@ -120,7 +121,7 @@ public class CardReaderController {
 		try {
 
 			query = con.prepareStatement(
-					"select * from gonaturedb.reservetions where personalID = ? and parkname = ? and (reservetionStatus = \"Approved\" OR reservetionStatus = \"inPark\");");
+					"select * from gonaturedb.reservetions where personalID = ? and parkname = ? and (reservetionStatus = \"Approved\" OR reservetionStatus = \"inPark\") order by dateAndTime;");
 			query.setString(1, idAndPark.getId());
 			query.setString(2, idAndPark.getParkName());
 
@@ -137,13 +138,13 @@ public class CardReaderController {
 					if (reservationTime.after(twentyMinutsPlus)
 							&& reservationTupels.getString("reservetionStatus").equals("Approved")) {
 						answerToCilent = "you arrived too early your reservation is at " + reservationTime.getHours()
-								+ ":" + reservationTime.getMinutes();
+								+ ":0" + reservationTime.getMinutes();
 						return null;
 					}
 
 					if (reservationTime.before(twentyMinutsMinus)
 							&& reservationTupels.getString("reservetionStatus").equals("Approved")) {
-						answerToCilent = "you are late your reservation was at " + reservationTime.getHours() + ":"
+						answerToCilent = "you are late your reservation was at " + reservationTime.getHours() + ":0"
 								+ reservationTime.getMinutes();
 						return null;
 					}
@@ -177,6 +178,7 @@ public class CardReaderController {
 	 * @throws SQLException if there was a problem with the update in the data base
 	 */
 	private void updateReservationStatus(ResultSet reservationTupels) throws SQLException {
+		reservationTupels.first();
 		String reservationId = reservationTupels.getString("reservationID");
 		String updatequery = "UPDATE gonaturedb.reservetions SET reservetionStatus = \"inPark\" WHERE reservationID = \""
 				+ reservationId + "\";";
@@ -195,6 +197,7 @@ public class CardReaderController {
 	 */
 	private CardReader updateCardReader(ResultSet reservationTupels, String reservationId, IdAndParkAndNum idAndPark,
 			Timestamp currentTime) throws SQLException {
+		reservationTupels.first();
 		CardReader cardReader = new CardReader(reservationId, idAndPark.getId(), reservationTupels.getString("phone"),
 				currentTime, null, idAndPark.getNumOfVisitors(), idAndPark.getParkName(),
 				reservationTupels.getString("reservationtype"), reservationTupels.getDouble("price"));
@@ -259,6 +262,7 @@ public class CardReaderController {
 	 */
 	private boolean checkVisitorInPark(ResultSet reservationTupels) throws SQLException {
 
+		reservationTupels.first();
 		String reservationID = reservationTupels.getString("reservationID");
 		ResultSet reservationInPark;
 
