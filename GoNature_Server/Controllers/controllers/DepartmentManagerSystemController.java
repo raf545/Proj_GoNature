@@ -461,11 +461,10 @@ public class DepartmentManagerSystemController {
 		query.setInt(1, Integer.parseInt(year));
 		query.setInt(2, Integer.parseInt(month));
 		query.setString(3, parkName);
-
 		rs = DataBase.getInstance().search(query);
 		if (isEmpty(rs) != 0) 
 		{
-			sb.append(rs.getString(3) + " " + rs.getString(4) + " " + rs.getString(5));		
+			sb.append((int)rs.getDouble(3) + " " + (int)rs.getDouble(4) + " " + (int)rs.getDouble(5));		
 			return sb.toString();
 		}
 				
@@ -500,7 +499,11 @@ public class DepartmentManagerSystemController {
 		rs = DataBase.getInstance().search(query);
 		if (isEmpty(rs) != 0) 
 		{
-			sb.append(rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3) + " " +  rs.getString(4) + ",");		
+			rs.beforeFirst();
+			while(rs.next())
+			{
+			sb.append(rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3) + " " +  rs.getString(4) + ",");
+			}
 			return sb.toString();
 		}
 				

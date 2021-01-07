@@ -1,5 +1,11 @@
 package monthDetails;
 
+/**
+ * @author Shay Maryum
+ * If you want to get the month number write this:
+ * Months.values()[index]
+ *
+ */
 public enum Months {
 	JANUARY(1), FEBRUARY(2), MARCH(3), APRIL(4), MAY(5), JUNE(6), JULY(7), AUGUST(8), SEPTEMBER(9), OCTOBER(10),
 	NOVEMBER(11), DECEMBER(12);
@@ -43,6 +49,14 @@ public enum Months {
 		}
 		return 0;
 
+	}
+	/**
+	 * @param num number of months
+	 * @return the name of the month as a Month Enum.
+	 */
+	public static Months getMonthsByNumber(int num)
+	{
+		return Months.values()[num - 1]; 
 	}
 
 }

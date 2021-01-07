@@ -2,11 +2,8 @@ package departmentManagerReports;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.ArrayList;
-
 import com.google.gson.Gson;
-
 import client.ChatClient;
 import client.ClientUI;
 import fxmlGeneralFunctions.FXMLFunctions;
