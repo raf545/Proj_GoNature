@@ -92,7 +92,7 @@ public class ReportsController {
 		@SuppressWarnings("deprecation")
 		Timestamp fromTime = new Timestamp(Integer.parseInt(visitorReport.getYear()) - 1900,
 				Integer.parseInt(visitorReport.getMonth()) - 1, 1, 00, 00, 00, 00);
-//		Timestamp fromTime = Timestamp.valueOf(LocalDateTime.of(Integer.parseInt(visitorReport.getYear()), Integer.parseInt(visitorReport.getMonth()), 1, 00, 00, 00, 00));
+
 		@SuppressWarnings("deprecation")
 		Timestamp toTime = new Timestamp(Integer.parseInt(visitorReport.getYear()) - 1900,
 				Integer.parseInt(visitorReport.getMonth()) - 1, 30, 23, 59, 00, 00);
