@@ -6,12 +6,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 
 import com.google.gson.Gson;
 
 import Reports.ReportData;
 import dataBase.DataBase;
+import monthDetails.Months;
 import ocsf.server.ConnectionToClient;
 
 /**
@@ -75,28 +77,37 @@ public class ReportsController {
 	 * @return capacity report
 	 */
 	private String getVisitorCapacityReport(String data, ConnectionToClient client) {
-		int sum[] = new int[30];
+		
+		int sum[] = new int[31];
 		int flag=0;
 		for (int i = 0; i < sum.length; i++) {
 			sum[i] = 0;
 		}
 		ReportData visitorReport = gson.fromJson(data, ReportData.class);
-		String arr[][] = new String[30][2];
-		for (int i = 0; i < 30; i++) {
-			for (int k = 0; k < 2; k++) {
-				arr[i][k] = " ";
-			}
-
-		}
+		
 		int capacity = 0;
 		@SuppressWarnings("deprecation")
 		Timestamp fromTime = new Timestamp(Integer.parseInt(visitorReport.getYear()) - 1900,
 				Integer.parseInt(visitorReport.getMonth()) - 1, 1, 00, 00, 00, 00);
-
+		
 		@SuppressWarnings("deprecation")
 		Timestamp toTime = new Timestamp(Integer.parseInt(visitorReport.getYear()) - 1900,
 				Integer.parseInt(visitorReport.getMonth()) - 1, 30, 23, 59, 00, 00);
 
+		String arr[][] = new String[31][2];
+		Months nameOfMonth=Months.values()[Integer.parseInt(visitorReport.getMonth()) - 1];
+		int numOfDays=	Months.getNumberOfDays(nameOfMonth);
+		
+		for (int i = 0; i < numOfDays; i++) {
+			for (int k = 0; k < 2; k++) {
+				arr[i][k] = " ";
+			}
+		}
+		for (int i = numOfDays; i < 31; i++) {
+			for (int k = 0; k < 2; k++) {
+				arr[i][k] = "";
+			}
+		}
 		ResultSet res;
 		PreparedStatement querycap;
 		try {
@@ -137,7 +148,7 @@ public class ReportsController {
 						.parseInt(res.getString(2));
 			}
 			
-			for (int i = 0; i < 30; i++) {
+			for (int i = 0; i < numOfDays; i++) {
 				if(arr[i][0].equals(" "))
 				{
 					
@@ -154,16 +165,16 @@ public class ReportsController {
 				}
 			}
 			
-			for (int i = 0; i < 30; i++) {
+			for (int i = 0; i < 31; i++) {
 				if(arr[i][0].equals(""))
 					flag++;
 			}
-			if (flag==30)
+			if (flag==31)
 				return "faild";
 			int t = 0;
 			PreparedStatement query = con.prepareStatement(
 					"INSERT IGNORE INTO `gonaturedb`.`capacityreport` (`createdate`, `month`, `parkname`, `capacityrep`) VALUES ( ?, ?, ?, ?);");
-			for (int i = 0; i < 30; i++) {
+			for (int i = 0; i < 31; i++) {
 				if (!arr[i][0].equals("")) {
 					query.setString(1, arr[i][0]);
 					t = fromTime.toLocalDateTime().toLocalDate().getMonth().getValue();
@@ -172,7 +183,6 @@ public class ReportsController {
 					query.setString(4, arr[i][1]);
 					DataBase.getInstance().update(query);
 				}
-
 			}
 
 		} catch (SQLException e) {

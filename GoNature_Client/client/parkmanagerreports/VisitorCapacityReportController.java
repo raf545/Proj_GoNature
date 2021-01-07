@@ -94,14 +94,14 @@ public class VisitorCapacityReportController {
 			 PopUp.display("No capacity reports", "The park " + parkManager.getParkName() + " was fully booked at : " + Months.values()[Integer.parseInt(comboMonth.getValue())-1] + " " + comboYear.getValue());
 		 else
 		 {
-		 CapacityData [] data= new  CapacityData [30];
+		 CapacityData [] data= new  CapacityData [31];
 		 String[][] res= gson.fromJson(answer,String[][].class);
-		 for (int i = 0; i < 30; i++) {
+		 for (int i = 0; i < 31; i++) {
 			 	data[i]=new CapacityData(res[i][0], res[i][1]);
 
 		}
 		
-		 for (int i = 0; i < 30; i++) {
+		 for (int i = 0; i < 31; i++) {
 			 if(!data[i].getDate().equals(""))
 				 listview.getItems().add(data[i]);
 			
