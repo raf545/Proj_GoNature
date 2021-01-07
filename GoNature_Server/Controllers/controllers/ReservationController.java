@@ -48,6 +48,15 @@ public class ReservationController {
 
 	// Instance methods ************************************************
 
+	/**
+	 * 
+	 * Routes to a specific method of reservation
+	 * 
+	 * @param functionName
+	 * @param data         the relevent data for the method
+	 * @param client       the current client
+	 * @return
+	 */
 	public String loginRouter(String functionName, String data, ConnectionToClient client) {
 
 		switch (functionName) {
@@ -63,13 +72,10 @@ public class ReservationController {
 			return approveReservation(data);
 		case "addToReservationTableFromWaitingList":
 			return addToReservationTableFromWaitingList(data, client);
-			
 		case "occasionalVisitor":
 			return occasionalVisitor(data, client);
-			
 		case "addToExsistingReservation":
 			return addToExsistingReservation(data, client);
-			
 		case "addOccasionalToExsistingReservation":
 			return addOccasionalToExsistingReservation(data, client);
 		default:
@@ -132,9 +138,16 @@ public class ReservationController {
 	}
 
 	/**
-	 * @param data
+	 * 
+	 * in case of a existing reservation for a specific day time and park and id
+	 * joins two reservations of a given id to one and adds the occasional visitor
+	 * to the reservation
+	 * 
+	 * @param data   the reservation details
 	 * @param client
-	 * @return
+	 * @return "There is no available space in the park\n for the given
+	 *         time","instructor cant order for more then 15","Reservation
+	 *         Updated","error"
 	 */
 	private String addOccasionalToExsistingReservation(String data, ConnectionToClient client) {
 		Reservation OccasionalReservation = gson.fromJson(data, Reservation.class);
@@ -231,6 +244,14 @@ public class ReservationController {
 		return false;
 	}
 
+	/**
+	 * 
+	 * check if a reservation with the same id time and park already exist in the 
+	 * 30 minute radios of the given reservation time
+	 * 
+	 * @param reservation
+	 * @return
+	 */
 	private boolean checkExsistingReservationsInTimeArea(Reservation reservation) {
 		ResultSet res;
 		long delayTime = 30 * 60 * 1000;
@@ -256,6 +277,10 @@ public class ReservationController {
 	}
 
 	/**
+	 * 
+	 * get the reservations in the radios of 30 minutes from the given reservation 
+	 * with the same reserving id
+	 * 
 	 * @param reservation
 	 * @return
 	 */
@@ -302,7 +327,6 @@ public class ReservationController {
 		threeHoursAbove = new Timestamp(time.getYear(), time.getMonth(), time.getDate(), time.getHours() + 3, 0, 0, 0);
 		threeHoursBelow = new Timestamp(time.getYear(), time.getMonth(), time.getDate(), time.getHours() - 3, 0, 0, 0);
 		try {
-			// FIXME
 			PreparedStatement query = con.prepareStatement(
 					"select sum(numofvisitors) from gonaturedb.reservetions events where dateAndTime between ? and ? and parkname = ? and (reservetionStatus = \"Valid\" OR reservetionStatus = \"halfCanceled\" OR reservetionStatus = \"Approved\");");
 			query.setTimestamp(1, threeHoursBelow);

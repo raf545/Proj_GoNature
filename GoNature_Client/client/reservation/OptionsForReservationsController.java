@@ -105,7 +105,7 @@ public class OptionsForReservationsController {
 				FXMLFunctions.loadSceneToMainPane(BlankVisitorController.class, "BlankVisitor.fxml",
 						StaticPaneMainPageClient.clientMainPane);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 

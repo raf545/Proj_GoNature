@@ -57,7 +57,7 @@ public class IdentificationController {
 	void identificationBackButton(MouseEvent event) throws IOException {
 		Stage primaryStage = new Stage();
 		Stage stage = (Stage) BackButton.getScene().getWindow();
-		// FIXME primaryStage.setOnCloseRequest(value);
+
 
 		stage.close();
 
@@ -147,7 +147,7 @@ public class IdentificationController {
 		try {
 			Stage primaryStage = new Stage();
 			Stage stage = (Stage) BackButton.getScene().getWindow();
-			// FIXME primaryStage.setOnCloseRequest(value);
+			
 			stage.close();
 
 			FXMLLoader loader = new FXMLLoader();
