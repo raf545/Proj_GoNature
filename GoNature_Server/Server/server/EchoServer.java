@@ -156,7 +156,8 @@ public class EchoServer extends AbstractServer {
 		PeriodicallyRunner.runEveryDayAt(10, 0, new CheckIfApproveReservation());
 		PeriodicallyRunner.runEveryDayAt(6, 0, new DeleteIrrelevantWaitingList());
 		for (int i = 8; i < 21; i++) {
-			PeriodicallyRunner.runEveryDayAt(i, 29, new CheckIfVisitInPark());
+			PeriodicallyRunner.runEveryDayAt(i, 28, new CheckIfVisitInPark());
+			PeriodicallyRunner.runEveryDayAt(i, 52, new CheckIfVisitInPark());
 		}
 	}
 
