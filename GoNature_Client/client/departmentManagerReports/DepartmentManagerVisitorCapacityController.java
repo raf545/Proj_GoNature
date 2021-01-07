@@ -111,7 +111,7 @@ public class DepartmentManagerVisitorCapacityController {
 		
 		for(int i = 0; i < al.size(); i++)
 			listview.getItems().add(new CapacityData(al.get(i)[0],al.get(i)[3]));
-
+		
 	}
 	/**
 	 * A function that must be called when loading the screen
