@@ -27,6 +27,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import mainVisitorPage.BlankVisitorController;
+import popup.AlertBox;
 import popup.PopUp;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
@@ -240,6 +241,7 @@ public class NewReservationController {
 		Stage primaryStage = new Stage();
 		String answer = ChatClient.serverMsg;
 		switch (answer) {
+
 		case "There is no available space in the park\n for the given time":
 			// PopUp.display("Error", answer);
 			try {
@@ -257,12 +259,27 @@ public class NewReservationController {
 				e.printStackTrace();
 			}
 			break;
+
 		case "fail update reservation ID":
 			PopUp.display("Error", answer);
 			break;
+
+		case "reservation exists":
+			String titel = "Reservation exists";
+			String header = "Add to exsisting reservation";
+			String Content = "You already have a reservation do you\n want to add to the exsisting reservation ?";
+			if (AlertBox.display(titel, header, Content)) {
+				RequestHandler addToreservation = new RequestHandler(controllerName.ReservationController,
+						"addToExsistingReservation", gson.toJson(reservation));
+				ClientUI.chat.accept(gson.toJson(addToreservation));
+				PopUp.display("", ChatClient.serverMsg);
+			}
+			break;
+
 		case "fail insert reservation to DB":
 			PopUp.display("Error", answer);
 			break;
+
 		default:
 			reservationFromServer = gson.fromJson(answer, Reservation.class);
 			PopUp.display("Success", "Reservation was placed successfuly\n " + "your Reservation id is: "
