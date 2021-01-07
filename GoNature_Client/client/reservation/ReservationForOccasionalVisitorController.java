@@ -88,7 +88,7 @@ public class ReservationForOccasionalVisitorController {
 			BlankEmployeeController controller = FXMLFunctions.loadSceneToMainPane(BlankEmployeeController.class,
 					"BlankEmployee.fxml", StaticPaneMainPageEmployee.employeeMainPane).getController();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 
@@ -214,7 +214,7 @@ public class ReservationForOccasionalVisitorController {
 				FXMLFunctions.loadSceneToMainPane(BlankEmployeeController.class, "BlankEmployee.fxml",
 						StaticPaneMainPageEmployee.employeeMainPane).getController();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 			break;

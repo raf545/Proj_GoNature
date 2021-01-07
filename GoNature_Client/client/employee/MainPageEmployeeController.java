@@ -121,8 +121,7 @@ public class MainPageEmployeeController {
 	 */
 	@FXML
 	void openNewFamilySub(ActionEvent event) throws IOException {
-//		FIXME
-//		StaticPaneMainPageEmployee.employeeMainPane = mainPane;
+
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(NewFamilySubWorkerController.class.getResource("newfamilysubworker.fxml"));
 
