@@ -33,9 +33,9 @@ import reservation.ReservationForOccasionalVisitorController;
  */
 public class MainPageEmployeeController {
 
-	 @FXML
-	 private Text emppark;
-	
+	@FXML
+	private Text emppark;
+
 	@FXML
 	private Pane mainPane;
 
@@ -56,15 +56,17 @@ public class MainPageEmployeeController {
 
 	@FXML
 	private Hyperlink logoutBtn;
-	
-	 @FXML
-	 private Label capacityText;
+
+	@FXML
+	private Label capacityText;
 
 	Gson gson = new Gson();
 
 	private Employee employee;
 
-	/**set the changing text for the main.
+	/**
+	 * set the changing text for the main.
+	 * 
 	 * @param employeeFromDB
 	 * @throws IOException
 	 */
@@ -72,41 +74,47 @@ public class MainPageEmployeeController {
 		employee = employeeFromDB;
 		FXMLFunctions.loadSceneToMainPane(BlankEmployeeController.class, "BlankEmployee.fxml", mainPane);
 		manPageEmpName.setText("Hello " + employeeFromDB.getName() + " " + employeeFromDB.getLasstName());
-		emppark.setText(employee.getParkName()+" Employee" );
+		emppark.setText(employee.getParkName() + " Employee");
 	}
-	
-	/**asks from the server for current capacity of the park.
+
+	/**
+	 * asks from the server for current capacity of the park.
 	 * 
 	 */
-	public void getAmountOfPeopleTodayInPark()
-	{
-		RequestHandler rh = new RequestHandler(controllerName.EmployeeSystemController, "getAmountOfPeopleTodayInPark", employee.getParkName());
+	public void getAmountOfPeopleTodayInPark() {
+		RequestHandler rh = new RequestHandler(controllerName.EmployeeSystemController, "getAmountOfPeopleTodayInPark",
+				employee.getParkName());
 		ClientUI.chat.accept(gson.toJson(rh));
 		analyzeAnswerFromServer();
-		
-	}	
-	
-	/**handle the massage from the server.
+
+	}
+
+	/**
+	 * handle the massage from the server.
 	 * 
 	 */
 	private void analyzeAnswerFromServer() {
-		String answer = ChatClient.serverMsg;		
-		if(!answer.equals("faild"))
+		String answer = ChatClient.serverMsg;
+		if (!answer.equals("faild"))
 			setCapacityTextField(answer);
-		
+
 	}
 
-	/**prints the capacity on main
+	/**
+	 * prints the capacity on main
+	 * 
 	 * @param answer capacity from the server.
 	 */
 	private void setCapacityTextField(String answer) {
 		System.out.println("Shay");
 		String parkCapacities = answer;
-		capacityText.setText(" The amount of people in park "+employee.getParkName() +" is: "+ parkCapacities );
-		
+		capacityText.setText(" The amount of people in park " + employee.getParkName() + " is: " + parkCapacities);
+
 	}
 
-	/**get the  pane
+	/**
+	 * get the pane
+	 * 
 	 * @return
 	 */
 	public Pane getPane() {
@@ -187,7 +195,7 @@ public class MainPageEmployeeController {
 				ReservationForOccasionalVisitorController.class.getResource("ReservationForOccasionalVisitor.fxml"));
 		Pane root = loader.load();
 		ReservationForOccasionalVisitorController reservationForOccasionalVisitorController = loader.getController();
-		reservationForOccasionalVisitorController.setIdentFields();
+		reservationForOccasionalVisitorController.setIdentFields(employee);
 		mainPane.getChildren().clear();
 		mainPane.getChildren().add(root);
 	}

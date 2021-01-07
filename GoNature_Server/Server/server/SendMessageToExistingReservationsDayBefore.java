@@ -10,6 +10,12 @@ import dataBase.DataBase;
 import javafx.application.Platform;
 import popup.PopUp;
 
+/**
+ * send message day before the reservation
+ * 
+ * @author yansokolov
+ *
+ */
 public class SendMessageToExistingReservationsDayBefore implements Runnable {
 	Connection con = DataBase.getInstance().getConnection();
 
@@ -40,7 +46,12 @@ public class SendMessageToExistingReservationsDayBefore implements Runnable {
 			res = DataBase.getInstance().search(query);
 			if (DataBase.getInstance().getResultSetSize(res) == 0)
 				return;
-			do {
+			query = con.prepareStatement(
+					"select personalID,email,phone from gonaturedb.reservetions where dateAndTime between ? and ?;");
+			query.setTimestamp(1, fromCheck);
+			query.setTimestamp(2, toCheck);
+			res = DataBase.getInstance().search(query);
+			while (res.next()) {
 				// send email to the client
 				String message = "send to " + res.getString("personalID") + " \nemail: " + res.getString("email")
 						+ "\nsend to phone number:" + res.getString("phone")
@@ -48,7 +59,7 @@ public class SendMessageToExistingReservationsDayBefore implements Runnable {
 				Platform.runLater(() -> {
 					PopUp.display("send message to client mail and phone", message);
 				});
-			} while (res.next());
+			}
 
 			query = con.prepareStatement(
 					"UPDATE gonaturedb.reservetions SET reservetionStatus = \"sendApprovalMessage\" WHERE (reservationID <> \"\" AND reservetionStatus = \"Valid\" AND dateAndTime between ? AND ?);");

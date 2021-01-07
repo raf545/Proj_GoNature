@@ -9,6 +9,12 @@ import dataBase.DataBase;
 import javafx.application.Platform;
 import popup.PopUp;
 
+/**
+ * class that check if client approve his reservation
+ * 
+ * @author yansokolov
+ *
+ */
 public class CheckIfApproveReservation implements Runnable {
 
 	Connection con = DataBase.getInstance().getConnection();
@@ -28,14 +34,17 @@ public class CheckIfApproveReservation implements Runnable {
 			res = DataBase.getInstance().search(query);
 			if (DataBase.getInstance().getResultSetSize(res) == 0)
 				return;
-			do {
+			query = con.prepareStatement(
+					"select personalID,email,phone from gonaturedb.reservetions where reservetionStatus = \"sendApprovalMessage\";");
+			res = DataBase.getInstance().search(query);
+			while (res.next()) {
 				// send email to the client
 				String message = "send to " + res.getString("personalID") + " \nemail: " + res.getString("email")
 						+ "\nsend to phone number:" + res.getString("phone") + "\nyour reservation is cancel ";
 				Platform.runLater(() -> {
 					PopUp.display("send message to client mail and phone", message);
 				});
-			} while (res.next());
+			}
 
 			query = con.prepareStatement(
 					"Update gonaturedb.reservetions SET reservetionStatus = \"Canceled\" WHERE (reservationID <> \"\" AND reservetionStatus = \"sendApprovalMessage\");");

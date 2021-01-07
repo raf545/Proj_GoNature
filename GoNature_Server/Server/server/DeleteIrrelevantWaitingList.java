@@ -7,6 +7,12 @@ import java.sql.Timestamp;
 
 import dataBase.DataBase;
 
+/**
+ * Delete Irrelevant Waiting List
+ * 
+ * @author yansokolov
+ *
+ */
 public class DeleteIrrelevantWaitingList implements Runnable {
 	Connection con = DataBase.getInstance().getConnection();
 
@@ -16,6 +22,7 @@ public class DeleteIrrelevantWaitingList implements Runnable {
 	@Override
 	public void run() {
 		Timestamp check = new Timestamp(System.currentTimeMillis());
+		check.setDate(check.getDate() + 1);
 		PreparedStatement query;
 		try {
 			query = con.prepareStatement(
