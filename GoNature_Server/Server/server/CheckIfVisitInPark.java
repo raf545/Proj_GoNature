@@ -8,6 +8,12 @@ import java.time.LocalDateTime;
 
 import dataBase.DataBase;
 
+/**
+ * check if client miss his reservation
+ * 
+ * @author yansokolov
+ *
+ */
 public class CheckIfVisitInPark implements Runnable {
 	Connection con = DataBase.getInstance().getConnection();
 
@@ -22,7 +28,7 @@ public class CheckIfVisitInPark implements Runnable {
 		check = check.valueOf(LocalDateTime.now());
 		try {
 			PreparedStatement query = con.prepareStatement(
-					"UPDATE gonaturedb.reservetions set reservetionStatus = \"Canceled\" where (reservationID <> \"\" and reservetionStatus = \"Approved\" and dateAndTime < ?);");
+					"UPDATE gonaturedb.reservetions set reservetionStatus = \"Canceled\" where (reservationID <> \"\" AND (reservetionStatus = \"Valid\" OR reservetionStatus = \"halfCanceled\" OR reservetionStatus = \"Approved\") AND dateAndTime < ?);");
 			query.setTimestamp(1, check);
 			DataBase.getInstance().update(query);
 

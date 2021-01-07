@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import client.ChatClient;
 import client.ClientUI;
 import employee.BlankEmployeeController;
+import employee.Employee;
 import fxmlGeneralFunctions.FXMLFunctions;
 import guiCommon.StaticPaneMainPageEmployee;
 import javafx.event.ActionEvent;
@@ -38,7 +39,7 @@ public class ReservationForOccasionalVisitorController {
 	private Button ContinueBtn;
 
 	@FXML
-	private ComboBox<String> chooseParkComboBox;
+	private TextField parkNameTxt;
 
 	@FXML
 	private TextField EmailTxt;
@@ -67,9 +68,11 @@ public class ReservationForOccasionalVisitorController {
 
 	/**
 	 * set the window
+	 * 
+	 * @param employee to set park name
 	 */
-	public void setIdentFields() {
-		chooseParkComboBox.getItems().addAll("Niagara", "Banias", "Safari");
+	public void setIdentFields(Employee employee) {
+		parkNameTxt.setText(employee.getParkName());
 		countVisitor = 1;
 		numOfVisitorTxt.setText(String.valueOf(countVisitor));
 
@@ -88,7 +91,7 @@ public class ReservationForOccasionalVisitorController {
 			BlankEmployeeController controller = FXMLFunctions.loadSceneToMainPane(BlankEmployeeController.class,
 					"BlankEmployee.fxml", StaticPaneMainPageEmployee.employeeMainPane).getController();
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
 		}
 
@@ -101,7 +104,7 @@ public class ReservationForOccasionalVisitorController {
 	 */
 	@FXML
 	void Continue(ActionEvent event) {
-		String selectedCombo = chooseParkComboBox.getSelectionModel().getSelectedItem();
+		String parkName = parkNameTxt.getText();
 		StringBuilder errorMessage = new StringBuilder();
 		if (EmailTxt.getText().isEmpty()) {
 			errorMessage.append("No Email enterd\n");
@@ -121,14 +124,11 @@ public class ReservationForOccasionalVisitorController {
 			errorMessage.append("Must enter numbers\n");
 		}
 
-		if (selectedCombo == null) {
-			errorMessage.append("No Park selected\n");
-		}
 		if (errorMessage.length() == 0) {
 			Reservation occasionalVisitor = new Reservation();
 			occasionalVisitor.setReservationID(null);
 			occasionalVisitor.setPersonalID(IdTxt.getText());
-			occasionalVisitor.setParkname(selectedCombo);
+			occasionalVisitor.setParkname(parkName);
 			occasionalVisitor.setNumofvisitors(numOfVisitorTxt.getText());
 			occasionalVisitor.setReservationtype(null);
 			occasionalVisitor.setEmail(EmailTxt.getText());
@@ -214,7 +214,7 @@ public class ReservationForOccasionalVisitorController {
 				FXMLFunctions.loadSceneToMainPane(BlankEmployeeController.class, "BlankEmployee.fxml",
 						StaticPaneMainPageEmployee.employeeMainPane).getController();
 			} catch (IOException e) {
-				
+
 				e.printStackTrace();
 			}
 			break;

@@ -14,6 +14,13 @@ import javafx.application.Platform;
 import popup.PopUp;
 import reservation.Reservation;
 
+/**
+ * check if available space in waiting list after another client cancel his
+ * reservation
+ * 
+ * @author yansokolov
+ *
+ */
 public class CheckWaitingListPlace implements Runnable {
 	Reservation myReservation;
 	Connection con = DataBase.getInstance().getConnection();
