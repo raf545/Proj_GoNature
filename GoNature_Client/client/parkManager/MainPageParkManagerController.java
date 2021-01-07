@@ -100,7 +100,7 @@ public class MainPageParkManagerController {
 	private void setCapacityTextField(String answer) {
 		System.out.println("Shay");
 		String parkCapacities = answer;
-		capacityText.setText(parkManager.getParkName() +" capacity is: "+ parkCapacities );
+		capacityText.setText(" The amount of people in park "+parkManager.getParkName() +" is: "+ parkCapacities  );
 		
 	}
 	

@@ -102,7 +102,7 @@ public class MainPageEmployeeController {
 	private void setCapacityTextField(String answer) {
 		System.out.println("Shay");
 		String parkCapacities = answer;
-		capacityText.setText(employee.getParkName() +" capacity is: "+ parkCapacities );
+		capacityText.setText(" The amount of people in park "+employee.getParkName() +" is: "+ parkCapacities );
 		
 	}
 
