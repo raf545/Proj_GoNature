@@ -15,7 +15,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import requestHandler.RequestHandler;
-import requestHandler.controllerName;
+import requestHandler.controllerName; 
 
 /**
  * This page will represent all the cancellations and half cancellations in the park

@@ -50,7 +50,7 @@ public class DepartmentManagerTotalVisitReportController {
 	@FXML
 	private Button showbtn;
 
-	@FXML
+	@FXML 
 	private TableView<ReportListObject> mainTable;
 
 	@FXML
