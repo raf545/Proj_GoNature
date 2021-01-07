@@ -20,6 +20,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
+import popup.AlertBox;
 import popup.PopUp;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
@@ -139,7 +140,7 @@ public class ReservationForOccasionalVisitorController {
 					"occasionalVisitor", gson.toJson(occasionalVisitor));
 
 			ClientUI.chat.accept(gson.toJson(requestToServer));
-			analyzeMessegeFromServer();
+			analyzeMessegeFromServer(occasionalVisitor);
 		} else {
 			PopUp.display("Error", errorMessage.toString());
 		}
@@ -179,7 +180,7 @@ public class ReservationForOccasionalVisitorController {
 	/**
 	 * check the answer from the server
 	 */
-	private void analyzeMessegeFromServer() {
+	private void analyzeMessegeFromServer(Reservation reservation) {
 
 		switch (ChatClient.serverMsg) {
 		case "No available space at the park":
@@ -194,9 +195,20 @@ public class ReservationForOccasionalVisitorController {
 		case "Instructor cant make a reservaion for more then 15 pepole":
 			PopUp.display("Error", ChatClient.serverMsg);
 			break;
+		case "reservation exists":
+			String titel = "Reservation exists";
+			String header = "Add to exsisting reservation";
+			String Content = "You already have a reservation do you\n want to add to the exsisting reservation ?";
+			if (AlertBox.display(titel, header, Content)) {
+				RequestHandler addToreservation = new RequestHandler(controllerName.ReservationController,
+						"addOccasionalToExsistingReservation", gson.toJson(reservation));
+				ClientUI.chat.accept(gson.toJson(addToreservation));
+				PopUp.display("", ChatClient.serverMsg);
+			}
+			break;
 		default:
-			Reservation reservation = gson.fromJson(ChatClient.serverMsg, Reservation.class);
-			PopUp.display("Succses", reservation.createReceipt());
+			Reservation reservation1 = gson.fromJson(ChatClient.serverMsg, Reservation.class);
+			PopUp.display("Succses", reservation1.createReceipt());
 			StaticPaneMainPageEmployee.employeeMainPane.getChildren().clear();
 			try {
 				FXMLFunctions.loadSceneToMainPane(BlankEmployeeController.class, "BlankEmployee.fxml",

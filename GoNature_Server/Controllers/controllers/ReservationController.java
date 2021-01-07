@@ -63,11 +63,111 @@ public class ReservationController {
 			return approveReservation(data);
 		case "addToReservationTableFromWaitingList":
 			return addToReservationTableFromWaitingList(data, client);
+			
 		case "occasionalVisitor":
 			return occasionalVisitor(data, client);
+			
+		case "addToExsistingReservation":
+			return addToExsistingReservation(data, client);
+			
+		case "addOccasionalToExsistingReservation":
+			return addOccasionalToExsistingReservation(data, client);
 		default:
 			return "fail";
 		}
+	}
+
+	/**
+	 * 
+	 * adds the number of pepole to a reservation at the same park time and id of
+	 * the given reservation
+	 * 
+	 * @param data
+	 * @param client
+	 * @return "There is no available space in the park\n for the given time",
+	 *         "reservation updated", "instructor cant order for more then 15"
+	 */
+	private String addToExsistingReservation(String data, ConnectionToClient client) {
+		Reservation reservationToAdd = gson.fromJson(data, Reservation.class);
+		String updateQuery, reservarionId = null;
+		double upDatedPrice = 0;
+		int numberOfPepoleInExsistingReservation = 0;
+		int numberOfGivenReservationVisitors = Integer.parseInt(reservationToAdd.getNumofvisitors());
+		if (!isThereAvailableSpace(reservationToAdd.getDateAndTime(), reservationToAdd.getParkname(),
+				numberOfGivenReservationVisitors))
+			return "There is no available space in the park\n for the given time";
+		try {
+			PreparedStatement query = con.prepareStatement(
+					"SELECT * FROM gonaturedb.reservetions where personalID = ? and dateAndTime = ? and parkname = ? and (reservetionStatus = \"Approved\" or reservetionStatus = \"Valid\");");
+
+			query.setString(1, reservationToAdd.getPersonalID());
+			query.setTimestamp(2, reservationToAdd.getDateAndTime());
+			query.setString(3, reservationToAdd.getParkname());
+
+			ResultSet res = DataBase.getInstance().search(query);
+
+			while (res.next()) {
+				numberOfPepoleInExsistingReservation = res.getInt("numofvisitors");
+				upDatedPrice = res.getDouble("price") + calculatePricePreOrder(reservationToAdd);
+				reservarionId = res.getString("reservationID");
+			}
+
+			numberOfGivenReservationVisitors = Integer.parseInt(reservationToAdd.getNumofvisitors());
+			int updatedNumberOfVisitors = numberOfPepoleInExsistingReservation + numberOfGivenReservationVisitors;
+
+			if (reservationToAdd.getReservationtype().equals("instructor"))
+				if (updatedNumberOfVisitors > 15)
+					return "instructor cant order for more then 15";
+
+			updateQuery = "UPDATE gonaturedb.reservetions SET numofvisitors = " + updatedNumberOfVisitors + ", price = "
+					+ upDatedPrice + " WHERE (reservationID = \"" + reservarionId + "\");";
+
+			DataBase.getInstance().update(updateQuery);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return "reservation updated";
+	}
+
+	/**
+	 * @param data
+	 * @param client
+	 * @return
+	 */
+	private String addOccasionalToExsistingReservation(String data, ConnectionToClient client) {
+		Reservation OccasionalReservation = gson.fromJson(data, Reservation.class);
+		Reservation reservation = getExsistingReservationsInTimeArea(OccasionalReservation);
+		String updateQuery;
+		double upDatedPrice = 0;
+		int numberOfPepoleInExsistingReservation = Integer.parseInt(reservation.getNumofvisitors());
+		int numberOfGivenReservationVisitors = Integer.parseInt(OccasionalReservation.getNumofvisitors());
+		int updatedNumberOfVisitors = numberOfGivenReservationVisitors + numberOfPepoleInExsistingReservation;
+
+		if (!isThereAvailableSpace(OccasionalReservation.getDateAndTime(), OccasionalReservation.getParkname(),
+				numberOfGivenReservationVisitors))
+			return "There is no available space in the park\n for the given time";
+
+		if (OccasionalReservation.getReservationtype().equals("instructor"))
+			if (updatedNumberOfVisitors > 15)
+				return "instructor cant order for more then 15";
+
+		String query = "SELECT * FROM gonaturedb.subscriber where id = " + reservation.getPersonalID() + ";";
+		ResultSet subscriber = DataBase.getInstance().search(query);
+		if (DataBase.getInstance().getResultSetSize(subscriber) == 0)
+			return "error";
+		Subscriber occasionalVisitor = new Subscriber(subscriber);
+		OccasionalReservation.setReservationtype(occasionalVisitor.getSubscriberType());
+		upDatedPrice += calculateOccasionalVisitorPrice(OccasionalReservation, occasionalVisitor);
+		upDatedPrice += reservation.getPrice();
+
+		updateQuery = "UPDATE gonaturedb.reservetions SET numofvisitors = " + updatedNumberOfVisitors + ", price = "
+				+ upDatedPrice + " WHERE (reservationID = \"" + reservation.getReservationID() + "\");";
+
+		if (DataBase.getInstance().update(updateQuery))
+			return "Reservation Updated";
+		return "error";
 	}
 
 	/**
@@ -89,7 +189,8 @@ public class ReservationController {
 		if (isThereAvailableSpace(reservation.getDateAndTime(), reservation.getParkname(),
 				Integer.parseInt(reservation.getNumofvisitors())) == false)
 			return "There is no available space in the park\n for the given time";
-
+		if (checkExsistingReservations(reservation))
+			return "reservation exists";
 		reservationId = getAndIncreaseReservasionID();
 		if (reservationId < 10000)
 			return "fail update reservation ID";
@@ -102,6 +203,83 @@ public class ReservationController {
 			return "fail insert reservation to DB";
 		return gson.toJson(reservation);
 
+	}
+
+	/**
+	 * 
+	 * check if a reservation with the same id time and park already exist
+	 * 
+	 * @param reservation
+	 * @return true if exist false if not
+	 */
+	private boolean checkExsistingReservations(Reservation reservation) {
+		ResultSet res;
+		try {
+			PreparedStatement query = con.prepareStatement(
+					"SELECT * FROM gonaturedb.reservetions where personalID = ? and dateAndTime = ? and parkname = ? ;");
+			query.setString(1, reservation.getPersonalID());
+			query.setTimestamp(2, reservation.getDateAndTime());
+			query.setString(3, reservation.getParkname());
+			res = DataBase.getInstance().search(query);
+
+			while (res.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	private boolean checkExsistingReservationsInTimeArea(Reservation reservation) {
+		ResultSet res;
+		long delayTime = 30 * 60 * 1000;
+		try {
+			PreparedStatement query = con.prepareStatement(
+					"SELECT * FROM gonaturedb.reservetions where personalID = ? and dateAndTime BETWEEN ? and ? and parkname = ? ;");
+			long currentTime = reservation.getDateAndTime().getTime();
+			Timestamp twentyMinutsPlus = new Timestamp(currentTime + delayTime);
+			Timestamp twentyMinutsMinus = new Timestamp(currentTime - delayTime);
+			query.setString(1, reservation.getPersonalID());
+			query.setTimestamp(2, twentyMinutsMinus);
+			query.setTimestamp(3, twentyMinutsPlus);
+			query.setString(4, reservation.getParkname());
+			res = DataBase.getInstance().search(query);
+
+			while (res.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	/**
+	 * @param reservation
+	 * @return
+	 */
+	private Reservation getExsistingReservationsInTimeArea(Reservation reservation) {
+		ResultSet res;
+		long delayTime = 30 * 60 * 1000;
+		try {
+			PreparedStatement query = con.prepareStatement(
+					"SELECT * FROM gonaturedb.reservetions where personalID = ? and dateAndTime BETWEEN ? and ? and parkname = ? and reservetionStatus = \"Approved\";");
+			long currentTime = reservation.getDateAndTime().getTime();
+			Timestamp twentyMinutsPlus = new Timestamp(currentTime + delayTime);
+			Timestamp twentyMinutsMinus = new Timestamp(currentTime - delayTime);
+			query.setString(1, reservation.getPersonalID());
+			query.setTimestamp(2, twentyMinutsMinus);
+			query.setTimestamp(3, twentyMinutsPlus);
+			query.setString(4, reservation.getParkname());
+			res = DataBase.getInstance().search(query);
+
+			return new Reservation(res);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	/**
@@ -230,8 +408,7 @@ public class ReservationController {
 		try {
 			res = DataBase.getInstance().search(query);
 			while (res.next()) {
-				// FIXME who said the price can't be 40.99 ?
-				// FIXME ParkDiscount
+
 				ticketPrice = res.getInt("num");
 
 				switch (reservation.getReservationtype()) {
@@ -254,7 +431,7 @@ public class ReservationController {
 					int numberOfFamily = 0;
 					discount = getDiscontPercentage("subscriber");
 					discountPreOrder = getDiscontPercentage("PreOrder");
-					numberOfFamily = getFamilyMembersNymber(reservation.getPersonalID());
+					numberOfFamily = getFamilyMembersNumber(reservation.getPersonalID());
 
 					if (numberOfFamily >= Integer.parseInt(reservation.getNumofvisitors()))
 						reservationPrice = Integer.parseInt(reservation.getNumofvisitors()) * ticketPrice * discount;
@@ -272,10 +449,13 @@ public class ReservationController {
 	}
 
 	/**
-	 * @param id
+	 * 
+	 * this method returns the number of family members for a given id
+	 * 
+	 * @param id the subscriber id
 	 * @return
 	 */
-	private int getFamilyMembersNymber(String id) {
+	private int getFamilyMembersNumber(String id) {
 
 		String query;
 		ResultSet res;
@@ -296,8 +476,12 @@ public class ReservationController {
 	}
 
 	/**
+	 * 
+	 * This method returns the DiscontPercentage for a specific user type
+	 * 
 	 * @param discounType
-	 * @return
+	 * @return a duble representing the Discont Percentage (for 15% discount will
+	 *         return 0.85)
 	 */
 	private double getDiscontPercentage(String discounType) {
 		ResultSet res;
@@ -315,6 +499,14 @@ public class ReservationController {
 		return discount;
 	}
 
+	/**
+	 * 
+	 * This method gets all the reservations of a given id that are approved
+	 * 
+	 * @param data
+	 * @param client
+	 * @return all the reservations of the given id as a string (Gson)
+	 */
 	private String getReservations(String data, ConnectionToClient client) {
 		ArrayList<Reservation> myReservations = new ArrayList<>();
 
@@ -345,17 +537,34 @@ public class ReservationController {
 		return gson.toJson(myReservations.toArray());
 	}
 
+	/**
+	 * 
+	 * This method gets a list of all the available visit hours in a 2 days area
+	 * 
+	 * @param data   A (Gson) Reservation
+	 * @param client a given client
+	 * @return a list of all the available visit hours in a 2 days area (as a Gson)
+	 *         String
+	 */
 	@SuppressWarnings("deprecation")
 	private String showAvailableSpace(String data, ConnectionToClient client) {
+
 		Reservation myReservation = gson.fromJson(data, Reservation.class);
+
 		ArrayList<Reservation> availableReservations = new ArrayList<>();
+
 		String parkName = myReservation.getParkname();
+
 		int numberOfVisitors = Integer.parseInt(myReservation.getNumofvisitors());
+
 		Timestamp myReservationTime = myReservation.getDateAndTime();
+
 		Timestamp timeToCheck = new Timestamp(myReservationTime.getYear(), myReservationTime.getMonth(),
 				myReservationTime.getDate(), myReservationTime.getHours() + 1, 0, 0, 0);
+
 		Timestamp lastTimeToCheck = new Timestamp(myReservationTime.getYear(), myReservationTime.getMonth(),
 				myReservationTime.getDate() + 2, 17, 0, 0, 0);
+
 		while (!(timeToCheck.equals(lastTimeToCheck))) {
 			if (isThereAvailableSpace(timeToCheck, parkName, numberOfVisitors)
 					&& (timeToCheck.getHours() <= 16 && timeToCheck.getHours() >= 8)) {
@@ -399,6 +608,14 @@ public class ReservationController {
 
 	}
 
+	/**
+	 * 
+	 * changes the Status given reservation to Approved
+	 * 
+	 * @param reservationId
+	 * @return "Reservation approved succsessfuly" ,"Reservation wasn't approved
+	 *         properly"
+	 */
 	private String approveReservation(String reservationId) {
 
 		String query = "UPDATE gonaturedb.reservetions SET reservetionStatus = \"Aproved\" WHERE reservationID = \""
@@ -409,6 +626,15 @@ public class ReservationController {
 
 	}
 
+	/**
+	 * 
+	 * if a waiting list request was approved it moves the reservation to the my
+	 * reservation section as valid
+	 * 
+	 * @param data   Reservation (As Gson)
+	 * @param client the current client
+	 * @return the reservation
+	 */
 	private String addToReservationTableFromWaitingList(String data, ConnectionToClient client) {
 		int reservationId;
 		Reservation reservation = gson.fromJson(data, Reservation.class);
@@ -437,15 +663,21 @@ public class ReservationController {
 		return gson.toJson(reservation);
 	}
 
-	private int getTicketPrice() {
+	/**
+	 * 
+	 * gets the ticket price from the data base
+	 * 
+	 * @return the price as a double value
+	 */
+	private double getTicketPrice() {
 		String query;
-		int ticketPrice = 0;
+		double ticketPrice = 0;
 		ResultSet returndTicketPrice;
 		query = "SELECT num FROM gonaturedb.uptodateinformation where nameOfVal = \"ticketPrice\" ;";
 		returndTicketPrice = DataBase.getInstance().search(query);
 		try {
 			while (returndTicketPrice.next()) {
-				ticketPrice = returndTicketPrice.getInt("num");
+				ticketPrice = returndTicketPrice.getDouble("num");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -454,9 +686,12 @@ public class ReservationController {
 	}
 
 	/**
+	 * 
+	 * returns the calculated price of a certain occasional visitor
+	 * 
 	 * @param reservation
 	 * @param subscriber
-	 * @return
+	 * @return price as a double
 	 */
 	private double calculateOccasionalVisitorPrice(Reservation reservation, Subscriber subscriber) {
 		double price;
@@ -508,6 +743,13 @@ public class ReservationController {
 		return discount;
 	}
 
+	/**
+	 * 
+	 * gets the current capacity of a given park
+	 * 
+	 * @param parkName
+	 * @return the number of visitors
+	 */
 	private double getCurrentCapacity(String parkName) {
 		double capacity = -1;
 		String query = "SELECT * FROM gonaturedb.uptodateinformation where nameOfVal = \"" + parkName
@@ -523,6 +765,13 @@ public class ReservationController {
 		return capacity;
 	}
 
+	/**
+	 * 
+	 * gets the maximum park capacity
+	 * 
+	 * @param parkName
+	 * @return
+	 */
 	private double getParkCapacity(String parkName) {
 		double capacity = -1;
 		String query = "SELECT * FROM gonaturedb.uptodateinformation where nameOfVal = \"parkCapacity" + parkName
@@ -540,9 +789,13 @@ public class ReservationController {
 	}
 
 	/**
-	 * @param data
-	 * @param client
-	 * @return
+	 * 
+	 * this method try's to add a occasional visitor to the park and
+	 * 
+	 * @param data   Reservation (as Gson)
+	 * @param client current client
+	 * @return "No available space at the park" , "Instructor cant make a reservaion
+	 *         for more then 15 pepole","faild to get park data","fail".
 	 */
 	private String occasionalVisitor(String data, ConnectionToClient client) {
 		Reservation reservation = gson.fromJson(data, Reservation.class);
@@ -554,10 +807,16 @@ public class ReservationController {
 		int numofvisitors = Integer.parseInt(reservation.getNumofvisitors());
 
 		if (currentCapacity != -1 && parkCapacity != -1) {
+
 			if (currentCapacity + numofvisitors > parkCapacity)
 				return "No available space at the park";
 
 			else {
+
+				if (checkExsistingReservationsInTimeArea(reservation)) {
+					return "reservation exists";
+				}
+
 				if (DataBase.getInstance().getResultSetSize(returnedSubscriber) == 0) {
 					reservation.setReservationtype("Guest");
 					reservation.setPrice(calculateOccasionalVisitorPrice(reservation, null));

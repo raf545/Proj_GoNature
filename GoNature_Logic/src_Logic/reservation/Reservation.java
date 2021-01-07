@@ -1,17 +1,11 @@
 package reservation;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 
-/**
- * 
- * This Class Represent a single reservation made
- * 
- * @author rafaelelkoby
- *
- */
 public class Reservation {
 
-// Class variables ===================================
 	private String reservationID;
 	private String personalID;
 	private String parkname;
@@ -23,7 +17,6 @@ public class Reservation {
 	private String reservetionStatus;
 	private String phone;
 
-// Class constructors ===============================
 	public Reservation(String reservationID, String personalID, String parkname, String numofvisitors,
 			String reservationtype, String email, Timestamp dateAndTime, float price, String reservetionStatus,
 			String phone) {
@@ -38,12 +31,28 @@ public class Reservation {
 		this.reservetionStatus = reservetionStatus;
 		this.phone = phone;
 	}
-
+	
+	public Reservation(ResultSet reservarion) {
+		try {
+			while(reservarion.next()) {
+			this.reservationID = reservarion.getString("reservationID");
+			this.personalID = reservarion.getString("personalID");
+			this.parkname = reservarion.getString("parkname");
+			this.numofvisitors = reservarion.getString("numofvisitors");
+			this.reservationtype = reservarion.getString("reservationtype");
+			this.email = reservarion.getString("email");
+			this.dateAndTime = reservarion.getTimestamp("dateAndTime");
+			this.price = reservarion.getDouble("price");
+			this.reservetionStatus = reservarion.getString("reservetionStatus");
+			this.phone = reservarion.getString("phone");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	public Reservation() {
 	}
 
-// Class getters and setters =========================
-	
 	public String getReservationID() {
 		return reservationID;
 	}
@@ -130,7 +139,6 @@ public class Reservation {
 		this.phone = phone;
 	}
 
-// Class overridden methods
 	@Override
 	public String toString() {
 		return "Reservation [reservationID=" + reservationID + ", personalID=" + personalID + ", parkname=" + parkname
@@ -138,8 +146,6 @@ public class Reservation {
 				+ ", dateAndTime=" + dateAndTime + ", price=" + price + ", reservetionStatus=" + reservetionStatus
 				+ ", phone=" + phone + "]";
 	}
-	
-// class methods ==========================
 	public String createReceipt() {
 		StringBuilder receipt = new StringBuilder();
 		receipt.append("ReservationID : " + getReservationID()+"\n");
@@ -151,4 +157,3 @@ public class Reservation {
 	}
 
 }
-// End of Reservation
