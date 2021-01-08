@@ -105,6 +105,7 @@ public class NewReservationController {
 					public void updateItem(LocalDate item, boolean empty) {
 						super.updateItem(item, empty); // To change body of generated methods, choose Tools | Templates.
 						LocalDate today = LocalDate.now();
+						today = today.plusDays(1);
 						setDisable(empty || item.compareTo(today) < 0);
 					}
 
@@ -289,7 +290,7 @@ public class NewReservationController {
 				FXMLFunctions.loadSceneToMainPane(BlankVisitorController.class, "BlankVisitor.fxml",
 						StaticPaneMainPageClient.clientMainPane);
 			} catch (IOException e) {
-				
+
 				e.printStackTrace();
 			}
 
