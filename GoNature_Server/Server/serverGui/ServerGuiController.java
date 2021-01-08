@@ -61,6 +61,8 @@ public class ServerGuiController {
 	public void setConnectToDB() {
 		Platform.runLater(() -> {
 			DBStatusTxt.setText("Connected");
+			PorTxt.setDisable(true);
+			DoneBtn.setDisable(true);
 		});
 	}
 
@@ -76,7 +78,7 @@ public class ServerGuiController {
 		if (p.trim().isEmpty()) {
 			System.out.println("You must enter a port number");
 		} else {
-			PorTxt.setDisable(true);
+
 			ServerUI.runServer(p, this);
 		}
 	}

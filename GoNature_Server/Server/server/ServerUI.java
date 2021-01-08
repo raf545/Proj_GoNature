@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import popup.PopUp;
 import serverGui.ServerGuiController;
 
 public class ServerUI extends Application {
@@ -33,7 +34,6 @@ public class ServerUI extends Application {
 			System.exit(0);
 		});
 
-		
 	}
 
 	/**
@@ -51,13 +51,16 @@ public class ServerUI extends Application {
 		} catch (Throwable t) {
 			System.out.println("ERROR - Could not connect!");
 		}
+		if (port == DEFAULT_PORT) {
+			EchoServer sv = new EchoServer(port, sPC);
 
-		EchoServer sv = new EchoServer(port, sPC);
-
-		try {
-			sv.listen(); // Start listening for connections
-		} catch (Exception ex) {
-			System.out.println("ERROR - Could not listen for clients!");
+			try {
+				sv.listen(); // Start listening for connections
+			} catch (Exception ex) {
+				System.out.println("ERROR - Could not listen for clients!");
+			}
+		} else {
+			PopUp.display("ERROR", "no existing port");
 		}
 	}
 
