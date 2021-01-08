@@ -1,8 +1,12 @@
+/client/
+/common/
 /departmentManager/
 /departmentManagerReports/
 /employee/
 /familySubWorker/
 /faq/
+/fxmlGeneralFunctions/
+/guiCommon/
 /instructorSubWorker/
 /login/
 /mainVisitorPage/
@@ -12,8 +16,4 @@
 /parkmanagerreports/
 /pictures/
 /reservation/
-/client/
-/common/
-/fxmlGeneralFunctions/
-/guiCommon/
 /waitingList/
