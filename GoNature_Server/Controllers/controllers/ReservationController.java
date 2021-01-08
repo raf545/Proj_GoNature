@@ -254,7 +254,7 @@ public class ReservationController {
 	 */
 	private boolean checkExsistingReservationsInTimeArea(Reservation reservation) {
 		ResultSet res;
-		long delayTime = 30 * 60 * 1000;
+		long delayTime = 15 * 60 * 1000;
 		try {
 			PreparedStatement query = con.prepareStatement(
 					"SELECT * FROM gonaturedb.reservetions where personalID = ? and dateAndTime BETWEEN ? and ? and parkname = ? ;");
@@ -286,7 +286,7 @@ public class ReservationController {
 	 */
 	private Reservation getExsistingReservationsInTimeArea(Reservation reservation) {
 		ResultSet res;
-		long delayTime = 30 * 60 * 1000;
+		long delayTime = 15 * 60 * 1000;
 		try {
 			PreparedStatement query = con.prepareStatement(
 					"SELECT * FROM gonaturedb.reservetions where personalID = ? and dateAndTime BETWEEN ? and ? and parkname = ? and reservetionStatus = \"Approved\";");
