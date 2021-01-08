@@ -101,7 +101,7 @@ public class ParkMangerChangesController {
 		parkCapacitySlider.setMin(200);
 		parkCapacitySlider.setMax(500);
 		differenceSlider.setMin(0);
-		differenceSlider.setMax(500);
+		differenceSlider.setMax(199);
 		discountSlider.setMin(0);
 		discountSlider.setMax(50);
 		parkManager = employee;
