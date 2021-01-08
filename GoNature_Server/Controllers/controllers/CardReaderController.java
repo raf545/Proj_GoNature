@@ -15,8 +15,9 @@ import ocsf.server.ConnectionToClient;
 import reservation.Reservation;
 
 /**
- * this class is responsible for all the card reader functions and operations, it contains the mechanism of the entrance
- * and the exit of the park and the communication with the data base.
+ * this class is responsible for all the card reader functions and operations,
+ * it contains the mechanism of the entrance and the exit of the park and the
+ * communication with the data base.
  * 
  * @author dan
  *
@@ -32,7 +33,9 @@ public class CardReaderController {
 	}
 
 	/**
-	 * generates a CardReaderController instance if never created else, returns the existing one.
+	 * generates a CardReaderController instance if never created else, returns the
+	 * existing one.
+	 * 
 	 * @return an instance of card reader controller class.
 	 */
 	public static CardReaderController getInstance() {
@@ -43,11 +46,14 @@ public class CardReaderController {
 	}
 
 	/**
-	 * This method route to a specific method, enter to the park or exit from the park
+	 * This method route to a specific method, enter to the park or exit from the
+	 * park
+	 * 
 	 * @param functionName - the name of the function that have to be called
-	 * @param data - the data that need to be sent to the function
-	 * @param client - the clients connection details 
-	 * @return the answer from the called function or null if no function have been called
+	 * @param data         - the data that need to be sent to the function
+	 * @param client       - the clients connection details
+	 * @return the answer from the called function or null if no function have been
+	 *         called
 	 */
 	public String router(String functionName, String data, ConnectionToClient client) {
 
@@ -56,15 +62,18 @@ public class CardReaderController {
 			return enterPark(data, client);
 		case "exitPark":
 			return exitPark(data, client);
+		case "checkCredit":
+			return checkCredit(data);
 		}
 
 		return null;
 	}
 
 	/**
-	 * this function contains the mechanism of the entrance to the park.
-	 * if all the stages passed the function will return a success string.
-	 * @param data - the data of the visitors (it's id,park and visitor number) 
+	 * this function contains the mechanism of the entrance to the park. if all the
+	 * stages passed the function will return a success string.
+	 * 
+	 * @param data   - the data of the visitors (it's id,park and visitor number)
 	 * @param client - the clients connection details
 	 * @return answerToCilent parameter
 	 */
@@ -77,7 +86,7 @@ public class CardReaderController {
 
 		if (DataBase.getInstance().getResultSetSize(reservationTupels) != 0) {
 			try {
-				
+
 				if (checkVisitorInPark(reservationTupels)) {
 					updateReservationStatus(reservationTupels);
 					reservationTupels.first();
@@ -87,11 +96,11 @@ public class CardReaderController {
 
 					updateParkCurrentCappacity(cardReader);
 					answerToCilent = "Entered successfully";
-					return answerToCilent + "\nthe price is: " + reservationTupels.getString("price") ;
-					
+					return answerToCilent + "\nthe price is: " + reservationTupels.getString("price");
+
 				}
 			} catch (SQLException e) {
-				
+
 				e.printStackTrace();
 			}
 		}
@@ -99,8 +108,10 @@ public class CardReaderController {
 	}
 
 	/**
-	 * this function checks if the given visitor has a valid reservation around 20 minutes plus or minus
-	 * @param idAndPark - the data of the visitors (it's id,park and visitor number)  
+	 * this function checks if the given visitor has a valid reservation around 20
+	 * minutes plus or minus
+	 * 
+	 * @param idAndPark - the data of the visitors (it's id,park and visitor number)
 	 * @return the reservation tuples on success or null on fail
 	 */
 	private ResultSet checkReservationExistence(IdAndParkAndNum idAndPark) {
@@ -151,18 +162,19 @@ public class CardReaderController {
 
 					if ((reservationTime.before(twentyMinutsPlus) && reservationTime.after(twentyMinutsMinus))
 							|| reservationTupels.getString("reservetionStatus").equals("inPark")) {
-						
+
 						int numOfReservationVitors = Integer.parseInt(reservationTupels.getString("numofvisitors"));
 						int numOfActualVisitors = Integer.parseInt(idAndPark.getNumOfVisitors());
-						
-						if(numOfActualVisitors > numOfReservationVitors) {
-							answerToCilent = "your reservation is for "+ numOfReservationVitors + " and not for "+numOfActualVisitors + "\n" + 
-									"Please go to the checkout to place an order for people who do not appear in the order";
+
+						if (numOfActualVisitors > numOfReservationVitors) {
+							answerToCilent = "your reservation is for " + numOfReservationVitors + " and not for "
+									+ numOfActualVisitors + "\n"
+									+ "Please go to the checkout to place an order for people who do not appear in the order";
 							return null;
 						}
 						return reservationTupels;
 					}
-						
+
 				}
 			}
 		} catch (SQLException e) {
@@ -174,6 +186,7 @@ public class CardReaderController {
 
 	/**
 	 * updates the status of a given reservation to "inPark"
+	 * 
 	 * @param reservationTupels - the tuple that has to be updated
 	 * @throws SQLException if there was a problem with the update in the data base
 	 */
@@ -188,6 +201,7 @@ public class CardReaderController {
 
 	/**
 	 * inserts the card reader details to the data base
+	 * 
 	 * @param reservationTupels - reservation from the data base
 	 * @param reservationId
 	 * @param idAndPark
@@ -220,7 +234,9 @@ public class CardReaderController {
 	}
 
 	/**
-	 * updates the park current capacity by the amount of people that entered to the park
+	 * updates the park current capacity by the amount of people that entered to the
+	 * park
+	 * 
 	 * @param cardReader - the details of the visitors that entered the park
 	 * @throws SQLException if there was a problem with the update in the data base
 	 */
@@ -255,9 +271,12 @@ public class CardReaderController {
 	}
 
 	/**
-	 * checks if the visitors associated with the reservation are currently in the park
+	 * checks if the visitors associated with the reservation are currently in the
+	 * park
+	 * 
 	 * @param reservationTupels - reservation from the data base
-	 * @return true if the given visitor is currently in the park. else, returns false
+	 * @return true if the given visitor is currently in the park. else, returns
+	 *         false
 	 * @throws SQLException if there was a problem with the update in the data base
 	 */
 	private boolean checkVisitorInPark(ResultSet reservationTupels) throws SQLException {
@@ -282,7 +301,8 @@ public class CardReaderController {
 
 	/**
 	 * this function contains the mechanism of the exit of the park.
-	 * @param data - the data of the visitors (it's id,park and visitor number)
+	 * 
+	 * @param data   - the data of the visitors (it's id,park and visitor number)
 	 * @param client -the clients connection details
 	 * @return string of error or success
 	 */
@@ -311,7 +331,9 @@ public class CardReaderController {
 	}
 
 	/**
-	 * updates the exit time for a given reservation in the card reader table in the data base
+	 * updates the exit time for a given reservation in the card reader table in the
+	 * data base
+	 * 
 	 * @param reservationID
 	 * @throws SQLException if there was a problem with the update in the data base
 	 */
@@ -326,6 +348,7 @@ public class CardReaderController {
 
 	/**
 	 * updates the park capacity for the exit function
+	 * 
 	 * @param parkName
 	 * @param numberOfVisitors
 	 * @throws SQLException if there was a problem with the update in the data base
@@ -363,6 +386,7 @@ public class CardReaderController {
 
 	/**
 	 * updates the reservation status to used
+	 * 
 	 * @param reservationId
 	 */
 	private void updateReservationOnExit(String reservationId) {
@@ -370,6 +394,29 @@ public class CardReaderController {
 		String updatequery = "UPDATE gonaturedb.reservetions SET reservetionStatus = \"Used\" WHERE reservationID = \""
 				+ reservationId + "\";";
 		DataBase.getInstance().update(updatequery);
+	}
+
+	/**
+	 * checks if the visitor with the given id has a saved credit card number, if so
+	 * print it in the credit card text field.
+	 * 
+	 * @param id (visitor's id)
+	 */
+	String checkCredit(String id) {
+//		String id = gson.fromJson(idFromServer, String.class);
+		String answer = null;
+		String searchQuery = null;
+		searchQuery = "select creditCardNumber from gonaturedb.subscriber where id = \"" + id + "\";";
+		ResultSet creditCard = DataBase.getInstance().search(searchQuery);
+		try {
+			while (creditCard.next()) {
+				answer = creditCard.getString("creditCardNumber");
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+		return answer;
 	}
 
 }

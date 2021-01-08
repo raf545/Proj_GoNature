@@ -2,7 +2,6 @@ package server;
 
 import java.io.IOException;
 
-import cardReaderSimulator.CardReaderControllerSimulator;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

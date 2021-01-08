@@ -3,7 +3,10 @@ package cardReaderSimulator;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import dataBase.DataBase;
+import com.google.gson.Gson;
+
+import client.ChatClient;
+import client.ClientUI;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
@@ -11,6 +14,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import popup.PopUp;
+import requestHandler.RequestHandler;
+import requestHandler.controllerName;
 
 /**
  * this is the class of the controller for the payment gui. this class contains
@@ -32,6 +37,8 @@ public class PaymentController {
 
 	@FXML
 	private Button payBtn;
+
+	Gson gson = new Gson();
 
 	/**
 	 * checks if the text fileds of the gui are filled correctly. if the filled
@@ -73,24 +80,12 @@ public class PaymentController {
 
 	}
 
-	/**
-	 * checks if the visitor with the given id has a saved credit card number, if so
-	 * print it in the credit card text field.
-	 * 
-	 * @param id (visitor's id)
-	 */
-	void checkCredit(String id) {
-		String searchQuery = null;
-		searchQuery = "select creditCardNumber from gonaturedb.subscriber where id = \"" + id + "\";";
-		ResultSet creditCard = DataBase.getInstance().search(searchQuery);
-		try {
-			while (creditCard.next()) {
-				creditCardText.setText(creditCard.getString("creditCardNumber"));
-			}
-		} catch (SQLException e) {
+	public void setCreditCard(String id) {
+		RequestHandler rh = new RequestHandler(controllerName.CardReaderController, "checkCredit", id);
+		ClientUI.chat.accept(gson.toJson(rh));
+		String answerFromServer = ChatClient.serverMsg;
+		creditCardText.setText(answerFromServer);
 
-			e.printStackTrace();
-		}
 	}
 
 }

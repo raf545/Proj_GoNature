@@ -1,6 +1,10 @@
 package client;
 
+import java.io.IOException;
+
+import cardReaderSimulator.CardReaderControllerSimulator;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -31,17 +35,39 @@ public class ClientUI extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		chat = new ClientController("localhost", 5555);
-
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(GoNatureLoginController.class.getResource("GoNatureLogin.fxml"));
-
 		Pane root = loader.load();
-
 		Scene sc = new Scene(root);
-
 		primaryStage.setTitle("Go Nature");
 		primaryStage.setScene(sc);
 		primaryStage.show();
+		startCardReader();
+	}
+
+	private void startCardReader() {
+		Platform.runLater(() -> {
+
+			try {
+				Stage cardReader = new Stage();
+				FXMLLoader loaderCardReaderSimulator = new FXMLLoader();
+				loaderCardReaderSimulator
+						.setLocation(CardReaderControllerSimulator.class.getResource("readerSimulation.fxml"));
+
+				Pane rootCardReaderSimulator = loaderCardReaderSimulator.load();
+
+				Scene scCardReaderSimulator = new Scene(rootCardReaderSimulator);
+				cardReader.setTitle("Card Reader simulation");
+				CardReaderControllerSimulator cardReaderControllerSimulator = loaderCardReaderSimulator.getController();
+				cardReaderControllerSimulator.setPrkNameComboBox();
+				cardReader.setScene(scCardReaderSimulator);
+				cardReader.show();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		});
+
 	}
 
 }

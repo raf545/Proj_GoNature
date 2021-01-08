@@ -5,7 +5,8 @@ import java.io.IOException;
 import com.google.gson.Gson;
 
 import cardReader.IdAndParkAndNum;
-import controllers.CardReaderController;
+import client.ChatClient;
+import client.ClientUI;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,18 +15,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import popup.PopUp;
-import popup.PopUpWinController;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
 
 /**
- * this is the class of the controller for the card reader gui.
- * this class contains all the card reader gui buttons functions and operation.
+ * this is the class of the controller for the card reader gui. this class
+ * contains all the card reader gui buttons functions and operation.
+ * 
  * @author dan
  *
  */
@@ -33,9 +32,9 @@ public class CardReaderControllerSimulator {
 
 	Gson gson = new Gson();
 
-    @FXML
-    private TextField numOfVisitorsTxt;
-    
+	@FXML
+	private TextField numOfVisitorsTxt;
+
 	@FXML
 	private Tab entranceBtn;
 
@@ -69,10 +68,11 @@ public class CardReaderControllerSimulator {
 	}
 
 	/**
-	 * * enable to visitors to enter the park.
-	 * the method checks if there is a problem with the inserted details, if there is a problem a popup window will
-	 * show. else, the method sends the data to the server and show the returned answer.
-	 * at the end cleans the text fields and the combo box. 
+	 * * enable to visitors to enter the park. the method checks if there is a
+	 * problem with the inserted details, if there is a problem a popup window will
+	 * show. else, the method sends the data to the server and show the returned
+	 * answer. at the end cleans the text fields and the combo box.
+	 * 
 	 * @param event (mouse click)
 	 */
 	@FXML
@@ -82,10 +82,10 @@ public class CardReaderControllerSimulator {
 
 		if (!(enterTxt.getText().matches("[0-9]+")))
 			popError.append("*Must enter only numbers in ID\n");
-		
+
 		if (!(numOfVisitorsTxt.getText().matches("[0-9]+")))
 			popError.append("*Must enter only numbers in the visitors amount\n");
-		
+
 		if (enterTxt.getText().isEmpty())
 			popError.append("*Must Entern an ID\n");
 
@@ -94,27 +94,30 @@ public class CardReaderControllerSimulator {
 
 		if (numOfVisitorsTxt.getText().isEmpty())
 			popError.append("*Must enter the number of visitors\n");
-		
+
 		if (popError.length() > 0) {
 			PopUp.display("Error", popError.toString());
 		} else {
-			IdAndParkAndNum idAndParkAndNum = new IdAndParkAndNum(enterTxt.getText(), enterParkPicker.getValue(),numOfVisitorsTxt.getText());
-
-			String answerFromServer = CardReaderController.getInstance().router("enterPark", gson.toJson(idAndParkAndNum),
-					null);
+			IdAndParkAndNum idAndParkAndNum = new IdAndParkAndNum(enterTxt.getText(), enterParkPicker.getValue(),
+					numOfVisitorsTxt.getText());
+			RequestHandler rh = new RequestHandler(controllerName.CardReaderController, "enterPark",
+					gson.toJson(idAndParkAndNum));
+			ClientUI.chat.accept(gson.toJson(rh));
+			String answerFromServer = ChatClient.serverMsg;
 			PopUp.display("Card reader simulation", answerFromServer);
 
 			if (answerFromServer.contains("Entered successfully"))
 				popUpPayment(enterTxt.getText());
 		}
 		numOfVisitorsTxt.clear();
-    	enterTxt.clear();
-    	enterParkPicker.getSelectionModel().clearSelection();
+		enterTxt.clear();
+		enterParkPicker.getSelectionModel().clearSelection();
 
 	}
 
 	/**
-	 * shows the payment window 
+	 * shows the payment window
+	 * 
 	 * @param id - the id of the visitor
 	 */
 	private void popUpPayment(String id) {
@@ -127,7 +130,7 @@ public class CardReaderControllerSimulator {
 			primaryStage.setTitle("Payment");
 			primaryStage.setScene(sc);
 			PaymentController PaymentController = loader.getController();
-			PaymentController.checkCredit(id);
+			PaymentController.setCreditCard(id);
 			primaryStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -136,10 +139,11 @@ public class CardReaderControllerSimulator {
 	}
 
 	/**
-	 * enable to visitors to exit the park.
-	 * the method checks if there is a problem with the inserted details, if there is a problem a popup window will
-	 * show. else, the method sends the data to the server and show the returned answer.
-	 * at the end cleans the text fields and the combo box. 
+	 * enable to visitors to exit the park. the method checks if there is a problem
+	 * with the inserted details, if there is a problem a popup window will show.
+	 * else, the method sends the data to the server and show the returned answer.
+	 * at the end cleans the text fields and the combo box.
+	 * 
 	 * @param event (mouse click)
 	 */
 	@FXML
@@ -149,7 +153,7 @@ public class CardReaderControllerSimulator {
 
 		if (!(exitTxt.getText().matches("[0-9]+")))
 			popError.append("Must enter only numbers in the ID\n");
-		
+
 		if (exitTxt.getText().isEmpty())
 			popError.append("Must Entern an ID\n");
 
@@ -159,13 +163,15 @@ public class CardReaderControllerSimulator {
 		if (popError.length() > 0) {
 			PopUp.display("Error", popError.toString());
 		} else {
-			IdAndParkAndNum idAndParkAndNum = new IdAndParkAndNum(exitTxt.getText(), exitParkPicker.getValue(),null);
-			String answerFromServer = CardReaderController.getInstance().router("exitPark", gson.toJson(idAndParkAndNum),
-					null);
+			IdAndParkAndNum idAndParkAndNum = new IdAndParkAndNum(exitTxt.getText(), exitParkPicker.getValue(), null);
+			RequestHandler rh = new RequestHandler(controllerName.CardReaderController, "exitPark",
+					gson.toJson(idAndParkAndNum));
+			ClientUI.chat.accept(gson.toJson(rh));
+			String answerFromServer = ChatClient.serverMsg;
 			PopUp.display("Card reader simulation", answerFromServer);
 		}
 		exitTxt.clear();
-    	exitParkPicker.getSelectionModel().clearSelection();
+		exitParkPicker.getSelectionModel().clearSelection();
 	}
-	
+
 }

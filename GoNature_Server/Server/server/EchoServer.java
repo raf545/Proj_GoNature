@@ -6,7 +6,6 @@ package server;
 import java.io.IOException;
 import com.google.gson.Gson;
 
-import cardReaderSimulator.CardReaderControllerSimulator;
 import controllers.CardReaderController;
 import controllers.DepartmentManagerSystemController;
 import controllers.EmployeeSystemController;
@@ -128,28 +127,6 @@ public class EchoServer extends AbstractServer {
 		DataBase.getInstance();
 		if (DataBase.getInstance().setConnection()) {
 			serverPortControllerInstance.setConnectToDB();
-			Platform.runLater(() -> {
-
-				try {
-					Stage cardReader = new Stage();
-					FXMLLoader loaderCardReaderSimulator = new FXMLLoader();
-					loaderCardReaderSimulator
-							.setLocation(CardReaderControllerSimulator.class.getResource("readerSimulation.fxml"));
-
-					Pane rootCardReaderSimulator = loaderCardReaderSimulator.load();
-
-					Scene scCardReaderSimulator = new Scene(rootCardReaderSimulator);
-					cardReader.setTitle("Card Reader simulation");
-					CardReaderControllerSimulator cardReaderControllerSimulator = loaderCardReaderSimulator
-							.getController();
-					cardReaderControllerSimulator.setPrkNameComboBox();
-					cardReader.setScene(scCardReaderSimulator);
-					cardReader.show();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-
-			});
 
 		}
 		PeriodicallyRunner.runEveryDayAt(8, 0, new SendMessageToExistingReservationsDayBefore());
