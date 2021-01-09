@@ -7,7 +7,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
+import popup.PopUp;
 import server.ServerUI;
 
 /**
@@ -76,7 +78,7 @@ public class ServerGuiController {
 		String p;
 		p = getport();
 		if (p.trim().isEmpty()) {
-			System.out.println("You must enter a port number");
+			PopUp.display("Error", "You must enter a port number");
 		} else {
 
 			ServerUI.runServer(p, this);

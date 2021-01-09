@@ -22,6 +22,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import mainVisitorPage.BlankVisitorController;
+import popup.AlertBox;
 import popup.PopUp;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
@@ -92,19 +93,24 @@ public class MyWaitingListController {
 	 * @param tuple
 	 */
 	private void cancelReservation(Reservation reservasion, WaitingListTuple tuple) {
-		RequestHandler rh = new RequestHandler(controllerName.WaitingListController, "removeFromWaitingList",
-				gson.toJson(reservasion));
-		ClientUI.chat.accept(gson.toJson(rh));
-		String answer = ChatClient.serverMsg;
-		switch (answer) {
-		case "fail":
-			PopUp.display("ERROR", answer);
-			break;
-		default:
-			PopUp.display("SUCCESS", answer);
-			getTableView().getItems().remove(tuple);
-			reservationTable.refresh();
-			break;
+		String alertTitel = "Wating list cancel";
+		String alertHeader = "You are about to remove a reservation\n from waiting list";
+		String alertBody = "Are you shure you want to remove\nthe waiting list request?";
+		if (AlertBox.display(alertTitel, alertHeader, alertBody)) {
+			RequestHandler rh = new RequestHandler(controllerName.WaitingListController, "removeFromWaitingList",
+					gson.toJson(reservasion));
+			ClientUI.chat.accept(gson.toJson(rh));
+			String answer = ChatClient.serverMsg;
+			switch (answer) {
+			case "fail":
+				PopUp.display("ERROR", answer);
+				break;
+			default:
+				PopUp.display("SUCCESS", answer);
+				getTableView().getItems().remove(tuple);
+				reservationTable.refresh();
+				break;
+			}
 		}
 	}
 
@@ -119,25 +125,30 @@ public class MyWaitingListController {
 	 * @param tuple
 	 */
 	private void approveReservation(Reservation reservasion, WaitingListTuple tuple) {
-		RequestHandler rh = new RequestHandler(controllerName.ReservationController,
-				"addToReservationTableFromWaitingList", gson.toJson(reservasion));
-		ClientUI.chat.accept(gson.toJson(rh));
-		Reservation reservationFromServer;
-		String answer = ChatClient.serverMsg;
-		switch (answer) {
-		case "fail update reservation ID":
-			PopUp.display("Error", answer);
-			break;
-		case "fail insert reservation to DB":
-			PopUp.display("Error", answer);
-			break;
-		default:
-			reservationFromServer = gson.fromJson(answer, Reservation.class);
-			PopUp.display("Success", "Reservation was placed successfuly\n " + "your Reservation id is: "
-					+ reservationFromServer.getReservationID() + "\nPrice:" + reservationFromServer.getPrice());
-			getTableView().getItems().remove(tuple);
-			reservationTable.refresh();
-			break;
+		String alertTitel = "Wating list approve";
+		String alertHeader = "You are about to approve a reservation\n from waiting list";
+		String alertBody = "Are you shure you want to approve\nthe waiting list request?";
+		if (AlertBox.display(alertTitel, alertHeader, alertBody)) {
+			RequestHandler rh = new RequestHandler(controllerName.ReservationController,
+					"addToReservationTableFromWaitingList", gson.toJson(reservasion));
+			ClientUI.chat.accept(gson.toJson(rh));
+			Reservation reservationFromServer;
+			String answer = ChatClient.serverMsg;
+			switch (answer) {
+			case "fail update reservation ID":
+				PopUp.display("Error", answer);
+				break;
+			case "fail insert reservation to DB":
+				PopUp.display("Error", answer);
+				break;
+			default:
+				reservationFromServer = gson.fromJson(answer, Reservation.class);
+				PopUp.display("Success", "Reservation was placed successfuly\n " + "your Reservation id is: "
+						+ reservationFromServer.getReservationID() + "\nPrice:" + reservationFromServer.getPrice());
+				getTableView().getItems().remove(tuple);
+				reservationTable.refresh();
+				break;
+			}
 		}
 
 	}
