@@ -72,35 +72,54 @@ public class ParkManagerSystemController {
 	/**
 	 * @return The amount of people in the worker park
 	 */
-	private String getAmountOfPeopleTodayInPark(String data) {
-		try {
-			ResultSet rs;
-			String cap = null;
-			PreparedStatement query = con.prepareStatement(
-					"SELECT num FROM gonaturedb.uptodateinformation\r\n" + "WHERE nameOfVal = ? \r\n" + "");
-			if (data.equals("Banias")) {
-				query.setString(1, "BaniasCurrentCapacity");
-				rs = DataBase.getInstance().search(query);
-				if (isEmpty(rs) != 0)
-					cap = String.valueOf(rs.getInt(1));
-			} else if (data.equals("Safari")) {
-				query.setString(1, "SafariCurrentCapacity");
-				rs = DataBase.getInstance().search(query);
-				if (isEmpty(rs) != 0)
-					cap = String.valueOf(rs.getInt(1));
-			} else {
-				query.setString(1, "NiagaraCurrentCapacity");
-				rs = DataBase.getInstance().search(query);
-				if (isEmpty(rs) != 0)
-					cap = String.valueOf(rs.getInt(1));
-			}
-
-			return cap;
-
-		} catch (SQLException e) {
-			e.printStackTrace();
+	private String getAmountOfPeopleTodayInPark(String data)
+	{
+		try
+		{	
+		ResultSet rs;
+		String [] cap = new String[2];
+		PreparedStatement query = con.prepareStatement("SELECT num FROM gonaturedb.uptodateinformation\r\n"
+				+ "WHERE nameOfVal = ? \r\n"
+				+ "");
+		if(data.equals("Banias")) {
+			query.setString(1, "BaniasCurrentCapacity");
+			rs = DataBase.getInstance().search(query);
+			if (isEmpty(rs) != 0) 
+				cap[0]=String.valueOf(rs.getInt(1));
+			query.setString(1, "parkCapacityBanias");
+			rs = DataBase.getInstance().search(query);
+			if (isEmpty(rs) != 0) 
+				cap[1]=String.valueOf(rs.getInt(1));
+		}else if(data.equals("Safari")) {
+			query.setString(1, "SafariCurrentCapacity");
+			rs = DataBase.getInstance().search(query);
+			if (isEmpty(rs) != 0) 
+				cap[0]=String.valueOf(rs.getInt(1));
+			query.setString(1, "parkCapacitySafari");
+			rs = DataBase.getInstance().search(query);
+			if (isEmpty(rs) != 0) 
+				cap[1]=String.valueOf(rs.getInt(1));
+			
+		}else  {
+			query.setString(1, "NiagaraCurrentCapacity");
+			rs = DataBase.getInstance().search(query);
+			if (isEmpty(rs) != 0) 
+				cap[0]=String.valueOf(rs.getInt(1));
+			query.setString(1, "parkCapacityNiagara");
+			rs = DataBase.getInstance().search(query);
+			if (isEmpty(rs) != 0) 
+				cap[1]=String.valueOf(rs.getInt(1));
 		}
-		return "faild";
+		
+		
+		return gson.toJson(cap);
+				
+		} 
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}	
+		return "faild";	
 	}
 
 	/**
