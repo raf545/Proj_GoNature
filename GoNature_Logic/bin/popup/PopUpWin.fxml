@@ -1,28 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<DialogPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="374.0" prefWidth="613.0" style="-fx-background-color: #676767; -fx-border-color: #99d487; -fx-border-width: 10;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="popup.PopUpWinController">
-    <header>
-      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="357.0" prefWidth="593.0">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #99d487; -fx-border-color: #676767; -fx-border-width: 10;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="popup.PopUpWinController">
+   <children>
+      <VBox layoutX="15.0" layoutY="15.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="92.0" prefWidth="106.0" spacing="10.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
          <children>
-            <Button fx:id="okButton" alignment="CENTER" layoutX="238.0" layoutY="235.0" mnemonicParsing="false" onAction="#closePopUp" prefHeight="38.0" prefWidth="118.0" style="-fx-background-color: #99d487;" text="OK" textFill="#676767">
+            <Text fx:id="messageField" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
                <font>
-                  <Font name="Arial Hebrew Bold" size="26.0" />
-               </font>
-            </Button>
-            <Text fx:id="messageField" fill="#99d487" layoutX="51.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="322.21630859375">
-               <font>
-                  <Font name="System Bold" size="20.0" />
+                  <Font size="21.0" />
                </font>
             </Text>
-         </children></AnchorPane>
-    </header>
-    <expandableContent>
-      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="320.0" />
-    </expandableContent>
-</DialogPane>
+            <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="okButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#closePopUp" prefHeight="55.0" prefWidth="136.0" style="-fx-background-color: #676767; -fx-border-width: 5;" text="OK" textFill="#62bf4d">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+         <opaqueInsets>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </opaqueInsets>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>
