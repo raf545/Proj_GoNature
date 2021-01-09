@@ -63,7 +63,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor></Slider>
             <HBox prefHeight="104.0" prefWidth="311.0" />
-            <Text stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="Discount:" wrappingWidth="219.443359375">
+            <Text stroke="#2268c3" strokeType="OUTSIDE" strokeWidth="0.0" text="Discount(%):" wrappingWidth="219.443359375">
                <font>
                   <Font size="21.0" />
                </font>
