@@ -98,10 +98,10 @@ public class ParkMangerChangesController {
 	 * @param employee
 	 */
 	public void initializeSlidersAndSetParkManager(Employee employee) {
-		parkCapacitySlider.setMin(200);
-		parkCapacitySlider.setMax(500);
-		differenceSlider.setMin(0);
-		differenceSlider.setMax(199);
+		parkCapacitySlider.setMin(100);
+		parkCapacitySlider.setMax(1500);
+		differenceSlider.setMin(50);
+		differenceSlider.setMax(1400);
 		discountSlider.setMin(0);
 		discountSlider.setMax(50);
 		parkManager = employee;
@@ -153,7 +153,7 @@ public class ParkMangerChangesController {
 	 */
 	@FXML
 	void differenceQuestion(MouseEvent event) {
-		String answer="available capacity for visitors that didnt make a reservation before they came to the park";
+		String answer="available amount of reservations for visitors that made a reservation before they came to the park";
 		PopUp.display("difference details", answer);
 		
 
