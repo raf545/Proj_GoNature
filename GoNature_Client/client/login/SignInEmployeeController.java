@@ -27,7 +27,6 @@ import javafx.stage.Stage;
 import parkManager.MainPageParkManagerController;
 import parkManager.ParkManagerCapacityThred;
 import popup.PopUp;
-import popup.PopUpWinController;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
 
@@ -71,6 +70,7 @@ public class SignInEmployeeController {
 		primaryStage.setTitle("Login");
 		primaryStage.setScene(sc);
 		primaryStage.show();
+		primaryStage.setResizable(false);
 
 	}
 
@@ -157,6 +157,7 @@ public class SignInEmployeeController {
 			primaryStage.setTitle("Employee Main Page");
 			primaryStage.setScene(sc);
 			primaryStage.show();
+			primaryStage.setResizable(false);
 		} catch (IOException e) {
 			System.out.println("Load Faild");
 		}
@@ -188,6 +189,7 @@ public class SignInEmployeeController {
 			primaryStage.setTitle("Main Page Park Manager");
 			primaryStage.setScene(sc);
 			primaryStage.show();
+			primaryStage.setResizable(false);
 		} catch (IOException e) {
 			System.out.println("Load Faild");
 		}
@@ -220,6 +222,7 @@ public class SignInEmployeeController {
 			primaryStage.setTitle("Main Page Department Manager");
 			primaryStage.setScene(sc);
 			primaryStage.show();
+			primaryStage.setResizable(false);
 		} catch (IOException e) {
 			System.out.println("Load Faild");
 		}

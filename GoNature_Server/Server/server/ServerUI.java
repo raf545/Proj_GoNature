@@ -28,6 +28,7 @@ public class ServerUI extends Application {
 		primaryStage.setTitle("Server");
 		primaryStage.setScene(sc);
 		primaryStage.show();
+		primaryStage.setResizable(false);
 
 		primaryStage.setOnCloseRequest((event) -> {
 			System.exit(0);

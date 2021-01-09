@@ -55,7 +55,9 @@ public class GoNatureLoginController {
 		Scene sc = new Scene(root);
 		primaryStage.setTitle("FAQ");
 		primaryStage.setScene(sc);
+		primaryStage.setResizable(false);
 		primaryStage.show();
+		primaryStage.setResizable(false);
 	}
 
 	@FXML
@@ -86,6 +88,7 @@ public class GoNatureLoginController {
 		primaryStage.setTitle("Login");
 		primaryStage.setScene(sc);
 		primaryStage.show();
+		primaryStage.setResizable(false);
 
 	}
 
@@ -109,6 +112,7 @@ public class GoNatureLoginController {
 		primaryStage.setTitle("Employee Login");
 		primaryStage.setScene(sc);
 		primaryStage.show();
+		primaryStage.setResizable(false);
 
 	}
 
