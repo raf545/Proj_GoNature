@@ -4,11 +4,14 @@ import java.io.IOException;
 
 import com.google.gson.Gson;
 
+
+import cardReaderSimulator.CardReaderControllerSimulator;
 import client.ChatClient;
 import client.ClientUI;
 import familySubWorker.NewFamilySubWorkerController;
 import fxmlGeneralFunctions.FXMLFunctions;
 import instructorSubWorker.NewInstructorSubWorkerController;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -62,8 +65,8 @@ public class MainPageEmployeeController {
 	private Label capacityText;
 
 	Gson gson = new Gson();
-	String [] ansback =new String [2];
-	
+	String[] ansback = new String[2];
+	Thread thread;
 	private Employee employee;
 
 	/**
@@ -72,45 +75,27 @@ public class MainPageEmployeeController {
 	 * @param employeeFromDB
 	 * @throws IOException
 	 */
-	public void setEmp(Employee employeeFromDB) throws IOException {
+	public void setEmp(Employee employeeFromDB,Thread thread) throws IOException {
 		employee = employeeFromDB;
+		this.thread = thread;
 		FXMLFunctions.loadSceneToMainPane(BlankEmployeeController.class, "BlankEmployee.fxml", mainPane);
 		manPageEmpName.setText("Hello " + employeeFromDB.getName() + " " + employeeFromDB.getLasstName());
 		emppark.setText(employee.getParkName() + " Employee");
 	}
 
 	/**
-	 * asks from the server for current capacity of the park.
-	 * 
+	 * perform a update to the window capacity
 	 */
-	public void getAmountOfPeopleTodayInPark() {
-		RequestHandler rh = new RequestHandler(controllerName.EmployeeSystemController, "getAmountOfPeopleTodayInPark",
-				employee.getParkName());
-		ClientUI.chat.accept(gson.toJson(rh));
-		analyzeAnswerFromServer();
+	public void performCapacityUpdate(String answer) {
+		Platform.runLater(() -> {
+			ansback = gson.fromJson(answer, String[].class);
+			if (!answer.equals("faild")) {
+				String parkCurCapacities = ansback[0];
+				capacityText.setText(" The amount of people in park " + employee.getParkName() + " is: "
+						+ parkCurCapacities + "/" + ansback[1]);
+			}
 
-	}
-
-	/**
-	 * handle the massage from the server.
-	 * 
-	 */
-	private void analyzeAnswerFromServer() {
-		String  answer = ChatClient.serverMsg;
-		ansback = gson.fromJson(answer, String[].class);
-		if (!answer.equals("faild"))
-			setCapacityTextField(ansback);
-
-	}
-
-	/**
-	 * prints the capacity on main
-	 * 
-	 * @param answer capacity from the server.
-	 */
-	private void setCapacityTextField(String [] answer) {
-		String parkCurCapacities = answer[0];
-		capacityText.setText(" The amount of people in park " + employee.getParkName() + " is: " + parkCurCapacities +"/" +answer[1]);
+		});
 
 	}
 
@@ -159,27 +144,16 @@ public class MainPageEmployeeController {
 
 	/**
 	 * Go back to the login page when pressed in order to log in as another user.
-	 * 
+	 * and terminate the thread updating the capacity
 	 * @param event
 	 * @throws IOException
 	 */
+
+	@SuppressWarnings("deprecation")
 	@FXML
 	void logout(ActionEvent event) throws IOException {
-		RequestHandler rh = new RequestHandler(controllerName.LoginController, "logout", "");
-		ClientUI.chat.accept(gson.toJson(rh));
-
-		Stage primaryStage = new Stage();
-		// get a handle to the stage
-		Stage stage = (Stage) NewInstructorBtn.getScene().getWindow();
-		// do what you have to do
-		stage.close();
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(GoNatureLoginController.class.getResource("GoNatureLogin.fxml"));
-		Pane root = loader.load();
-		Scene sc = new Scene(root);
-		primaryStage.setTitle("Sign In");
-		primaryStage.setScene(sc);
-		primaryStage.show();
+		thread.stop();
+		FXMLFunctions.logOutFromMainPage(logoutBtn.getScene());
 
 	}
 

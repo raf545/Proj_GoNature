@@ -6,7 +6,9 @@ import com.google.gson.Gson;
 
 import client.ChatClient;
 import client.ClientUI;
+import departmentManager.DepartmentManagerCapacityThread;
 import departmentManager.MainPageDepartmentManagerController;
+import employee.EmployeeCapacityThred;
 import employee.Employee;
 import employee.MainPageEmployeeController;
 import fxmlGeneralFunctions.FXMLFunctions;
@@ -23,6 +25,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import parkManager.MainPageParkManagerController;
+import parkManager.ParkManagerCapacityThred;
 import popup.PopUp;
 import popup.PopUpWinController;
 import requestHandler.RequestHandler;
@@ -145,9 +148,10 @@ public class SignInEmployeeController {
 			Scene sc = new Scene(root);
 
 			MainPageEmployeeController mainPageEmployeeController = loader.getController();
-			mainPageEmployeeController.setEmp(employee);
-			mainPageEmployeeController.getAmountOfPeopleTodayInPark();
-
+			Runnable run = new EmployeeCapacityThred(employee,mainPageEmployeeController);
+			Thread t = new Thread(run);
+			mainPageEmployeeController.setEmp(employee,t);
+			t.start();
 			StaticPaneMainPageEmployee.employeeMainPane = mainPageEmployeeController.getPane();
 			primaryStage.setOnCloseRequest(e -> FXMLFunctions.closeMainPage());
 			primaryStage.setTitle("Employee Main Page");
@@ -174,8 +178,10 @@ public class SignInEmployeeController {
 			Pane root = loader.load();
 
 			MainPageParkManagerController mainPageParkManagerController = loader.getController();
-			mainPageParkManagerController.setParkManagerEmployee(parkManager);
-			mainPageParkManagerController.getAmountOfPeopleTodayInPark();
+			Runnable run = new ParkManagerCapacityThred(parkManager,mainPageParkManagerController);
+			Thread t = new Thread(run);
+			mainPageParkManagerController.setParkManagerEmployee(parkManager,t);
+			t.start();
 
 			Scene sc = new Scene(root);
 			primaryStage.setOnCloseRequest(e -> FXMLFunctions.closeMainPage());
@@ -205,8 +211,10 @@ public class SignInEmployeeController {
 			Scene sc = new Scene(root);
 
 			MainPageDepartmentManagerController mainPageDepartmentManagerController = loader.getController();
-			mainPageDepartmentManagerController.setDepDetails(employee);
-			mainPageDepartmentManagerController.getAmountOfPeopleTodayInPark();
+			Runnable run = new DepartmentManagerCapacityThread(employee,mainPageDepartmentManagerController);
+			Thread t = new Thread(run);
+			mainPageDepartmentManagerController.setDepDetails(employee,t);
+			t.start();
 
 			primaryStage.setOnCloseRequest(e -> FXMLFunctions.closeMainPage());
 			primaryStage.setTitle("Main Page Department Manager");

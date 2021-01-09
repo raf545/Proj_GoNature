@@ -10,6 +10,7 @@ import employee.BlankEmployeeController;
 import employee.Employee;
 import fxmlGeneralFunctions.FXMLFunctions;
 import guiCommon.StaticPaneMainPageParkManager;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -59,54 +60,39 @@ public class MainPageParkManagerController {
 	    private Text parknamew;
 
 	Employee parkManager;
-
+	Thread thread;
 	/**
 	 * set the information of this park manager
 	 * 
 	 * @param parkManagerEmp
 	 * @throws IOException 
 	 */
-	public void setParkManagerEmployee(Employee parkManagerEmp) throws IOException {
+	public void setParkManagerEmployee(Employee parkManagerEmp,Thread thread) throws IOException {
 		parkManager = parkManagerEmp;
+		this.thread = thread;
 		FXMLFunctions.loadSceneToMainPane(	BlankParkManagerController.class, "BlankParkManager.fxml", parkManagerMainPane);
 		manePageParkName.setText("Hello " + parkManagerEmp.getName() + " " + parkManagerEmp.getLasstName());
 		parknamew.setText(parkManager.getParkName()+" Park Manager" );
 	}
 
-	/**asks from the server for current capacity of the park.
-	 * 
-	 */
-	public void getAmountOfPeopleTodayInPark()
-	{
-		RequestHandler rh = new RequestHandler(controllerName.ParkManagerSystemController, "getAmountOfPeopleTodayInPark", parkManager.getParkName());
-		ClientUI.chat.accept(gson.toJson(rh));
-		analyzeAnswerFromServer();
-		
-	}	
+	
 	
 	/**
-	 * handle the massage from the server.
-	 * 
+	 * perform a update to the window capacity
 	 */
-	private void analyzeAnswerFromServer() {
-		String  answer = ChatClient.serverMsg;
-		ansback = gson.fromJson(answer, String[].class);
-		if (!answer.equals("faild"))
-			setCapacityTextField(ansback);
+	public void performCapacityUpdate(String answer) {
+		Platform.runLater(() -> {
+			ansback = gson.fromJson(answer, String[].class);
+			if (!answer.equals("faild")) {
+				String parkCurCapacities = ansback[0];
+				capacityText.setText(" The amount of people in park " + parkManager.getParkName() + " is: "
+						+ parkCurCapacities + "/" + ansback[1]);
+			}
+
+		});
 
 	}
 
-
-	/**
-	 * prints the capacity on main
-	 * 
-	 * @param answer capacity from the server.
-	 */
-	private void setCapacityTextField(String [] answer) {
-		String parkCurCapacities = answer[0];
-		capacityText.setText(" The amount of people in park " + parkManager.getParkName() + " is: " + parkCurCapacities +"/" +answer[1]);
-
-	}
 	
 	/**
 	 * open the page of edit the park, with this page the park manager can edit
@@ -152,8 +138,10 @@ public class MainPageParkManagerController {
 	 * @param event
 	 * @throws IOException
 	 */
+	@SuppressWarnings("deprecation")
 	@FXML
 	void logout(ActionEvent event) throws IOException {
+		thread.stop();
 		FXMLFunctions.logOutFromMainPage(parkReportBtn.getScene());
 
 	}
