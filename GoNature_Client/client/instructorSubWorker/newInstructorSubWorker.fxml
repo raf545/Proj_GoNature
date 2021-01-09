@@ -47,7 +47,7 @@
             <TextField fx:id="EmailTF" prefHeight="26.0" prefWidth="194.0" promptText="Example: Shlomoshamim@gmail.com" style="-fx-background-color: #EEF2F9;" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Credit Card Number (Optional):" wrappingWidth="271.5999755859375">
                <font>
-                  <Font name="System Italic" size="18.0" />
+                  <Font size="18.0" />
                </font>
             </Text>
             <TextField fx:id="creditCardTF" prefHeight="26.0" prefWidth="194.0" style="-fx-background-color: #EEF2F9;" />
