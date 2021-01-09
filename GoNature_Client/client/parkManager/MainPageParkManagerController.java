@@ -34,7 +34,7 @@ import requestHandler.controllerName;
  *
  */
 public class MainPageParkManagerController {
-
+	String [] ansback =new String [2];
 	Gson gson = new Gson();
 
 	 @FXML
@@ -84,24 +84,28 @@ public class MainPageParkManagerController {
 		
 	}	
 	
-	/**handle the massage from the server.
+	/**
+	 * handle the massage from the server.
 	 * 
 	 */
 	private void analyzeAnswerFromServer() {
-		String answer = ChatClient.serverMsg;		
-		if(!answer.equals("faild"))
-			setCapacityTextField(answer);
-		
+		String  answer = ChatClient.serverMsg;
+		ansback = gson.fromJson(answer, String[].class);
+		if (!answer.equals("faild"))
+			setCapacityTextField(ansback);
+
 	}
 
-	/**prints the capacity on main
+
+	/**
+	 * prints the capacity on main
+	 * 
 	 * @param answer capacity from the server.
 	 */
-	private void setCapacityTextField(String answer) {
-		System.out.println("Shay");
-		String parkCapacities = answer;
-		capacityText.setText(" The amount of people in park "+parkManager.getParkName() +" is: "+ parkCapacities  );
-		
+	private void setCapacityTextField(String [] answer) {
+		String parkCurCapacities = answer[0];
+		capacityText.setText(" The amount of people in park " + parkManager.getParkName() + " is: " + parkCurCapacities +"/" +answer[1]);
+
 	}
 	
 	/**

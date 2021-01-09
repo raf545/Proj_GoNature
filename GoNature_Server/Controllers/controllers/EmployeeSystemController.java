@@ -64,7 +64,7 @@ public class EmployeeSystemController {
 		try
 		{	
 		ResultSet rs;
-		String cap = null;
+		String [] cap = new String[2];
 		PreparedStatement query = con.prepareStatement("SELECT num FROM gonaturedb.uptodateinformation\r\n"
 				+ "WHERE nameOfVal = ? \r\n"
 				+ "");
@@ -72,21 +72,34 @@ public class EmployeeSystemController {
 			query.setString(1, "BaniasCurrentCapacity");
 			rs = DataBase.getInstance().search(query);
 			if (isEmpty(rs) != 0) 
-				cap=String.valueOf(rs.getInt(1));
+				cap[0]=String.valueOf(rs.getInt(1));
+			query.setString(1, "parkCapacityBanias");
+			rs = DataBase.getInstance().search(query);
+			if (isEmpty(rs) != 0) 
+				cap[1]=String.valueOf(rs.getInt(1));
 		}else if(data.equals("Safari")) {
 			query.setString(1, "SafariCurrentCapacity");
 			rs = DataBase.getInstance().search(query);
 			if (isEmpty(rs) != 0) 
-				cap=String.valueOf(rs.getInt(1));
+				cap[0]=String.valueOf(rs.getInt(1));
+			query.setString(1, "parkCapacitySafari");
+			rs = DataBase.getInstance().search(query);
+			if (isEmpty(rs) != 0) 
+				cap[1]=String.valueOf(rs.getInt(1));
+			
 		}else  {
 			query.setString(1, "NiagaraCurrentCapacity");
 			rs = DataBase.getInstance().search(query);
 			if (isEmpty(rs) != 0) 
-				cap=String.valueOf(rs.getInt(1));
+				cap[0]=String.valueOf(rs.getInt(1));
+			query.setString(1, "parkCapacityNiagara");
+			rs = DataBase.getInstance().search(query);
+			if (isEmpty(rs) != 0) 
+				cap[1]=String.valueOf(rs.getInt(1));
 		}
 		
 		
-		return cap;
+		return gson.toJson(cap);
 				
 		} 
 		catch (SQLException e)

@@ -24,6 +24,7 @@ import login.GoNatureLoginController;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
 import reservation.ReservationForOccasionalVisitorController;
+import subscriber.Subscriber;
 
 /**
  * The main page for an employee,contains all the methods that employee can do
@@ -61,7 +62,8 @@ public class MainPageEmployeeController {
 	private Label capacityText;
 
 	Gson gson = new Gson();
-
+	String [] ansback =new String [2];
+	
 	private Employee employee;
 
 	/**
@@ -94,9 +96,10 @@ public class MainPageEmployeeController {
 	 * 
 	 */
 	private void analyzeAnswerFromServer() {
-		String answer = ChatClient.serverMsg;
+		String  answer = ChatClient.serverMsg;
+		ansback = gson.fromJson(answer, String[].class);
 		if (!answer.equals("faild"))
-			setCapacityTextField(answer);
+			setCapacityTextField(ansback);
 
 	}
 
@@ -105,10 +108,9 @@ public class MainPageEmployeeController {
 	 * 
 	 * @param answer capacity from the server.
 	 */
-	private void setCapacityTextField(String answer) {
-		System.out.println("Shay");
-		String parkCapacities = answer;
-		capacityText.setText(" The amount of people in park " + employee.getParkName() + " is: " + parkCapacities);
+	private void setCapacityTextField(String [] answer) {
+		String parkCurCapacities = answer[0];
+		capacityText.setText(" The amount of people in park " + employee.getParkName() + " is: " + parkCurCapacities +"/" +answer[1]);
 
 	}
 
