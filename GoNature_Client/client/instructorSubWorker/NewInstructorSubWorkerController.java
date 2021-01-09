@@ -113,7 +113,7 @@ public class NewInstructorSubWorkerController {
 			PopUp.display("Error", popError.toString());
 		else {
 
-			subscriber = new Subscriber(id, subscriberid, name, lastName, phone, email, null, creditCardNumber,
+			subscriber = new Subscriber(id, subscriberid, name, lastName, phone, email, "1", creditCardNumber,
 					subscriberType);
 			sendLoginRequestToServer("addInstructorSub", subscriber);
 			analyzeAnswerFromServer();
@@ -168,7 +168,8 @@ public class NewInstructorSubWorkerController {
 	@FXML
 	void backBottun(MouseEvent event) throws IOException {
 		StaticPaneMainPageEmployee.employeeMainPane.getChildren().clear();
-		 FXMLFunctions.loadSceneToMainPane(BlankEmployeeController.class,"BlankEmployee.fxml", StaticPaneMainPageEmployee.employeeMainPane);
+		FXMLFunctions.loadSceneToMainPane(BlankEmployeeController.class, "BlankEmployee.fxml",
+				StaticPaneMainPageEmployee.employeeMainPane);
 	}
 
 }
