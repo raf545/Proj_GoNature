@@ -9,6 +9,7 @@ import departmentManagerReports.DepartmentManagerChooseReportController;
 import employee.Employee;
 import fxmlGeneralFunctions.FXMLFunctions;
 import guiCommon.StaticPaneMainPageDepartmentManager;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -36,14 +37,15 @@ public class MainPageDepartmentManagerController {
 
     @FXML
     private Label capacityText;
-    
+    Thread thread;
 	/**
 	 * set the department manager
 	 * 
 	 * @param employee details
 	 */
-	public void setDepDetails(Employee employee) {
+	public void setDepDetails(Employee employee,Thread thread) {
 		manPageDepName.setText("Hello " + employee.getName() + " " + employee.getLasstName());
+		this.thread =thread;
 	}
 
 	/**
@@ -51,8 +53,10 @@ public class MainPageDepartmentManagerController {
 	 * 
 	 * @param event
 	 */
+	@SuppressWarnings("deprecation")
 	@FXML
 	void logout(ActionEvent event) {
+		thread.stop();
 		FXMLFunctions.logOutFromMainPage(departmentManagerPane.getScene());
 	}
 
@@ -108,37 +112,21 @@ public class MainPageDepartmentManagerController {
 		controller.setComboBoxOptions();
 	}
 		
-	
 	/**
-	 * Get from the data base how many people in parks Banias, Safari and Niagara.
+	 * perform a update to the window capacity
 	 */
-	public void getAmountOfPeopleTodayInPark()
-	{
-		RequestHandler rh = new RequestHandler(controllerName.DepartmentManagerSystemController, "getAmountOfPeopleTodayInPark", "");
-		ClientUI.chat.accept(gson.toJson(rh));
-		analyzeAnswerFromServer();
-		
-	}	
-	/**
-	 * Get the details back from the query that sent to the db and continue to setCapacityTextField() if success.
-	 * In case of fail, continue to showEmptyDetails().
-	 */
-	private void analyzeAnswerFromServer() {
-		String answer = ChatClient.serverMsg;		
-		if(!answer.equals("faild"))
-			setCapacityTextField(answer);
+	public void performCapacityUpdate(String answer) {
+		Platform.runLater(() -> {
+			if (!answer.equals("faild")) {
+				String[] parkCapacities = answer.split(" ");
+				int totalCapacity = Integer.parseInt(parkCapacities[0]) + Integer.parseInt(parkCapacities[1]) + Integer.parseInt(parkCapacities[2]);
+				capacityText.setText("Banias - " + parkCapacities[0] + ", Safari - " + parkCapacities[1] + ", Niagara - " + parkCapacities[2] + ", Total - " + totalCapacity);
+			}
+
+		});
+
 	}
 	
-	/**
-	 * Show the manager how many people in the park today.
-	 * @param answer the answer from that came from the database
-	 */
-	private void setCapacityTextField(String answer)
-	{
-		String[] parkCapacities = answer.split(" ");
-		int totalCapacity = Integer.parseInt(parkCapacities[0]) +  Integer.parseInt(parkCapacities[1]) +  Integer.parseInt(parkCapacities[2]);
-		capacityText.setText("Banias - " + parkCapacities[0] + ", Safari - " + parkCapacities[1] + ", Niagara - " + parkCapacities[2] + ", Total - " + totalCapacity);
-		
-	}
+
 
 }
