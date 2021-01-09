@@ -13,7 +13,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -23,7 +22,6 @@ import mainVisitorPage.MainPageForClientController;
 import popup.PopUp;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
-import reservation.Reservation;
 import subscriber.Subscriber;
 
 /**
@@ -57,17 +55,16 @@ public class IdentificationController {
 	void identificationBackButton(MouseEvent event) throws IOException {
 		Stage primaryStage = new Stage();
 		Stage stage = (Stage) BackButton.getScene().getWindow();
-
-
 		stage.close();
-
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(GoNatureLoginController.class.getResource("GoNatureLogin.fxml"));
-
 		Pane root = null;
-		try {
+		
+		try
+		{
 			root = loader.load();
-		} catch (IOException e) {
+		} 
+		catch (IOException e) {
 			System.out.println("Load Faild");
 		}
 
@@ -75,6 +72,7 @@ public class IdentificationController {
 		primaryStage.setTitle("Login");
 		primaryStage.setScene(sc);
 		primaryStage.show();
+		primaryStage.setResizable(false);
 	}
 
 	/**
@@ -163,6 +161,7 @@ public class IdentificationController {
 			primaryStage.setTitle("Main page");
 			primaryStage.setScene(sc);
 			primaryStage.show();
+			primaryStage.setResizable(false);
 		} catch (IOException e) {
 			System.out.println("Load Faild");
 		}

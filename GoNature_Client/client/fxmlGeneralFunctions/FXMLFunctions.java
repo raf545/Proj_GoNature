@@ -64,6 +64,7 @@ public class FXMLFunctions {
 			primaryStage.setTitle("Sign In Employee");
 			primaryStage.setScene(sc);
 			primaryStage.show();
+			primaryStage.setResizable(false);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

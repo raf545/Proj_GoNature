@@ -42,6 +42,7 @@ public class ClientUI extends Application {
 		primaryStage.setTitle("Go Nature");
 		primaryStage.setScene(sc);
 		primaryStage.show();
+		primaryStage.setResizable(false);
 		startCardReader();
 	}
 
@@ -62,6 +63,7 @@ public class ClientUI extends Application {
 				cardReaderControllerSimulator.setPrkNameComboBox();
 				cardReader.setScene(scCardReaderSimulator);
 				cardReader.show();
+				cardReader.setResizable(false);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

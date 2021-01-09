@@ -2,8 +2,6 @@ package departmentManager;
 
 import java.io.IOException;
 import com.google.gson.Gson;
-import client.ChatClient;
-import client.ClientUI;
 import departmentManagerReports.DepartmentManagerChooseParkManReportController;
 import departmentManagerReports.DepartmentManagerChooseReportController;
 import employee.Employee;
@@ -15,8 +13,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import managerApproveChanges.ApproveChangesController;
-import requestHandler.RequestHandler;
-import requestHandler.controllerName;
 
 /**
  * This page will be the main page for Department Manager All the options for
