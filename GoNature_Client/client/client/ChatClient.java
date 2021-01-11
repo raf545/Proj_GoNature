@@ -23,7 +23,7 @@ import java.io.*;
  * @version December 3 2020
  */
 
-public class ChatClient extends AbstractClient {
+public class ChatClient extends AbstractClient implements Ichat {
 	// Instance variables **********************************************
 
 	/**
@@ -76,6 +76,7 @@ public class ChatClient extends AbstractClient {
 	 * @param message The message from the UI.
 	 */
 
+	@Override
 	public void handleMessageFromClientUI(Object message) {
 		try {
 			openConnection();// in order to send more than one message
@@ -99,6 +100,7 @@ public class ChatClient extends AbstractClient {
 	/**
 	 * This method terminates the client.
 	 */
+	@Override
 	public void quit() {
 		try {
 			closeConnection();

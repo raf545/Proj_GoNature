@@ -6,8 +6,8 @@ import com.google.gson.Gson;
 
 import client.ChatClient;
 import client.ClientUI;
-import fxmlGeneralFunctions.FXMLFunctions;
-import guiCommon.StaticPaneMainPageClient;
+import fxmlGeneralFunctions.FxmlOpenGuiPage;
+import fxmlGeneralFunctions.IFxmlOpenGuiPage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +18,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import mainVisitorPage.MainPageForClientController;
 import popup.PopUp;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
@@ -33,7 +32,6 @@ import subscriber.Subscriber;
 public class IdentificationController {
 
 	Gson gson = new Gson();
-
 	// FIXME refactor the global variabels
 
 	@FXML
@@ -44,6 +42,16 @@ public class IdentificationController {
 
 	@FXML
 	private Text BackButton;
+
+	IFxmlOpenGuiPage fxmlOpenGuiPage = new FxmlOpenGuiPage();
+
+	public void setFxmlOpenGui(IFxmlOpenGuiPage fxmlOpenGuiPage) {
+		this.fxmlOpenGuiPage = fxmlOpenGuiPage;
+	}
+
+	public void setId(String id) {
+		IDText.setText(id);
+	}
 
 	/**
 	 * This method is called every time the BackButton is pressed
@@ -59,12 +67,10 @@ public class IdentificationController {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(GoNatureLoginController.class.getResource("GoNatureLogin.fxml"));
 		Pane root = null;
-		
-		try
-		{
+
+		try {
 			root = loader.load();
-		} 
-		catch (IOException e) {
+		} catch (IOException e) {
 			System.out.println("Load Faild");
 		}
 
@@ -130,41 +136,10 @@ public class IdentificationController {
 				VisitorName = subscriberFromServer.getName() + " " + subscriberFromServer.getLastName();
 				VisitorType = subscriberFromServer.getSubscriberType();
 			}
-			openPageUsingFxmlName(VisitorName, VisitorType);
+			fxmlOpenGuiPage.openPageUsingFxmlName(VisitorName, VisitorType, (Stage) BackButton.getScene().getWindow());
 			break;
 		}
 
-	}
-
-	/**
-	 * loads a fxml file with a given name and setes the window titel
-	 * 
-	 * @throws IOException
-	 */
-	private void openPageUsingFxmlName(String VisitorHelloString, String VisitorType) {
-		try {
-			Stage primaryStage = new Stage();
-			Stage stage = (Stage) BackButton.getScene().getWindow();
-			
-			stage.close();
-
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainPageForClientController.class.getResource("MainPageForClient.fxml"));
-			Pane root = loader.load();
-
-			MainPageForClientController mainPageForClientController = loader.getController();
-			mainPageForClientController.setTitels("hello " + VisitorHelloString, VisitorType);
-			StaticPaneMainPageClient.clientMainPane = mainPageForClientController.getPane();
-
-			Scene sc = new Scene(root);
-			primaryStage.setOnCloseRequest(e -> FXMLFunctions.closeMainPage());
-			primaryStage.setTitle("Main page");
-			primaryStage.setScene(sc);
-			primaryStage.show();
-			primaryStage.setResizable(false);
-		} catch (IOException e) {
-			System.out.println("Load Faild");
-		}
 	}
 
 	/**
@@ -184,4 +159,5 @@ public class IdentificationController {
 		ChatClient.clientType = clientType;
 		ChatClient.clientTypeString = clientTypeString;
 	}
+
 }

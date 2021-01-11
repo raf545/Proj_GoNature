@@ -27,7 +27,7 @@ public class ClientController implements ChatIF {
 	/**
 	 * The instance of the client that created this ConsoleChat.
 	 */
-	ChatClient client;
+	Ichat client;
 
 // Constructors ****************************************************
 
@@ -48,6 +48,10 @@ public class ClientController implements ChatIF {
 		}
 	}
 
+	
+	public ClientController(Ichat chat) {
+		client =chat;
+	}
 // Instance methods ************************************************
 
 	/**
