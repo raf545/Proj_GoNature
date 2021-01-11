@@ -5,11 +5,13 @@ import java.io.IOException;
 import com.google.gson.Gson;
 
 import client.ClientUI;
+import guiCommon.StaticPaneMainPageClient;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import login.GoNatureLoginController;
+import mainVisitorPage.MainPageForClientController;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
 

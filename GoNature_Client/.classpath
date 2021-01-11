@@ -2,7 +2,9 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="client"/>
+	<classpathentry kind="src" path="unitTests"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/GoNature_Logic"/>
 	<classpathentry kind="lib" path="gson-2.8.2.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="departmentManagerPane" prefHeight="760.0" prefWidth="920.0" style="-fx-background-color: #e74c3c;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="departmentManager.MainPageDepartmentManagerController">
+   <children>
+      <ImageView blendMode="RED" fitHeight="590.0" fitWidth="730.0" layoutX="124.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../pictures/Tree.png" />
+         </image>
+      </ImageView>
+      <Label alignment="CENTER" blendMode="RED" contentDisplay="CENTER" layoutX="186.0" layoutY="594.0" prefHeight="103.0" prefWidth="548.0" text="GoNature" textAlignment="CENTER">
+         <font>
+            <Font size="70.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

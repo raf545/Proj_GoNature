@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="743.0" prefWidth="900.0" style="-fx-background-color: #FFC956;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="employee.BlankEmployeeController">
+   <children>
+      <ImageView fitHeight="511.0" fitWidth="522.0" layoutX="189.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../pictures/Tree.png" />
+         </image>
+         <effect>
+            <ColorAdjust brightness="-0.32" contrast="1.0" hue="-0.35" saturation="1.0" />
+         </effect>
+      </ImageView>
+      <Label layoutX="290.0" layoutY="564.0" text="GoNature" textFill="#8f2424">
+         <font>
+            <Font name="System Bold" size="70.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>
