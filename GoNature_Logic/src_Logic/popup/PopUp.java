@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 
 /**
  * 
- * This class displays a PopUp window 
+ * This class displays a PopUp window
  * 
  * @author rafaelelkoby
  *
@@ -38,6 +38,31 @@ public class PopUp {
 			e.printStackTrace();
 		}
 	}
-	
+
+	public static interface IPopUp {
+		void display(String titel, String message);
+	}
+
+	public static IPopUp popUpForCheck = new IPopUp() {
+
+		@Override
+		public void display(String titel, String message) {
+			try {
+				Stage primaryStage = new Stage();
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(PopUpWinController.class.getResource("PopUpWin.fxml"));
+				Pane root = loader.load();
+				Scene sc = new Scene(root);
+				primaryStage.setTitle(titel);
+				PopUpWinController popUpWinController = loader.getController();
+				popUpWinController.setMessage(message);
+				primaryStage.setScene(sc);
+				primaryStage.showAndWait();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		}
+	};
 
 }
