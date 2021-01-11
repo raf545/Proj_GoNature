@@ -6,6 +6,7 @@ import guiCommon.StaticPaneMainPageClient;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import mainVisitorPage.MainPageForClientController;
 
@@ -15,12 +16,12 @@ public class FxmlOpenGuiPage implements IFxmlOpenGuiPage {
 	 * 
 	 * @throws IOException
 	 */
-	
+
 	@Override
-	public void openPageUsingFxmlName(String VisitorHelloString, String VisitorType, Stage stage) {
+	public void openPageUsingFxmlName(String VisitorHelloString, String VisitorType, Text text) {
 		try {
 			Stage primaryStage = new Stage();
-
+			Stage stage = (Stage) text.getScene().getWindow();
 			stage.close();
 
 			FXMLLoader loader = new FXMLLoader();

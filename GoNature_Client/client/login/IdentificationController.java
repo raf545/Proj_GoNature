@@ -53,6 +53,10 @@ public class IdentificationController {
 		IDText.setText(id);
 	}
 
+	public String getID() {
+		return IDText.getText();
+	}
+
 	/**
 	 * This method is called every time the BackButton is pressed
 	 * 
@@ -92,14 +96,14 @@ public class IdentificationController {
 
 		StringBuilder popError = new StringBuilder();
 
-		if (IDText.getText().isEmpty()) {
+		if (getID().isEmpty()) {
 			popError.append("Must enter id\n");
-		} else if (!(IDText.getText().matches("[0-9]+"))) {
+		} else if (!(getID().matches("[0-9]+"))) {
 			popError.append("Must enter numbers\n");
 		}
 
 		if (popError.length() > 0) {
-			PopUp.display("Error", popError.toString());
+			PopUp.popUpForCheck.display("Error", popError.toString());
 		} else {
 			sendLoginRequestToServer();
 			analyzeAnswerFromServer();
@@ -116,11 +120,11 @@ public class IdentificationController {
 		switch (ChatClient.serverMsg) {
 
 		case "all ready connected":
-			PopUp.display("Error", "all ready connected");
+			PopUp.popUpForCheck.display("Error", "all ready connected");
 			break;
 
 		case "update faild":
-			PopUp.display("Error", "update faild");
+			PopUp.popUpForCheck.display("Error", "update faild");
 			break;
 
 		default:
@@ -136,7 +140,7 @@ public class IdentificationController {
 				VisitorName = subscriberFromServer.getName() + " " + subscriberFromServer.getLastName();
 				VisitorType = subscriberFromServer.getSubscriberType();
 			}
-			fxmlOpenGuiPage.openPageUsingFxmlName(VisitorName, VisitorType, (Stage) BackButton.getScene().getWindow());
+			fxmlOpenGuiPage.openPageUsingFxmlName(VisitorName, VisitorType, BackButton);
 			break;
 		}
 
