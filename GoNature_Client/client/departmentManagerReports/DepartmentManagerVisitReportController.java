@@ -17,18 +17,21 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import popup.PopUp;
 import requestHandler.RequestHandler;
 import requestHandler.controllerName;
 
 /**
  * All the visit reports of the park will be shown in this page.
+ * 
  * @author Shay Maryuma
  */
 public class DepartmentManagerVisitReportController {
 
 	Gson gson = new Gson();
 
-	private int myChart = 0; //Will determine if we are handling the first chart or the second (prevent retyping code).
+	private int myChart = 0; // Will determine if we are handling the first chart or the second (prevent
+								// retyping code).
 	@FXML
 	private Text backBtn;
 
@@ -59,21 +62,43 @@ public class DepartmentManagerVisitReportController {
 	@FXML
 	private Button selectAllBtn;
 
+	public void setDate(int year, int month, int date) {
+		datePick.setValue(LocalDate.of(year, month, date));
+	}
+
+	public void setComboBox(String parkName) {
+		typeComboBox.setValue(parkName);
+	}
+
+	public void setParkForReport(boolean niagaraSelected, boolean baniasSelected, boolean safariSelected) {
+		niagaraCB.setSelected(niagaraSelected);
+		baniasCB.setSelected(baniasSelected);
+		safariCB.setSelected(safariSelected);
+	}
+
+	public PieChart getPie1() {
+		return pieOne;
+	}
+
 	/**
 	 * Load the last window
-	 * @param event 
+	 * 
+	 * @param event
 	 * @throws IOException
 	 */
 	@FXML
 	void quitScene(MouseEvent event) throws IOException {
-		DepartmentManagerChooseReportController controller = FXMLFunctions.loadSceneToMainPane(DepartmentManagerChooseReportController.class, "DepartmentManagerChooseReport.fxml", StaticPaneMainPageDepartmentManager.DepartmentManagerMainPane).getController();
+		DepartmentManagerChooseReportController controller = FXMLFunctions.loadSceneToMainPane(
+				DepartmentManagerChooseReportController.class, "DepartmentManagerChooseReport.fxml",
+				StaticPaneMainPageDepartmentManager.DepartmentManagerMainPane).getController();
 		controller.setComboBoxOptions();
 	}
-	
+
 	/**
-	 * Get the date from the datePicker and the Type from the comboBox
-	 * and with that data get the entry and exit details from the DB
-	 * in case that the user selected no parks, it will show an empty park report pie.
+	 * Get the date from the datePicker and the Type from the comboBox and with that
+	 * data get the entry and exit details from the DB in case that the user
+	 * selected no parks, it will show an empty park report pie.
+	 * 
 	 * @param event
 	 */
 	@FXML
@@ -87,26 +112,27 @@ public class DepartmentManagerVisitReportController {
 		String day = datePick.getValue().getDayOfMonth() + "";
 
 		String type = typeComboBox.getValue();
-		String park1,park2,park3;
-		park1 = (niagaraCB.isSelected())?"Niagara":"noPark";
-		park2 = (baniasCB.isSelected())?"Banias":"noPark";
-		park3 = (safariCB.isSelected())?"Safari":"noPark";
-		if(park1 == park2 && park2 == park3 && park3 == "noPark")
-		{
+		String park1, park2, park3;
+		park1 = (niagaraCB.isSelected()) ? "Niagara" : "noPark";
+		park2 = (baniasCB.isSelected()) ? "Banias" : "noPark";
+		park3 = (safariCB.isSelected()) ? "Safari" : "noPark";
+		if (park1 == park2 && park2 == park3 && park3 == "noPark") {
 			showEmptyPark(); // show Entry pie
 			showEmptyPark(); // show Exit pie
+			PopUp.popUpForCheck.display("Error", "no slected park");
 			return;
 		}
-		getEntryDetailsByHours(type,year,month,day,park1,park2,park3);
-		getExitDetailsByHours(type,year,month,day,park1,park2,park3);
+		getEntryDetailsByHours(type, year, month, day, park1, park2, park3);
+		getExitDetailsByHours(type, year, month, day, park1, park2, park3);
 
 	}
-	
+
 	/**
-	 * Function that will get the visit report splitted to hours.
-	 * For instance, at 8:00 there was 10 people that entered the park
-	 * Send details to the server and wait for an answer.
-	 * @param type Instructor/Family/Subscriber/Guest
+	 * Function that will get the visit report splitted to hours. For instance, at
+	 * 8:00 there was 10 people that entered the park Send details to the server and
+	 * wait for an answer.
+	 * 
+	 * @param type  Instructor/Family/Subscriber/Guest
 	 * @param year
 	 * @param month
 	 * @param day
@@ -114,17 +140,21 @@ public class DepartmentManagerVisitReportController {
 	 * @param park2 Option 2: for example "Niagara"
 	 * @param park3 Option 3: for example "Safari"
 	 */
-	public void getEntryDetailsByHours(String type,String year,String month,String day,String park1,String park2,String park3) {
+	public void getEntryDetailsByHours(String type, String year, String month, String day, String park1, String park2,
+			String park3) {
 		String stringToSend = type + " " + year + " " + month + " " + day + " " + park1 + " " + park2 + " " + park3;
-		RequestHandler rh = new RequestHandler(controllerName.DepartmentManagerSystemController, "getEntryDetailsByHours", stringToSend);
+		RequestHandler rh = new RequestHandler(controllerName.DepartmentManagerSystemController,
+				"getEntryDetailsByHours", stringToSend);
 		ClientUI.chat.accept(gson.toJson(rh));
 		analyzeAnswerFromServer();
 	}
+
 	/**
-	 * Function that will get the visit report splitted to hours.
-	 * For instance, at 8:00 there was 10 people that exited the park
-	 * Send details to the server and wait for an answer.
-	 * @param type Instructor/Family/Subscriber/Guest
+	 * Function that will get the visit report splitted to hours. For instance, at
+	 * 8:00 there was 10 people that exited the park Send details to the server and
+	 * wait for an answer.
+	 * 
+	 * @param type  Instructor/Family/Subscriber/Guest
 	 * @param year
 	 * @param month
 	 * @param day
@@ -132,101 +162,106 @@ public class DepartmentManagerVisitReportController {
 	 * @param park2 Option 2: for example "Niagara"
 	 * @param park3 Option 3: for example "Safari"
 	 */
-	public void getExitDetailsByHours(String type,String year,String month,String day,String park1,String park2,String park3) {
+	public void getExitDetailsByHours(String type, String year, String month, String day, String park1, String park2,
+			String park3) {
 		String stringToSend = type + " " + year + " " + month + " " + day + " " + park1 + " " + park2 + " " + park3;
-		RequestHandler rh = new RequestHandler(controllerName.DepartmentManagerSystemController, "getExitDetailsByHours", stringToSend);
+		RequestHandler rh = new RequestHandler(controllerName.DepartmentManagerSystemController,
+				"getExitDetailsByHours", stringToSend);
 		ClientUI.chat.accept(gson.toJson(rh));
 		analyzeAnswerFromServer();
 	}
 
 	/**
-	 * Get the details back from the query that sent to the db and continue to showDetails() if success.
+	 * Get the details back from the query that sent to the db and continue to
+	 * showDetails() if success.
 	 */
 	private void analyzeAnswerFromServer() {
-		String answer = ChatClient.serverMsg;		
-		if(!answer.equals("faild"))
+		String answer = ChatClient.serverMsg;
+		if (!answer.equals("faild"))
 			showDetails(answer);
-	}	
+		else
+			PopUp.popUpForCheck.display("Error", "faild");
+	}
 
 	/**
-	 * Show details of entering and exiting the park of specific day.
-	 * The details will be shown as a pie chart.
-	 * @param answer will include all the details that came back from the query as String. 
-	 * The answer will be split with " ".
+	 * Show details of entering and exiting the park of specific day. The details
+	 * will be shown as a pie chart.
+	 * 
+	 * @param answer will include all the details that came back from the query as
+	 *               String. The answer will be split with " ".
 	 */
-	private void showDetails(String answer)
-	{
-		if(!answer.contains(","))
-		{
+	private void showDetails(String answer) {
+		if (!answer.contains(",")) {
 			showEmptyPark();
 			return;
 		}
-		//The data that came back from the query separated with " "
-		//Each Row separated with ","
+		// The data that came back from the query separated with " "
+		// Each Row separated with ","
 		ArrayList<String[]> details = new ArrayList<String[]>();
 		String[] tables = answer.split(" ");
 
-		for (String s : tables) 
+		for (String s : tables)
 			details.add(s.split(","));
 
 		showPieChart(details);
 	}
-	
+
 	/**
 	 * In case of no activity, show this empty pie chart.
 	 */
-	private void showEmptyPark()
-	{
+	private void showEmptyPark() {
 		PieChart.Data emptySlice = new PieChart.Data("No Activities", 1);
-		PieChart myPie = (myChart == 0)?pieOne:pieTwo;
+		PieChart myPie = (myChart == 0) ? pieOne : pieTwo;
 		myChart = 1;
 		myPie.getData().add(emptySlice);
 	}
-	
+
 	/**
 	 * Represent the pie chart to the user.
-	 * @param details will include all the details about the entering and exiting the park.
+	 * 
+	 * @param details will include all the details about the entering and exiting
+	 *                the park.
 	 */
-	private void showPieChart(ArrayList<String[]> details)
-	{
+	private void showPieChart(ArrayList<String[]> details) {
 		PieChart.Data slices[] = new PieChart.Data[details.size()];
 		String hour;
 		int numberOfPeople;
 
-		PieChart myPie = (myChart == 0)?pieOne:pieTwo;
+		PieChart myPie = (myChart == 0) ? pieOne : pieTwo;
 		myChart = 1;
-		for (int i = 0; i < slices.length; i++) 
-		{
+		for (int i = 0; i < slices.length; i++) {
 			hour = details.get(i)[0];
 			numberOfPeople = Integer.parseInt(details.get(i)[1]);
-			slices[i] = new PieChart.Data( "Hour: " + getHourTemplate(hour) + " - " + numberOfPeople , numberOfPeople);				
+			slices[i] = new PieChart.Data("Hour: " + getHourTemplate(hour) + " - " + numberOfPeople, numberOfPeople);
 			myPie.getData().add(slices[i]);
 		}
 	}
+
 	/**
-	 * A function that must be called when loading the screen
-	 * set the combo box options and value.
+	 * A function that must be called when loading the screen set the combo box
+	 * options and value.
 	 */
 	public void setTypeComboBoxOptions() {
 
-		typeComboBox.getItems().addAll("instructor","family","subscriber","guest");
+		typeComboBox.getItems().addAll("instructor", "family", "subscriber", "guest");
 		datePick.setValue(LocalDate.now());
 		typeComboBox.setValue("subscriber");
 	}
 
 	/**
 	 * Given a number, return the way it should look as an hour.
+	 * 
 	 * @param hour = '8'
 	 * @return '08:00'
 	 */
-	public String getHourTemplate(String hour)
-	{
-		return (Integer.parseInt(hour) < 10)? String.format("0%s:00", hour):String.format("%s:00", hour);
+	public String getHourTemplate(String hour) {
+		return (Integer.parseInt(hour) < 10) ? String.format("0%s:00", hour) : String.format("%s:00", hour);
 	}
 
 	/**
-	 * By clicking that button, all parks will be chosen to show to the user.
-	 * If the user marked all, the query will be applied for each park.
+	 * By clicking that button, all parks will be chosen to show to the user. If the
+	 * user marked all, the query will be applied for each park.
+	 * 
 	 * @param event
 	 */
 	@FXML
