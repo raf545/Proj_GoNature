@@ -3,6 +3,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="Server"/>
 	<classpathentry kind="src" path="Controllers"/>
+	<classpathentry kind="src" path="unitest"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/GoNature_Logic"/>
 	<classpathentry kind="lib" path="mysql-connector-java-8.0.13.jar"/>
 	<classpathentry kind="lib" path="gson-2.8.2.jar"/>
@@ -11,5 +12,7 @@
 			<attribute name="javadoc_location" value="jar:file:/C:/Users/yansokolov/Desktop/Util-V1.1.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry kind="lib" path="mockito-all-2.0.2-beta.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

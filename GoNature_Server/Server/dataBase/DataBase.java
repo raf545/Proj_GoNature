@@ -15,20 +15,24 @@ import java.sql.SQLException;
  * @version December 3 2020
  */
 
-public class DataBase {
+public class DataBase implements IdataBase {
 	// Class variables *************************************************
-	private static DataBase SqlConnectorInstace = null;
+	private static IdataBase SqlConnectorInstace = null;
 	private Connection connection = null;
 	private String jdbcURL = "jdbc:mysql://localhost/gonaturedb?serverTimezone=CAT";
 	private String jdbcuser = "root";
-	private String jdbcPass = "root";
+	private String jdbcPass = "Aa123456";
 	// Constructors ****************************************************
 
 	private DataBase() {
 
 	}
+	public static void setInstance(DataBase db) {
+		SqlConnectorInstace = db;
+	}
 
 	// Class Getters *************************************************
+	@Override
 	public Connection getConnection() {
 		return connection;
 	}
@@ -44,6 +48,7 @@ public class DataBase {
 	 * 
 	 */
 
+	@Override
 	public ResultSet search(String query) {
 		ResultSet res = null;
 
@@ -58,6 +63,7 @@ public class DataBase {
 
 	}
 
+	@Override
 	public ResultSet search(PreparedStatement query) {
 		ResultSet res = null;
 
@@ -79,6 +85,7 @@ public class DataBase {
 	 * @return True if update successeded
 	 * @return False else
 	 */
+	@Override
 	public boolean update(String query) {
 		try {
 			PreparedStatement ps = connection.prepareStatement(query);
@@ -91,6 +98,7 @@ public class DataBase {
 		return false;
 	}
 
+	@Override
 	public boolean update(PreparedStatement query) {
 		try {
 			query.executeUpdate();
@@ -109,7 +117,7 @@ public class DataBase {
 	 * 
 	 * @return the instance of the DataBase class
 	 */
-	public static DataBase getInstance() {
+	public static IdataBase getInstance() {
 		if (SqlConnectorInstace == null)
 			SqlConnectorInstace = new DataBase();
 
@@ -123,6 +131,7 @@ public class DataBase {
 	 * @return True if the connection Successeded
 	 * @return False else
 	 */
+	@Override
 	public boolean setConnection() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
@@ -153,6 +162,7 @@ public class DataBase {
 	 * @param resultSet
 	 * @return 0 if the ResultSet is empty, and the number of tuples else
 	 */
+	@Override
 	public int getResultSetSize(ResultSet resultSet) {
 		int size = 0;
 		if (resultSet != null) {
