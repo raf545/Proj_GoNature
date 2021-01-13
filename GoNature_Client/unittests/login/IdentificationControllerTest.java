@@ -32,6 +32,7 @@ class IdentificationControllerTest {
 	public static String visitorTypeCheck = null;
 	Gson gson = new Gson();
 
+	// class for replace the server answer
 	class MyChat implements Ichat {
 
 		@Override
@@ -67,6 +68,7 @@ class IdentificationControllerTest {
 
 	}
 
+	// class for replace the open windows and save the type of the visitor
 	class MyFxmlOpenGui implements IFxmlOpenGuiPage {
 
 		@Override
@@ -75,6 +77,7 @@ class IdentificationControllerTest {
 		}
 	}
 
+	// replace the POPUP and save the error message
 	class MyPopUp implements IPopUp {
 
 		@Override
@@ -98,6 +101,9 @@ class IdentificationControllerTest {
 	}
 
 	@Test
+	// check if empty id entered
+	// input: empty id
+	// expected: pop answer : Must enter id\n
 	void testEmptyIDField() throws IOException {
 		identificationController.setId("");
 		identificationController.identificationContinueButton(null);
@@ -106,6 +112,9 @@ class IdentificationControllerTest {
 	}
 
 	@Test
+	// check if wrong Id entered
+	// input: wrong id = "abc"
+	// expected: pop answer : Must enter numbers\n
 	void testWrongIDField() throws IOException {
 		identificationController.setId("abc");
 		identificationController.identificationContinueButton(null);
@@ -114,6 +123,9 @@ class IdentificationControllerTest {
 	}
 
 	@Test
+	// check if the subscriber is all ready connected to the system
+	// input: id = "1012"
+	// expected: pop answer : all ready connected
 	void testAllReadyConnected() throws IOException {
 		identificationController.setId("1012");
 		IdentificationControllerTest.controllMessage = "all ready connected";
@@ -123,6 +135,9 @@ class IdentificationControllerTest {
 	}
 
 	@Test
+	// check if the server fail to update the DB
+	// input: id = "1012"
+	// expected: pop answer : update failed
 	void testUpdateFailConnected() throws IOException {
 		identificationController.setId("1012");
 		IdentificationControllerTest.controllMessage = "update faild";
@@ -132,6 +147,9 @@ class IdentificationControllerTest {
 	}
 
 	@Test
+	// check if the client connected successfully
+	// input: id = "123456"
+	// expected: visitor type = guest
 	void testLoginAsGuestSuccess() throws IOException {
 		identificationController.setId("123456");
 		IdentificationControllerTest.controllMessage = "Guest";
@@ -142,6 +160,9 @@ class IdentificationControllerTest {
 	}
 
 	@Test
+	// check if the subscriber connected successfully
+	// input: id = "1010"
+	// expected: visitor type = family
 	void testLoginAsSubscriberSuccess() throws IOException {
 		identificationController.setId("1010");
 		IdentificationControllerTest.controllMessage = "Subscriber";

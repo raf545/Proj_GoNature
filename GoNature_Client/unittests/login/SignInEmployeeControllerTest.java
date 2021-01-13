@@ -28,6 +28,7 @@ class SignInEmployeeControllerTest {
 	public static Employee employeeCheck = null;
 	Gson gson = new Gson();
 
+	// class for replace the server answer
 	class MyChat implements Ichat {
 
 		@Override
@@ -69,6 +70,7 @@ class SignInEmployeeControllerTest {
 
 	}
 
+	// class for replace the open windows and save the type of the employee
 	class MyFXMLOpenEmployeeGui implements IFXMLOpenEmployeeGui {
 
 		@Override
@@ -91,6 +93,7 @@ class SignInEmployeeControllerTest {
 
 	}
 
+	// replace the POPUP and save the error message
 	class MyPopUp implements IPopUp {
 
 		@Override
@@ -114,6 +117,9 @@ class SignInEmployeeControllerTest {
 	}
 
 	@Test
+	// check if empty id entered
+	// input: empty id
+	// expected: pop answer : Must enter id\n
 	void testEmptyID() {
 		signInEmployeeController.setIDTxt("");
 		signInEmployeeController.setPasswordTxt("123");
@@ -122,6 +128,9 @@ class SignInEmployeeControllerTest {
 	}
 
 	@Test
+	// check if empty password entered
+	// input: empty password
+	// expected: pop answer : Must enter password\n
 	void testEmptyPassword() {
 		signInEmployeeController.setIDTxt("123");
 		signInEmployeeController.setPasswordTxt("");
@@ -130,6 +139,9 @@ class SignInEmployeeControllerTest {
 	}
 
 	@Test
+	// check if empty id entered and empty password
+	// input: empty id, empty password
+	// expected: pop answer : Must enter id\nMust enter password\n
 	void testEmptyIDAndPassword() {
 		signInEmployeeController.setIDTxt("");
 		signInEmployeeController.setPasswordTxt("");
@@ -138,7 +150,10 @@ class SignInEmployeeControllerTest {
 	}
 
 	@Test
-	void testEmployeeNotConnectedFound() {
+	// check if employee not found in DB
+	// input: id = "1234", password = "3214"
+	// expected: pop answer : employee not found
+	void testEmployeeNotFoundInDB() {
 		signInEmployeeController.setIDTxt("1234");
 		signInEmployeeController.setPasswordTxt("3214");
 		controllMessage = "employee not found";
@@ -148,6 +163,9 @@ class SignInEmployeeControllerTest {
 	}
 
 	@Test
+	// check if employee enter wrong password
+	// input: id = "1234", password = "3214"
+	// expected: pop answer : wrong password
 	void testEmployeeNotConnectedWrongPassword() {
 		signInEmployeeController.setIDTxt("1234");
 		signInEmployeeController.setPasswordTxt("3214");
@@ -158,6 +176,9 @@ class SignInEmployeeControllerTest {
 	}
 
 	@Test
+	// check if employee all ready connected
+	// input: id = "1234", password = "3214"
+	// expected: pop answer : already connected
 	void testEmployeeAllreadyConnected() {
 		signInEmployeeController.setIDTxt("1234");
 		signInEmployeeController.setPasswordTxt("3214");
@@ -168,6 +189,9 @@ class SignInEmployeeControllerTest {
 	}
 
 	@Test
+	// check if employee success to connect to system
+	// input: id = "1234", password = "3214"
+	// expected: type of employee = employee
 	void testEmployeeConnected() {
 		signInEmployeeController.setIDTxt("1234");
 		signInEmployeeController.setPasswordTxt("3214");
@@ -178,6 +202,9 @@ class SignInEmployeeControllerTest {
 	}
 
 	@Test
+	// check if park manager success to connect to system
+	// input: id = "1234", password = "3214"
+	// expected: type of employee = park manager
 	void testParkManagerConnected() {
 		signInEmployeeController.setIDTxt("1234");
 		signInEmployeeController.setPasswordTxt("3214");
@@ -188,6 +215,9 @@ class SignInEmployeeControllerTest {
 	}
 
 	@Test
+	// check if department manager success to connect to system
+	// input: id = "1234", password = "3214"
+	// expected: type of employee = department manager
 	void testDepartmentManagerConnected() {
 		signInEmployeeController.setIDTxt("1234");
 		signInEmployeeController.setPasswordTxt("3214");
