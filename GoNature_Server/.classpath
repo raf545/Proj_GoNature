@@ -13,6 +13,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
-	<classpathentry kind="lib" path="C:/Users/zivi9/OneDrive/שולחן העבודה/mockito-all-2.0.2-beta.jar"/>
+	<classpathentry kind="lib" path="C:/Users/yansokolov/git/Proj_GoNature/GoNature_Server/mockito-all-2.0.2-beta.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
