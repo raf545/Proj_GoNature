@@ -119,7 +119,7 @@ public class DepartmentManagerVisitReportController {
 		if (park1 == park2 && park2 == park3 && park3 == "noPark") {
 			showEmptyPark(); // show Entry pie
 			showEmptyPark(); // show Exit pie
-			PopUp.popUpForCheck.display("Error", "no slected park");
+			PopUp.popUpForCheck.display("Error", "no selected park");
 			return;
 		}
 		getEntryDetailsByHours(type, year, month, day, park1, park2, park3);

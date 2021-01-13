@@ -21,6 +21,7 @@ class DepartmentManagerVisitReportControllerTest {
 	DepartmentManagerVisitReportController departmentManagerVisitReportController;
 	public static String popMessage = null;
 
+	// class for replace the server answer
 	class MyChat implements Ichat {
 
 		@Override
@@ -46,11 +47,11 @@ class DepartmentManagerVisitReportControllerTest {
 
 		@Override
 		public void quit() {
-
 		}
 
 	}
 
+	// replace the POPUP and save the error message
 	class MyPopUp implements IPopUp {
 
 		@Override
@@ -74,16 +75,22 @@ class DepartmentManagerVisitReportControllerTest {
 	}
 
 	@Test
+	// check if non of the parks chosen
+	// input: disable the buttons
+	// expected: pop answer : no selected park
 	void testNoParkChoose() {
 		departmentManagerVisitReportController.setDate(2020, 12, 1);
 		departmentManagerVisitReportController.setComboBox("subscriber");
 		departmentManagerVisitReportController.setParkForReport(false, false, false);
 		departmentManagerVisitReportController.report(null);
 		assertEquals(departmentManagerVisitReportController.getPie1().getData().get(0).getName(), "No Activities");
-		assertEquals("no slected park", popMessage);
+		assertEquals("no selected park", popMessage);
 	}
 
 	@Test
+	// check failed DB answer
+	// input: set which park to check
+	// expected: pop answer :faild
 	void testFailedSearchInDataBase() {
 		departmentManagerVisitReportController.setDate(2020, 12, 1);
 		departmentManagerVisitReportController.setComboBox("subscriber");
@@ -95,6 +102,9 @@ class DepartmentManagerVisitReportControllerTest {
 	}
 
 	@Test
+	// check empty data for the park
+	// input: set which park to check
+	// expected: pieChart set : No Activities
 	void testEmptyDataFromDataBase() {
 		departmentManagerVisitReportController.setDate(2020, 12, 1);
 		departmentManagerVisitReportController.setComboBox("subscriber");
@@ -105,6 +115,9 @@ class DepartmentManagerVisitReportControllerTest {
 	}
 
 	@Test
+	// check data for the park
+	// input: set which park to check
+	// expected: pieChart not equals : No Activities
 	void testDataFromDataBase() {
 		departmentManagerVisitReportController.setDate(2020, 12, 1);
 		departmentManagerVisitReportController.setComboBox("subscriber");
