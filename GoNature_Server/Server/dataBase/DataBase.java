@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * This Class is responsibale of Data Base managment and manipulations
+ * This Class is responsible of Data Base management and manipulations
  * 
  * @author Dan Gutchin
  * @author Yaniv Sokolov
@@ -21,7 +21,7 @@ public class DataBase {
 	private Connection connection = null;
 	private String jdbcURL = "jdbc:mysql://localhost/gonaturedb?serverTimezone=CAT";
 	private String jdbcuser = "root";
-	private String jdbcPass = "root";
+	private String jdbcPass = "Aa123456";
 	// Constructors ****************************************************
 
 	private DataBase() {
@@ -34,18 +34,23 @@ public class DataBase {
 	}
 
 	// Instance methods *************************************************
-
 	/**
-	 * This method reads info from the DB and returns the query answer
-	 * 
-	 * @param SQL query of serch charecter and not update
-	 * @returns ResultSet if found returns the tuple\s as ResultSet if not found
-	 *          returns a empty ResultSet
-	 * 
+	 * Set the SQL connector instance by given DB.
+	 * @param db 
 	 */
 	public static void setInstance(DataBase db) {
 		SqlConnectorInstace = db;
 	}
+	
+	
+	/**
+	 * This method reads info from the DB and returns the query answer
+	 * 
+	 * @param SQL query of search character and not update
+	 * @returns ResultSet if found returns the tuple\s as ResultSet if not found
+	 *          returns a empty ResultSet
+	 * 
+	 */
 	public ResultSet search(String query) {
 		ResultSet res = null;
 
@@ -75,10 +80,10 @@ public class DataBase {
 
 	/**
 	 * 
-	 * This method wriets info to the DB and returns a boolean answer
+	 * This method writes info to the DB and returns a boolean answer
 	 * 
-	 * @param SQL query of update charecter and not search
-	 * @return True if update successeded
+	 * @param SQL query of update character and not search
+	 * @return True if update succeeded
 	 * @return False else
 	 */
 	public boolean update(String query) {
@@ -107,7 +112,7 @@ public class DataBase {
 	/**
 	 * 
 	 * This method return a instance of the database class and if never created
-	 * before creats one
+	 * before creates one
 	 * 
 	 * @return the instance of the DataBase class
 	 */
@@ -122,7 +127,7 @@ public class DataBase {
 	 * 
 	 * Sets the connection to the DataBase
 	 * 
-	 * @return True if the connection Successeded
+	 * @return True if the connection has succeeded.
 	 * @return False else
 	 */
 	public boolean setConnection() {
