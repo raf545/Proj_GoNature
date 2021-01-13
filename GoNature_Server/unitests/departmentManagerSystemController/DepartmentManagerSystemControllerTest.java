@@ -96,7 +96,7 @@ class DepartmentManagerSystemControllerTest {
 	 * index i will be the size of the table of the result set.
 	 * expected output: "17,8 12,3 "
 	 * @throws SQLException
-	 */
+	 */ 
 	@Test
 	void testExit() throws SQLException {
 		i=0;

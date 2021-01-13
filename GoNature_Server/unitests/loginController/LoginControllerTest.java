@@ -268,7 +268,7 @@ class LoginControllerTest {
 		when(rs.getInt("connected")).thenReturn(1);	
 		assertEquals(expected,cont.loginRouter("employeeLogIn",gson.toJson(new Employee("1234","5678")), con) );	
 	}
-		
+		 
 	/**
 	 * Check if the password that the employee has entered is different than the data in the DB.
 	 * Expected: "wrong password"
