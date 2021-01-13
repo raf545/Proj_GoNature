@@ -36,6 +36,9 @@ class DepartmentManagerVisitReportControllerTest {
 			case "empty":
 				ChatClient.serverMsg = "";
 				break;
+			case "data":
+				ChatClient.serverMsg = "8,20 10,20 11,30";
+				break;
 
 			}
 
@@ -99,6 +102,16 @@ class DepartmentManagerVisitReportControllerTest {
 		controllMessage = "empty";
 		departmentManagerVisitReportController.report(null);
 		assertEquals(departmentManagerVisitReportController.getPie1().getData().get(0).getName(), "No Activities");
+	}
+
+	@Test
+	void testDataFromDataBase() {
+		departmentManagerVisitReportController.setDate(2020, 12, 1);
+		departmentManagerVisitReportController.setComboBox("subscriber");
+		departmentManagerVisitReportController.setParkForReport(true, false, false);
+		controllMessage = "data";
+		departmentManagerVisitReportController.report(null);
+		assertNotEquals(departmentManagerVisitReportController.getPie1().getData().get(0).getName(), "No Activities");
 	}
 
 }
