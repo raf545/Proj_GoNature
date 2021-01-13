@@ -221,8 +221,8 @@ public class LoginController {
 						res.getString("typeOfEmployee"), res.getString("parkName"));
 				client.setInfo("ID", employeeRet.getEmployeeId());
 				client.setInfo("Table", "employees");
-				setLoginToEmployeeDB(client, "employees");
-				return gson.toJson(employeeRet);
+				if(setLoginToEmployeeDB(client, "employees"))
+					return gson.toJson(employeeRet);
 
 			}
 		} catch (SQLException e) {
@@ -240,7 +240,7 @@ public class LoginController {
 	 */
 	private boolean setLoginToEmployeeDB(ConnectionToClient client, String Table) {
 		String query = "UPDATE gonaturedb." + Table + " SET connected = 1 WHERE employeeId = " + client.getInfo("ID")
-				+ ";";
+		+ ";";
 		if (DataBase.getInstance().update(query))
 			return true;
 		return false;
@@ -265,7 +265,7 @@ public class LoginController {
 			query = "DELETE FROM gonaturedb." + table + " WHERE id = " + id + ";";
 		} else if (table.equals("employees")) {
 			query = "UPDATE gonaturedb." + table + " SET connected = 0 WHERE employeeId = " + client.getInfo("ID")
-					+ ";";
+			+ ";";
 		} else {
 			query = "UPDATE gonaturedb." + table + " SET connected = 0 WHERE id = " + id + ";";
 		}
