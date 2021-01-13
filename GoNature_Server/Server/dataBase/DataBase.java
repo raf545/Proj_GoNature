@@ -43,7 +43,9 @@ public class DataBase {
 	 *          returns a empty ResultSet
 	 * 
 	 */
-
+	public static void setInstance(DataBase db) {
+		SqlConnectorInstace = db;
+	}
 	public ResultSet search(String query) {
 		ResultSet res = null;
 

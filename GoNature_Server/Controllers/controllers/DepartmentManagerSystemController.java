@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-
 import com.google.gson.Gson;
 import dataBase.DataBase;
 import ocsf.server.ConnectionToClient;
@@ -109,13 +107,14 @@ public class DepartmentManagerSystemController {
 		//String query;
 		StringBuilder sb = new StringBuilder();
 		ResultSet rs;
-		
+		Connection con = DataBase.getInstance().getConnection();
+
 		PreparedStatement query = con.prepareStatement("SELECT HOUR(gonaturedb.cardreader.entryTime) as hoursEntry, SUM(numberOfVisitors) as counter\r\n"
 				+ "FROM gonaturedb.cardreader\r\n"
 				+ "WHERE typeOfVisitor = ? AND YEAR(entryTime) = ? AND MONTH(entryTime) = ? AND DAY(entryTime) = ? AND (parkName = ? OR parkName = ? OR parkName = ?)\r\n"
 				+ "GROUP BY HOUR(entryTime)\r\n"
 				+ "ORDER BY hoursEntry ASC");
-		
+	
 		query.setString(1, type);
 		query.setInt(2, Integer.parseInt(year));
 		query.setInt(3, Integer.parseInt(month));
@@ -123,7 +122,7 @@ public class DepartmentManagerSystemController {
 		query.setString(5, park1);
 		query.setString(6, park2);
 		query.setString(7, park3);
-		
+
 			rs = DataBase.getInstance().search(query);
 			if (isEmpty(rs) != 0) 
 			{
@@ -158,7 +157,7 @@ public class DepartmentManagerSystemController {
 		try {
 		StringBuilder sb = new StringBuilder();
 		ResultSet rs;
-		
+		Connection con = DataBase.getInstance().getConnection();
 		PreparedStatement query = con.prepareStatement("SELECT HOUR(gonaturedb.cardreader.exitTime) as hoursExit, SUM(numberOfVisitors) as counter\r\n"
 				+ "FROM gonaturedb.cardreader\r\n"
 				+ "WHERE typeOfVisitor = ? AND YEAR(exitTime) = ? AND MONTH(exitTime) = ? AND DAY(exitTime) = ? AND (parkName = ? OR parkName = ? OR parkName = ?)\r\n"
